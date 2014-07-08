@@ -1,12 +1,24 @@
-Gem::Specification.new do |s|
-  s.name        = 'squib'
-  s.version     = '0.0.0'
-  s.date        = '2014-07-04'
-  s.summary     = "An API for card game designers"
-  s.description = "Squib is a Ruby API for prototyping your own card game. Script your build so you can output PNGs or PDFs for printing."
-  s.authors     = ["Andy Meneely"]
-  s.email       = 'playconfidencegames@gmail.com'
-  s.files       = ["lib/squib.rb"]
-  s.homepage    = 'http://rubygems.org/gems/squib'
-  s.license     = 'MIT'
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'squib/version'
+
+Gem::Specification.new do |spec|
+  spec.name          = "squib"
+  spec.version       = Squib::VERSION
+  spec.authors       = ["Andy Meneely"]
+  spec.email         = ["playconfidencegames@gmail.com"]
+  spec.summary       = %q{A Ruby API for prototyping card and other tabletop games}
+  spec.homepage      = ""
+  spec.license       = "MIT"
+
+  spec.files         = `git ls-files -z`.split("\x0")
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ["lib"]
+
+  spec.add_runtime_dependency 'cairo', '~> 1.12.9'
+
+  spec.add_development_dependency "bundler", "~> 1.6"
+  spec.add_development_dependency "rake"
 end
