@@ -1,6 +1,8 @@
-module Squib
+require 'squib/commands/command'
+require 'squib/commands/font'
+require 'squib/commands/set_font'
+require 'squib/queue'
 
-end
 
 ##################
 ### PUBLIC API ###
@@ -11,7 +13,7 @@ def deck(width:, height:, cards: 1)
 end
 
 def font(type: , size: 12, **options)
-
+  Squib::queue_command Squib::Commands::Font.new(type,size,options)
 end
 
 def set_font(type: 'Arial', size: 12, **options)
@@ -31,5 +33,8 @@ def data(field)
 end
 
 def render
-	Squib::Verify::VerifyAll.
+  vv = VerifyVisitor.new
+  CMDS.each do |cmd|
+    cmd.accept(vv)
+  end  
 end

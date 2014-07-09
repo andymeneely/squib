@@ -1,2 +1,7 @@
 #!/usr/bin/env ruby
+require 'squib'
+
+font type: 'Rockwell'
+set_font type: 'Rockwell'
+set_font type: 'Rockwell'
 
