@@ -1,6 +1,4 @@
-require 'squib/commands/command'
-require 'squib/commands/font'
-require 'squib/commands/set_font'
+require 'squib/commands/text_cmd'
 require 'squib/queue'
 
 
@@ -9,11 +7,11 @@ require 'squib/queue'
 ##################
 
 def deck(width:, height:, cards: 1)
-
+  Deck.new(width, height, cards)
 end
 
 def font(type: , size: 12, **options)
-  Squib::queue_command Squib::Commands::Font.new(type,size,options)
+  Font.new()
 end
 
 def set_font(type: 'Arial', size: 12, **options)
