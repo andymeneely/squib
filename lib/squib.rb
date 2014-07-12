@@ -1,11 +1,16 @@
 require 'squib/commands/text_cmd'
 
+class Squib
+  attr_accessor :the_deck
+  
+end
+
 ##################
 ### PUBLIC API ###
 ##################
 
 def deck(width:, height:, cards: 1)
-  Deck.new(width, height, cards)
+  Squib.the_deck = Deck.new(width, height, cards)
 end
 
 def font(type: , size: 12, **options)
@@ -17,6 +22,11 @@ def set_font(type: 'Arial', size: 12, **options)
 end
 
 def text(range=:all, str: , font: :use_set, x: 0, y: 0, **options)
+  range = 0..cards-1 if range == :all
+  str = [str] * cards unless str.respond_to? :each
+  #TODO define a singleton or something for the deck we're working on.
+  str.each{ |s| Squib::Graphics::Text.new(card, s, font, x, y, options) }
+  end
 end
 
 def image(range=:all, file: , x: 0, y: 0)
