@@ -43,8 +43,8 @@ end
 def image(range=:all, file: , x: 0, y: 0)
 end
 
-def rect(x: , y: width: , height: , x_radius: 0, y_radius: 0)
-  
+def rect(x:, y:, width:, height:, x_radius: 0, y_radius: 0)
+
 end
 
 def load_csv(file:, header: true)
