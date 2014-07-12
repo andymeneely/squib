@@ -1,7 +1,36 @@
 #!/usr/bin/env ruby
 require 'squib'
+require 'cairo'
 
-font type: 'Rockwell'
-set_font type: 'Rockwell'
-set_font type: 'Rockwell'
+red = [1.0, 0.0, 0.0, 1]
+white  = [1.0,1.0,1.0, 1]
+
+surface = Cairo::ImageSurface.new(825,1125)
+cr = Cairo::Context.new(surface)
+
+#Set white background
+cr.set_source_rgba(*white)
+cr.paint
+
+#Write some text
+cr.set_source_rgba(*red)
+cr.select_font_face ("Helvetica");
+cr.set_font_size(36)
+cr.move_to(150,150)
+cr.show_text('Hello, World!')
+
+#Put our own image here
+if File.exists? 'test.png'
+  png = Cairo::ImageSurface.from_png('test.png')
+  cr.set_source(png, 0, 300)
+  cr.paint
+end
+#Save!
+cr.target.write_to_png("test.png")
+
+puts "Done!"
+
+#font type: 'Rockwell'
+#set_font type: 'Rockwell'
+#set_font type: 'Rockwell'
 

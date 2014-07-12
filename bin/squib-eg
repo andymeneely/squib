@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'squib'
+
+deck width: 825, height: 1125, 3
+
+data = {'name' => ['Thief', 'Grifter', 'Mastermind'], 
+        'level' => [1,2,3]}
+
+text str: data['name'], x: 10, y: 250
+text str: data['level'], x: 10, y:10
