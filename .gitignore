@@ -21,3 +21,4 @@ tmp
 *.o
 *.a
 mkmf.log
+_img

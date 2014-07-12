@@ -3,7 +3,7 @@ require 'cairo'
 module Squib
 
 	class Card
-    attr_reader :width:, :height
+    attr_reader :width, :height
     attr_accessor :cairo_surface, :cairo_context
 
     def initialize(width, height)
