@@ -1,6 +1,4 @@
 require 'squib/commands/text_cmd'
-require 'squib/queue'
-
 
 ##################
 ### PUBLIC API ###
