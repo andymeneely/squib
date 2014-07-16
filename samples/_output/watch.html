@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			img{
+				border: 1px solid black;
+			}
+		</style>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script>
+			setInterval(function () {
+    			$("#img0").attr("src", "sample_excel_0.png?"+new Date().getTime());
+    			$("#img1").attr("src", "sample_excel_1.png?"+new Date().getTime());
+
+			}, 1000);
+		</script>
+	</head>
+
+	<body>
+		<h1>Cards</h1>
+		<img id="img0" width=300 src="sample_excel_0.png"/>
+		<img id="img1" width=300 src="sample_excel_1.png"/>
+	</body>
+
+</html>
