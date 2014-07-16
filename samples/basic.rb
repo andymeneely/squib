@@ -11,7 +11,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   rect x: 30, y: 30, width: 150, height: 150, x_radius: 25, y_radius: 25
 
   text str: data['name'], x: 250, y: 55, font: 'Arial 54'
-  text str: data['level'], x: 65, y: 65, font: 'Arial 72'
+  text str: data['level'], x: 75, y: 50, font: 'Arial 72'
   text str: longtext, x: 100, y: 600, font: 'Arial 16'
 
   save format: :png
