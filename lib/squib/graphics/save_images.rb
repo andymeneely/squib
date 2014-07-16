@@ -1,16 +1,8 @@
 module Squib
-  module Graphics
+  class Card
 
-    class SaveImages
-      def initialize(format)
-        @format = format
-      end
-
-      def execute
-        Squib.the_deck.each_with_index do |card, i|
-          card.cairo_context.target.write_to_png("_img/img_#{i}.png")
-        end
-      end
+    def save_png(i, dir: '_img')
+      cairo_context.target.write_to_png("#{dir}/img_#{i}.png")
     end
 
   end
