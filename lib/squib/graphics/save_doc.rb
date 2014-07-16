@@ -4,6 +4,7 @@ module Squib
     def save_pdf
       #paper is 8.5x11
       # PDF points are 1/72 of an inch
+      raise "Not implemented yet!"
       width = 8.5 * 72
       height = 11 * 72
       cc = Cairo::Context.new(Cairo::PDFSurface.new('_img/deck.pdf', width, height))
