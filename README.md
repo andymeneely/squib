@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib)
+
 # Squib
 
 TODO: Write a gem description
