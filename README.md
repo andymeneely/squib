@@ -1,4 +1,6 @@
+[![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib)
 [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib)
+[![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib)
 
 # Squib
 
