@@ -1,10 +1,5 @@
 module Squib
   class Deck
-    def fontify (font)
-      font = 'Arial 36' if font==:use_set
-      font
-    end
-
     def font(type: 'Arial', size: 12, **options)
       raise 'Not implemented!'
     end
@@ -17,7 +12,8 @@ module Squib
       range = rangeify(range)
       str = [str] * @cards.size unless str.respond_to? :each
       font = fontify(font)
-      color = colorify(options[:color])
+      color = colorify(options[:color], nillable: false)
+      options['hint'] = colorify(options['hint']) unless options['hint'].nil?
       range.each do |i|
         cards[i].text(str[i], font, x, y, color, options)
       end

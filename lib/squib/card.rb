@@ -1,12 +1,14 @@
 require 'cairo'
+require 'squib/input_helpers'
 
 module Squib
 	class Card
+        include Squib::InputHelpers
         attr_reader :width, :height
         attr_accessor :cairo_surface, :cairo_context
 
-        def initialize(width, height)
-          @width=width; @height=height
+        def initialize(deck, width, height)
+          @deck=deck; @width=width; @height=height
           @cairo_surface = Cairo::ImageSurface.new(width,height)
           @cairo_context = Cairo::Context.new(@cairo_surface)
         end
