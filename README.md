@@ -1,12 +1,14 @@
+<div style="float: right">
 [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib)
 [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib)
 [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib)
+</div>
 
 # Squib
 
-Squib is a ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://nandeck.it) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. 
+Squib is a ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. Squib supports complex text rendering, reading PNGs and SVGs, reading from XSLX files, and shape drawing. Plus, you have the full power of Ruby behind you. 
 
-Squib is currently pre-release alpha. 
+Check it out!
 
 ```ruby
 require 'squib'
@@ -40,11 +42,15 @@ Or install it yourself as:
 
     $ gem install squib
 
-Note: Squib is based on the `cairo` and `pango` extensions, which require at least Ruby 2.0
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo) and [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but on some setups can cause headaches. For Windows users, I *highly* recommend using [http://rubyinstaller.org/].
+
+## Development
+
+Squib is currently in pre-release alpha, so the API is still maturing. If you are using Squib, however, I'd love to hear about it! Feel free to [file a bug](https://github.com/andymeneely/squib/issues) if you find any.
 
 ## API
 
-API docs to be written. See the `samples` directory.
+API docs to be written. The `samples` directory for in-depth examples.
 
 ## Contributing
 
