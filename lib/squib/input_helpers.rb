@@ -29,8 +29,9 @@ module Squib
     module_function :colorify
 
     def fontify (font)
-      font = 'Arial 36' if font==:use_set
-      font
+      font = @font if font==:use_set
+      font = Squib::DEFAULT_FONT if font==:default
+      font 
     end
     module_function :fontify
 

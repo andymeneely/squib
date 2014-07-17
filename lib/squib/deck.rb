@@ -1,16 +1,19 @@
 require 'squib/card'
 require 'squib/input_helpers'
+require 'squib/constants'
 
 module Squib
   class Deck
     include Enumerable
     include Squib::InputHelpers
+    include Squib::Constants
     attr_reader :width, :height
     attr_reader :cards
     attr_reader :text_hint
 
     def initialize(width: 825, height: 1125, cards: 1, &block)
       @width=width; @height=height
+      @font = 'Sans 36'
       @cards = []
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       if block_given?
