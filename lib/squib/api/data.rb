@@ -9,7 +9,7 @@ module Squib
 
     def xlsx(file: 'deck.xlsx', sheet: 0)
       s = Roo::Excelx.new(file)
-      s.default_sheet = s.sheets.first
+      s.default_sheet = s.sheets[sheet]
       data = {}
       s.first_column.upto(s.last_column) do |col|
         header = s.cell(s.first_row,col).to_s
