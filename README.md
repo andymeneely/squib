@@ -4,7 +4,27 @@
 
 # Squib
 
-TODO: Write a gem description
+Squib is a ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://nandeck.it) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. 
+
+Squib is currently pre-release alpha. 
+
+```ruby
+require 'squib'
+
+Squib::Deck.new(width: 825, height: 1125, cards: 3) do
+  background color: [1.0,1.0,1.0]
+  data = xlsx file: 'sample.xlsx'
+
+  rect x: 15, y: 15, width: 795, height: 1095, x_radius: 50, y_radius: 50
+
+  text str: data['name'], x: 250, y: 55, font: 'Arial 54'
+  text str: data['level'], x: 65, y: 40, font: 'Arial 72'
+
+  png file: 'icon.png', x: 665, y: 30
+
+  save format: :png
+end
+```
 
 ## Installation
 
@@ -20,9 +40,11 @@ Or install it yourself as:
 
     $ gem install squib
 
-## Usage
+Note: Squib is based on the `cairo` and `pango` extensions, which require at least Ruby 2.0
 
-TODO: Write usage instructions here
+## API
+
+API docs to be written. See the `samples` directory.
 
 ## Contributing
 
