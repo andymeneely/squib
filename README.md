@@ -1,6 +1,4 @@
-# Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib)
-[![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib)
-[![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib)
+# Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib)
 
 Squib is a ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. Squib supports complex text rendering, reading PNGs and SVGs, reading from ExcelX files, and shape drawing. Plus, you have the full power of Ruby behind you. 
 
