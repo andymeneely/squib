@@ -4,13 +4,23 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'squib/version'
 
 Gem::Specification.new do |spec|
+  spec.specification_version = 2 if spec.respond_to? :specification_version=
+  spec.required_rubygems_version = Gem::Requirement.new(">= 0") if spec.respond_to? :required_rubygems_version=
+  spec.rubygems_version = '2.2.2'
+  spec.required_ruby_version = '>= 2.0.0'
+
   spec.name          = "squib"
   spec.version       = Squib::VERSION
+  spec.license       = "MIT"
+
+  spec.summary       = %q{A Ruby DSL for prototyping card games}
+  spec.description   = %q{Squib is a Ruby DSL for prototyping card games}
   spec.authors       = ["Andy Meneely"]
   spec.email         = ["playconfidencegames@gmail.com"]
-  spec.summary       = %q{A Ruby API for prototyping card and other tabletop games}
-  spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.homepage      = "https://github.com/andymeneely/squib"
+
+  spec.rdoc_options = ["--charset=UTF-8"]
+  spec.extra_rdoc_files = %w[README.md LICENSE.txt]
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
