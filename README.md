@@ -6,7 +6,7 @@
 
 # Squib
 
-Squib is a ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. Squib supports complex text rendering, reading PNGs and SVGs, reading from XSLX files, and shape drawing. Plus, you have the full power of Ruby behind you. 
+Squib is a ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. Squib supports complex text rendering, reading PNGs and SVGs, reading from ExcelX files, and shape drawing. Plus, you have the full power of Ruby behind you. 
 
 Check it out!
 
