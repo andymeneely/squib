@@ -3,7 +3,7 @@ module Squib
 
     def background(color)
       cc = cairo_context
-      cc.set_source_rgb(*color)
+      cc.set_source_color(color)
       cc.paint
     end
       

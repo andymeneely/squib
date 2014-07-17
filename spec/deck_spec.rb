@@ -13,8 +13,8 @@ describe Squib::Deck do
     it "calls text on all cards by default" do
       card1 = instance_double(Squib::Card)
       card2 = instance_double(Squib::Card) 
-      expect(card1).to receive(:text).with('blah','Arial 36',0,0,{}).once
-      expect(card2).to receive(:text).with('blah','Arial 36',0,0,{}).once
+      expect(card1).to receive(:text).once
+      expect(card2).to receive(:text).once
       Squib::Deck.new do  
         @cards = [card1, card2]  
         text str: 'blah'
@@ -24,7 +24,7 @@ describe Squib::Deck do
     it "calls text on some cards with an integer" do
       card1 = instance_double(Squib::Card)
       card2 = instance_double(Squib::Card)
-      expect(card2).to receive(:text).with('blah','Arial 36',0,0,{}).once
+      expect(card2).to receive(:text).once
       Squib::Deck.new do  
         @cards = [card1, card2]  
         text range: 1, str: 'blah'
@@ -35,8 +35,8 @@ describe Squib::Deck do
       card1 = instance_double(Squib::Card)
       card2 = instance_double(Squib::Card)
       card3 = instance_double(Squib::Card)
-      expect(card1).to receive(:text).with('blah','Arial 36',0,0,{}).once
-      expect(card2).to receive(:text).with('blah','Arial 36',0,0,{}).once
+      expect(card1).to receive(:text).once
+      expect(card2).to receive(:text).once
       Squib::Deck.new do  
         @cards = [card1, card2, card3]  
         text range: 0..1, str: 'blah'

@@ -17,8 +17,9 @@ module Squib
       range = rangeify(range)
       str = [str] * @cards.size unless str.respond_to? :each
       font = fontify(font)
+      color = colorify(options[:color])
       range.each do |i|
-        cards[i].text(str[i], font, x, y, options)
+        cards[i].text(str[i], font, x, y, color, options)
       end
     end
 

@@ -38,6 +38,12 @@ module Squib
       file
     end
 
+    def colorify(color)
+      color ||= :black
+      color = Cairo::Color.parse(color)
+      color
+    end
+
     ##################
     ### PUBLIC API ###
     ##################

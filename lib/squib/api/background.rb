@@ -2,8 +2,9 @@ module Squib
   class Deck
     #module API
 
-      def background(range: :all, color: '#000000')
+      def background(range: :all, color: :black)
         range = rangeify(range)
+        color = colorify(color)
         range.each { |i| @cards[i].background(color) }
       end
       

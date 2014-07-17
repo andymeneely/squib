@@ -3,14 +3,14 @@ require 'pango'
 module Squib
   class Card
 
-    def text(str, font, x, y, options)
+    def text(str, font, x, y, color, options)
       cc = cairo_context
-      cc.set_source_color(:black) #black
+      cc.set_source_color(color)
       cc.move_to(x,y)
       layout = cc.create_pango_layout
       layout.text = str.to_s
       w = options[:width] ; h = options[:height] 
-      w ||= (@width - 2*x)  ; h ||= (@height - 2*y) # default centers to x,y 
+      w ||= (@width - 2*x); h ||= (@height - 2*y) # default centers to x,y 
       w *= Pango::SCALE   ; h *= Pango::SCALE    
       layout.width=w      ; layout.height=h
       layout.wrap = Pango::WRAP_WORD

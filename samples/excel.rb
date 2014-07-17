@@ -2,7 +2,7 @@
 require 'squib'
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
-  background color: [1.0,1.0,1.0]
+  background color: :white
 
   data = xlsx file: 'sample.xlsx', sheet: 0
 
