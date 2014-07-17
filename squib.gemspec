@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'cairo', '~> 1.12.9'
   spec.add_runtime_dependency 'pango', '~> 2.2.0'
   spec.add_runtime_dependency 'roo', '~> 1.13.2'
+  spec.add_runtime_dependency 'rsvg2', '~> 2.2.0'
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"

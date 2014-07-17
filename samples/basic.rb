@@ -15,6 +15,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: longtext, x: 100, y: 600, font: 'Arial 16'
 
   png file: 'shiny-purse.png', x: 665, y: 30
+  svg range: 1..2, file: 'spanner.svg', x: 665, y: 165
 
   save format: :png
 end

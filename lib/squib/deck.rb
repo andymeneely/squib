@@ -27,6 +27,9 @@ module Squib
     def rangeify (range)
       range = 0..(@cards.size-1) if range == :all
       range = range..range if range.is_a? Integer
+      if range.max > (@cards.size-1)
+        raise "#{range} is outside of deck range of 0..#{@card.size-1}"
+      end
       return range
     end
 
