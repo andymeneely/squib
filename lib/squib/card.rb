@@ -16,6 +16,7 @@ module Squib
     ### BACKEND GRAPHICS ###
     ########################
     require 'squib/graphics/background'
+    require 'squib/graphics/image'
     require 'squib/graphics/save_doc'
     require 'squib/graphics/save_images'
     require 'squib/graphics/shapes'

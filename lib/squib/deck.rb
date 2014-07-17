@@ -30,6 +30,11 @@ module Squib
       return range
     end
 
+    def fileify(file)
+      raise 'File #{file} does not exist!' unless File.exists? file
+      file
+    end
+
     ##################
     ### PUBLIC API ###
     ##################
