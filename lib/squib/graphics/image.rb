@@ -1,11 +1,11 @@
 module Squib
   class Card
 
-    def png(file, x, y)
+    def png(file, x, y, alpha)
       cc = cairo_context
       png = Cairo::ImageSurface.from_png(file)
       cc.set_source(png, x, y)
-      cc.paint
+      cc.paint(alpha)
     end
 
     def svg(file, x, y)
