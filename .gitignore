@@ -24,3 +24,4 @@ mkmf.log
 _img
 samples/_img
 samples/_output/*.png
+samples/_output/*.pdf
