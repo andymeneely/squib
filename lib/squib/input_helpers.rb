@@ -2,10 +2,11 @@ module Squib
   module InputHelpers
 
     def rangeify (range)
+      raise 'Range cannot be nil' if range.nil?
       range = 0..(@cards.size-1) if range == :all
       range = range..range if range.is_a? Integer
       if range.max > (@cards.size-1)
-        raise "#{range} is outside of deck range of 0..#{@card.size-1}"
+        raise "#{range} is outside of deck range of 0..#{@cards.size-1}"
       end
       return range
     end
@@ -34,6 +35,10 @@ module Squib
       font 
     end
     module_function :fontify
+
+    def xyify
+      #TODO: Allow negative numbers that subtract from the card width & height
+    end
 
   end
 end
