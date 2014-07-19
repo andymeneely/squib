@@ -19,12 +19,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: "Font strings are expressive!", x:65, y: 300,
        font: 'Arial,Verdana weight=900 style=oblique 36'
 
-  text str: "This text has fixed width, fixed height, center-aligned, and has a red hint", 
+  text str: "This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint", 
        hint: :red,
        x: 65, y: 400,
        width: 300, height: 200,
-       align: :center,
-       font: 'Arial 24'
+       align: :center, valign: :middle,
+       font: 'Arial 18'
 
   text str: "Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42",
        hint: :green, font: 'Arial 22',

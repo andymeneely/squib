@@ -6,10 +6,11 @@ module Squib
     def draw_text_hint(x,y,layout, color)
       return if color.nil? && @deck.text_hint.nil? 
       color ||= @deck.text_hint
+      # when w,h < 0, it was never set. extents[0] are ink extents
       w = layout.width / Pango::SCALE
-      w = layout.extents[1].width / Pango::SCALE if w < 0 #i.e. was never set   
+      w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
-      h = layout.extents[1].height / Pango::SCALE if h < 0 #i.e. was never set
+      h = layout.extents[1].height / Pango::SCALE if h < 0
       draw_rectangle(x,y,w,h,0,0,color)
     end
 
@@ -50,6 +51,17 @@ module Squib
       layout
     end
 
+    def valign(cc, layout, extents, x, y, valign)
+      if layout.height > 0 
+        case valign
+        when :middle
+          cc.move_to(x, y + (layout.height - extents.height) / (2 * Pango::SCALE))
+        when :bottom
+          cc.move_to(x, y + (layout.height - extents.height) / Pango::SCALE)
+        end
+      end
+    end
+
     def setwh(layout, options)
       layout.width = options[:width] * Pango::SCALE unless options[:width].nil?
       layout.height = options[:height] * Pango::SCALE unless options[:height].nil?
@@ -69,6 +81,7 @@ module Squib
       cc.set_source_color(color)
       cc.move_to(x,y)
       layout = cc.create_pango_layout
+      layout.font_description = Pango::FontDescription.new(font)
       layout.text = str.to_s
       layout.markup = str.to_s if options[:markup]
       layout = setwh(layout, options) unless options[:width].nil? && options[:height].nil?
@@ -77,9 +90,10 @@ module Squib
       layout = ellipsize(layout, options)
       layout = align(layout, options)
       layout.justify = options[:justify] unless options[:justify].nil?
-      layout.font_description = Pango::FontDescription.new(font)
-      cc.update_pango_layout(layout)
-      cc.show_pango_layout(layout)
+      logical_extents = layout.extents[0]
+      cc.update_pango_layout(layout) 
+      valign(cc, layout, logical_extents, x,y, options[:valign])
+      cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
       draw_text_hint(x,y,layout,options[:hint])
     end
 
