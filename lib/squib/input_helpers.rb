@@ -13,10 +13,23 @@ module Squib
     module_function :rangeify
 
     def fileify(file)
-      raise 'File #{file} does not exist!' unless File.exists? file
+      raise "File #{File.expand_path(file)} does not exist!" unless File.exists? file
       file
     end
     module_function :fileify
+
+    def dirify(dir, allow_create: false)
+      return dir if Dir.exists? dir 
+      if allow_create
+        Squib.logger.warn "PDF output dir #{dir} does not exist... attempting to create it"
+        Dir.mkdir dir
+        return dir 
+      else
+        raise "#{dir} does not exist!"
+      end
+    end
+    module_function :dirify
+
 
     def colorify(color, nillable: false)
       if nillable # for optional color arguments like text hints
@@ -34,7 +47,7 @@ module Squib
       font = Squib::DEFAULT_FONT if font==:default
       font 
     end
-    module_function :fontify
+    module_function :fontify 
 
     def xyify
       #TODO: Allow negative numbers that subtract from the card width & height

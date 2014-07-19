@@ -13,6 +13,7 @@ module Squib
 
     def initialize(width: 825, height: 1125, cards: 1, &block)
       @width=width; @height=height
+      @dpi = 300
       @font = 'Sans 36'
       @cards = []
       cards.times{ @cards << Squib::Card.new(self, width, height) }
