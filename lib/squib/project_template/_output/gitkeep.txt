@@ -1,0 +1,1 @@
+Keep this here so that Git knows to keep the _output directory on a fresh clone
