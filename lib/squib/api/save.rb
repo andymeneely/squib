@@ -8,7 +8,7 @@ module Squib
     end
     
     def save_png(range: :all, dir: "_output", prefix: 'card_')
-      range = rangeify(range)
+      range = rangeify(range); dir = dirify(dir, allow_create: true)
       range.each { |i| @cards[i].save_png(i, dir, prefix) }
     end
 
