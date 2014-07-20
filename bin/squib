@@ -1,2 +1,19 @@
 #!/usr/bin/env ruby
 require 'squib'
+require 'mercenary'
+
+Mercenary.program(:squib) do |p|
+  p.version Squib::VERSION
+  p.description "A Ruby DSL for prototyping card games"
+  p.syntax "squib <subcommand> [options]"
+
+  p.command(:new) do |c|
+    c.syntax "new PATH"
+    c.description "Creates a new Squib project scaffolding in PATH. Must be a new directory or already empty." 
+
+    c.action do |args, options|
+      Squib::Commands::New.new.process(args)
+    end
+  end
+  
+end
