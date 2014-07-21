@@ -1,7 +1,8 @@
 module Squib
   module Constants
 
-    DEFAULT_FONT = 'Arial 36'
+    #@api public
+    DEFAULT_FONT = 'Arial 36 B'
     
   end
 end

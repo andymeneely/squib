@@ -3,7 +3,15 @@ require 'squib/card'
 require 'squib/input_helpers'
 require 'squib/constants'
 
+
+# The project module
+#
+# @api public
 module Squib
+
+  # The main interface to Squib. Provides a front-end porcelain whereas the Card class interacts with the graphics plumbing.
+  #
+  # @api public
   class Deck
     include Enumerable
     include Squib::InputHelpers
@@ -12,9 +20,12 @@ module Squib
     attr_reader :cards
     attr_reader :text_hint
 
-    def initialize(width: 825, height: 1125, cards: 1, config: 'config.yml', &block)
+    # Squib's constructor that sets the immutable properties.
+    # 
+    # @api public
+    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', &block)
       @width=width; @height=height
-      @dpi = 300
+      @dpi = dpi
       @font = 'Sans 36'
       @cards = []
       cards.times{ @cards << Squib::Card.new(self, width, height) }
@@ -24,20 +35,21 @@ module Squib
       end
     end
 
-    # API: Accesses the array of cards in the deck
+    # Directly accesses the array of cards in the deck
+    #
     # @api public
     def [](key)
       @cards[key]
     end
 
-    # Public: Accesses each card of the array in the deck
-    # @api 
+    # Iterates over each card in the deck
+    # 
+    # @api public
     def each(&block)
       @cards.each { |card| block.call(card) }
     end
 
-    # Internal: Load the configuration file, if exists, 
-    # overriding hardcoded defaults
+    # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private
     def load_config(file)
       if File.exists? file
@@ -57,6 +69,7 @@ module Squib
     require 'squib/api/settings'
     require 'squib/api/shapes'
     require 'squib/api/text'
+    require 'squib/api/units'
 
   end
 end

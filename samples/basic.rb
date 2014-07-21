@@ -16,7 +16,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   png range: [0,2], file: 'shiny-purse.png', x: 620, y: 75
   svg range: 1..2, file: 'spanner.svg', x: 620, y: 218
 
-  save format: :png
+  save prefix: 'basic_', format: :png
 end
 
 puts "Done!"

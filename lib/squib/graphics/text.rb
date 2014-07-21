@@ -34,6 +34,8 @@ module Squib
               :char => Pango::Layout::WRAP_CHAR,
               :word_char    => Pango::Layout::WRAP_WORD_CHAR,
               true    => Pango::Layout::WRAP_WORD_CHAR,
+              false => nil,
+              :none => nil
             }
         layout.wrap = h[options[:wrap]]
       end

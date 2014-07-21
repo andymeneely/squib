@@ -12,15 +12,24 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: data['level'], x: 65, y: 40, font: 'Arial 72'
 
   # Could be explicit about using :all, too
-  text range: :all, str: data['type'], x: 50, y: 128, font: 'Arial 18'
+  text range: :all, 
+       str: data['type'], x: 40, y: 128, font: 'Arial 18', 
+       width: 100, align: :center
 
-  # Ranges are inclusive
+  # Ranges are inclusive, zero-based
   text range: 0..1, str: "Thief and Grifter only!!", x: 25, y:200
+
+  # Integers are also allowed
+  text range: 0, str: "Thief only!", x: 25, y: 250
+
+  # Negatives go from the back of the deck
+  text range: -1, str: "Mastermind only!", x: 25, y: 250
+  text range: -2..-1, str: "Grifter and Mastermind only!", x: 25, y: 650
 
   # We can use Arrays too!
   text range: [0,2], str: "Thief and Mastermind only!!", x: 25, y:300
 
-  # Useful idiom: construct a hash from card names back to id,
+  # Useful idiom: construct a hash from card names back to its index (ID),
   # then use a range. No need to memorize IDs, and you can add cards easily
   id = {} ; data['name'].each_with_index{ |name,i| id[name] = i}
   text range: id['Thief']..id['Grifter'], 
