@@ -15,7 +15,7 @@ module Squib
     #   Unix-like newlines are interpreted even on Windows. See the {file:samples/text-options.rb samples/text.rb} for a lengthy example.
     # 
     # @param range: the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
-    # @param str: the string to be rendered. Must support `#to_s`.
+    # @param str: the string to be rendered. Must support `#to_s`. If the card responds to `#each`, it's mapped out one at a time across the cards.
     # @param font: the Font description string, including family, styles, and size.
     #   (e.g. `'Arial bold italic 12'`)
     #   For the official documentation, see the [Pango docs](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style). 
