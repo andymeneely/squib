@@ -12,7 +12,6 @@ module Squib
       svg = RSVG::Handle.new_from_file(file)
       width = svg.width if width == :native
       height = svg.height if height == :native
-      puts "Width and height #{width} #{height}, svg was #{svg.width} #{svg.height}"
       tmp = Cairo::ImageSurface.new(width, height)
       tmp_cc = Cairo::Context.new(tmp)
       tmp_cc.scale(width.to_f / svg.width.to_f, height.to_f / svg.height.to_f)
