@@ -28,11 +28,11 @@ Any parameter that is specified in the command overrides any Squib defaults, `co
 
 # Specifying Ranges
 
-All public `Deck` methods allow a range to be specified as a first parameter. This parameter is used to access an internal `Array` of `Squib::Cards`. This can be an actual Ruby range, or anything that implements `#each` (thus can be an `Enumerable`). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from `samples/ranges.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
+Most public `Deck` methods allow a range to be specified as a first parameter. This parameter is used to access an internal `Array` of `Squib::Cards`. This can be an actual Ruby range, or anything that implements `#each` (thus can be an `Enumerable`). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from `samples/ranges.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
 
 {include:file:samples/ranges.rb}
 
-Many more examples can be found in `ranges.rb` in the [samples]() folder . In particular, take a look at some idioms that uses hashes to denote things like card "types", or future-proofing against creating and deleting cards with an ID column.
+Many more examples can be found in `ranges.rb` in the [samples](https://github.com/andymeneely/squib/tree/master/samples/) folder . In particular, take a look at some idioms that uses hashes to denote things like card "types", or future-proofing against creating and deleting cards with an ID column.
 
 # Pixels and Other Units
 
