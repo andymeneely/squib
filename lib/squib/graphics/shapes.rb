@@ -1,11 +1,15 @@
 module Squib
   class Card
       
-    def draw_rectangle(x, y, width, height, x_radius, y_radius, color)
+    def draw_rectangle(x, y, width, height, x_radius, y_radius, fill_color, stroke_color, stroke_width)
       cc = cairo_context
-      cc.set_source_color(color)
       cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
+      cc.set_source_color(stroke_color)
+      cc.set_line_width(stroke_width);
       cc.stroke
+      cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
+      cc.set_source_color(fill_color)
+      cc.fill
     end
       
   end
