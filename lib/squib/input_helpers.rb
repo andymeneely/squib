@@ -50,14 +50,13 @@ module Squib
     module_function :fontify 
 
     def radiusify(radius, x_radius, y_radius)
-      unless radius.nil?
-        ret_x = radius
-        ret_y = radius
+      if radius.nil?
+        return x_radius, y_radius
+      else 
+        return radius,radius
       end
-      ret_x = x_radius unless x_radius.nil?
-      rex_y = y_radius unless y_radius.nil?
-      return ret_x,ret_y
     end
+    module_function :radiusify
 
     def xyify
       #TODO: Allow negative numbers that subtract from the card width & height
