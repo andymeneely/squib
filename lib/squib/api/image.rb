@@ -10,6 +10,7 @@ module Squib
     # @param x: the x-coordinate to place
     # @param y: the y-coordinate to place
     # @param alpha: the alpha-transparency percentage used to blend this image
+    # @api public
     def png(range: :all, file: nil, x: 0, y: 0, alpha: 1.0)
       range = rangeify(range)
       file = fileify(file)
@@ -25,6 +26,7 @@ module Squib
     # @param y: the y-coordinate to place
     # @param width: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
     # @param height: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
+    # @api public
     def svg(range: :all, file: nil, x: 0, y: 0, width: :native, height: :native)
       range = rangeify(range)
       file = fileify(file)

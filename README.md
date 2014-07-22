@@ -20,7 +20,11 @@ end
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install it yourself with:
+
+    $ gem install squib
+
+If you're using Bundler, add this line to your application's Gemfile:
 
     gem 'squib'
 
@@ -28,11 +32,7 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install squib
-
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but on some setups can cause headaches. For Windows users, I *strongly* recommend using the *non-*64 bit RubyInstaller at http://rubyinstaller.org/
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but on some setups can cause headaches. For Windows users, I *strongly* recommend using the *non-*64 bit RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io).
 
 ## Getting Started
 
@@ -45,6 +45,7 @@ $ ruby deck.rb
 ```
 
 The `squib new` command will generate files and folders like this:
+
 ```
 _output
   gitkeep.txt
@@ -80,7 +81,7 @@ end
 ## Learning Squib's API
 
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples
-* The [API.md]() walks through the various methods and options
+* The document called API.md walks through the various methods and options that apply to the entire Squib API
 * [API Documentation](http://rubydoc.info/gems/squib/) is also kept up-to-date.
 
 ## Development
