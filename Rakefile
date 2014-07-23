@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 require 'yard'
 
 RSpec::Core::RakeTask.new(:spec)
-task :default => :spec
+task :default => [:spec, :install]
 
 YARD::Rake::YardocTask.new(:doc) do |t|
   t.files   = ['lib/**/*.rb', 'samples/**/*.rb']   # optional
