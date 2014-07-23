@@ -27,10 +27,10 @@ module Squib
     # @param width: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
     # @param height: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
     # @api public
-    def svg(range: :all, file: nil, x: 0, y: 0, width: :native, height: :native)
+    def svg(range: :all, file: nil, id: nil, x: 0, y: 0, width: :native, height: :native)
       range = rangeify(range)
       file = fileify(file)
-      range.each{ |i| @cards[i].svg(file, x, y, width, height) }
+      range.each{ |i| @cards[i].svg(file, id, x, y, width, height) }
     end
 
   end
