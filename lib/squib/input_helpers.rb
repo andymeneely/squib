@@ -58,6 +58,14 @@ module Squib
     end
     module_function :radiusify
 
+    def idify(svgid)
+      unless svgid.nil?
+        svgid = '#' << svgid unless svgid.start_with? '#'
+      end
+      svgid
+    end
+    module_function :idify
+
     def xyify
       #TODO: Allow negative numbers that subtract from the card width & height
     end

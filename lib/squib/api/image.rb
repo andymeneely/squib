@@ -30,6 +30,7 @@ module Squib
     def svg(range: :all, file: nil, id: nil, x: 0, y: 0, width: :native, height: :native)
       range = rangeify(range)
       file = fileify(file)
+      id = idify(id)
       range.each{ |i| @cards[i].svg(file, id, x, y, width, height) }
     end
 

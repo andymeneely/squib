@@ -10,5 +10,10 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   # SVGs can be scaled too
   svg file: 'spanner.svg', x: 50, y: 50, width: 250, height: 250
 
+  # We can also limit our rendering to a single object, if the SVG ID is set
+  # Squib prepends a #-sign if one is not specified
+  svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
+  svg file: 'spanner.svg', id: 'backdrop', x: 50, y: 450, width: 125, height: 125
+
   save prefix: 'load_images_', format: :png
 end
