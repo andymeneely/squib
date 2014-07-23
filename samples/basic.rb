@@ -18,5 +18,3 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
 
   save prefix: 'basic_', format: :png
 end
-
-puts "Done!"

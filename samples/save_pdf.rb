@@ -12,5 +12,3 @@ Squib::Deck.new(width: 825, height: 1125, cards: 16) do
   #Note that our PNGs still are not trimmed even though the pdf ones are
   save_png range: 1, prefix: "save_pdf_"
 end
-
-puts "Done!"
