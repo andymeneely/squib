@@ -11,7 +11,7 @@ module Squib
       w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
       h = layout.extents[1].height / Pango::SCALE if h < 0
-      draw_rectangle(x,y,w,h,0,0,color)
+      draw_rectangle(x,y,w,h,0,0,'#0000',color, 2.0)
     end
 
     def ellipsize(layout, options)
