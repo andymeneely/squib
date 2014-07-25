@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'squib/deck'
 
 describe Squib::Deck do   
