@@ -3,7 +3,6 @@ require 'squib/card'
 require 'squib/input_helpers'
 require 'squib/constants'
 
-
 # The project module
 #
 # @api public
@@ -15,7 +14,6 @@ module Squib
   class Deck
     include Enumerable
     include Squib::InputHelpers
-    include Squib::Constants
     attr_reader :width, :height
     attr_reader :cards
     attr_reader :text_hint

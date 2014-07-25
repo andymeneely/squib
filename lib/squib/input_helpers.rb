@@ -15,8 +15,15 @@ module Squib
       opts = fontify(opts) if params.include? :font
       opts = radiusify(opts) if params.include? :radius
       opts = svgidify(opts) if params.include? :svgid
+      opts = formatify(opts) if params.include? :formats
     end
     module_function :needs
+
+    def formatify(opts)
+      opts[:format] = [opts[:format]].flatten
+      opts
+    end
+    module_function :formatify
 
     def rangeify (opts)
       range = opts[:range]
@@ -88,7 +95,7 @@ module Squib
       end
       opts
     end
-    module_function :idify
+    module_function :svgidify
 
     def xyify
       #TODO: Allow negative numbers that subtract from the card width & height.

@@ -10,7 +10,7 @@ module Squib
     # @api public
     def hint(text: nil)
       text = nil if text == :off
-      @text_hint = colorify(text, nillable: true)
+      @text_hint = text
     end
 
   end

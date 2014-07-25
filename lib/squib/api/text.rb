@@ -40,14 +40,12 @@ module Squib
     # @option hint: show a text hint with the given color. Overrides global hints (see {Deck#hint}). 
     # @return [nil] Returns nothing
     # @api public
-    def text(range: :all, str: '', font: :use_set, x: 0, y: 0, **options)
-      range = rangeify(range)
-      str = [str] * @cards.size unless str.respond_to? :each
-      font = fontify(font)
-      color = colorify(options[:color], nillable: false)
-      options[:hint] = colorify(options[:hint]) unless options[:hint].nil?
-      range.each do |i|
-        cards[i].text(str[i], font, x, y, color, options)
+    def text(opts = {})
+      opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :color, :wrap, 
+                          :fitxy, :align, :justify, :valign, :ellipsize, :hint])
+      str = [opts[:str]] * @cards.size unless str.respond_to? :each
+      opts[:range].each do |i|
+        @cards[i].text(str[i], opts[:font], opts[:x], opts[:y], opts[:color], opts) #TODO split this out
       end
     end
 
