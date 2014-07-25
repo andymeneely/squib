@@ -16,6 +16,7 @@ module Squib
       opts = radiusify(opts) if params.include? :radius
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
+      opts
     end
     module_function :needs
 
