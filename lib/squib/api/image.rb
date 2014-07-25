@@ -27,6 +27,7 @@ module Squib
     # @param y: the y-coordinate to place
     # @param width: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
     # @param height: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
+    # @return [nil]
     # @api public
     def svg(range: :all, file: nil, id: nil, x: 0, y: 0, width: :native, height: :native)
       range = rangeify(range)
