@@ -15,7 +15,8 @@ module Squib
     # @param file: [String] the file to open. Must end in `.xlsx`. Opens relative to the current directory.
     # @param sheet: [Integer] The zero-based index of the sheet from which to read.
     # @api public
-    def xlsx(file: 'deck.xlsx', sheet: 0)
+    def xlsx(opts = {})
+      needs(opts, [:file, :sheet])
       s = Roo::Excelx.new(file)
       s.default_sheet = s.sheets[sheet]
       data = {}

@@ -1,4 +1,3 @@
-# @markup markdown
 # Squib API
 
 # Squib::Deck and Squib::Card

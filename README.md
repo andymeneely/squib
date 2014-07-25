@@ -1,12 +1,14 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby DSL for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Start with some basic commands and generate print-ready PNGs and PDFs. Squib supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
 * Complex text rendering using [Pango](http://www.pango.org/)
 * Reading PNGs and SVGs using [Cairo](http://cairographics.org/)
 * Reading `.xlsx` files
 * Basic shape drawing
-* Saving to PNGs and PDFs
+* Rendering to PNGs and PDFs
 * Plus the full power of Ruby! 
+
+Check this out. 
 
 ```ruby
 require 'squib'
@@ -16,6 +18,8 @@ Squib::Deck.new do
   save_png
 end
 ```
+
+That script just created 3 PNG images at 825x1125 with the string "Hello, World" in the upper-left corner.
 
 ## Installation
 
@@ -31,7 +35,7 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but on some setups can cause headaches. For Windows users, I *strongly* recommend using the *non-*64 bit RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io).
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io). Squib requires Ruby 2.0 or later.
 
 ## Getting Started
 
@@ -57,25 +61,9 @@ layout.yml
 PNP NOTES.md
 ```
 
-The central file here is `deck.rb`. Here's a more complex example of a deck to work from:
+The central file here is `deck.rb`. Here's a basic example of a deck to work from:
 
-```ruby
-require 'squib'
-
-Squib::Deck.new(width: 825, height: 1125, cards: 3) do
-  background color: :white
-  data = xlsx file: 'sample.xlsx'
-
-  rect x: 15, y: 15, width: 795, height: 1095, x_radius: 50, y_radius: 50
-
-  text str: data['name'], x: 250, y: 55, font: 'Arial 54'
-  text str: data['level'], x: 65, y: 40, font: 'Arial 72'
-
-  png file: 'icon.png', x: 665, y: 30
-
-  save format: :png
-end
-```
+{include:file:samples/basic.rb}
 
 ## Learning Squib's API
 

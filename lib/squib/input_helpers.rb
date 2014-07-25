@@ -1,73 +1,97 @@
+require 'squib/constants'
+
 module Squib
   module InputHelpers
 
-    def rangeify (range)
+    def needs(opts, params)
+      opts = Squib::SYSTEM_DEFAULTS.merge(opts)
+      opts = rangeify(opts) if params.include? :range      
+      opts = fileify(opts) if params.include? :file
+      opts = fileify(opts, true) if params.include? :files
+      opts = colorify(opts) if params.include? :color
+      opts = colorify(opts, true) if params.include? :nillable_color
+      opts = dirify(opts) if params.include? :dir
+      opts = dirify(opts, true) if params.include? :creatable_dir
+      opts = fontify(opts) if params.include? :font
+      opts = radiusify(opts) if params.include? :radius
+      opts = svgidify(opts) if params.include? :svgid
+    end
+    module_function :needs
+
+    def rangeify (opts)
+      range = opts[:range]
       raise 'Range cannot be nil' if range.nil?
       range = 0..(@cards.size-1) if range == :all
       range = range..range if range.is_a? Integer
       if range.max > (@cards.size-1)
         raise "#{range} is outside of deck range of 0..#{@cards.size-1}"
       end
-      return range
+      opts[:range] = range
+      opts
     end
     module_function :rangeify
 
-    def fileify(file)
-      raise "File #{File.expand_path(file)} does not exist!" unless File.exists? file
-      file
+    def fileify(opts, expand_singletons=false)
+      opts[:file] = [opts[:file]] * @cards.size if expand_singletons
+      files = [opts[:file]].flatten
+      files.each do |file|
+        unless File.exists? file
+          raise "File #{File.expand_path(file)} does not exist!"
+        end
+      end
+      opts
     end
     module_function :fileify
 
-    def dirify(dir, allow_create: false)
-      return dir if Dir.exists? dir 
+    def dirify(opts, allow_create=false)
+      return opts if Dir.exists? opts[:dir]
       if allow_create
-        Squib.logger.warn "PDF output dir #{dir} does not exist... attempting to create it"
-        Dir.mkdir dir
-        return dir 
+        Squib.logger.warn "Dir #{opts[:dir]} does not exist, creating it."
+        Dir.mkdir opts[:dir]
+        return opts 
       else
-        raise "#{dir} does not exist!"
+        raise "#{opts[:dir]} does not exist!"
       end
     end
     module_function :dirify
 
 
-    def colorify(color, nillable: false)
+    def colorify(opts, nillable=false)
       if nillable # for optional color arguments like text hints
-        color = Cairo::Color.parse(color) unless color.nil?
+        opts[:color] = Cairo::Color.parse(opts[:color]) unless opts[:color].nil?
       else
-        color ||= :black
-        color = Cairo::Color.parse(color)
+        opts[:color] = Cairo::Color.parse(opts[:color])
       end
-      color
+      opts
     end
     module_function :colorify
 
-    def fontify (font)
-      font = @font if font==:use_set
-      font = Squib::DEFAULT_FONT if font==:default
-      font 
+    def fontify (opts)
+      opts[:font] = @font if opts[:font]==:use_set
+      opts[:font] = Squib::SYSTEM_DEFAULTS[:font] if opts[:font] ==:default
+      opts 
     end
     module_function :fontify 
 
-    def radiusify(radius, x_radius, y_radius)
-      if radius.nil?
-        return x_radius, y_radius
-      else 
-        return radius,radius
+    def radiusify(opts)
+      unless opts[:radius].nil?
+        opts[:x_radius] = opts[:radius]
+        opts[:y_radius] = opts[:radius]
       end
+      opts
     end
     module_function :radiusify
 
-    def idify(svgid)
-      unless svgid.nil?
-        svgid = '#' << svgid unless svgid.start_with? '#'
+    def svgidify(opts)
+      unless opts[:id].nil?
+        opts[:id] = '#' << opts[:id] unless svgid.start_with? '#'
       end
-      svgid
+      opts
     end
     module_function :idify
 
     def xyify
-      #TODO: Allow negative numbers that subtract from the card width & height
+      #TODO: Allow negative numbers that subtract from the card width & height.
     end
 
   end

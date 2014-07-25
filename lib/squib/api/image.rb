@@ -6,15 +6,17 @@ module Squib
     #   Note: scaling not currently supported for PNGs.
     #
     # @param range: the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
-    # @param file: the . See {file:API.md#Specifying+Files Specifying Files}
+    # @param file: file(s) to read in. If it's a single file, then it's use for every card. If the parameter is an Array of files, then each file is looked up for each card. See {file:API.md#Specifying+Files Specifying Files}
     # @param x: the x-coordinate to place
     # @param y: the y-coordinate to place
     # @param alpha: the alpha-transparency percentage used to blend this image
+    # @return [nil] intended to be void
     # @api public
-    def png(range: :all, file: nil, x: 0, y: 0, alpha: 1.0)
-      range = rangeify(range)
-      file = fileify(file)
-      range.each{ |i| @cards[i].png(file, x, y, alpha) }
+    def png(opts = {})
+      opts = needs(opts, [:range, :files, :x, :y, :alpha])
+      opts[:range].each do |i| 
+        @cards[i].png(opts[:file][i], opts[:x], opts[:y], opts:[alpha]) 
+      end
     end
 
     # Renders an entire svg file at the given location. Uses the SVG-specified units and DPI to determine the pixel width and height.
@@ -32,11 +34,11 @@ module Squib
     # @param height: the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
     # @return [nil] essentially a void method
     # @api public
-    def svg(range: :all, file: nil, id: nil, x: 0, y: 0, width: :native, height: :native)
-      range = rangeify(range)
-      file = fileify(file)
-      id = idify(id)
-      range.each{ |i| @cards[i].svg(file, id, x, y, width, height) }
+    def svg(opts = {})
+      p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height])
+      p[:range].each do |i| 
+        @cards[i].svg(p[:file], p[:id], p[:x], p[:y], p[:width], p[:height]) 
+      end
     end
 
   end
