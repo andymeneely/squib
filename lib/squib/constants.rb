@@ -8,7 +8,7 @@ module Squib
       :fill_color => '#0000',
       :stroke_color => :black,
       :stroke_width => 2.0,
-   		:font => 'Arial, Sans 36',
+   		:font => :use_set,
    		:sheet => 0,
    		:x => 0,
    		:y => 0,

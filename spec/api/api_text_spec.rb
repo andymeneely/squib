@@ -1,0 +1,37 @@
+require 'spec_helper'
+require 'squib'
+
+describe Squib::Deck, '#text' do
+
+  context "when working with fonts" do
+     it"should use the default font when #text and #set_font don't specify" do
+      card = instance_double(Squib::Card)
+      expect(card).to receive(:text).with('a', Squib::SYSTEM_DEFAULTS[:font], anything, anything, anything, anything).once
+      Squib::Deck.new do  
+        @cards = [card] 
+        text str: 'a'
+      end
+    end
+
+    it "should use the #set_font when #text doesn't specify" do
+      card = instance_double(Squib::Card)
+      expect(card).to receive(:text).with('a', 'Times New Roman 16', anything, anything, anything, anything).once
+      Squib::Deck.new do  
+        @cards = [card] 
+        set font: 'Times New Roman 16'
+        text str: 'a'
+      end
+    end
+
+    it "should use the specified font no matter what" do
+      card = instance_double(Squib::Card)
+      expect(card).to receive(:text).with('a', 'Arial 18', anything, anything, anything, anything).once
+      Squib::Deck.new do  
+        @cards = [card] 
+        set font: 'Times New Roman 16'
+        text str: 'a', font: 'Arial 18'
+      end
+    end
+  end
+
+end

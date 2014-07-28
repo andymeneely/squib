@@ -1,16 +1,6 @@
 module Squib
   class Deck
 
-    # @api private todo
-    def font(type: 'Arial', size: 12, **options)
-      raise 'Not implemented!'
-    end
-
-    # @api private todo
-    def set_font(type: 'Arial', size: 12, **options)
-      raise 'Not implemented!'
-    end
-
     # Renders a string at a given location, width, alignment, font, etc.
     #   Unix-like newlines are interpreted even on Windows. 
     #
