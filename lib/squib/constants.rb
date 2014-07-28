@@ -3,7 +3,7 @@ module Squib
     #@api public
     SYSTEM_DEFAULTS = { 
    		:range => :all,
-   		:color => :white,
+   		:color => :black,
       :str => '',
       :fill_color => '#0000',
       :stroke_color => :black,
