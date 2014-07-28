@@ -15,7 +15,7 @@ module Squib
     def png(opts = {})
       opts = needs(opts, [:range, :files, :x, :y, :alpha])
       opts[:range].each do |i| 
-        @cards[i].png(opts[:file][i], opts[:x], opts[:y], opts:[alpha]) 
+        @cards[i].png(opts[:file][i], opts[:x], opts[:y], opts[:alpha]) 
       end
     end
 
@@ -37,7 +37,7 @@ module Squib
     def svg(opts = {})
       p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height])
       p[:range].each do |i| 
-        @cards[i].svg(p[:file], p[:id], p[:x], p[:y], p[:width], p[:height]) 
+        @cards[i].svg(p[:file][i], p[:id], p[:x], p[:y], p[:width], p[:height]) 
       end
     end
 

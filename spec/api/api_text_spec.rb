@@ -6,7 +6,7 @@ describe Squib::Deck, '#text' do
   context "when working with fonts" do
      it"should use the default font when #text and #set_font don't specify" do
       card = instance_double(Squib::Card)
-      expect(card).to receive(:text).with('a', Squib::SYSTEM_DEFAULTS[:font], anything, anything, anything, anything).once
+      expect(card).to receive(:text).with('a', 'Arial 36', anything, anything, anything, anything).once
       Squib::Deck.new do  
         @cards = [card] 
         text str: 'a'

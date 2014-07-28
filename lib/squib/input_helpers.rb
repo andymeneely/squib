@@ -7,6 +7,7 @@ module Squib
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = rangeify(opts) if params.include? :range      
       opts = fileify(opts) if params.include? :file
+      opts = fileify(opts, false, true) if params.include? :file_to_save
       opts = fileify(opts, true) if params.include? :files
       opts = colorify(opts) if params.include? :color
       opts = colorify(opts, true) if params.include? :nillable_color
@@ -39,11 +40,11 @@ module Squib
     end
     module_function :rangeify
 
-    def fileify(opts, expand_singletons=false)
+    def fileify(opts, expand_singletons=false, allow_non_exist=false)
       opts[:file] = [opts[:file]] * @cards.size if expand_singletons
       files = [opts[:file]].flatten
       files.each do |file|
-        unless File.exists? file
+        unless File.exists? file || allow_non_exist
           raise "File #{File.expand_path(file)} does not exist!"
         end
       end
@@ -52,7 +53,8 @@ module Squib
     module_function :fileify
 
     def dirify(opts, allow_create=false)
-      return opts if Dir.exists? opts[:dir]
+      puts opts[:dir]
+      return opts if Dir.exists?(opts[:dir])
       if allow_create
         Squib.logger.warn "Dir #{opts[:dir]} does not exist, creating it."
         Dir.mkdir opts[:dir]
@@ -76,7 +78,7 @@ module Squib
 
     def fontify (opts)
       opts[:font] = @font if opts[:font]==:use_set
-      opts[:font] = Squib::SYSTEM_DEFAULTS[:font] if opts[:font] ==:default
+      opts[:font] = Squib::SYSTEM_DEFAULTS[:default_font] if opts[:font] == :default
       opts 
     end
     module_function :fontify 
@@ -92,7 +94,7 @@ module Squib
 
     def svgidify(opts)
       unless opts[:id].nil?
-        opts[:id] = '#' << opts[:id] unless svgid.start_with? '#'
+        opts[:id] = '#' << opts[:id] unless opts[:id].start_with? '#'
       end
       opts
     end

@@ -22,7 +22,6 @@ module Squib
     # @option height: the height of the box the string will be placed in. Stretches to the content by default.
     # @option wrap: When height is set, determines the behavior of how the string wraps. The `:word_char` option will break at words, but then fall back to characters when the word cannot fit.    #   
     #   Options are `:none, :word, :char, :word_char`. Also: `true` is the same as `:word_char`, `false` is the same as `:none`. Default `:word_char`
-    # @option fitxy: sets the text `width` and `height` to be equal to `width - x` and `height - y` for easy centering
     # @option align: options `:left, :right, and :center`. Default `:left`
     # @option justify: [Boolean] toggles whether or not the text is justified or not. Default `false`
     # @option valign: When width and height are set, align text vertically according to the logical extents of the text. Options are `:top, :middle, :bottom`. Default `:top`
@@ -31,11 +30,11 @@ module Squib
     # @return [nil] Returns nothing
     # @api public
     def text(opts = {})
-      opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :color, :wrap, 
-                          :fitxy, :align, :justify, :valign, :ellipsize, :hint])
-      str = [opts[:str]] * @cards.size unless str.respond_to? :each
+      opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :text_color, :wrap,
+                          :align, :justify, :valign, :ellipsize, :hint])
+      opts[:str] = [opts[:str]] * @cards.size unless opts[:str].respond_to? :each
       opts[:range].each do |i|
-        @cards[i].text(str[i], opts[:font], opts[:x], opts[:y], opts[:color], opts) #TODO split this out
+        @cards[i].text(opts[:str][i], opts[:font], opts[:x], opts[:y], opts[:color], opts)
       end
     end
 

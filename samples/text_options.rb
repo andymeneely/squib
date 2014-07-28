@@ -3,7 +3,7 @@ require 'squib'
 
 data = {'name' => ['Thief', 'Grifter', 'Mastermind'], 
         'level' => [1,2,3]}
-longtext = "This is left-justified text centered on the card based on x and y.\nWhat do you know about tweetle beetles? well... \nWhen tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle. AND... When beetles fight these battles in a bottle with their paddles and the bottle's on a poodle and the poodle's eating noodles... ...they call this a muddle puddle tweetle poodle beetle noodle bottle paddle battle."
+longtext = "This is left-justified text.\nWhat do you know about tweetle beetles? well... \nWhen tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle. AND... When beetles fight these battles in a bottle with their paddles and the bottle's on a poodle and the poodle's eating noodles... ...they call this a muddle puddle tweetle poodle beetle noodle bottle paddle battle."
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   background color: :white
@@ -46,7 +46,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
 
   text str: longtext, font: 'Arial 16',
        x: 65, y: 700, 
-       fitxy: true, justify: true
+       width: inches(2.25), height: inches(1), 
+       justify: true
 
   text str: "<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome", 
        markup: true,

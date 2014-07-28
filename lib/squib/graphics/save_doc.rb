@@ -1,21 +1,21 @@
 module Squib
   class Deck
 
-    def save_pdf(file: 'deck.pdf', dir: '_output', margin: 75, gap: 0, trim: 0)
-      dir = dirify(dir, allow_create: true)
+    def save_pdf(opts = {})
+      p = needs(opts, [:file_to_save, :prefix, :margin, :gap, :trim])
       width = 11 * @dpi ; height = 8.5 * @dpi #TODO: allow this to be specified too
       cc = Cairo::Context.new(Cairo::PDFSurface.new("#{dir}/#{file}", width, height))
-      x = margin ; y = margin
+      x = p[:margin] ; y = p[:margin]
       @cards.each_with_index do |card, i|
-        surface = trim(card.cairo_surface, trim, @width, @height)
+        surface = trim(card.cairo_surface, p[:trim], @width, @height)
         cc.set_source(surface, x, y)
         cc.paint
         x += surface.width + gap
         if x > (width - surface.width - margin)
-          x = margin 
-          y += surface.height + gap
+          x = p[:margin]
+          y += surface.height + p[:gap]
           if y > (height - surface.height - margin)
-            x = margin ; y = margin
+            x = p[:margin] ; y = p[:margin]
             cc.show_page #next page
           end
         end

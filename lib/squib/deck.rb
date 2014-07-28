@@ -24,7 +24,7 @@ module Squib
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', &block)
       @width=width; @height=height
       @dpi = dpi
-      @font = Squib::SYSTEM_DEFAULTS[:font]
+      @font = Squib::SYSTEM_DEFAULTS[:default_font]
       @cards = []
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       load_config(config)

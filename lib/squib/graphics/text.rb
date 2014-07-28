@@ -11,7 +11,7 @@ module Squib
       w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
       h = layout.extents[1].height / Pango::SCALE if h < 0
-      draw_rectangle(x,y,w,h,0,0,'#0000',color, 2.0)
+      rect(x,y,w,h,0,0,'#0000',color, 2.0)
     end
 
     def ellipsize(layout, options)
@@ -65,16 +65,8 @@ module Squib
     end
 
     def setwh(layout, options)
-      layout.width = options[:width] * Pango::SCALE unless options[:width].nil?
-      layout.height = options[:height] * Pango::SCALE unless options[:height].nil?
-      layout
-    end
-
-    def fitxy(layout, x,y, options)
-      w = options[:width] ; h = options[:height] 
-      w ||= (@width - 2*x); h ||= (@height - 2*y) # default centers to x,y 
-      w *= Pango::SCALE   ; h *= Pango::SCALE    
-      layout.width=w      ; layout.height=h
+      layout.width = options[:width] * Pango::SCALE unless options[:width].nil? || options[:width] == :native
+      layout.height = options[:height] * Pango::SCALE unless options[:height].nil? || options[:height] == :native
       layout
     end
 
@@ -86,8 +78,7 @@ module Squib
       layout.font_description = Pango::FontDescription.new(font)
       layout.text = str.to_s
       layout.markup = str.to_s if options[:markup]
-      layout = setwh(layout, options) unless options[:width].nil? && options[:height].nil?
-      layout = fitxy(layout, x, y , options) if options[:fitxy]
+      layout = setwh(layout, options)
       layout = wrap(layout, options)
       layout = ellipsize(layout, options)
       layout = align(layout, options)

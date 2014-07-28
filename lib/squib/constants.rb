@@ -9,10 +9,10 @@ module Squib
       :stroke_color => :black,
       :stroke_width => 2.0,
    		:font => :use_set,
+      :default_font => 'Arial 36',
    		:sheet => 0,
    		:x => 0,
    		:y => 0,
-      :fitxy => false,
       :align => :left,
       :valign => :top,
       :justify => false,
@@ -22,7 +22,10 @@ module Squib
    		:alpha => 1.0,
       :format => :png,
       :dir => "_output",
-      :prefix => "card_"
+      :prefix => "card_",
+      :margin => 75,
+      :gap => 0,
+      :trim => 0
     }
 
 end
