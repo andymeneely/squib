@@ -3,11 +3,6 @@ require 'roo'
 module Squib
   class Deck
 
-    #@api private todo
-    def csv(file: 'deck.csv', header: true)
-      raise 'Not implemented!'
-    end
-
     # Convenience method for pulling Excel data from `.xlsx` files
     #   Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row. 
     #   See the example at {file:samples/excel.rb samples/excel.rb}. The accompanying Excel file is in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
