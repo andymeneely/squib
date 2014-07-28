@@ -44,7 +44,7 @@ module Squib
       opts[:file] = [opts[:file]] * @cards.size if expand_singletons
       files = [opts[:file]].flatten
       files.each do |file|
-        unless File.exists? file || allow_non_exist
+        unless File.exists?(file) || allow_non_exist
           raise "File #{File.expand_path(file)} does not exist!"
         end
       end
@@ -53,7 +53,6 @@ module Squib
     module_function :fileify
 
     def dirify(opts, allow_create=false)
-      puts opts[:dir]
       return opts if Dir.exists?(opts[:dir])
       if allow_create
         Squib.logger.warn "Dir #{opts[:dir]} does not exist, creating it."

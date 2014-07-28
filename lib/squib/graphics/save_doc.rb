@@ -4,17 +4,17 @@ module Squib
     def save_pdf(opts = {})
       p = needs(opts, [:file_to_save, :prefix, :margin, :gap, :trim])
       width = 11 * @dpi ; height = 8.5 * @dpi #TODO: allow this to be specified too
-      cc = Cairo::Context.new(Cairo::PDFSurface.new("#{dir}/#{file}", width, height))
+      cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", width, height))
       x = p[:margin] ; y = p[:margin]
       @cards.each_with_index do |card, i|
         surface = trim(card.cairo_surface, p[:trim], @width, @height)
         cc.set_source(surface, x, y)
         cc.paint
-        x += surface.width + gap
-        if x > (width - surface.width - margin)
+        x += surface.width + p[:gap]
+        if x > (width - surface.width - p[:margin])
           x = p[:margin]
           y += surface.height + p[:gap]
-          if y > (height - surface.height - margin)
+          if y > (height - surface.height - p[:margin])
             x = p[:margin] ; y = p[:margin]
             cc.show_page #next page
           end
