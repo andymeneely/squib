@@ -3,16 +3,17 @@ module Squib
     
     # Draw a rounded rectangle
     #
-    # @param x: the x-coordinate to place
-    # @param y: the y-coordinate to place
-    # @param width: the width of the rectangle.
-    # @param height: the height of the rectangle.
-    # @param x_radius: the radius of the rounded corner horiztonally. Zero is a non-rounded corner.
-    # @param y_radius: the radius of the rounded corner vertically. Zero is a non-rounded corner.
-    # @param radius: when set, overrides both x_radius and y_radius
-    # @param fill_color: the color with which to fill the rectangle
-    # @param stroke_color: the color with which to stroke the outside of the rectangle
-    # @param stroke_width: the width of the outside stroke
+    # @param opts: the hash of options.
+    # @option x: the x-coordinate to place
+    # @option y: the y-coordinate to place
+    # @option width: the width of the rectangle.
+    # @option height: the height of the rectangle.
+    # @option x_radius: the radius of the rounded corner horiztonally. Zero is a non-rounded corner.
+    # @option y_radius: the radius of the rounded corner vertically. Zero is a non-rounded corner.
+    # @option radius: when set, overrides both x_radius and y_radius
+    # @option fill_color: the color with which to fill the rectangle
+    # @option stroke_color: the color with which to stroke the outside of the rectangle
+    # @option stroke_width: the width of the outside stroke
     # @api public
     def rect(opts = {})
       opts = needs(opts, [:range, :x, :y, :width, :height, :radius, 

@@ -3,7 +3,9 @@ module Squib
 
     # Given inches, returns the number of pixels according to the deck's DPI.
     # 
-    # @example inches(2.5) # 750px for 300 dpi
+    # @example 
+    #   inches(2.5) # 750 (for default Deck::dpi of 300)
+    #
     # @param [Decimal] n, the number of inches
     # @return [Decimal] the number of pixels, according to the deck's DPI
     # @api public
