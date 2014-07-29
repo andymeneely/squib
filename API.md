@@ -1,5 +1,7 @@
 # Squib API
 
+The Squib DSL is based on a collection of methods provided to the `Squib::Deck` class. The general philosophy of Squib is to specify as little as possible (i.e. great defaults )
+
 # Squib::Deck and Squib::Card
 
 Squib essentially has two main classes: `Deck` and `Card`. `Deck` is the front-end, and `Card` is the back-end. The contract of `Deck` is to do the various manipulations of options and then delegate the operation to `Card` to do the low-level graphical operations. 
@@ -35,17 +37,32 @@ Many more examples can be found in `ranges.rb` in the [samples](https://github.c
 
 # Pixels and Other Units
 
-By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. To convert, we provide the `Deck#inch` method, as shown in 
+By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. To convert, we provide the `Deck#inch` method, as shown in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
 
-`samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
+{include:file:samples/units.rb}
 
 # Specifying Colors
 
-Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accepts a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). Here are some examples from `samples/colors.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/colors.rb)
+Colors can be specified in a wide variety of ways, mostly in a hex-string. Take a look at the examples from `samples/colors.rb`, found [here](https://github.com/andymeneely/squib/tree/master/samples/colors.rb)
 
 {include:file:samples/colors.rb}
 
+Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accepts a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). 
+
 # Specifying Files
 
-All files opened for reading (e.g. for `png` and `xlsx`) are opened relative to the current directory.
+All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened relative to the current directory. Files opened for writing (e.g. for `save_png`) will be overwritten without warning. 
+
+# Custom Layouts
+
+Working with x-y coordinates can be tiresome, and ideally everything in a game prototype should be data-driven. To counter this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for `x, y, width` and `height`. 
+
+To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options. 
+
+Note: YAML is very finnicky about having tabs in the file. Use two spaces for indentation instead.
+
+See the `use_layout` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+
+{include:file:samples/use_layout.rb}
+
 

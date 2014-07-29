@@ -16,7 +16,7 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
-      opts = needs(opts, [:range, :files, :x, :y, :alpha])
+      opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout])
       opts[:range].each do |i| 
         @cards[i].png(opts[:file][i], opts[:x], opts[:y], opts[:alpha]) 
       end
@@ -37,7 +37,7 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height])
+      p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height, :layout])
       p[:range].each do |i| 
         @cards[i].svg(p[:file][i], p[:id], p[:x], p[:y], p[:width], p[:height]) 
       end

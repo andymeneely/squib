@@ -13,6 +13,8 @@ module Squib
    		:sheet => 0,
    		:x => 0,
    		:y => 0,
+      :x_radius => 0, 
+      :y_radius => 0,
       :align => :left,
       :valign => :top,
       :justify => false,

@@ -20,7 +20,7 @@ module Squib
     # @api public
     def rect(opts = {})
       opts = needs(opts, [:range, :x, :y, :width, :height, :radius, 
-                          :fill_color, :stroke_color, :stroke_width])
+                          :fill_color, :stroke_color, :stroke_width, :layout])
       opts[:range].each do |i|
         @cards[i].rect(opts[:x], opts[:y], opts[:width], opts[:height], 
           opts[:x_radius], opts[:y_radius], 

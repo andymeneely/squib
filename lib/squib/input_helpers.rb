@@ -7,6 +7,7 @@ module Squib
 
     # @api private
     def needs(opts, params)
+      opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = rangeify(opts) if params.include? :range      
       opts = fileify(opts) if params.include? :file
@@ -23,6 +24,21 @@ module Squib
       opts
     end
     module_function :needs
+
+    def layoutify(opts)
+      unless opts[:layout].nil?
+        entry = @layout[opts[:layout].to_s]
+        unless entry.nil?
+          %w(x y width height).each do |p|
+            opts[p.to_sym] ||= entry[p]
+          end
+        else 
+          logger.warn "Layout entry #{opts[:layout]} does not exist." 
+        end
+      end
+      opts
+    end
+    module_function :layoutify
 
     # @api private
     def formatify(opts)

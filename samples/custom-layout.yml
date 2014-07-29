@@ -1,0 +1,25 @@
+frame: 
+  x: 38
+  y: 38
+  width: 750
+  height: 1050
+title:
+  x: 125
+  y: 50
+  width: 625
+  height: 150
+subtitle:
+  x: 125
+  y: 150
+  width: 625
+  height: 150
+icon_left:
+  x: 200
+  y: 250
+  width: 125
+  height: 125
+icon_right:
+  x: 400
+  y: 250
+  width: 125
+  height: 125  
