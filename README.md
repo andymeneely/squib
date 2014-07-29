@@ -1,11 +1,12 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game's data and images into a series of images raedy for print-and-play or even print-on-demand. Squib is very data-driven - think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib currently supports:
 
-* Complex text rendering using [Pango](http://www.pango.org/)
 * Reading PNGs and SVGs using [Cairo](http://cairographics.org/)
+* Complex text rendering using [Pango](http://www.pango.org/)
 * Reading `.xlsx` files
 * Basic shape drawing
 * Rendering to PNGs and PDFs
+* Unit conversion (inches)
 * Plus the full power of Ruby! 
 
 Check this out. 
@@ -19,7 +20,7 @@ Squib::Deck.new do
 end
 ```
 
-That script just created 3 PNG images at 825x1125 with the string "Hello, World" in the upper-left corner.
+That script just created a deck of with 1 image at 825x1125 with the string "Hello, World" in the upper-left corner.
 
 ## Installation
 
@@ -35,7 +36,9 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io). Squib requires Ruby 2.0 or later.
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io). 
+
+Note: Squib requires Ruby 2.0 or later.
 
 ## Getting Started
 
@@ -63,13 +66,15 @@ PNP NOTES.md
 
 The central file here is `deck.rb`. Here's a basic example of a deck to work from:
 
-{include:file:samples/basic.rb}
+{include:file:samples/basic.rb basic.rb}
 
-## Learning Squib's API
+## Learning Squib
 
+After going over this README, here are some other places to go learn Squib:
+
+* The YARD-generated API documentation [for the latest Squib gem](http://rubydoc.info/gems/squib/) is a method-by-method reference. I recommend starting with the `API` file, and looking at the `Deck` class. If you are following Squib master, see [the latest version](http://rubydoc.info/github/andymeneely/squib/frames)
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples
-* The document called API.md walks through the various methods and options that apply to the entire Squib API
-* [API Documentation](http://rubydoc.info/gems/squib/) is also kept up-to-date.
+* Junk Land (link TBD) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
 
 ## Development
 
