@@ -3,6 +3,7 @@ require 'squib/constants'
 module Squib
   module InputHelpers
 
+    # @api private
     def needs(opts, params)
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = rangeify(opts) if params.include? :range      
@@ -21,12 +22,14 @@ module Squib
     end
     module_function :needs
 
+    # @api private
     def formatify(opts)
       opts[:format] = [opts[:format]].flatten
       opts
     end
     module_function :formatify
 
+    # @api private
     def rangeify (opts)
       range = opts[:range]
       raise 'Range cannot be nil' if range.nil?
@@ -40,6 +43,7 @@ module Squib
     end
     module_function :rangeify
 
+    # @api private
     def fileify(opts, expand_singletons=false, allow_non_exist=false)
       opts[:file] = [opts[:file]] * @cards.size if expand_singletons
       files = [opts[:file]].flatten
@@ -52,6 +56,7 @@ module Squib
     end
     module_function :fileify
 
+    # @api private
     def dirify(opts, allow_create=false)
       return opts if Dir.exists?(opts[:dir])
       if allow_create
@@ -64,7 +69,7 @@ module Squib
     end
     module_function :dirify
 
-
+    # @api private
     def colorify(opts, nillable=false)
       if nillable # for optional color arguments like text hints
         opts[:color] = Cairo::Color.parse(opts[:color]) unless opts[:color].nil?
@@ -75,6 +80,7 @@ module Squib
     end
     module_function :colorify
 
+    # @api private
     def fontify (opts)
       opts[:font] = @font if opts[:font]==:use_set
       opts[:font] = Squib::SYSTEM_DEFAULTS[:default_font] if opts[:font] == :default
@@ -82,6 +88,7 @@ module Squib
     end
     module_function :fontify 
 
+    # @api private
     def radiusify(opts)
       unless opts[:radius].nil?
         opts[:x_radius] = opts[:radius]
@@ -91,6 +98,7 @@ module Squib
     end
     module_function :radiusify
 
+    # @api private
     def svgidify(opts)
       unless opts[:id].nil?
         opts[:id] = '#' << opts[:id] unless opts[:id].start_with? '#'
@@ -98,10 +106,6 @@ module Squib
       opts
     end
     module_function :svgidify
-
-    def xyify
-      #TODO: Allow negative numbers that subtract from the card width & height.
-    end
 
   end
 end

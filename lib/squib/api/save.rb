@@ -16,11 +16,16 @@ module Squib
       self
     end
     
-    # Saves the given range of cards to PNG 
+    # Saves the given range of cards to a PNG 
+    #
+    # @example
+    #   save range: 1..8, dir: '_pnp', prefix: 'bw_'
     #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
+    # @return [nil] Returns nothing
+    # @api public
     def save_png(opts = {})
       opts = needs(opts,[:range, :creatable_dir, :prefix])
       opts[:range].each do |i| 

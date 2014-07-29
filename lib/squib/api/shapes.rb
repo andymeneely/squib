@@ -2,18 +2,21 @@ module Squib
   class Deck
     
     # Draw a rounded rectangle
+    # 
+    # @example 
+    #   rect x: 0, y: 0, width: 825, height: 1125, radius: 25
     #
-    # @param opts: the hash of options.
-    # @option x: the x-coordinate to place
-    # @option y: the y-coordinate to place
-    # @option width: the width of the rectangle.
-    # @option height: the height of the rectangle.
-    # @option x_radius: the radius of the rounded corner horiztonally. Zero is a non-rounded corner.
-    # @option y_radius: the radius of the rounded corner vertically. Zero is a non-rounded corner.
-    # @option radius: when set, overrides both x_radius and y_radius
-    # @option fill_color: the color with which to fill the rectangle
-    # @option stroke_color: the color with which to stroke the outside of the rectangle
-    # @option stroke_width: the width of the outside stroke
+    # @option opts x [Integer] (0) the x-coordinate to place
+    # @option opts y [Integer] (0) the y-coordinate to place
+    # @option opts width [Integer] the width of the rectangle.
+    # @option opts height [Integer] the height of the rectangle.
+    # @option opts x_radius [Integer] (0) the radius of the rounded corner horiztonally. Zero is a non-rounded corner.
+    # @option opts y_radius [Integer] (0) the radius of the rounded corner vertically. Zero is a non-rounded corner.
+    # @option opts radius [Integer] (nil) when set, overrides both x_radius and y_radius
+    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @return [nil] intended to be void
     # @api public
     def rect(opts = {})
       opts = needs(opts, [:range, :x, :y, :width, :height, :radius, 

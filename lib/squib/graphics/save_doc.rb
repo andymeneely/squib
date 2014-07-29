@@ -1,8 +1,20 @@
 module Squib
   class Deck
 
+    # Lays out the cards in range and renders a PDF
+    #
+    # @example
+    #   save_pdf file: 'deck.pdf', margin: 75, gap: 5, trim: 37
+    #
+    # @option opts file [String] the name of the PDF file to save. 
+    # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
+    # @option opts margin [Integer] (75) the margin around the outside of the page
+    # @option opts gap [Integer] (0) the space in pixels between the cards 
+    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)
+    # @return [nil]
+    # @api public
     def save_pdf(opts = {})
-      p = needs(opts, [:file_to_save, :prefix, :margin, :gap, :trim])
+      p = needs(opts, [:file_to_save, :creatable_dir, :margin, :gap, :trim])
       width = 11 * @dpi ; height = 8.5 * @dpi #TODO: allow this to be specified too
       cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", width, height))
       x = p[:margin] ; y = p[:margin]
@@ -22,6 +34,7 @@ module Squib
       end
     end
 
+    # @api private 
     def trim(surface, trim, width, height)
       if trim > 0
         tmp = Cairo::ImageSurface.new(width-2*trim, height-2*trim)
