@@ -6,7 +6,8 @@ Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for
 * Reading `.xlsx` files
 * Basic shape drawing
 * Rendering to PNGs and PDFs
-* Unit conversion (inches)
+* Unit conversion
+* Specfiying your layouts in a YML file
 * Plus the full power of Ruby! 
 
 Check this out. 

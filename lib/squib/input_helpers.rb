@@ -25,6 +25,7 @@ module Squib
     end
     module_function :needs
 
+    # @api private
     def layoutify(opts)
       unless opts[:layout].nil?
         entry = @layout[opts[:layout].to_s]

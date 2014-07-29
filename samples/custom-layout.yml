@@ -3,25 +3,32 @@ frame:
   y: 38
   width: 750
   height: 1050
+  radius: 25
 title:
   x: 125
   y: 50
   width: 625
-  height: 150
-  align: !ruby/symbol center
-  hint: !ruby/symbol cyan
+  height: 100
+  align: !ruby/symbol center #see http://www.yaml.org/YAML_for_ruby.html#symbols
+  valign: !ruby/symbol middle  
 subtitle:
-  x: 125
+  x: 150
   y: 150
-  width: 625
-  height: 150
-icon_left:
-  x: 200
-  y: 250
+  width: 575
+  height: 60
+  align: !ruby/symbol center
+  valign: !ruby/symbol middle
+icon:
   width: 125
   height: 125
-icon_right:
-  x: 400
   y: 250
-  width: 125
-  height: 125  
+icon_left:
+  extends: icon
+  x: 150
+icon_middle:
+  extends: icon
+  x: 350
+  y: 400  #overrides the y inherited from icon
+icon_right:
+  extends: icon
+  x: 550

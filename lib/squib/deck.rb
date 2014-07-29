@@ -1,4 +1,5 @@
 require 'yaml'
+require 'pp'
 require 'squib/card'
 require 'squib/input_helpers'
 require 'squib/constants'
@@ -86,7 +87,16 @@ module Squib
     # @api private
     def load_layout(file)
       return if file.nil?
-      @layout = YAML.load_file(file)
+      prelayout = YAML.load_file(file)
+      @layout = {}
+      prelayout.each do |key, value|
+        if value.key? "extends"
+          @layout[key] = prelayout[value["extends"]].merge prelayout[key]
+        else 
+          @layout[key] = value
+        end
+      end
+      Squib::logger.warn "Multi-level extends not supported. If you want them, contact the developer." if @layout.to_s.include? '"extends"=>'
     end
 
     ##################
