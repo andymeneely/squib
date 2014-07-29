@@ -52,6 +52,32 @@ module Squib
           opts[:fill_color], opts[:stroke_color], opts[:stroke_width])
       end
     end
+
+    # Draw a triangle using the given coordinates
+    # 
+    # @example 
+    #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50, :x3 => 0, :y3 => 50
+    #
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts x1 [Integer] (0) the x-coordinate to place
+    # @option opts y1 [Integer] (0) the y-coordinate to place
+    # @option opts x2 [Integer] (50) the x-coordinate to place
+    # @option opts y2 [Integer] (50) the y-coordinate to place
+    # @option opts x3 [Integer] (0) the x-coordinate to place
+    # @option opts y3 [Integer] (50) the y-coordinate to place
+    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @return [nil] intended to be void
+    # @api public
+    def triangle(opts = {})
+      opts = needs(opts, [:range, :x1, :y1, :x2, :y2, :x3, :y3, :layout,
+                          :fill_color, :stroke_color, :stroke_width])
+      opts[:range].each do |i|
+        @cards[i].triangle(opts[:x1], opts[:y1], opts[:x2], opts[:y2],opts[:x3], opts[:y3], 
+          opts[:fill_color], opts[:stroke_color], opts[:stroke_width])
+      end
+    end
     
   end
 end
