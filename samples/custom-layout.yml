@@ -8,6 +8,8 @@ title:
   y: 50
   width: 625
   height: 150
+  align: !ruby/symbol center
+  hint: !ruby/symbol cyan
 subtitle:
   x: 125
   y: 150

@@ -29,8 +29,8 @@ module Squib
       unless opts[:layout].nil?
         entry = @layout[opts[:layout].to_s]
         unless entry.nil?
-          %w(x y width height).each do |p|
-            opts[p.to_sym] ||= entry[p]
+          entry.each do |key, value|
+            opts[key.to_sym] ||= entry[key]
           end
         else 
           logger.warn "Layout entry #{opts[:layout]} does not exist." 
