@@ -63,13 +63,14 @@ module Squib
 
     # :nodoc:
     # @api private 
-    def valign(cc, layout, extents, x, y, valign)
+    def valign(cc, layout, x, y, valign)
       if layout.height > 0 
+        ink_extents = layout.extents[1]
         case valign
         when :middle
-          cc.move_to(x, y + (layout.height - extents.height) / (2 * Pango::SCALE))
+          cc.move_to(x, y + (layout.height - ink_extents.height) / (2 * Pango::SCALE))
         when :bottom
-          cc.move_to(x, y + (layout.height - extents.height) / Pango::SCALE)
+          cc.move_to(x, y + (layout.height - ink_extents.height) / Pango::SCALE)
         end
       end
     end
@@ -97,9 +98,8 @@ module Squib
       layout = ellipsize(layout, options)
       layout = align(layout, options)
       layout.justify = options[:justify] unless options[:justify].nil?
-      logical_extents = layout.extents[0]
       cc.update_pango_layout(layout) 
-      valign(cc, layout, logical_extents, x,y, options[:valign])
+      valign(cc, layout, x,y, options[:valign])
       cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
       draw_text_hint(x,y,layout,options[:hint])
     end
