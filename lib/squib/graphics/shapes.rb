@@ -40,6 +40,17 @@ module Squib
       cc.set_source_color(fill_color)
       cc.fill
     end
+
+    # :nodoc:
+    # @api private 
+    def line(x1, y1, x2, y2, stroke_color, stroke_width)
+      cc = cairo_context
+      cc.move_to(x1, y1)
+      cc.line_to(x2, y2)
+      cc.set_source_color(stroke_color)
+      cc.set_line_width(stroke_width)
+      cc.stroke
+    end
       
   end
 end

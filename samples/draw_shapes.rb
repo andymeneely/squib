@@ -11,5 +11,9 @@ Squib::Deck.new do
            x2: 150, y2: 150, 
            x3: 75, y3: 250
 
+  line x1: 50, y1: 550, 
+       x2: 150, y2: 650,
+       stroke_width: 25.0        
+
   save_png prefix: 'shape_'
 end
