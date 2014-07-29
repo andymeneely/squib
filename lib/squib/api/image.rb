@@ -12,6 +12,7 @@ module Squib
     # @option opts file [String, Array] ('') file(s) to read in. If it's a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. See {file:API.md#Specifying+Files Specifying Files}
     # @option opts x [Integer] (0) the x-coordinate to place
     # @option opts y [Integer] (0) the y-coordinate to place
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:API.md#label-Custom+Layouts Custom Layouts}
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image
     # @return [nil] Returns nil
     # @api public
@@ -34,6 +35,7 @@ module Squib
     # @option opts y [Integer] (0) the y-coordinate to place
     # @option opts width [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
     # @option opts height [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document.
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:API.md#label-Custom+Layouts Custom Layouts}
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})

@@ -10,7 +10,7 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   # You can also override a given layout entry in the command
   circle layout: :frame, x: 50, y: 50, radius: 25
 
-  # Any command with x-y-width-height options, we can use a custom layout
+  # Lots of commands have the :layout option
   text str: 'The Title', layout: :title
 
   # Layouts also support an "extends" attribute to reuse settings
@@ -22,8 +22,8 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   text str: 'subtitle', layout: 'subtitle'
 
   # For debugging purposes, you can always print out the loaded layout
-  # require 'pp'
-  # pp @layout
+  #require 'pp'
+  #pp @layout
 
   save_png prefix: 'layout_'
 end

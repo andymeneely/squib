@@ -23,6 +23,7 @@ module Squib
     # @option opts markup: [Boolean] (false) Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html).
     # @option opts width [Integer, :native] (:native) the width of the box the string will be placed in. Stretches to the content by default.
     # @option opts height [Integer, :native] the height of the box the string will be placed in. Stretches to the content by default.
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:API.md#label-Custom+Layouts Custom Layouts}
     # @option opts wrap [:none, :word, :char, :word_char, true, false] (:word_char) When height is set, determines the behavior of how the string wraps. The `:word_char` option will break at words, but then fall back to characters when the word cannot fit.    #   
     #   Options are `:none, :word, :char, :word_char`. Also: `true` is the same as `:word_char`, `false` is the same as `:none`. Default `:word_char`
     # @option opts align [:left, right, :center] (:left) The alignment of the text

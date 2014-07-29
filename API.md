@@ -1,35 +1,20 @@
 # Squib API
 
-The Squib DSL is based on a collection of methods provided to the `Squib::Deck` class. The general philosophy of Squib is to specify as little as possible (i.e. great defaults )
+The Squib DSL is based on a collection of methods provided to the `Squib::Deck` class. The general philosophy of Squib is to specify as little as possible with layers of defaults, highly flexible input, and good ol' Ruby duck-typing. Ruby does a lot to make Squib useful.
 
 # Squib::Deck and Squib::Card
 
 Squib essentially has two main classes: `Deck` and `Card`. `Deck` is the front-end, and `Card` is the back-end. The contract of `Deck` is to do the various manipulations of options and then delegate the operation to `Card` to do the low-level graphical operations. 
 
-For most users, I recommending solely using `Deck` methods. If you want to roll up your sleeves and get your hands messy, you can access the Cairo or Pango contexts the directly via the `Card` class. 
+For most users, I recommending solely using `Deck` methods. If you want to roll up your sleeves and get your hands messy, you can access the Cairo or Pango contexts the directly via the `Card` class. The API documentation doesn't really cover these, however, so you're on your own there.
 
 # Specifying Parameters
 
-Squib makes extensive use of [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. In fact, with named parameters you *must* specify which argument ties to which parameter. If you get an error like this:
-
-```cmd
-C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.2/lib/squib/api/text.rb:17:in `text': wrong number of arguments (1 for 0)
-(ArgumentError)
-        from hello-world.rb:5:in `block in <main>'
-        from C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.2/lib/squib/deck.rb:21:in `instance_eval'
-        from C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.2/lib/squib/deck.rb:21:in `initialize'
-        from hello-world.rb:4:in `new'
-        from hello-world.rb:4:in `<main>'
-```
-...then you're not specifying the parameters explicitly (e.g. the above example was with `text 'X'` instead of `text str: 'X'`)
-
-All parameters are optional. For example `x` and `y` default to 0 (i.e. the upper-left corner of the card).
-
-Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules. 
+Squib is all about sane defaults and shorthand specification. Arguments are almost always using hashes, which look a lot like [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. All parameters are optional. For example `x` and `y` default to 0 (i.e. the upper-left corner of the card). Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules. 
 
 # Specifying Ranges
 
-Most public `Deck` methods allow a range to be specified as a first parameter. This parameter is used to access an internal `Array` of `Squib::Cards`. This can be an actual Ruby range, or anything that implements `#each` (thus can be an `Enumerable`). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from `samples/ranges.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
+Most public `Deck` methods allow a `range` to be specified as a first parameter. This parameter is used to access an internal `Array` of `Squib::Cards`. This can be an actual Ruby range, or anything that implements `#each` (thus can be an `Enumerable`). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from `samples/ranges.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
 
 {include:file:samples/ranges.rb}
 
@@ -47,7 +32,7 @@ Colors can be specified in a wide variety of ways, mostly in a hex-string. Take 
 
 {include:file:samples/colors.rb}
 
-Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accepts a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). 
+Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). 
 
 # Specifying Files
 
@@ -55,14 +40,20 @@ All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened r
 
 # Custom Layouts
 
-Working with x-y coordinates can be tiresome, and ideally everything in a game prototype should be data-driven. To counter this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for `x, y, width` and `height`. 
+Working with x-y coordinates all the time can be tiresome, and ideally everything in a game prototype should be data-driven and easily changed. For this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for any argument given to the command. 
 
 To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options. 
 
 Note: YAML is very finnicky about having tabs in the file. Use two spaces for indentation instead.
 
+Layouts will override Squib's defaults, but are overriden by anything specified in the command itself. Thus, the order of precedence looks like this:
+
+* Use what the command specified
+* If anything was not yet specified, use what was given in a layout (if a layout was specified in the command and the file was given to the Deck)
+* If still anything was not yet specified, use what was given in Squib's defaults.
+
+Layouts also allow for a special `extends` field that will copy all of the settings from another entry. Only a single level of extends are supported currently (contact the developer if you want multiple levels). 
+
 See the `use_layout` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
 
 {include:file:samples/use_layout.rb}
-
-

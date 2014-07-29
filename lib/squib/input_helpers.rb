@@ -5,6 +5,7 @@ module Squib
   # @api private
   module InputHelpers
 
+    # :nodoc:
     # @api private
     def needs(opts, params)
       opts = layoutify(opts) if params.include? :layout
@@ -25,6 +26,7 @@ module Squib
     end
     module_function :needs
 
+    # :nodoc:
     # @api private
     def layoutify(opts)
       unless opts[:layout].nil?
@@ -41,6 +43,7 @@ module Squib
     end
     module_function :layoutify
 
+    # :nodoc:
     # @api private
     def formatify(opts)
       opts[:format] = [opts[:format]].flatten
@@ -48,6 +51,7 @@ module Squib
     end
     module_function :formatify
 
+    # :nodoc:
     # @api private
     def rangeify (opts)
       range = opts[:range]
@@ -62,6 +66,7 @@ module Squib
     end
     module_function :rangeify
 
+    # :nodoc:
     # @api private
     def fileify(opts, expand_singletons=false, allow_non_exist=false)
       opts[:file] = [opts[:file]] * @cards.size if expand_singletons
@@ -75,6 +80,7 @@ module Squib
     end
     module_function :fileify
 
+    # :nodoc:
     # @api private
     def dirify(opts, allow_create=false)
       return opts if Dir.exists?(opts[:dir])
@@ -88,6 +94,7 @@ module Squib
     end
     module_function :dirify
 
+    # :nodoc:
     # @api private
     def colorify(opts, nillable=false)
       if nillable # for optional color arguments like text hints
@@ -99,6 +106,7 @@ module Squib
     end
     module_function :colorify
 
+    # :nodoc:
     # @api private
     def fontify (opts)
       opts[:font] = @font if opts[:font]==:use_set
@@ -107,6 +115,7 @@ module Squib
     end
     module_function :fontify 
 
+    # :nodoc:
     # @api private
     def radiusify(opts)
       unless opts[:radius].nil?
@@ -117,6 +126,7 @@ module Squib
     end
     module_function :radiusify
 
+    # :nodoc:
     # @api private
     def svgidify(opts)
       unless opts[:id].nil?

@@ -17,6 +17,7 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:API.md#label-Custom+Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def rect(opts = {})
