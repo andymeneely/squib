@@ -96,7 +96,6 @@ module Squib
           @layout[key] = value
         end
       end
-      Squib::logger.warn "Multi-level extends not supported. If you want them, contact the developer." if @layout.to_s.include? '"extends"=>'
     end
 
     ##################
