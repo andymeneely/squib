@@ -8,7 +8,9 @@ require 'squib/deck'
 require 'squib/card'
 
 module Squib
-
+  
+  # :nodoc:
+  # @api private 
   def logger
     @logger ||= Logger.new(STDOUT)
   end

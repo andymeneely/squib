@@ -14,8 +14,17 @@ module Squib
   class Deck
     include Enumerable
     include Squib::InputHelpers
+
+    # :nodoc:
+    # @api private 
     attr_reader :width, :height
+    
+    # :nodoc:
+    # @api private 
     attr_reader :cards
+    
+    # :nodoc:
+    # @api private 
     attr_reader :text_hint
 
     # Squib's constructor that sets the immutable properties.

@@ -1,6 +1,8 @@
 module Squib
   class Card
 
+    # :nodoc:
+    # @api private 
     def png(file, x, y, alpha)
       cc = cairo_context
       png = Cairo::ImageSurface.from_png(file)
@@ -8,6 +10,8 @@ module Squib
       cc.paint(alpha)
     end
 
+    # :nodoc:
+    # @api private 
     def svg(file, id, x, y, width, height)
       svg = RSVG::Handle.new_from_file(file)
       width = svg.width if width == :native

@@ -3,6 +3,8 @@ require 'pango'
 module Squib
   class Card
 
+    # :nodoc:
+    # @api private 
     def draw_text_hint(x,y,layout, color)
       return if color.nil? && @deck.text_hint.nil? 
       color ||= @deck.text_hint
@@ -14,6 +16,8 @@ module Squib
       rect(x,y,w,h,0,0,'#0000',color, 2.0)
     end
 
+    # :nodoc:
+    # @api private 
     def ellipsize(layout, options)
       unless options[:ellipsize].nil?
         h = { :none   => Pango::Layout::ELLIPSIZE_NONE,
@@ -28,6 +32,8 @@ module Squib
       layout
     end
 
+    # :nodoc:
+    # @api private 
     def wrap(layout, options)
       unless options[:wrap].nil?
         h = { :word  => Pango::Layout::WRAP_WORD,
@@ -42,6 +48,8 @@ module Squib
       layout
     end
 
+    # :nodoc:
+    # @api private 
     def align(layout, options)
       unless options[:align].nil?
           h = { :left => Pango::ALIGN_LEFT,
@@ -53,6 +61,8 @@ module Squib
       layout
     end
 
+    # :nodoc:
+    # @api private 
     def valign(cc, layout, extents, x, y, valign)
       if layout.height > 0 
         case valign
@@ -64,12 +74,16 @@ module Squib
       end
     end
 
+    # :nodoc:
+    # @api private 
     def setwh(layout, options)
       layout.width = options[:width] * Pango::SCALE unless options[:width].nil? || options[:width] == :native
       layout.height = options[:height] * Pango::SCALE unless options[:height].nil? || options[:height] == :native
       layout
     end
 
+    # :nodoc:
+    # @api private 
     def text(str, font, x, y, color, options)
       cc = cairo_context
       cc.set_source_color(color)

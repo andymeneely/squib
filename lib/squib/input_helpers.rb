@@ -1,6 +1,8 @@
 require 'squib/constants'
 
 module Squib
+  # :nodoc:
+  # @api private
   module InputHelpers
 
     # @api private

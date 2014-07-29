@@ -34,6 +34,7 @@ module Squib
       end
     end
 
+    # :nodoc:
     # @api private 
     def trim(surface, trim, width, height)
       if trim > 0
