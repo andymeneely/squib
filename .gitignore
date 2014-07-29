@@ -4,6 +4,7 @@
 .bundle
 .config
 .yardoc
+.inch
 Gemfile.lock
 InstalledFiles
 _yardoc
