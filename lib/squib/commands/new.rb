@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Squib
   # Squib's command-line options
   module Commands
