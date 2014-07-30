@@ -14,6 +14,7 @@ module Squib
     #   squib new foo-blasters
     #   cd foo-blasters
     #   ruby deck.rb
+    #   git init
     #   git commit -am "Starting my cool new game using Squib!"
     #
     # @api public
