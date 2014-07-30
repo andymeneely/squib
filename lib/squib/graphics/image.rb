@@ -4,6 +4,7 @@ module Squib
     # :nodoc:
     # @api private 
     def png(file, x, y, alpha)
+      return if file.nil? or file.eql? ''
       cc = cairo_context
       png = Cairo::ImageSurface.from_png(file)
       cc.set_source(png, x, y)
@@ -13,6 +14,7 @@ module Squib
     # :nodoc:
     # @api private 
     def svg(file, id, x, y, width, height)
+      return if file.nil? or file.eql? ''
       svg = RSVG::Handle.new_from_file(file)
       width = svg.width if width == :native
       height = svg.height if height == :native

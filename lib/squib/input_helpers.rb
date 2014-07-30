@@ -12,8 +12,8 @@ module Squib
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = rangeify(opts) if params.include? :range      
       opts = fileify(opts) if params.include? :file
-      opts = fileify(opts, false, true) if params.include? :file_to_save
-      opts = fileify(opts, true) if params.include? :files
+      opts = fileify(opts, false, false) if params.include? :file_to_save
+      opts = fileify(opts, true, false) if params.include? :files
       opts = colorify(opts) if params.include? :color
       opts = colorify(opts, true) if params.include? :nillable_color
       opts = dirify(opts) if params.include? :dir
@@ -68,11 +68,11 @@ module Squib
 
     # :nodoc:
     # @api private
-    def fileify(opts, expand_singletons=false, allow_non_exist=false)
-      opts[:file] = [opts[:file]] * @cards.size if expand_singletons
+    def fileify(opts, expand_singletons=false, file_must_exist=true)
+      opts[:file] = [opts[:file]] * @cards.size if expand_singletons && !(opts[:file].respond_to? :each)
       files = [opts[:file]].flatten
       files.each do |file|
-        unless File.exists?(file) || allow_non_exist
+        if file_must_exist and !File.exists?(file) 
           raise "File #{File.expand_path(file)} does not exist!"
         end
       end
