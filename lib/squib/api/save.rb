@@ -24,12 +24,20 @@ module Squib
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
+    # @option opts [Boolean] progress_bar (false) if true, show a progress bar on stdout while saving
     # @return [nil] Returns nothing
     # @api public
     def save_png(opts = {})
-      opts = needs(opts,[:range, :creatable_dir, :prefix])
+      opts = needs(opts,[:range, :creatable_dir, :prefix, :progress_bar])
+      if opts[:progress_bar] 
+        require 'ruby-progressbar'
+        bar = ProgressBar.create(title: "Saving to PNGs", 
+                                 starting_at: 0, total: opts[:range].size,
+                                 format: '%t <%B> %p%% %a')
+      end
       opts[:range].each do |i| 
         @cards[i].save_png(i, opts[:dir], opts[:prefix])
+        bar.increment if opts[:progress_bar]
       end
     end
 

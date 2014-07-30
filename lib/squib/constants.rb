@@ -34,7 +34,8 @@ module Squib
       :prefix => "card_",
       :margin => 75,
       :gap => 0,
-      :trim => 0
+      :trim => 0,
+      :progress_bar => false
     }
 
 end
