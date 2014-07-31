@@ -86,8 +86,8 @@ module Squib
       if File.exists?(file) && config = YAML.load_file(file)
         config = Squib::CONFIG_DEFAULTS.merge(config)
         @dpi = config['dpi'].to_i
-        @hint = config['hint']
-        @progress_bar.enabled = config['progress_bar']
+        @text_hint = config['text_hint']
+        @progress_bar.enabled = config['progress_bars']
       end
     end
 

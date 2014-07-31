@@ -1,2 +1,11 @@
 # Settings in the config.yml are overriding Squib's defaults. Anything in the main script will override this.
+
+# DPI is used in making PDFs and in unit conversions
 #dpi: 72
+
+# Text hints are used to show the boundaries of text boxes.
+# Can be enabled/disabled at the command-level, or set globally with `set`
+#text_hint: '#F00'
+
+# Show progress bars on the command line for potentially long-running operations
+#progress_bars: true
