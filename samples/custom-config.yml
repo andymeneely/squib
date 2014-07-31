@@ -1,1 +1,3 @@
 dpi: 300
+progress_bar: true
+hint: '#FF0000'

@@ -38,4 +38,13 @@ module Squib
       :progress_bar => false
     }
 
+    # Squib's configuration defaults
+    # 
+    # @api public
+    CONFIG_DEFAULTS = { 
+      'dpi' => 300,
+      'progress_bar' => false,
+      'hint' => nil
+    }
+
 end

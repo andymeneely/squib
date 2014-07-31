@@ -6,14 +6,17 @@ module Squib
     # Text hints are rectangles around where the text will be laid out. They are intended to be temporary.
     # Setting a hint to nil or to :off will disable hints. @see samples/text.rb
     # @example
-    #   hint text:cyan
+    #   hint text: :cyan
+    #   hint text: :cyan, progress_bar: true
     #
     # @param [String] text the color of the text hint. To turn off use nil or :off. @see API.md 
+    # @param [Boolean] progress_bar enable progress bars on long-running operations
     # @return [nil] Returns nothing
     # @api public
-    def hint(text: nil)
+    def hint(text: nil, progress_bar: false)
       text = nil if text == :off
       @text_hint = text
+      @progress_bar.enabled = progress_bar
     end
 
     # Sets various defaults for this deck. Defaults can be overriden by the commands themselves

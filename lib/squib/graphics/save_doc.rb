@@ -18,20 +18,24 @@ module Squib
       width = 11 * @dpi ; height = 8.5 * @dpi #TODO: allow this to be specified too
       cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", width, height))
       x = p[:margin] ; y = p[:margin]
-      @cards.each_with_index do |card, i|
-        surface = trim(card.cairo_surface, p[:trim], @width, @height)
-        cc.set_source(surface, x, y)
-        cc.paint
-        x += surface.width + p[:gap]
-        if x > (width - surface.width - p[:margin])
-          x = p[:margin]
-          y += surface.height + p[:gap]
-          if y > (height - surface.height - p[:margin])
-            x = p[:margin] ; y = p[:margin]
-            cc.show_page #next page
+
+      @progress_bar.start("Saving PDF to #{p[:dir]}/#{p[:file]}", p[:range].size) do |bar|
+        @cards.each_with_index do |card, i|
+          surface = trim(card.cairo_surface, p[:trim], @width, @height)
+          cc.set_source(surface, x, y)
+          cc.paint
+          bar.increment
+          x += surface.width + p[:gap]
+          if x > (width - surface.width - p[:margin])
+            x = p[:margin]
+            y += surface.height + p[:gap]
+            if y > (height - surface.height - p[:margin])
+              x = p[:margin] ; y = p[:margin]
+              cc.show_page #next page
+            end
           end
         end
-      end
+    end
     end
 
     # :nodoc:

@@ -1,6 +1,7 @@
 require 'yaml'
 require 'pp'
 require 'squib/card'
+require 'squib/progress'
 require 'squib/input_helpers'
 require 'squib/constants'
 
@@ -51,6 +52,7 @@ module Squib
       @dpi = dpi
       @font = Squib::SYSTEM_DEFAULTS[:default_font]
       @cards = []
+      @progress_bar = Squib::Progress.new(false)
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       load_config(config)
       load_layout(layout)
@@ -73,13 +75,19 @@ module Squib
       @cards.each { |card| block.call(card) }
     end
 
+    # Shows a descriptive place of the location
+    def location(opts)
+      opts[:layout] || (" @ #{opts[:x]},#{opts[:y]}")
+    end
+
     # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private
     def load_config(file)
-      if File.exists? file
-        if config = YAML.load_file(file)
-          @dpi = config['dpi'].to_i
-        end
+      if File.exists?(file) && config = YAML.load_file(file)
+        config = Squib::CONFIG_DEFAULTS.merge(config)
+        @dpi = config['dpi'].to_i
+        @hint = config['hint']
+        @progress_bar.enabled = config['progress_bar']
       end
     end
 
