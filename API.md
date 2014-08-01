@@ -18,7 +18,16 @@ Most public `Deck` methods allow a `range` to be specified as a first parameter.
 
 {include:file:samples/ranges.rb}
 
-Many more examples can be found in `ranges.rb` in the [samples](https://github.com/andymeneely/squib/tree/master/samples/) folder . In particular, take a look at some idioms that uses hashes to denote things like card "types", or future-proofing against creating and deleting cards with an ID column.
+Note: you MUST use named parameters rather than positional parameters. For example: `save :png` will lead to an error like this:
+
+    C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.3/lib/squib/api/save.rb:12:in `save': wrong number of arguments (2 for 0..1) (ArgumentError)
+        from deck.rb:22:in `block in <main>'
+        from C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.3/lib/squib/deck.rb:60:in `instance_eval'
+        from C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.3/lib/squib/deck.rb:60:in `initialize'
+        from deck.rb:18:in `new'
+        from deck.rb:18:in `<main>'
+
+Instead, you must name the parameters: `save format: :png`
 
 # Pixels and Other Units
 
