@@ -9,10 +9,23 @@ require 'squib/card'
 
 module Squib
   
-  # :nodoc:
-  # @api private 
+  # Access the internal logger that Squib uses. By default, Squib configure the logger to the WARN level
+  # Use this to suppress or increase output levels. 
+  # @example
+  #   Squib.logger.level = Logger::DEBUG #show waaaay more information than you probably need, unless you're a dev
+  #   Squib.logger.level = Logger::ERROR #basically turns it off
+  # 
+  # @return [Logger] the ruby logger
+  # @api public 
   def logger
-    @logger ||= Logger.new(STDOUT)
+    if @logger.nil?
+      @logger = Logger.new(STDOUT);
+      @logger.level = Logger::WARN;
+      @logger.formatter = proc do |severity, datetime, progname, msg|
+        "#{severity} #{progname}: #{msg}"
+      end
+    end
+    @logger
   end
   module_function :logger
   
