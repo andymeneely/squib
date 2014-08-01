@@ -1,4 +1,15 @@
 module Squib
+
+  # Cache all pngs we've already loaded
+  # 
+  # :nodoc:
+  # @api private
+  def cache_load_image(file)
+    @img_cache ||= {}
+    @img_cache[file] || @img_cache[file] = Cairo::ImageSurface.from_png(file)
+  end
+  module_function :cache_load_image
+
   class Card
 
     # :nodoc:
@@ -6,7 +17,7 @@ module Squib
     def png(file, x, y, alpha)
       return if file.nil? or file.eql? ''
       cc = cairo_context
-      png = Cairo::ImageSurface.from_png(file)
+      png = Squib.cache_load_image(file)
       cc.set_source(png, x, y)
       cc.paint(alpha)
     end
