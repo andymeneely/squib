@@ -2,6 +2,8 @@ require 'ruby-progressbar'
 
 module Squib
 
+  # :nodoc:
+  # @api private
   class DoNothing
     def increment
       #do nothing!
