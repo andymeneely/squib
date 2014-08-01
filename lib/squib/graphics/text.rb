@@ -86,6 +86,7 @@ module Squib
     # :nodoc:
     # @api private 
     def text(str, font, x, y, color, options)
+      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, and options: #{options}"}
       cc = cairo_context
       cc.set_source_color(color)
       cc.move_to(x,y)
@@ -98,6 +99,7 @@ module Squib
       layout = ellipsize(layout, options)
       layout = align(layout, options)
       layout.justify = options[:justify] unless options[:justify].nil?
+      layout.spacing = options[:spacing] * Pango::SCALE unless options[:spacing].nil? 
       cc.update_pango_layout(layout) 
       valign(cc, layout, x,y, options[:valign])
       cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
