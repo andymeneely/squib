@@ -37,6 +37,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "redcarpet", '~> 3.1.2'
+  spec.add_development_dependency "github-markup", '~> 1.2.1'
   spec.add_development_dependency "yard"
   spec.add_development_dependency "coveralls"
 

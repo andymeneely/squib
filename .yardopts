@@ -1,4 +1,5 @@
 --readme README.md
+--markup-provider=redcarpet
 --markup markdown
 --api public
 -
