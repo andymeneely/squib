@@ -13,10 +13,9 @@ module Squib
     # @param [Boolean] progress_bar enable progress bars on long-running operations
     # @return [nil] Returns nothing
     # @api public
-    def hint(text: nil, progress_bar: false)
+    def hint(text: nil)
       text = nil if text == :off
       @text_hint = text
-      @progress_bar.enabled = progress_bar
     end
 
     # Sets various defaults for this deck. Defaults can be overriden by the commands themselves
