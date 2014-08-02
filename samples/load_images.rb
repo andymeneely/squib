@@ -15,5 +15,9 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
   svg file: 'spanner.svg', id: 'backdrop', x: 50, y: 450, width: 125, height: 125
 
+  # WARNING! If you choose to use the SVG ID, the x-y coordinates are still
+  # relative to the SVG page. See this example in an SVG editor
+  svg file: 'offset.svg', id: 'thing',  x: 0, y: 0, width: 600, height: 600
+
   save prefix: 'load_images_', format: :png
 end
