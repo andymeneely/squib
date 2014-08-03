@@ -36,7 +36,7 @@ module Squib
             opts[key.to_sym] ||= entry[key]
           end
         else 
-          logger.warn "Layout entry #{opts[:layout]} does not exist." 
+          Squib.logger.warn "Layout entry #{opts[:layout]} does not exist." 
         end
       end
       opts
