@@ -36,7 +36,7 @@ module Squib
             opts[key.to_sym] ||= entry[key]
           end
         else 
-          Squib.logger.warn "Layout entry #{opts[:layout]} does not exist." 
+          Squib.logger.warn "Layout entry '#{opts[:layout]}' does not exist." 
         end
       end
       opts
@@ -59,7 +59,7 @@ module Squib
       range = 0..(@cards.size-1) if range == :all
       range = range..range if range.is_a? Integer
       if range.max > (@cards.size-1)
-        raise "#{range} is outside of deck range of 0..#{@cards.size-1}"
+        raise ArgumentError.new("#{range} is outside of deck range of 0..#{@cards.size-1}")
       end
       opts[:range] = range
       opts
