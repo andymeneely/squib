@@ -1,31 +1,31 @@
 require 'spec_helper'
 require 'squib'
+require 'pp'
 
 describe Squib do 
 
   context "all samples" do
 
     FILE_HASHES = {
-      "basic_" => "2a35fa3bb121fe188c44d9b73cb7dcd3",
-      "colors_" => "8917ed746d12b5d8bdc971415913a286",
-      "layout_" => "4645a9cc0dc39d7ea673edafe9d8d30d",
+      "basic_" => "2a58552c601fc579e528a5ee38ee25b3",
+      "colors_" => "b785b979a21b9d3006a7f6dfe96cb3f2",
+      "layout_" => "b03fa164549a46fc3c657366260d1463",
       "load_images_" => "1e01c021c05d9b31568b01657c176b0b",
-      "ranges_" => "614e439da81923df2b6e2458e5b389e3",
-      "sample-save-pdf" => "d83a01103fa9e1e75706e2156d8f74ab",
-      "sample_excel_" => "7aacc3f82073302aba698660f912ee40",
+      "ranges_" => "7899a803c0cdb1d38f4e07e1a5dfbc96",
+      "sample-save-pdf" => "04276606dec31c6c517f6cef36266166",
+      "sample_excel_" => "669005e6e2b85b173b1166cd0c6055dd",
       "shape_" => "fb7669f3c301db05985ce54aea839460",
-      "text_" => "ea924a806bda2f39ed5becb9c6c911b7",
-      "tgc_sample_" => "dce2d03e0ea0647f9ec635ab601a4651",
+      "text_" => "aa005d44783a9997a8729b5be24a52fd",
+      "tgc_sample_" => "bf18efd9f33dce91e3936c24387f60d3",
       "units_" => "bc251c1858c6c821ae06415279a02f62"
     }
 
     def hashes_of(dir, file_prefixes)
       map = {}
       file_prefixes.each do |pre|
-        hash = ""
-        Dir["#{dir}/#{pre}*"].each do |file|
-          hash += Digest::MD5.hexdigest(File.read(file))   
-        end
+        hash = "" ; files = []
+        Dir["#{dir}/#{pre}*"].each { |f| files << f } 
+        files.sort.each{ |f| hash += Digest::MD5.hexdigest(File.binread(f)) }
         map[pre] = Digest::MD5.hexdigest(hash)
       end
       map
