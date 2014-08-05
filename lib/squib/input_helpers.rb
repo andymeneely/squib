@@ -89,7 +89,7 @@ module Squib
         Dir.mkdir opts[:dir]
         return opts 
       else
-        raise "#{opts[:dir]} does not exist!"
+        raise "'#{opts[:dir]}' does not exist!"
       end
     end
     module_function :dirify

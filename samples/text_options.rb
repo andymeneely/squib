@@ -52,7 +52,9 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: "<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome", 
        markup: true,
        x: 50, y: 1000,
-       font: 'Arial 32'
+       width: 750, height: 100, 
+       valign: :bottom,
+       font: 'Arial 32', hint: :cyan
   
   save prefix: 'text_', format: :png
 end

@@ -52,7 +52,29 @@ describe Squib::InputHelpers do
     it "defaults to a range of all cards if :all" do
       expect(@deck.send(:rangeify, {range: :all})).to eq({range: 0..1})
     end
+  end
 
+  context "#fileify" do
+    it "should throw an error if the file doesn't exist" do
+      expect{@deck.send(:fileify, {file: 'nonexist.txt'}, false, true)}.to raise_error(RuntimeError,"File #{File.expand_path('nonexist.txt')} does not exist!")
+    end
+
+    it "should expand singletons when asked" do
+      expect(@deck.send(:fileify, {file: 'foo.txt'}, true, false)).to eq({file: ['foo.txt', 'foo.txt']})
+    end
+  end
+
+  context "#dir" do
+    it "should raise an error if the directory does not exist" do
+      expect{@deck.send(:dirify, {dir: 'nonexist'}, false)}.to raise_error(RuntimeError,"'nonexist' does not exist!")
+    end
+  end
+
+  context "#colorify" do
+    it "should parse if nillable" do
+      color = @deck.send(:colorify, {color: '#fff'}, true)[:color]
+      expect(color.to_a).to eq([1.0, 1.0, 1.0, 1.0])
+    end
   end
 
 end
