@@ -24,8 +24,9 @@ describe Squib do
       map = {}
       file_prefixes.each do |pre|
         hash = "" ; files = []
-        Dir["#{dir}/#{pre}*"].each { |f| files << f } 
-        files.sort.each{ |f| hash += Digest::MD5.hexdigest(File.binread(f)) }
+        Dir["#{dir}/#{pre}*"].each { |f| files << f }
+        p files.sort
+        files.sort.each{ |f| hash += Digest::MD5.file(f).hexdigest }
         map[pre] = Digest::MD5.hexdigest(hash)
       end
       map
