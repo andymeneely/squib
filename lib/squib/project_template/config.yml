@@ -10,3 +10,7 @@
 
 # Show progress bars on the command line for potentially long-running operations
 #progress_bars: true
+
+#Enable some custom colors that can be used in any color
+#custom_colors:
+#  foo: '#abc'

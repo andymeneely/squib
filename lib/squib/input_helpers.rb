@@ -97,11 +97,11 @@ module Squib
     # :nodoc:
     # @api private
     def colorify(opts, nillable=false)
-      if nillable # for optional color arguments like text hints
-        opts[:color] = Cairo::Color.parse(opts[:color]) unless opts[:color].nil?
-      else
-        opts[:color] = Cairo::Color.parse(opts[:color])
+      return opts if nillable && opts[:color].nil?
+      if @custom_colors.key? opts[:color].to_s
+        opts[:color] = @custom_colors[opts[:color].to_s]
       end
+      opts[:color] = Cairo::Color.parse(opts[:color])
       opts
     end
     module_function :colorify

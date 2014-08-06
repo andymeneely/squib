@@ -46,7 +46,8 @@ module Squib
     CONFIG_DEFAULTS = { 
       'dpi' => 300,
       'progress_bar' => false,
-      'hint' => nil
+      'hint' => nil,
+      'custom_colors' => {}
     }
 
 end

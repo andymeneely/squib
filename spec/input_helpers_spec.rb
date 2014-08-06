@@ -3,7 +3,7 @@ require 'squib/input_helpers'
 
 class DummyDeck
   include  Squib::InputHelpers
-  attr_accessor :layout, :cards
+  attr_accessor :layout, :cards, :custom_colors
 end
 
 module Squib
@@ -20,6 +20,7 @@ describe Squib::InputHelpers do
     @deck = DummyDeck.new
     @deck.layout = {'blah' => {x: 25}}
     @deck.cards = %w(a b)
+    @deck.custom_colors = {}
   end
 
   context '#layoutify' do
@@ -74,6 +75,20 @@ describe Squib::InputHelpers do
     it "should parse if nillable" do
       color = @deck.send(:colorify, {color: '#fff'}, true)[:color]
       expect(color.to_a).to eq([1.0, 1.0, 1.0, 1.0])
+    end
+
+    it "raises and error if the color doesn't exist" do
+      expect{ @deck.send(:colorify, {color: :nonexist}, false) }.to raise_error(ArgumentError, "unknown color name: nonexist")
+    end
+
+    it "pulls from config's custom colors" do
+      @deck.custom_colors['foo'] = "#abc"
+      expect(@deck.send(:colorify, {color: :foo}, false)[:color].to_s).to eq('#AABBCCFF')
+    end
+
+    it "pulls from config's custom colors even when a string" do
+      @deck.custom_colors['foo'] = "#abc"
+      expect(@deck.send(:colorify, {color: 'foo'}, false)[:color].to_s).to eq('#AABBCCFF')
     end
   end
 

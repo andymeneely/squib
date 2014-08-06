@@ -52,6 +52,7 @@ module Squib
       @dpi = dpi
       @font = Squib::SYSTEM_DEFAULTS[:default_font]
       @cards = []
+      @custom_colors = {}
       @progress_bar = Squib::Progress.new(false)
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       load_config(config)
@@ -88,6 +89,7 @@ module Squib
         @dpi = config['dpi'].to_i
         @text_hint = config['text_hint']
         @progress_bar.enabled = config['progress_bars']
+        @custom_colors = config['custom_colors']
       end
     end
 
