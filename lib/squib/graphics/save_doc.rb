@@ -6,7 +6,7 @@ module Squib
     # @example
     #   save_pdf file: 'deck.pdf', margin: 75, gap: 5, trim: 37
     #
-    # @option opts file [String] the name of the PDF file to save. 
+    # @option opts file [String] the name of the PDF file to save. See {file:README.md#Specifying_Files Specifying Files}
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
     # @option opts margin [Integer] (75) the margin around the outside of the page
     # @option opts gap [Integer] (0) the space in pixels between the cards 

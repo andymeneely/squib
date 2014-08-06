@@ -6,7 +6,7 @@ module Squib
     # @example 
     #   rect x: 0, y: 0, width: 825, height: 1125, radius: 25
     #
-    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x [Integer] (0) the x-coordinate to place
     # @option opts y [Integer] (0) the y-coordinate to place
     # @option opts width [Integer] the width of the rectangle.
@@ -17,7 +17,7 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
-    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:API.md#label-Custom+Layouts Custom Layouts}
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def rect(opts = {})
@@ -35,7 +35,7 @@ module Squib
     # @example 
     #   circle x: 0, y: 0, radius: 100
     #
-    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x [Integer] (0) the x-coordinate to place
     # @option opts y [Integer] (0) the y-coordinate to place
     # @option opts radius [Integer] (100) radius of the circle
@@ -59,7 +59,7 @@ module Squib
     # @example 
     #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50, :x3 => 0, :y3 => 50
     #
-    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x1 [Integer] (0) the x-coordinate to place
     # @option opts y1 [Integer] (0) the y-coordinate to place
     # @option opts x2 [Integer] (50) the x-coordinate to place
@@ -85,7 +85,7 @@ module Squib
     # @example 
     #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50
     #
-    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x1 [Integer] (0) the x-coordinate to place
     # @option opts y1 [Integer] (0) the y-coordinate to place
     # @option opts x2 [Integer] (50) the x-coordinate to place

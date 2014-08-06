@@ -4,8 +4,8 @@ module Squib
     # @example
     #   background color: :white
     #
-    # @option range [Enumerable] (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
-    # @option color [String] (:black) the color the font will render to. See {file:API.md#label-Specifying+Colors Specifying Colors}
+    # @option opts range [Enumerable] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts color [String] (:black) the color the font will render to. See {file:README.md#Specifying_Colors Specifying Colors}
     # @return [nil] nothing
     # @api public
     def background(opts = {})

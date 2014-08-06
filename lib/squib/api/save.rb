@@ -3,7 +3,7 @@ module Squib
   
     # Saves the given range of cards to either PNG or PDF
     #
-    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [Symbol] format (:png)  the format that this will be rendered too. Options `:pdf, :png`. Array of both is allowed: `[:pdf, :png]`
     # @option opts [String] prefix (card_) the prefix of the file name to be printed
@@ -21,7 +21,7 @@ module Squib
     # @example
     #   save range: 1..8, dir: '_pnp', prefix: 'bw_'
     #
-    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:API.md#label-Specifying+Ranges Specifying Ranges}
+    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
     # @return [nil] Returns nothing
