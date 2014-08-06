@@ -81,7 +81,7 @@ After going over this README, here are some other places to go learn Squib:
 
 If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for Yard to show the embedded examples. These can be found on RubyDoc.info:
 
- * The [latest Gem release]((http://rubydoc.info/gems/squib/))
+ * The [latest Gem release](http://rubydoc.info/gems/squib/)
  * The [master branch](http://rubydoc.info/github/andymeneely/squib) of this repository 
 
 ## Squib API
