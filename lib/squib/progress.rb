@@ -6,7 +6,9 @@ module Squib
   # @api private
   class DoNothing
     def increment
-      #do nothing!
+    end
+
+    def finish
     end
   end
 
@@ -22,7 +24,7 @@ module Squib
     end
 
     def start(title="", total=100, &block)
-      if @enabled && !(ENV['IN_TEST'].eql? "true")
+      if @enabled
         @bar = ProgressBar.create(title: title, total: total, format: '%t <%B> %p%% %a') 
         yield(@bar)
         @bar.finish
