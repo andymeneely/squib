@@ -2,6 +2,7 @@
 --markup-provider=redcarpet
 --markup markdown
 --api public
---asset samples
+lib/**/*.rb
+samples/**/*.rb
 -
 LICENSE.txt
