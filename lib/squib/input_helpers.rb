@@ -15,6 +15,8 @@ module Squib
       opts = fileify(opts, false, false) if params.include? :file_to_save
       opts = fileify(opts, true, false) if params.include? :files
       opts = colorify(opts) if params.include? :color
+      opts = colorify(opts, false, :fill_color) if params.include? :fill_color
+      opts = colorify(opts, false, :stroke_color) if params.include? :stroke_color
       opts = colorify(opts, true) if params.include? :nillable_color
       opts = dirify(opts) if params.include? :dir
       opts = dirify(opts, true) if params.include? :creatable_dir
@@ -96,12 +98,12 @@ module Squib
 
     # :nodoc:
     # @api private
-    def colorify(opts, nillable=false)
-      return opts if nillable && opts[:color].nil?
-      if @custom_colors.key? opts[:color].to_s
-        opts[:color] = @custom_colors[opts[:color].to_s]
+    def colorify(opts, nillable=false, key=:color)
+      return opts if nillable && opts[key].nil?
+      if @custom_colors.key? opts[key].to_s
+        opts[key] = @custom_colors[opts[key].to_s]
       end
-      opts[:color] = Cairo::Color.parse(opts[:color])
+      opts[key] = Cairo::Color.parse(opts[key])
       opts
     end
     module_function :colorify

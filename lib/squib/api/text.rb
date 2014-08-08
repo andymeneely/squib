@@ -34,7 +34,7 @@ module Squib
     # @return [nil] Returns nothing
     # @api public
     def text(opts = {})
-      opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :text_color, :wrap,
+      opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :color, :wrap,
                           :align, :justify, :valign, :ellipsize, :hint, :layout])
       opts[:str] = [opts[:str]] * @cards.size unless opts[:str].respond_to? :each
       opts[:range].each do |i|
