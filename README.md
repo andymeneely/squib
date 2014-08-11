@@ -1,13 +1,14 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game's data and images into a series of images raedy for print-and-play or even print-on-demand. Squib is very data-driven - think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib currently supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game's data and images into a series of images raedy for print-and-play or even print-on-demand. Squib is very data-driven - think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
-* Reading PNGs and SVGs using [Cairo](http://cairographics.org/)
+* A concise set of rules for laying out your cards
+* Loading PNGs and SVGs using [Cairo](http://cairographics.org/)
 * Complex text rendering using [Pango](http://www.pango.org/)
 * Reading `.xlsx` files
 * Basic shape drawing
-* Rendering to PNGs and PDFs
+* Rendering decks to PNGs and PDFs
+* Data-driven layouts
 * Unit conversion
-* Specfiying your layouts in a YML file
 * Plus the full power of Ruby! 
 
 Check this out. 
@@ -65,7 +66,7 @@ layout.yml
 PNP NOTES.md
 ```
 
-The central file here is `deck.rb`. Here's a basic example of a deck to work from:
+The central file here is `deck.rb`. Here's a [basic example](https://github.com/andymeneely/squib/tree/master/samples/basic.rb) of a deck to work from:
 
 {include:file:samples/basic.rb basic.rb}
 
@@ -96,12 +97,6 @@ For most users, I recommending solely using `Deck` methods. If you want to roll 
 
 Squib is all about sane defaults and shorthand specification. Arguments are almost always using hashes, which look a lot like [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. All parameters are optional. For example `x` and `y` default to 0 (i.e. the upper-left corner of the card). Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules. 
 
-## Specifying Ranges
-
-Most public `Deck` methods allow a `range` to be specified as a first parameter. This parameter is used to access an internal `Array` of `Squib::Cards`. This can be an actual Ruby range, or anything that implements `#each` (thus can be an `Enumerable`). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from `samples/ranges.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
-
-{include:file:samples/ranges.rb}
-
 Note: you MUST use named parameters rather than positional parameters. For example: `save :png` will lead to an error like this:
 
     C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.3/lib/squib/api/save.rb:12:in `save': wrong number of arguments (2 for 0..1) (ArgumentError)
@@ -112,6 +107,22 @@ Note: you MUST use named parameters rather than positional parameters. For examp
         from deck.rb:18:in `<main>'
 
 Instead, you must name the parameters: `save format: :png`
+
+Furthermore, many inputs to Squib can accept `Arrays`, which correspond to the entire deck. In fact, under the hood, if Squib is _not_ given an array, it expands it out to an array before rendering. This allows for different styles to apply to different cards. This example comes from the [ranges.rb example](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
+
+```ruby
+# This renders three cards, with three strings that had three different colors at three different locations.
+text str: %w(red green blue),
+     color: [:red, :green, :blue],
+     x: [40, 80, 120],
+     y: [700, 750, 800]
+```
+
+## Specifying Ranges
+
+Most public `Deck` methods allow a `range` to be specified as a first parameter. This parameter is used to access an internal `Array` of `Squib::Cards`. This can be an actual Ruby range, or anything that implements `#each` (thus can be an `Enumerable`). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from `samples/ranges.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
+
+{include:file:samples/ranges.rb}
 
 ## Pixels and Other Units
 
@@ -165,6 +176,37 @@ The following sample demonstrates the config file.
 See the `custom_config` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
 
 {include:file:samples/custom_config.rb}
+
+# Squib Principles and Patterns
+
+I am eating my own dogfood and using Squib for prototyping my own games. From that experience, here are some pieces of advice. They are really just re-hashing of common Ruby community and good software engineering practices.
+
+## Stay DRY (Don't Repeat Yourself)
+
+This is Good Advice for all software development, but in the Ruby world and with Squib, it's especially true. Do your best not to repeat yourself, making your code as concise as is readably possible.  Aside from being ugly, copied or near-copied code is much harder to maintain because you're essentially duplicating your bugs every time you copy. If you find yourself copying and making small adaptations, there's probably a much more condensed and elegant way to do it. 
+
+Squib tries to keep you dry with the following features:
+
+* Custom layouts allow you to specify your data in a separate file. The `extends` takes this a step further and lets you specify base styles that can then be extended by other styles.
+* Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
+
+## Prefer data-driven over `if`
+
+If-statements are great, except when they aren't. Squib works by executing commands on subsets of the deck, which means that those subsets can be data-driven. Make use of Ruby's rich methods on Array, such as `select`, `inject`, and other set theory commands.
+
+This rule is also similar to "Convention over Configuration" principle that is prevalent in Ruby. Set up those hashes and arrays with logical names, and use those logical names to connect everything together. For example, if you have an "attack" icon you want to place, then in your SVG file give it an id of "attack" and your Excel file with "attack". Keeping the naming consistent makes things readable and connects them together without if-statements or glue code.
+
+## Don't hardcode magic numbers
+
+You might be tempted to hardcode card numbers into your `range` fields. While this might work momentarily to get things working, I highly recommend setting up an `id` hash that maps a card's name to it's number. This makes your code both more readable and future-proof for when you add or remove cards. An example can be found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb).
+
+## Use source control
+
+You are using source control, right??
+
+By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control.
+
+For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files don't usually get checked in unless absolutely necessary.
 
 # Development
 

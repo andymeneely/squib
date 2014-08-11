@@ -30,8 +30,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text range: [0,2], str: "Thief and Mastermind only!!", x: 25, y:300
 
   # Just about everything in Squib can be given an array that
-  # corresponds to the deck's cards. 
-  # This allows for each card to be styled differently
+  # corresponds to the deck's cards. This allows for each card to be styled differently
+  # This renders three cards, with three strings that had three different colors at three different locations.
   text str: %w(red green blue),
        color: [:red, :green, :blue],
        x: [40, 80, 120],
