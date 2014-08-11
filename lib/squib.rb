@@ -22,7 +22,7 @@ module Squib
       @logger = Logger.new(STDOUT);
       @logger.level = Logger::WARN;
       @logger.formatter = proc do |severity, datetime, progname, msg|
-        "#{severity} #{progname}: #{msg}"
+        "#{severity} #{progname}: #{msg}\n"
       end
     end
     @logger
