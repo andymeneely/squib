@@ -29,6 +29,14 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   # We can use Arrays too!
   text range: [0,2], str: "Thief and Mastermind only!!", x: 25, y:300
 
+  # Just about everything in Squib can be given an array that
+  # corresponds to the deck's cards. 
+  # This allows for each card to be styled differently
+  text str: %w(red green blue),
+       color: [:red, :green, :blue],
+       x: [40, 80, 120],
+       y: [700, 750, 800]
+
   # Useful idiom: construct a hash from card names back to its index (ID),
   # then use a range. No need to memorize IDs, and you can add cards easily
   id = {} ; data['name'].each_with_index{ |name,i| id[name] = i}
