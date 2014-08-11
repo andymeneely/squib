@@ -35,7 +35,7 @@ module Squib
     # @api public
     def text(opts = {})
       opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :color, :wrap,
-                          :align, :justify, :valign, :markup, :ellipsize, :hint, :layout])
+                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout])
       opts[:range].each do |i|
         @cards[i].text(opts[:str][i], opts[:font][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
