@@ -21,12 +21,13 @@ module Squib
     # @return [nil] intended to be void
     # @api public
     def rect(opts = {})
-      opts = needs(opts, [:range, :x, :y, :width, :height, :radius, 
+      opts = needs(opts, [:range, :x, :y, :width, :height, :rect_radius, :x_radius, :y_radius,
                           :fill_color, :stroke_color, :stroke_width, :layout])
       opts[:range].each do |i|
-        @cards[i].rect(opts[:x], opts[:y], opts[:width], opts[:height], 
-          opts[:x_radius], opts[:y_radius], 
-          opts[:fill_color], opts[:stroke_color], opts[:stroke_width])
+        @cards[i].rect(opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i], 
+                       opts[:x_radius][i], opts[:y_radius][i], 
+                       opts[:fill_color][i], opts[:stroke_color][i], 
+                       opts[:stroke_width][i])
       end
     end
 
@@ -49,8 +50,8 @@ module Squib
       opts = needs(opts, [:range, :x, :y, :circle_radius, :layout,
                           :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|
-        @cards[i].circle(opts[:x], opts[:y], opts[:radius], 
-          opts[:fill_color], opts[:stroke_color], opts[:stroke_width])
+        @cards[i].circle(opts[:x][i], opts[:y][i], opts[:radius][i], 
+          opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
       end
     end
 
@@ -75,8 +76,11 @@ module Squib
       opts = needs(opts, [:range, :x1, :y1, :x2, :y2, :x3, :y3, :layout,
                           :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|
-        @cards[i].triangle(opts[:x1], opts[:y1], opts[:x2], opts[:y2],opts[:x3], opts[:y3], 
-          opts[:fill_color], opts[:stroke_color], opts[:stroke_width])
+        @cards[i].triangle(opts[:x1][i], opts[:y1][i], 
+                           opts[:x2][i], opts[:y2][i], 
+                           opts[:x3][i], opts[:y3][i], 
+                           opts[:fill_color][i], opts[:stroke_color][i], 
+                           opts[:stroke_width][i])
       end
     end
 
@@ -98,8 +102,8 @@ module Squib
       opts = needs(opts, [:range, :x1, :y1, :x2, :y2, :layout,
                           :stroke_color, :stroke_width])
       opts[:range].each do |i|
-        @cards[i].line(opts[:x1], opts[:y1], opts[:x2], opts[:y2],
-                       opts[:stroke_color], opts[:stroke_width])
+        @cards[i].line(opts[:x1][i], opts[:y1][i], opts[:x2][i], opts[:y2][i],
+                       opts[:stroke_color][i], opts[:stroke_width][i])
       end
     end
     

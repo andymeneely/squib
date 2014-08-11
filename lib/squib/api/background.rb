@@ -10,7 +10,7 @@ module Squib
     # @api public
     def background(opts = {})
       opts = needs(opts,[:range, :color])
-      opts[:range].each { |i| @cards[i].background(opts[:color]) }
+      opts[:range].each { |i| @cards[i].background(opts[:color][i]) }
     end
       
   end

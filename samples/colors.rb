@@ -11,7 +11,6 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   text color: '#ffff00000000', str: '12-hex', x: 50, y: y+=50
   text color: '#ffff000000009999', str: '12-hex (alpha)', x: 50, y: y+=50
   text color: :burnt_orange, str: 'Symbols of constants too', x: 50, y: y+=50
-  text color: [1.0, 0.0, 0.0], str: 'Array of percentages', x: 50, y: y+=50
 
   save_png prefix: "colors_"
 end

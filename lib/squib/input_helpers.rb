@@ -1,4 +1,5 @@
 require 'squib/constants'
+require 'pp'
 
 module Squib
   # :nodoc:
@@ -8,20 +9,22 @@ module Squib
     # :nodoc:
     # @api private
     def needs(opts, params)
+      Squib.logger.debug {"Pre input-helper opts: #{opts}"}
       opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
+      opts = expand_singletons(opts, params)
+      Squib.logger.debug {"Post expand opts: #{opts}"}
       opts = rangeify(opts) if params.include? :range      
       opts = fileify(opts) if params.include? :file
-      opts = fileify(opts, false, false) if params.include? :file_to_save
-      opts = fileify(opts, true, false) if params.include? :files
+      opts = fileify(opts, false) if params.include? :file_to_save
+      opts = colorify(opts, true) if params.include? :nillable_color
+      opts = dirify(opts, true) if params.include? :creatable_dir
+      opts = fileify(opts, false) if params.include? :files
       opts = colorify(opts) if params.include? :color
       opts = colorify(opts, false, :fill_color) if params.include? :fill_color
       opts = colorify(opts, false, :stroke_color) if params.include? :stroke_color
-      opts = colorify(opts, true) if params.include? :nillable_color
-      opts = dirify(opts) if params.include? :dir
-      opts = dirify(opts, true) if params.include? :creatable_dir
       opts = fontify(opts) if params.include? :font
-      opts = radiusify(opts) if params.include? :radius
+      opts = radiusify(opts) if params.include? :rect_radius
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
       opts
@@ -30,15 +33,35 @@ module Squib
 
     # :nodoc:
     # @api private
-    def layoutify(opts)
-      unless opts[:layout].nil?
-        entry = @layout[opts[:layout].to_s]
-        unless entry.nil?
-          entry.each do |key, value|
-            opts[key.to_sym] ||= entry[key]
+    def expand_singletons(opts, needed_params)
+      Squib::EXPANDING_PARAMS.each_pair do |param_name, api_param|
+        if needed_params.include? param_name
+          unless opts[api_param].respond_to?(:each)
+            opts[api_param] = [opts[api_param]] * @cards.size 
           end
-        else 
-          Squib.logger.warn "Layout entry '#{opts[:layout]}' does not exist." 
+        end
+      end
+      opts
+    end
+    module_function :expand_singletons
+
+    # Layouts have to come before, so we repeat expand_singletons here
+    # :nodoc:
+    # @api private
+    def layoutify(opts)
+      unless opts[:layout].respond_to?(:each) 
+        opts[:layout] = [opts[:layout]] * @cards.size 
+      end
+      opts[:layout].each_with_index do |layout, i|
+        unless layout.nil?
+          entry = @layout[layout.to_s]
+          unless entry.nil?
+            entry.each do |key, value|
+              opts[key.to_sym] ||= entry[key]
+            end
+          else 
+            Squib.logger.warn ("Layout entry '#{layout}' does not exist." )
+          end
         end
       end
       opts
@@ -70,10 +93,8 @@ module Squib
 
     # :nodoc:
     # @api private
-    def fileify(opts, expand_singletons=false, file_must_exist=true)
-      opts[:file] = [opts[:file]] * @cards.size if expand_singletons && !(opts[:file].respond_to? :each)
-      files = [opts[:file]].flatten
-      files.each do |file|
+    def fileify(opts, file_must_exist=true)
+      [opts[:file]].flatten.each do |file|
         if file_must_exist and !File.exists?(file) 
           raise "File #{File.expand_path(file)} does not exist!"
         end
@@ -87,7 +108,7 @@ module Squib
     def dirify(opts, allow_create=false)
       return opts if Dir.exists?(opts[:dir])
       if allow_create
-        Squib.logger.warn "Dir #{opts[:dir]} does not exist, creating it."
+        Squib.logger.warn {"Dir #{opts[:dir]} does not exist, creating it."}
         Dir.mkdir opts[:dir]
         return opts 
       else
@@ -99,11 +120,16 @@ module Squib
     # :nodoc:
     # @api private
     def colorify(opts, nillable=false, key=:color)
-      return opts if nillable && opts[key].nil?
-      if @custom_colors.key? opts[key].to_s
-        opts[key] = @custom_colors[opts[key].to_s]
+      opts[key].each_with_index do |color, i|
+        unless nillable && color.nil?
+          if @custom_colors.key? color.to_s
+            color = @custom_colors[color.to_s]
+          end
+          opts[key][i] = Cairo::Color.parse(color)
+        end
       end
-      opts[key] = Cairo::Color.parse(opts[key])
+      # pp "===Colorified opts==="
+      # pp opts
       opts
     end
     module_function :colorify
@@ -111,8 +137,10 @@ module Squib
     # :nodoc:
     # @api private
     def fontify (opts)
-      opts[:font] = @font if opts[:font]==:use_set
-      opts[:font] = Squib::SYSTEM_DEFAULTS[:default_font] if opts[:font] == :default
+      opts[:font].each_with_index do |font, i|
+        opts[:font][i] = @font if font==:use_set
+        opts[:font][i] = Squib::SYSTEM_DEFAULTS[:default_font] if font == :default
+      end
       opts 
     end
     module_function :fontify 
@@ -120,9 +148,11 @@ module Squib
     # :nodoc:
     # @api private
     def radiusify(opts)
-      unless opts[:radius].nil?
-        opts[:x_radius] = opts[:radius]
-        opts[:y_radius] = opts[:radius]
+      opts[:radius].each_with_index do |radius, i| 
+        unless radius.nil?
+          opts[:x_radius][i] = radius
+          opts[:y_radius][i] = radius
+        end
       end
       opts
     end
@@ -131,8 +161,10 @@ module Squib
     # :nodoc:
     # @api private
     def svgidify(opts)
-      unless opts[:id].nil?
-        opts[:id] = '#' << opts[:id] unless opts[:id].start_with? '#'
+      opts[:id].each_with_index do |id, i|
+        unless id.nil?
+          opts[:id][i] = '#' << id unless id.start_with? '#'
+        end
       end
       opts
     end

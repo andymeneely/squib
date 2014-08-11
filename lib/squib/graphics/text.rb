@@ -8,7 +8,7 @@ module Squib
     def draw_text_hint(x,y,layout, color)
       return if color.nil? && @deck.text_hint.nil? 
       color ||= @deck.text_hint
-      # when w,h < 0, it was never set. extents[0] are ink extents
+      # when w,h < 0, it was never set. extents[1] are ink extents
       w = layout.width / Pango::SCALE
       w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
@@ -18,8 +18,8 @@ module Squib
 
     # :nodoc:
     # @api private 
-    def ellipsize(layout, options)
-      unless options[:ellipsize].nil?
+    def ellipsize(layout, ellipsize)
+      unless ellipsize.nil?
         h = { :none   => Pango::Layout::ELLIPSIZE_NONE,
               :start  => Pango::Layout::ELLIPSIZE_START,
               :middle => Pango::Layout::ELLIPSIZE_MIDDLE,
@@ -27,15 +27,15 @@ module Squib
               true    => Pango::Layout::ELLIPSIZE_END,
               false   => Pango::Layout::ELLIPSIZE_NONE
             }
-        layout.ellipsize = h[options[:ellipsize]]
+        layout.ellipsize = h[ellipsize]
       end
       layout
     end
 
     # :nodoc:
     # @api private 
-    def wrap(layout, options)
-      unless options[:wrap].nil?
+    def wrap(layout, wrap)
+      unless wrap.nil?
         h = { :word  => Pango::Layout::WRAP_WORD,
               :char => Pango::Layout::WRAP_CHAR,
               :word_char    => Pango::Layout::WRAP_WORD_CHAR,
@@ -43,20 +43,20 @@ module Squib
               false => nil,
               :none => nil
             }
-        layout.wrap = h[options[:wrap]]
+        layout.wrap = h[wrap]
       end
       layout
     end
 
     # :nodoc:
     # @api private 
-    def align(layout, options)
-      unless options[:align].nil?
+    def align(layout, align)
+      unless align.nil?
           h = { :left => Pango::ALIGN_LEFT,
                 :right => Pango::ALIGN_RIGHT,
                 :center => Pango::ALIGN_CENTER
               }
-          layout.alignment = h[options[:align]]
+          layout.alignment = h[align]
       end
       layout
     end
@@ -77,33 +77,36 @@ module Squib
 
     # :nodoc:
     # @api private 
-    def setwh(layout, options)
-      layout.width = options[:width] * Pango::SCALE unless options[:width].nil? || options[:width] == :native
-      layout.height = options[:height] * Pango::SCALE unless options[:height].nil? || options[:height] == :native
+    def setwh(layout, width, height)
+      layout.width = width * Pango::SCALE unless width.nil? || width == :native
+      layout.height = height * Pango::SCALE unless height.nil? || height == :native
       layout
     end
 
     # :nodoc:
     # @api private 
-    def text(str, font, x, y, color, options)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, and options: #{options}"}
+    def text(str, font, color, 
+             x, y, width, height,
+             markup, justify, wrap, ellipsize, 
+             spacing, align, valign, hint)
+      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, etc. (TODO FILL THIS IN WITH METAPROGRAMMING)"}
       cc = cairo_context
       cc.set_source_color(color)
       cc.move_to(x,y)
       layout = cc.create_pango_layout
       layout.font_description = Pango::FontDescription.new(font)
       layout.text = str.to_s
-      layout.markup = str.to_s if options[:markup]
-      layout = setwh(layout, options)
-      layout = wrap(layout, options)
-      layout = ellipsize(layout, options)
-      layout = align(layout, options)
-      layout.justify = options[:justify] unless options[:justify].nil?
-      layout.spacing = options[:spacing] * Pango::SCALE unless options[:spacing].nil? 
+      layout.markup = str.to_s if markup
+      layout = setwh(layout, width, height)
+      layout = wrap(layout, wrap)
+      layout = ellipsize(layout, ellipsize)
+      layout = align(layout, align)
+      layout.justify = justify unless justify.nil?
+      layout.spacing = spacing * Pango::SCALE unless spacing.nil? 
       cc.update_pango_layout(layout) 
-      valign(cc, layout, x,y, options[:valign])
+      valign(cc, layout, x,y, valign)
       cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
-      draw_text_hint(x,y,layout,options[:hint])
+      draw_text_hint(x,y,layout,hint)
     end
 
   end

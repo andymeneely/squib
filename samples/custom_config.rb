@@ -2,7 +2,6 @@
 require 'squib'
 
 Squib::Deck.new(config: 'custom-config.yml') do
-
   # Custom color defined in our config
   background color: :foo 
 

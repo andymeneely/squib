@@ -30,7 +30,7 @@ module Squib
     # @api public
     def set(opts = {})
       opts = needs(opts, [:font])
-      @font = opts[:font]
+      @font = opts[:font][0] #was expanded - just need the first
     end 
 
   end

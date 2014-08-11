@@ -20,7 +20,7 @@ module Squib
       opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout])
       @progress_bar.start("Loading PNGs #{location(opts)}", opts[:range].size) do |bar|
         opts[:range].each do |i| 
-          @cards[i].png(opts[:file][i], opts[:x], opts[:y], opts[:alpha]) 
+          @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i]) 
           bar.increment
         end
       end
@@ -46,7 +46,8 @@ module Squib
       p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height, :layout])
       @progress_bar.start("Loading SVGs #{location(opts)}", p[:range].size) do |bar|
         p[:range].each do |i| 
-          @cards[i].svg(p[:file][i], p[:id], p[:x], p[:y], p[:width], p[:height]) 
+          @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
+                        p[:width][i], p[:height][i]) 
           bar.increment
         end
       end
