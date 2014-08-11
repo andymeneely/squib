@@ -1,5 +1,4 @@
 require 'squib/constants'
-require 'pp'
 
 module Squib
   # :nodoc:
@@ -128,8 +127,6 @@ module Squib
           opts[key][i] = Cairo::Color.parse(color)
         end
       end
-      # pp "===Colorified opts==="
-      # pp opts
       opts
     end
     module_function :colorify
