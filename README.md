@@ -108,7 +108,9 @@ Note: you MUST use named parameters rather than positional parameters. For examp
 
 Instead, you must name the parameters: `save format: :png`
 
-Furthermore, many inputs to Squib can accept `Arrays`, which correspond to the entire deck. In fact, under the hood, if Squib is _not_ given an array, it expands it out to an array before rendering. This allows for different styles to apply to different cards. This example comes from the [ranges.rb example](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
+## Arrays and Singleton Expansion
+
+Many inputs to Squib can accept `Arrays`, which correspond to the entire deck. In fact, under the hood, if Squib is _not_ given an array, it expands it out to an array before rendering. This allows for different styles to apply to different cards. This example comes from the [ranges.rb example](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb)
 
 ```ruby
 # This renders three cards, with three strings that had three different colors at three different locations.
@@ -117,6 +119,8 @@ text str: %w(red green blue),
      x: [40, 80, 120],
      y: [700, 750, 800]
 ```
+
+Under the hood, Squib actually views every argument as applied each card individually. If a single argument is given to the command, it's considered a singleton that gets expanded into a deck-sized array. Supplying the array bypasses that array. This means that any array you supply instead of a singleton ought to be the same size as the deck and align the same way the indexes in the supplied `range` are.
 
 ## Specifying Ranges
 

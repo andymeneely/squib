@@ -10,6 +10,8 @@ module Squib
     #   text str: 'hello'
     #   text str: 'hello', x: 50, y:50, align: center
     # 
+    # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts str [String, Array] ('')  the string to be rendered. Must support `#to_s`. If the card responds to `#each`, it's mapped out one at a time across the cards.
     # @option opts font [String] (Arial 36 or whatever was set with `set`) the Font description string, including family, styles, and size.
