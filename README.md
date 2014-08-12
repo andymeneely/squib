@@ -214,7 +214,10 @@ For me, I tend to ignore any auto-generated files in my output folder, but versi
 
 ## Decks with multiple orientations or sizes
 
-If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so your print-on-demand PNGs can still be in portrait.
+If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so your print-on-demand PNGs can still be in portrait. The following example demonstrates how to do this, found [here](https://github.com/andymeneely/squib/tree/master/samples/portrait-landscape.rb).
+
+{include:file:samples/portrait-landscape.rb}
+
 
 # Development
 
