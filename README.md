@@ -80,10 +80,21 @@ After going over this README, here are some other places to go learn Squib:
 
 ## Viewing this README
 
-If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for Yard to show the embedded examples. These can be found on RubyDoc.info:
+If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. The samples can be found on this repository, and are quite helpful. If you want to see this documentation in YARD, 
+
+Sadly, RubyDoc.info is buggy and doesn't support `{include:file...}` directive properly, so these online links will still not show the samples inline:
 
  * The [latest Gem release](http://rubydoc.info/gems/squib/)
  * The [master branch](http://rubydoc.info/github/andymeneely/squib) of this repository 
+
+To view this locally, you can do the following
+
+```sh
+$ gem install yard
+$ yard server --gems
+```
+
+Then go to [http://localhost:8808/docs/squib/file/README.md](http://localhost:8808/docs/squib/file/README.md)
 
 ## Squib API
 
@@ -181,43 +192,25 @@ See the `custom_config` sample found [here](https://github.com/andymeneely/squib
 
 {include:file:samples/custom_config.rb}
 
-# Squib Best Practices and Patterns
+## Staying DRY (Don't Repeat Yourself)
 
-I am eating my own dogfood and using Squib for prototyping my own games. From that experience, here are some pieces of advice. They are really just re-hashing of common Ruby community and good software engineering practices.
+Squib tries to keep you DRY with the following features:
 
-## Stay DRY (Don't Repeat Yourself)
-
-This is Good Advice for all software development, but in the Ruby world and with Squib, it's especially true. Do your best not to repeat yourself, making your code as concise as is readably possible.  Aside from being ugly, copied or near-copied code is much harder to maintain because you're essentially duplicating your bugs every time you copy. If you find yourself copying and making small adaptations, there's probably a much more condensed and elegant way to do it. 
-
-Squib tries to keep you dry with the following features:
-
-* Custom layouts allow you to specify your data in a separate file. The `extends` takes this a step further and lets you specify base styles that can then be extended by other styles.
+* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. The `extends` takes this a step further and lets you specify base styles that can then be extended by other styles.
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
+* Custom colors keep you from hardcoding magic color strings everywhere. Custom colors are entered into the `config.yml` file.
 
-## Prefer data-driven over `if`
+## Source control
 
-If-statements are great, except when they aren't. Squib works by executing commands on subsets of the deck, which means that those subsets can be data-driven. Make use of Ruby's rich methods on Array, such as `select`, `inject`, and other set theory commands.
+You are using source control, right?? 
 
-This rule is also similar to "Convention over Configuration" principle that is prevalent in Ruby. Set up those hashes and arrays with logical names, and use those logical names to connect everything together. For example, if you have an "attack" icon you want to place, then in your SVG file give it an id of "attack" and your Excel file with "attack". Keeping the naming consistent makes things readable and connects them together without if-statements or glue code.
-
-## Don't hardcode magic numbers
-
-You might be tempted to hardcode card numbers into your `range` fields. While this might work momentarily to get things working, I highly recommend setting up an `id` hash that maps a card's name to it's number. This makes your code both more readable and future-proof for when you add or remove cards. An example can be found [here](https://github.com/andymeneely/squib/tree/master/samples/ranges.rb).
-
-## Use source control
-
-You are using source control, right??
-
-By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control.
-
-For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files don't usually get checked in unless absolutely necessary.
+By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control. For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files don't usually get checked in unless absolutely necessary. For big binaries with graphics I tend to keep those
 
 ## Decks with multiple orientations or sizes
 
-If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so your print-on-demand PNGs can still be in portrait. The following example demonstrates how to do this, found [here](https://github.com/andymeneely/squib/tree/master/samples/portrait-landscape.rb).
+If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so you can render your print-on-demand PNGs in portrait but keep everything ekse oriented toward landscape. The following example demonstrates how to do this, found [here](https://github.com/andymeneely/squib/tree/master/samples/portrait-landscape.rb).
 
 {include:file:samples/portrait-landscape.rb}
-
 
 # Development
 
@@ -232,3 +225,11 @@ Squib is an open source tool, and I would love participation. If you want your c
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+# What's up the with the name?
+
+Truthfully, I just thought it was a cool, simple word that was not used much in the Ruby community nor the board game community. But, now that I've committed to the name, I've realized that:
+
+* Squibs are small explosive devices, much like Squib "explodes" your rules into a playable game
+* Squibs are often used in heist movies, leading to a sudden plot twist that often resembles the twists of good tabletop game
+* Squibs are also part of the Harry Potter world - they are people who are non-magical but wizard-born. Squib is aware of wizarding magic and comes from that heritage, but it's not magical itself. 
