@@ -19,9 +19,11 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   # relative to the SVG page. See this example in an SVG editor
   svg file: 'offset.svg', id: 'thing',  x: 0, y: 0, width: 600, height: 600
 
-  # Over 15 different blending operators are supported. See http://cairographics.org/operators
+  # Over 15 different blending operators are supported. 
+  # See http://cairographics.org/operators
+  # Alpha transparency too
   png file: 'ball.png', x: 50, y: 700
-  png file: 'grit.png', x: 70, y: 750, blend: :color_burn
+  png file: 'grit.png', x: 70, y: 750, blend: :color_burn, alpha: 0.75
 
   save prefix: 'load_images_', format: :png
 end
