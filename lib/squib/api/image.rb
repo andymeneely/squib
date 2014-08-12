@@ -14,13 +14,14 @@ module Squib
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Arrays, see {file:README#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
-      opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout])
+      opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout, :blend])
       @progress_bar.start("Loading PNG(s)", opts[:range].size) do |bar|
         opts[:range].each do |i| 
-          @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i]) 
+          @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i], opts[:blend][i]) 
           bar.increment
         end
       end
@@ -40,14 +41,16 @@ module Squib
     # @option opts width [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts height [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height, :layout])
+      p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height, :layout, :alpha, :blend])
       @progress_bar.start("Loading SVG(s)", p[:range].size) do |bar|
         p[:range].each do |i| 
           @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
-                        p[:width][i], p[:height][i]) 
+                        p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i]) 
           bar.increment
         end
       end

@@ -89,24 +89,25 @@ module Squib
              x, y, width, height,
              markup, justify, wrap, ellipsize, 
              spacing, align, valign, hint)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, etc. (TODO FILL THIS IN WITH METAPROGRAMMING)"}
-      cc = cairo_context
-      cc.set_source_color(color)
-      cc.move_to(x,y)
-      layout = cc.create_pango_layout
-      layout.font_description = Pango::FontDescription.new(font)
-      layout.text = str.to_s
-      layout.markup = str.to_s if markup
-      layout = setwh(layout, width, height)
-      layout = wrap(layout, wrap)
-      layout = ellipsize(layout, ellipsize)
-      layout = align(layout, align)
-      layout.justify = justify unless justify.nil?
-      layout.spacing = spacing * Pango::SCALE unless spacing.nil? 
-      cc.update_pango_layout(layout) 
-      valign(cc, layout, x,y, valign)
-      cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
-      draw_text_hint(x,y,layout,hint)
+      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, etc."}
+      use_cairo do |cc|
+        cc.set_source_color(color)
+        cc.move_to(x,y)
+        layout = cc.create_pango_layout
+        layout.font_description = Pango::FontDescription.new(font)
+        layout.text = str.to_s
+        layout.markup = str.to_s if markup
+        layout = setwh(layout, width, height)
+        layout = wrap(layout, wrap)
+        layout = ellipsize(layout, ellipsize)
+        layout = align(layout, align)
+        layout.justify = justify unless justify.nil?
+        layout.spacing = spacing * Pango::SCALE unless spacing.nil? 
+        cc.update_pango_layout(layout) 
+        valign(cc, layout, x,y, valign)
+        cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
+        draw_text_hint(x,y,layout,hint)
+      end
     end
 
   end

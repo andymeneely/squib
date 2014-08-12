@@ -5,6 +5,7 @@ module Squib
     SYSTEM_DEFAULTS = { 
       :align => :left,
       :alpha => 1.0,
+      :blend => :none,
       :color => :black,
       :default_font => 'Arial 36',
       :dir => "_output",
@@ -64,6 +65,7 @@ module Squib
     EXPANDING_PARAMS = {
           :align => :align,
           :alpha => :alpha,
+          :blend => :blend,
           :circle_radius => :radius,
           :color => :color,
           :ellipsize => :ellipsize,
