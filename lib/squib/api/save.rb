@@ -30,7 +30,7 @@ module Squib
     # @api public
     def save_png(opts = {})
       opts = needs(opts,[:range, :creatable_dir, :prefix, :rotate])
-      @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*") do |bar|
+      @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*", @cards.size) do |bar|
         opts[:range].each do |i| 
           @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:rotate])
           bar.increment
