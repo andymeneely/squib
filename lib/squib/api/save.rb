@@ -7,10 +7,11 @@ module Squib
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [Symbol] format (:png)  the format that this will be rendered too. Options `:pdf, :png`. Array of both is allowed: `[:pdf, :png]`
     # @option opts [String] prefix (card_) the prefix of the file name to be printed
+    # @option opts [Boolean] rotate (false) PNG saving only. If true, the saved cards will be rotated 90 degrees clockwise. Intended to rendering landscape instead of portrait.
     # @return self
     # @api public
     def save(opts = {})
-      opts = needs(opts, [:range, :creatable_dir, :formats, :prefix])
+      opts = needs(opts, [:range, :creatable_dir, :formats, :prefix, :rotate])
       save_png(opts) if opts[:format].include? :png
       save_pdf(opts) if opts[:format].include? :pdf
       self
@@ -24,13 +25,14 @@ module Squib
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
+    # @option opts [Boolean] rotate (false) if true, the saved cards will be rotated 90 degrees clockwise. Intended to rendering landscape instead of portrait.
     # @return [nil] Returns nothing
     # @api public
     def save_png(opts = {})
-      opts = needs(opts,[:range, :creatable_dir, :prefix])
+      opts = needs(opts,[:range, :creatable_dir, :prefix, :rotate])
       @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*") do |bar|
         opts[:range].each do |i| 
-          @cards[i].save_png(i, opts[:dir], opts[:prefix])
+          @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:rotate])
           bar.increment
         end
       end
@@ -38,3 +40,4 @@ module Squib
 
   end
 end
+

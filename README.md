@@ -181,7 +181,7 @@ See the `custom_config` sample found [here](https://github.com/andymeneely/squib
 
 {include:file:samples/custom_config.rb}
 
-# Squib Principles and Patterns
+# Squib Best Practices and Patterns
 
 I am eating my own dogfood and using Squib for prototyping my own games. From that experience, here are some pieces of advice. They are really just re-hashing of common Ruby community and good software engineering practices.
 
@@ -211,6 +211,10 @@ You are using source control, right??
 By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control.
 
 For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files don't usually get checked in unless absolutely necessary.
+
+## Decks with multiple orientations or sizes
+
+If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so your print-on-demand PNGs can still be in portrait.
 
 # Development
 

@@ -20,6 +20,7 @@ module Squib
       :prefix => "card_",
       :progress_bar => false,
       :range => :all,
+      :rotate => false,
       :sheet => 0,
       :spacing => 0,
       :str => '',
