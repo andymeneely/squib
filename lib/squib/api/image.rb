@@ -36,6 +36,7 @@ module Squib
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts file [String] ('') file(s) to read in. If it's a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done. See {file:README.md#Specifying_Files Specifying Files}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts id [String] (nil) if set, then only render the SVG element with the given id. Prefix '#' is optional. Note: the x-y coordinates are still relative to the SVG document's page. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts force_id [Boolean] (false) if set, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts width [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
@@ -46,11 +47,13 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgid, :x, :y, :width, :height, :layout, :alpha, :blend])
+      p = needs(opts,[:range, :files, :svgid, :force_svgid, :x, :y, :width, :height, :layout, :alpha, :blend])
       @progress_bar.start("Loading SVG(s)", p[:range].size) do |bar|
-        p[:range].each do |i| 
-          @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
-                        p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i]) 
+        p[:range].each do |i|
+          unless p[:force_id][i] && p[:id][i].to_s.empty?
+            @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
+                          p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i]) 
+          end
           bar.increment
         end
       end
