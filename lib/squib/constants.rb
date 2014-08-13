@@ -16,6 +16,7 @@ module Squib
       :format => :png,
       :gap => 0,
       :height => :native,
+      :hint => :off,
       :justify => false,
       :margin => 75,
       :markup => false,
@@ -50,7 +51,7 @@ module Squib
     CONFIG_DEFAULTS = { 
       'custom_colors' => {},
       'dpi' => 300,
-      'hint' => nil,
+      'hint' => :none,
       'progress_bar' => false,
     }
 

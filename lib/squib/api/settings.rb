@@ -9,12 +9,11 @@ module Squib
     #   hint text: :cyan
     #   hint text: :cyan, progress_bar: true
     #
-    # @param [String] text the color of the text hint. To turn off use nil or :off. @see README.md 
+    # @param [String] text the color of the text hint. To turn off use :off. @see README.md 
     # @param [Boolean] progress_bar enable progress bars on long-running operations
     # @return [nil] Returns nothing
     # @api public
-    def hint(text: nil)
-      text = nil if text == :off
+    def hint(text: :off)
       @text_hint = text
     end
 

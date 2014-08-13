@@ -18,29 +18,46 @@ describe Squib::InputHelpers do
 
   before(:each) do
     @deck = DummyDeck.new
-    @deck.layout = {'blah' => {x: 25}}
+    @deck.layout = {
+      'blah' => {x: 25}, 
+      'apples' => {x: 35},
+      'oranges' => {y: 45},
+    }
     @deck.cards = %w(a b)
     @deck.custom_colors = {}
   end
 
   context '#layoutify' do
-    it "should warn on the logger when the layout doesn't exist" do
+    it "warns on the logger when the layout doesn't exist" do
       @old_logger = Squib.logger
       Squib.logger = instance_double(Logger)
       expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
+      expect(Squib.logger).to receive(:debug)
       expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]}) 
       Squib.logger = @old_logger
     end
 
-    it "should apply the layout in a normal situation" do
+    it "applies the layout in a normal situation" do
       expect(@deck.send(:layoutify, {layout: :blah})).to \
-        eq({layout: [:blah, :blah], x: 25}) 
+        eq({layout: [:blah, :blah], x: [25, 25]}) 
     end
 
-    it "also look up based on strings" do
-      expect(@deck.send(:layoutify, {layout: 'blah'})).to \
-        eq({layout: ['blah','blah'], x: 25}) 
+    it "applies two different layouts for two different situations" do
+      expect(@deck.send(:layoutify, {layout: ['blah', 'apples']})).to \
+        eq({layout: ['blah','apples'], x: [25, 35]}) 
     end
+
+    it "still has nils when not applied two different layouts differ in structure" do
+      expect(@deck.send(:layoutify, {layout: ['apples', 'oranges']})).to \
+        eq({layout: ['apples','oranges'], x: [35], y: [nil, 45]}) 
+      #...this might behavior that is hard to debug for users. Trying to come up with a warning or something...
+    end
+
+    it "also looks up based on strings" do
+      expect(@deck.send(:layoutify, {layout: 'blah'})).to \
+        eq({layout: ['blah','blah'], x: [25, 25]}) 
+    end
+
   end
 
   context '#rangeify' do

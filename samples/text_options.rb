@@ -39,7 +39,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: "Text hints are also globally togglable!",
         x: 65, y: 625,
         font: 'Arial 22'
-  hint text: nil
+  hint text: :off
   text str: "See? No hint here.",
         x: 565, y: 625,
         font: 'Arial 22'

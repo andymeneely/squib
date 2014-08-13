@@ -8,11 +8,10 @@ module Squib
     # :nodoc:
     # @api private
     def needs(opts, params)
-      Squib.logger.debug {"Pre input-helper opts: #{opts}"}
+      Squib.logger.debug {"Given opts: #{opts}"}
       opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = expand_singletons(opts, params)
-      Squib.logger.debug {"Post expand opts: #{opts}"}
       opts = rangeify(opts) if params.include? :range      
       opts = fileify(opts) if params.include? :file
       opts = fileify(opts, false) if params.include? :file_to_save
@@ -40,6 +39,7 @@ module Squib
           end
         end
       end
+      Squib.logger.debug {"After expand_singletons: #{opts}"}
       opts
     end
     module_function :expand_singletons
@@ -56,13 +56,15 @@ module Squib
           entry = @layout[layout.to_s]
           unless entry.nil?
             entry.each do |key, value|
-              opts[key.to_sym] ||= entry[key]
+              opts[key.to_sym] = [] if opts[key.to_sym].nil?
+              opts[key.to_sym][i] ||= entry[key] #don't override if it's already there
             end
           else 
             Squib.logger.warn ("Layout entry '#{layout}' does not exist." )
           end
         end
       end
+      Squib.logger.debug {"After layoutify: #{opts}"}
       opts
     end
     module_function :layoutify
@@ -86,6 +88,7 @@ module Squib
         raise ArgumentError.new("#{range} is outside of deck range of 0..#{@cards.size-1}")
       end
       opts[:range] = range
+      Squib.logger.debug {"After rangeify: #{opts}"}
       opts
     end
     module_function :rangeify
@@ -127,6 +130,7 @@ module Squib
           opts[key][i] = Cairo::Color.parse(color)
         end
       end
+      Squib.logger.debug {"After colorify: #{opts}"}
       opts
     end
     module_function :colorify
@@ -138,6 +142,7 @@ module Squib
         opts[:font][i] = @font if font==:use_set
         opts[:font][i] = Squib::SYSTEM_DEFAULTS[:default_font] if font == :default
       end
+      Squib.logger.debug {"After fontify: #{opts}"}
       opts 
     end
     module_function :fontify 
@@ -151,6 +156,7 @@ module Squib
           opts[:y_radius][i] = radius
         end
       end
+      Squib.logger.debug {"After radiusify: #{opts}"}
       opts
     end
     module_function :radiusify
@@ -163,6 +169,7 @@ module Squib
           opts[:id][i] = '#' << id unless id.start_with? '#'
         end
       end
+      Squib.logger.debug {"After svgidify: #{opts}"}
       opts
     end
     module_function :svgidify

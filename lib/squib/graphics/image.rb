@@ -27,6 +27,7 @@ module Squib
     # :nodoc:
     # @api private 
     def svg(file, id, x, y, width, height, alpha, blend)
+      Squib.logger.debug {"Rendering: #{file}, #{id} #{x}, #{y}, #{width}, #{height}, #{alpha}, #{blend}"}
       return if file.nil? or file.eql? ''
       svg = RSVG::Handle.new_from_file(file)
       width = svg.width if width == :native
