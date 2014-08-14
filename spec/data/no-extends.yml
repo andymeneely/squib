@@ -1,0 +1,5 @@
+frame: 
+  x: 38
+  valign: !ruby/symbol middle  
+  str: "blah"
+  font: Mr. Font

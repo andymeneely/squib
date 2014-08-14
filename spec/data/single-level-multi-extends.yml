@@ -1,0 +1,12 @@
+frame: 
+  x: 38
+  y: 38
+title:
+  extends: frame
+  y: 50
+  width: 100
+title2:
+  extends: frame
+  x: 75
+  y: 150
+  width: 150

@@ -29,6 +29,10 @@ module Squib
     # @api private 
     attr_reader :text_hint
 
+    # :nodoc:
+    # @api private 
+    attr_reader :layout, :config
+
     # Squib's constructor that sets the immutable properties.
     #
     # This is the starting point for Squib. In providing a block to the constructor, you have access to all of Deck's instance methods. 

@@ -45,5 +45,81 @@ describe Squib::Deck do
     end
   end
 
-end#describe
+  context "#load_layout" do
 
+    it "loads a normal layout with no extends" do
+      d = Squib::Deck.new(layout: test_file('no-extends.yml')) 
+      expect(d.layout).to \
+        eq({'frame' => {
+              'x' => 38, 
+              'valign' => :middle,
+              'str' => "blah",
+              'font' => "Mr. Font",
+              }
+            }
+          )
+    end
+
+    it "loads with a single extends" do
+      d = Squib::Deck.new(layout: test_file('single-extends.yml')) 
+      expect(d.layout).to \
+        eq({'frame' => {
+              'x' => 38, 
+              'y' => 38, 
+              },
+            'title' => {
+              'extends' => 'frame',
+              'x' => 38, 
+              'y' => 50, 
+              'width' => 100,
+              }
+            }
+          )
+    end
+
+    it "applies the extends regardless of order" do
+      d = Squib::Deck.new(layout: test_file('pre-extends.yml')) 
+      expect(d.layout).to \
+        eq({'frame' => {
+              'x' => 38, 
+              'y' => 38, 
+              },
+            'title' => {
+              'extends' => 'frame',
+              'x' => 38, 
+              'y' => 50, 
+              'width' => 100,
+              }
+            }
+          )
+    end
+
+    it "applies the single-level extends multiple timess" do
+      d = Squib::Deck.new(layout: test_file('single-level-multi-extends.yml')) 
+      expect(d.layout).to \
+        eq({'frame' => {
+              'x' => 38, 
+              'y' => 38, 
+              },
+            'title' => {
+              'extends' => 'frame',
+              'x' => 38, 
+              'y' => 50, 
+              'width' => 100,
+              },
+            'title2' => {
+              'extends' => 'frame',
+              'x' => 75, 
+              'y' => 150, 
+              'width' => 150,
+              },
+            }
+          )
+    end
+
+    
+
+
+  end
+
+end

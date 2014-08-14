@@ -1,0 +1,10 @@
+frame: 
+  x: 38
+  y: 38
+title:
+  extends: frame
+  y: 50
+  width: 100
+subtitle:
+  extends: subtitle
+  y: 150
