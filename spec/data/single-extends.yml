@@ -1,7 +1,7 @@
-frame: 
+frame: &frame
   x: 38
   y: 38
 title:
-  extends: frame
+  <<: *frame
   y: 50
   width: 100

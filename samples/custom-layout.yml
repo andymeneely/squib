@@ -18,17 +18,22 @@ subtitle:
   height: 60
   align: !ruby/symbol center
   valign: !ruby/symbol middle
-icon:
+
+# Yaml has this beautfiul feature for us: merge keys
+# http://www.yaml.org/YAML_for_ruby.html#merge_key
+# Define an alias with &foo, then use <<: *foo to include it
+# Everything gets merged, with later merges overriding 
+icon: &icon
   width: 125
   height: 125
   y: 250
 icon_left:
-  extends: icon
+  <<: *icon 
   x: 150
 icon_middle:
-  extends: icon
+  <<: *icon
   x: 350
   y: 400  #overrides the y inherited from icon
 icon_right:
-  extends: icon
+  <<: *icon
   x: 550

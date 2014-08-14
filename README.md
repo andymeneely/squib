@@ -163,7 +163,7 @@ Working with x-y coordinates all the time can be tiresome, and ideally everythin
 
 To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options. 
 
-Note: YAML is very finnicky about having tabs in the file. Use two spaces for indentation instead.
+Note: YAML is very finnicky about having not allowing tabs. Use two spaces for indentation instead. If you get a `Psych` syntax error, this is likely the culprit. Indendation is also strongly enforced in Yaml too. See the [Yaml docs](http://www.yaml.org/YAML_for_ruby.html).
 
 Layouts will override Squib's defaults, but are overriden by anything specified in the command itself. Thus, the order of precedence looks like this:
 
@@ -171,7 +171,17 @@ Layouts will override Squib's defaults, but are overriden by anything specified 
 * If anything was not yet specified, use what was given in a layout (if a layout was specified in the command and the file was given to the Deck)
 * If still anything was not yet specified, use what was given in Squib's defaults.
 
-Layouts also allow for a special `extends` field that will copy all of the settings from another entry. Only a single level of extends are supported currently (contact the developer if you want multiple levels). 
+Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
+
+```sh
+icon: &icon
+  width: 50
+  height: 50
+icon_left
+  <<: *icon
+  x: 100
+# The layout for icon_left will have the width/height from icon!
+```
 
 See the `use_layout` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
 
@@ -196,7 +206,7 @@ See the `custom_config` sample found [here](https://github.com/andymeneely/squib
 
 Squib tries to keep you DRY with the following features:
 
-* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. The `extends` takes this a step further and lets you specify base styles that can then be extended by other styles.
+* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Yaml's "merge keys" takes this a step further and lets you specify base styles that can then be extended by other styles.
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
 * Custom colors keep you from hardcoding magic color strings everywhere. Custom colors are entered into the `config.yml` file.
 

@@ -1,6 +1,0 @@
-a: 
-  extends: b
-  x: 50
-b:
-  extends: a
-  x: 150
