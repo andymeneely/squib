@@ -6,5 +6,5 @@ title:
   y: 50
   width: 100
 subtitle:
-  extends: subtitle
+  extends: title
   y: 150

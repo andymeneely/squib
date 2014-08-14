@@ -1,5 +1,6 @@
 require 'yaml'
 require 'pp'
+require 'squib'
 require 'squib/card'
 require 'squib/progress'
 require 'squib/input_helpers'
@@ -101,14 +102,37 @@ module Squib
     # @api private
     def load_layout(file)
       return if file.nil?
-      prelayout = YAML.load_file(file)
       @layout = {}
-      prelayout.each do |key, value|
-        if value.key? "extends"
-          @layout[key] = prelayout[value["extends"]].merge prelayout[key]
-        else 
-          @layout[key] = value
-        end
+      yml = YAML.load_file(file)
+      yml.each do |key, value|
+        @layout[key] = recurse_extends(yml, key, {})
+      end
+    end
+
+    # Process the extends
+    # :nodoc:
+    # @api private
+    def recurse_extends(yml, key, visited )
+      assert_not_visited(key, visited)
+      return yml[key] unless has_extends?(yml, key)
+      visited[key] = key
+      parent_key = yml[key]['extends']
+      return yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
+        child_val #child overrides parent when merging 
+      end
+    end
+
+    # Does this layout entry have an extends field?
+    # i.e. is it a base-case or will it need recursion?
+    # :nodoc:
+    # @api private
+    def has_extends?(yml, key)
+      yml[key].key?('extends')
+    end
+
+    def assert_not_visited(key, visited)
+      if visited.key? key
+        raise "Invalid layout: circular extends with '#{key}'"
       end
     end
 
