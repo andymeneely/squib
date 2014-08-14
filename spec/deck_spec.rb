@@ -117,28 +117,30 @@ describe Squib::Deck do
           )
     end
 
-    # it "applies multiple extends in a single rule" do
-    #   d = Squib::Deck.new(layout: test_file('multi-extends-single-entry.yml')) 
-    #   expect(d.layout).to \
-    #     eq({'base' => {
-    #           'x' => 38, 
-    #           'y' => 38, 
-    #           },
-    #         'frame' => {
-    #           'extends' => 'frame',
-    #           'x' => 38, 
-    #           'y' => 50, 
-    #           'width' => 100,
-    #           },
-    #         'title' => {
-    #           'extends' => 'frame',
-    #           'x' => 75, 
-    #           'y' => 150, 
-    #           'width' => 150,
-    #           },
-    #         }
-    #       )
-    # end
+    it "applies multiple extends in a single rule" do
+      d = Squib::Deck.new(layout: test_file('multi-extends-single-entry.yml')) 
+      expect(d.layout).to \
+        eq({'aunt' => {
+              'a' => 101, 
+              'b' => 102, 
+              'c' => 103, 
+              },
+            'uncle' => {
+              'x' => 104, 
+              'y' => 105, 
+              'b' => 106, 
+              },
+            'child' => {
+              'extends' => ['uncle','aunt'],
+              'a' => 107, # my own
+              'b' => 102, # from the younger aunt
+              'c' => 103, # from aunt
+              'x' => 108, # my own
+              'y' => 105, # from uncle
+              },
+            }
+          )
+    end
 
     it "applies multi-level extends" do
       d = Squib::Deck.new(layout: test_file('multi-level-extends.yml')) 

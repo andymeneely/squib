@@ -1,14 +1,14 @@
-base: 
+aunt: 
   a: 101
   b: 102
   c: 103
-frame: 
+uncle: 
   x: 104
   y: 105
   b: 106
-title:
+child:
   extends: 
-    - base
-    - frame
+    - uncle
+    - aunt
   a: 107
   x: 108

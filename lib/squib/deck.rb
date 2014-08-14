@@ -109,17 +109,24 @@ module Squib
       end
     end
 
-    # Process the extends
+    # Process the extends recursively
     # :nodoc:
     # @api private
     def recurse_extends(yml, key, visited )
       assert_not_visited(key, visited)
       return yml[key] unless has_extends?(yml, key)
       visited[key] = key
-      parent_key = yml[key]['extends']
-      return yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
-        child_val #child overrides parent when merging 
+      parent_keys = [yml[key]['extends']].flatten
+      h = {}
+      parent_keys.each do |parent_key|
+        from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
+          child_val #child overrides parent when merging 
+        end 
+        h = h.merge(from_extends) do |key, older_sibling, younger_sibling|
+          younger_sibling #when two siblings have the same entry, the "younger" (lower one) overrides
+        end
       end
+      return h
     end
 
     # Does this layout entry have an extends field?
@@ -130,6 +137,9 @@ module Squib
       yml[key].key?('extends')
     end
 
+    # Safeguard against malformed circular extends
+    # :nodoc:
+    # @api private
     def assert_not_visited(key, visited)
       if visited.key? key
         raise "Invalid layout: circular extends with '#{key}'"
