@@ -59,6 +59,7 @@ module Squib
       @font = Squib::SYSTEM_DEFAULTS[:default_font]
       @cards = []
       @custom_colors = {}
+      @img_dir = '.'
       @progress_bar = Squib::Progress.new(false)
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       load_config(config)
