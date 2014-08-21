@@ -17,7 +17,7 @@ module Squib
       @text_hint = text
     end
 
-    # Sets various defaults for this deck. Defaults can be overriden by the commands themselves
+    # Sets various defaults for this deck. Defaults can be overriden by the commands themselves when that command supports it.
     # @example 
     #   set font: 'Arial 26'
     #   text 'blah'                     # in Arial 26
@@ -25,11 +25,13 @@ module Squib
     #   set font: :default              # Back to Squib-wide default
     #
     # @option opts font: the font string to set as default. Can also be set to `:default` to use the Squib-wide default.
+    # @option opts img_dir: the default directory to READ images from. Default is `.`. Useful for switching from bw to color images.
     # @return [nil] Returns nothing
     # @api public
     def set(opts = {})
-      opts = needs(opts, [:font])
+      opts = needs(opts, [:font, :img_dir])
       @font = opts[:font][0] #was expanded - just need the first
+      @img_dir = opts[:img_dir]
     end 
 
   end

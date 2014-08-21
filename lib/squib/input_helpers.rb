@@ -16,7 +16,8 @@ module Squib
       opts = fileify(opts) if params.include? :file
       opts = fileify(opts, false) if params.include? :file_to_save
       opts = colorify(opts, true) if params.include? :nillable_color
-      opts = dirify(opts, true) if params.include? :creatable_dir
+      opts = dirify(opts, :dir, true) if params.include? :creatable_dir
+      opts = dirify(opts, :img_dir, false) if params.include? :img_dir
       opts = fileify(opts, false) if params.include? :files
       opts = colorify(opts) if params.include? :color
       opts = colorify(opts, false, :fill_color) if params.include? :fill_color
@@ -107,14 +108,14 @@ module Squib
 
     # :nodoc:
     # @api private
-    def dirify(opts, allow_create=false)
-      return opts if Dir.exists?(opts[:dir])
+    def dirify(opts, key, allow_create=false)
+      return opts if Dir.exists?(opts[key])
       if allow_create
-        Squib.logger.warn {"Dir #{opts[:dir]} does not exist, creating it."}
-        Dir.mkdir opts[:dir]
+        Squib.logger.warn {"Dir #{opts[key]} does not exist, creating it."}
+        Dir.mkdir opts[key]
         return opts 
       else
-        raise "'#{opts[:dir]}' does not exist!"
+        raise "'#{opts[key]}' does not exist!"
       end
     end
     module_function :dirify

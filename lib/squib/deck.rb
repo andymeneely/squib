@@ -96,6 +96,7 @@ module Squib
         @text_hint = config['text_hint']
         @progress_bar.enabled = config['progress_bars']
         @custom_colors = config['custom_colors']
+        @img_dir = config['img_dir']
       end
     end
 

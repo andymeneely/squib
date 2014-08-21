@@ -3,3 +3,4 @@ progress_bars: true
 text_hint: '#FF0000'
 custom_colors:
   foo: '#ccc'
+img_dir: customconfig-imgdir

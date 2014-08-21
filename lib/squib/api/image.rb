@@ -19,10 +19,12 @@ module Squib
     # @api public
     def png(opts = {})
       opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout, :blend])
-      @progress_bar.start("Loading PNG(s)", opts[:range].size) do |bar|
-        opts[:range].each do |i| 
-          @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i], opts[:blend][i]) 
-          bar.increment
+      Dir.chdir(@img_dir) do
+        @progress_bar.start("Loading PNG(s)", opts[:range].size) do |bar|
+          opts[:range].each do |i| 
+            @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i], opts[:blend][i]) 
+            bar.increment
+          end
         end
       end
     end
@@ -48,13 +50,15 @@ module Squib
     # @api public
     def svg(opts = {})
       p = needs(opts,[:range, :files, :svgid, :force_svgid, :x, :y, :width, :height, :layout, :alpha, :blend])
-      @progress_bar.start("Loading SVG(s)", p[:range].size) do |bar|
-        p[:range].each do |i|
-          unless p[:force_id][i] && p[:id][i].to_s.empty?
-            @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
-                          p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i]) 
+      Dir.chdir(@img_dir) do
+        @progress_bar.start("Loading SVG(s)", p[:range].size) do |bar|
+          p[:range].each do |i|
+            unless p[:force_id][i] && p[:id][i].to_s.empty?
+              @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
+                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i]) 
+            end
+            bar.increment
           end
-          bar.increment
         end
       end
     end

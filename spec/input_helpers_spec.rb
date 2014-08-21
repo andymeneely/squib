@@ -85,7 +85,7 @@ describe Squib::InputHelpers do
 
   context "#dir" do
     it "should raise an error if the directory does not exist" do
-      expect{@deck.send(:dirify, {dir: 'nonexist'}, false)}.to \
+      expect{@deck.send(:dirify, {dir: 'nonexist'}, :dir, false)}.to \
         raise_error(RuntimeError,"'nonexist' does not exist!")
     end
   end

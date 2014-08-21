@@ -17,6 +17,7 @@ module Squib
       :gap => 0,
       :height => :native,
       :hint => :off,
+      :img_dir => '.',
       :justify => false,
       :margin => 75,
       :markup => false,
@@ -53,6 +54,7 @@ module Squib
       'dpi' => 300,
       'hint' => :none,
       'progress_bar' => false,
+      'img_dir' => '.',
     }
 
     # These are parameters that are intended to be "expanded" across 

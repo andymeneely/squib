@@ -14,3 +14,7 @@
 #Enable some custom colors that can be used in any color
 #custom_colors:
 #  foo: '#abc'
+
+#For reading image file command (e.g. png and svg), read from this directory instead
+#img_dir: img-color
+#img_dir: img-bw
