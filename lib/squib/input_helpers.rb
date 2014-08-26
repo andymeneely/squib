@@ -26,6 +26,7 @@ module Squib
       opts = radiusify(opts) if params.include? :rect_radius
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
+      opts = rotateify(opts) if params.include? :rotate
       opts
     end
     module_function :needs
@@ -171,6 +172,20 @@ module Squib
         end
       end
       Squib.logger.debug {"After svgidify: #{opts}"}
+      opts
+    end
+    module_function :svgidify
+
+    # :nodoc:
+    # @api private
+    def rotateify(opts)
+      case opts[:rotate]
+      when true, :clockwise
+        opts[:angle] = 0.5 * Math::PI
+      when :counterclockwise
+        opts[:angle] = 1.5 * Math::PI
+      end
+      Squib.logger.debug {"After rotateify: #{opts}"}
       opts
     end
     module_function :svgidify

@@ -25,14 +25,14 @@ module Squib
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
-    # @option opts [Boolean] rotate (false) if true, the saved cards will be rotated 90 degrees clockwise. Intended to rendering landscape instead of portrait.
+    # @option opts [Boolean, :clockwise, :counterclockwise] rotate (false) if true, the saved cards will be rotated 90 degrees clockwise. Or, rotate by the number of radians. Intended to rendering landscape instead of portrait.
     # @return [nil] Returns nothing
     # @api public
     def save_png(opts = {})
       opts = needs(opts,[:range, :creatable_dir, :prefix, :rotate])
       @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*", @cards.size) do |bar|
         opts[:range].each do |i| 
-          @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:rotate])
+          @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:rotate], opts[:angle])
           bar.increment
         end
       end
