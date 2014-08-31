@@ -76,7 +76,7 @@ After going over this README, here are some other places to go learn Squib:
 
 * The YARD-generated API documentation [for the latest Squib gem](http://rubydoc.info/gems/squib/) is a method-by-method reference. The `Deck` class is the main class to look at. If you are following Squib master, see [the latest version](http://rubydoc.info/github/andymeneely/squib)
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples. To run them, you will need to clone the repository and run them with Squib installed. 
-* Junk Land (link TBD) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
+* [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
 
 ## Viewing this README
 
