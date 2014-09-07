@@ -29,9 +29,10 @@ module Squib
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @option opts wrap [:none, :word, :char, :word_char, true, false] (:word_char) When height is set, determines the behavior of how the string wraps. The `:word_char` option will break at words, but then fall back to characters when the word cannot fit.    #   
     #   Options are `:none, :word, :char, :word_char`. Also: `true` is the same as `:word_char`, `false` is the same as `:none`. Default `:word_char`
+    # @option opts spacing [Integer] (0) Adjust the spacing when the text is multiple lines. No effect when the text does not wrap.
     # @option opts align [:left, right, :center] (:left) The alignment of the text
     # @option opts justify [Boolean] (false) toggles whether or not the text is justified or not. 
-    # @option opts valign [:top, :middle, :bottom] (:top) When width and height are set, align text vertically according to the logical extents of the text.
+    # @option opts valign [:top, :middle, :bottom] (:top) When width and height are set, align text vertically according to the ink extents of the text.
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}). 
     # @return [nil] Returns nothing
