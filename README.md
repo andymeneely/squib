@@ -22,7 +22,7 @@ Squib::Deck.new do
 end
 ```
 
-That script just created a deck of with 1 image at 825x1125 with the string "Hello, World" in the upper-left corner.
+We just created a deck with 1 card, 825x1125 pixels, with the string "Hello, World" in the upper-left corner, saved to a PNG.
 
 ## Installation
 
