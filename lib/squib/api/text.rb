@@ -19,6 +19,7 @@ module Squib
     #   For the official documentation, see the [Pango docs](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style). 
     #   This [description](http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html) is also quite good.
     #   See the {file:samples/text-options.rb samples/text.rb} as well.
+    # @option opts font_size [Integer] (nil) an override of font string description, for scaling the font according to the size of the string
     # @option opts x [Integer] (0) the x-coordinate to place
     # @option opts y [Integer] (0) the y-coordinate to place
     # @option opts color [String] (:black) the color the font will render to. See {file:README.md#Specifying_Colors Specifying Colors}
