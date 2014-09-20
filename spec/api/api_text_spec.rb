@@ -7,7 +7,7 @@ describe Squib::Deck, '#text' do
      it "should use the default font when #text and #set_font don't specify" do
       card = instance_double(Squib::Card)
       expect(card).to receive(:text).with('a', 'Arial 36', 
-                                    anything, anything, anything, anything,anything, anything, anything, anything,anything, anything, anything, anything, anything
+                                    anything, anything, anything,anything,anything,anything, anything, anything, anything,anything, anything, anything, anything, anything
                                     ).once
       Squib::Deck.new do  
         @cards = [card] 
@@ -18,7 +18,7 @@ describe Squib::Deck, '#text' do
     it "should use the #set_font when #text doesn't specify" do
       card = instance_double(Squib::Card)
       expect(card).to receive(:text).with('a', 'Times New Roman 16', 
-                                    anything, anything, anything, anything,anything, anything, anything, anything,anything, anything, anything, anything, anything
+                                    anything, anything, anything, anything,anything,anything, anything, anything, anything,anything, anything, anything, anything, anything
                                     ).once
       Squib::Deck.new do  
         @cards = [card] 
@@ -30,7 +30,7 @@ describe Squib::Deck, '#text' do
     it "should use the specified font no matter what" do
       card = instance_double(Squib::Card)
       expect(card).to receive(:text).with('a', 'Arial 18', 
-                                    anything, anything, anything, anything,anything, anything, anything, anything,anything, anything, anything, anything, anything
+                                    anything, anything, anything, anything,anything,anything,anything, anything, anything,anything, anything, anything, anything, anything
                                     ).once
       Squib::Deck.new do  
         @cards = [card] 

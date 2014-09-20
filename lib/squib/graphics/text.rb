@@ -85,7 +85,7 @@ module Squib
 
     # :nodoc:
     # @api private 
-    def text(str, font, color, 
+    def text(str, font, font_size, color, 
              x, y, width, height,
              markup, justify, wrap, ellipsize, 
              spacing, align, valign, hint)
@@ -94,7 +94,9 @@ module Squib
         cc.set_source_color(color)
         cc.move_to(x,y)
         layout = cc.create_pango_layout
-        layout.font_description = Pango::FontDescription.new(font)
+        font_desc = Pango::FontDescription.new(font)
+        font_desc.size = font_size * Pango::SCALE unless font_size.nil?
+        layout.font_description = font_desc
         layout.text = str.to_s
         layout.markup = str.to_s if markup
         layout = setwh(layout, width, height)

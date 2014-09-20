@@ -36,10 +36,10 @@ module Squib
     # @return [nil] Returns nothing
     # @api public
     def text(opts = {})
-      opts = needs(opts, [:range, :str, :font, :x, :y, :width, :height, :color, :wrap,
+      opts = needs(opts, [:range, :str, :font, :font_size, :x, :y, :width, :height, :color, :wrap,
                           :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout])
       opts[:range].each do |i|
-        @cards[i].text(opts[:str][i], opts[:font][i], opts[:color][i],
+        @cards[i].text(opts[:str][i], opts[:font][i], opts[:font_size][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i], 
                        opts[:ellipsize][i], opts[:spacing][i], opts[:align][i], 
