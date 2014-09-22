@@ -173,7 +173,7 @@ Layouts will override Squib's defaults, but are overriden by anything specified 
 
 Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
 
-```sh
+```yaml
 icon: &icon
   width: 50
   height: 50
@@ -181,6 +181,18 @@ icon_left
   <<: *icon
   x: 100
 # The layout for icon_left will have the width/height from icon!
+```
+
+Also!! Squib provides a more feature-rich way of merging: the `extends` key in layouts. When defining an extends key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent. 
+
+```yaml
+yin: 
+  x: 100
+  y: 100
+  radius: 100
+yang: 
+  extends: yin
+  x: += 50
 ```
 
 See the `use_layout` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)

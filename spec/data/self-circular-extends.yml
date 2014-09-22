@@ -1,0 +1,3 @@
+a: 
+  extends: a
+  x: 50

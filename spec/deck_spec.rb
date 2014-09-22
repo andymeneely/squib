@@ -68,6 +68,24 @@ describe Squib::Deck do
               'y' => 38, 
               },
             'title' => {
+              'extends' => 'frame',
+              'x' => 38, 
+              'y' => 50, 
+              'width' => 100,
+              }
+            }
+          )
+    end
+
+    it "applies the extends regardless of order" do
+      d = Squib::Deck.new(layout: test_file('pre-extends.yml')) 
+      expect(d.layout).to \
+        eq({'frame' => {
+              'x' => 38, 
+              'y' => 38, 
+              },
+            'title' => {
+              'extends' => 'frame',
               'x' => 38, 
               'y' => 50, 
               'width' => 100,
@@ -84,11 +102,13 @@ describe Squib::Deck do
               'y' => 38, 
               },
             'title' => {
+              'extends' => 'frame',
               'x' => 38, 
               'y' => 50, 
               'width' => 100,
               },
             'title2' => {
+              'extends' => 'frame',
               'x' => 75, 
               'y' => 150, 
               'width' => 150,
@@ -111,6 +131,7 @@ describe Squib::Deck do
               'b' => 106, 
               },
             'child' => {
+              'extends' => ['uncle','aunt'],
               'a' => 107, # my own
               'b' => 102, # from the younger aunt
               'c' => 103, # from aunt
@@ -129,17 +150,37 @@ describe Squib::Deck do
               'y' => 38, 
               },
             'title' => {
+              'extends' => 'frame',
               'x' => 38, 
               'y' => 50, 
               'width' => 100,
               },
             'subtitle' => {
+              'extends' => 'title',
               'x' => 38,
               'y' => 150, 
               'width' => 100,
               },
             }
           )
+    end
+
+    it "fails on a self-circular extends" do
+      file = test_file('self-circular-extends.yml')
+      expect { Squib::Deck.new(layout: file) }.to \
+        raise_error(RuntimeError, "Invalid layout: circular extends with 'a'")
+    end
+
+    it "fails on a easy-circular extends" do
+      file = test_file('easy-circular-extends.yml')
+      expect { Squib::Deck.new(layout: file) }.to \
+        raise_error(RuntimeError, "Invalid layout: circular extends with 'a'")
+    end
+
+    it "hard on a easy-circular extends" do
+      file = test_file('hard-circular-extends.yml')
+      expect { Squib::Deck.new(layout: file) }.to \
+        raise_error(RuntimeError, "Invalid layout: circular extends with 'a'")
     end
 
   end

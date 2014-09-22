@@ -18,22 +18,42 @@ subtitle:
   height: 60
   align: !ruby/symbol center
   valign: !ruby/symbol middle
-
-# Yaml has this beautfiul feature for us: merge keys
-# http://www.yaml.org/YAML_for_ruby.html#merge_key
-# Define an alias with &foo, then use <<: *foo to include it
-# Everything gets merged, with later merges overriding 
-icon: &icon
+icon:
   width: 125
   height: 125
   y: 250
 icon_left:
-  <<: *icon 
+  extends: icon
   x: 150
 icon_middle:
-  <<: *icon
+  extends: icon
   x: 350
   y: 400  #overrides the y inherited from icon
 icon_right:
-  <<: *icon
+  extends: icon
   x: 550
+
+# Squib also supports its own merging-and-modify feature
+# Called "extends"
+# Any layout can extend another layout, so long as it's not a circle
+# Order doesn't matter since it's done after YAML procesing
+# And, if the entry overrides 
+bonus: #becomes our bonus rectangle
+  x: 250
+  y: 600
+  width:  300
+  height: 200
+  radius: 32
+bonus_inner: 
+  extends: bonus 
+  x: += 10 # i.e. 260
+  y: += 10 # i.e. 610
+  width: -= 20  # i.e. 180
+  height: -= 20 # i.e. 180
+  radius: -= 8
+bonus_text:
+  extends: bonus_inner
+  x: +=10
+  y: +=10
+  width: -= 20
+  height: -= 20

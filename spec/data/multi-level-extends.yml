@@ -1,10 +1,10 @@
-frame: &frame
+frame: 
   x: 38
   y: 38
-title: &title
-  <<: *frame
+title:
+  extends: frame
   y: 50
   width: 100
-subtitle: 
-  <<: *title
+subtitle:
+  extends: title
   y: 150
