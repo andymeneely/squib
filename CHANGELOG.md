@@ -3,6 +3,7 @@
 ## v0.0.4
 * Added a font size override so you can vary the font size with the same style across strings more easily
 * Added text autoscale sample
+* Added `extends` to custom layouts, allowing ways to modify parent data instead of just overriding it.
 * Upgraded ruby-progressbar version
 
 ## v0.0.3
