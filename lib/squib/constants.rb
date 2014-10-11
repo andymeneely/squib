@@ -101,7 +101,7 @@ module Squib
           :y => :y,
           :y1 => :y1,
           :y2 => :y2,
-          :y2 => :y3,
+          :y3 => :y3,
           :y_radius => :y_radius,
       }
 end
