@@ -6,7 +6,7 @@ module Squib
     # :nodoc:
     # @api private 
     def draw_text_hint(x,y,layout, color)
-      color ||= @deck.text_hint
+      color = @deck.text_hint if color.to_s.eql? 'off' and not @deck.text_hint.to_s.eql? 'off'
       return if color.to_s.eql? 'off'
       # when w,h < 0, it was never set. extents[1] are ink extents
       w = layout.width / Pango::SCALE

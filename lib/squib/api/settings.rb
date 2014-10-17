@@ -7,10 +7,9 @@ module Squib
     # Setting a hint to nil or to :off will disable hints. @see samples/text.rb
     # @example
     #   hint text: :cyan
-    #   hint text: :cyan, progress_bar: true
+    #   hint text: :cyan
     #
     # @param [String] text the color of the text hint. To turn off use :off. @see README.md 
-    # @param [Boolean] progress_bar enable progress bars on long-running operations
     # @return [nil] Returns nothing
     # @api public
     def hint(text: :off)

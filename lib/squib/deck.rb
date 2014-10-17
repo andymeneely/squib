@@ -60,6 +60,7 @@ module Squib
       @custom_colors = {}
       @img_dir = '.'
       @progress_bar = Squib::Progress.new(false)
+      @text_hint = :off
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       load_config(config)
       load_layout(layout)
