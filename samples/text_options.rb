@@ -48,7 +48,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
         font: 'Arial 22'
 
   text str: "Rotated",
-        x: 565, y: 675, rotation: 0.1,
+        x: 565, y: 675, angle: 0.1,
         font: 'Arial 18'
 
   text str: longtext, font: 'Arial 16',

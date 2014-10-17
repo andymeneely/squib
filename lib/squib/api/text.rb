@@ -34,18 +34,19 @@ module Squib
     # @option opts justify [Boolean] (false) toggles whether or not the text is justified or not. 
     # @option opts valign [:top, :middle, :bottom] (:top) When width and height are set, align text vertically according to the ink extents of the text.
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
+    # @option opts angle [FixNum] (0) Rotation of the text in radians. 
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}). 
     # @return [nil] Returns nothing
     # @api public
     def text(opts = {})
       opts = needs(opts, [:range, :str, :font, :font_size, :x, :y, :width, :height, :color, :wrap,
-                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout, :rotation])
+                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout, :angle])
       opts[:range].each do |i|
         @cards[i].text(opts[:str][i], opts[:font][i], opts[:font_size][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i], 
                        opts[:ellipsize][i], opts[:spacing][i], opts[:align][i], 
-                       opts[:valign][i], opts[:hint][i], opts[:rotation][i])
+                       opts[:valign][i], opts[:hint][i], opts[:angle][i])
       end
     end
 

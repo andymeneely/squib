@@ -88,12 +88,12 @@ module Squib
     def text(str, font, font_size, color, 
              x, y, width, height,
              markup, justify, wrap, ellipsize, 
-             spacing, align, valign, hint, rotation)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, etc."}
+             spacing, align, valign, hint, angle)
+      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, rotate: #{rotation} etc."}
       use_cairo do |cc|
         cc.set_source_color(color)
         cc.move_to(x,y)
-        cc.rotate(rotation)
+        cc.rotate(angle)
         layout = cc.create_pango_layout
         font_desc = Pango::FontDescription.new(font)
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?

@@ -5,6 +5,7 @@ module Squib
     SYSTEM_DEFAULTS = { 
       :align => :left,
       :alpha => 1.0,
+      :angle => 0,
       :blend => :none,
       :color => :black,
       :default_font => 'Arial 36',
@@ -26,7 +27,6 @@ module Squib
       :progress_bar => false,
       :range => :all,
       :rotate => false,
-      :rotation => 0,
       :sheet => 0,
       :spacing => 0,
       :str => '',
@@ -71,6 +71,7 @@ module Squib
     EXPANDING_PARAMS = {
           :align => :align,
           :alpha => :alpha,
+          :angle => :angle,
           :blend => :blend,
           :circle_radius => :radius,
           :color => :color,
@@ -86,7 +87,6 @@ module Squib
           :layout => :layout,
           :markup => :markup,
           :rect_radius => :radius,
-          :rotation => :rotation,
           :spacing => :spacing,
           :str => :str,
           :stroke_color => :stroke_color,
