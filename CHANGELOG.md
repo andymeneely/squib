@@ -5,6 +5,9 @@
 * Added text autoscale sample
 * Added `extends` to custom layouts, allowing ways to modify parent data instead of just overriding it.
 * Upgraded ruby-progressbar version
+* Added text rotation (thanks novalis!)
+* Fixed a mapping problem with triangles (thanks novalis!)
+* Fixed global hint togglability
 
 ## v0.0.3
 * Redesigned the dynamic options system to make adding new commands much easier
