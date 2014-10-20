@@ -89,7 +89,7 @@ module Squib
              x, y, width, height,
              markup, justify, wrap, ellipsize, 
              spacing, align, valign, hint, angle)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, rotate: #{rotation} etc."}
+      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       use_cairo do |cc|
         cc.set_source_color(color)
         cc.move_to(x,y)
