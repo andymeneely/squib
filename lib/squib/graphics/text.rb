@@ -5,7 +5,7 @@ module Squib
 
     # :nodoc:
     # @api private 
-    def draw_text_hint(x,y,layout, color)
+    def draw_text_hint(cc,x,y,layout, color,angle)
       color = @deck.text_hint if color.to_s.eql? 'off' and not @deck.text_hint.to_s.eql? 'off'
       return if color.to_s.eql? 'off'
       # when w,h < 0, it was never set. extents[1] are ink extents
@@ -13,7 +13,12 @@ module Squib
       w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
       h = layout.extents[1].height / Pango::SCALE if h < 0
-      rect(x,y,w,h,0,0,'#0000',color, 2.0)
+
+      Squib.logger.warn 'Text hints are broken on non-zero angles' if angle > 0
+      cc.rounded_rectangle(x,y,w,h,0,0)
+      cc.set_source_color(color)
+      cc.set_line_width(2.0)
+      cc.stroke
     end
 
     # :nodoc:
@@ -94,6 +99,7 @@ module Squib
         cc.set_source_color(color)
         cc.move_to(x,y)
         cc.rotate(angle)
+        
         layout = cc.create_pango_layout
         font_desc = Pango::FontDescription.new(font)
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?
@@ -109,7 +115,7 @@ module Squib
         cc.update_pango_layout(layout) 
         valign(cc, layout, x,y, valign)
         cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
-        draw_text_hint(x,y,layout,hint)
+        draw_text_hint(cc,x,y,layout,hint,angle)
       end
     end
 
