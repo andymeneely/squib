@@ -84,6 +84,8 @@ module Squib
     end
 
     # Shows a descriptive place of the location
+    #
+    # @api private
     def location(opts)
       opts[:layout] || (" @ #{opts[:x]},#{opts[:y]}")
     end
