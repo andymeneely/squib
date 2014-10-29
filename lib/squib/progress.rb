@@ -25,10 +25,10 @@ module Squib
 
     def start(title="", total=100, &block)
       if @enabled
-        @bar = ProgressBar.create(title: title, total: total, format: '%t <%B> %p%% %a') 
+        @bar = ProgressBar.create(title: title, total: total, format: '%t <%B> %p%% %a')
         yield(@bar)
         @bar.finish
-      else 
+      else
         yield(Squib::DoNothing.new)
       end
     end

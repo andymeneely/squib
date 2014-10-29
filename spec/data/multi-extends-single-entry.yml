@@ -1,13 +1,13 @@
-aunt: 
+aunt:
   a: 101
   b: 102
   c: 103
-uncle: 
+uncle:
   x: 104
   y: 105
   b: 106
 child:
-  extends: 
+  extends:
     - uncle
     - aunt
   a: 107

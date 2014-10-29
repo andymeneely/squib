@@ -2,7 +2,7 @@ module Squib
   class Card
 
     # :nodoc:
-    # @api private 
+    # @api private
     def save_png(i, dir, prefix, do_rotate, angle)
       if [true, :clockwise, :counterclockwise].include?(do_rotate)
         surface = rotated_image(angle)
@@ -24,7 +24,7 @@ module Squib
       rotated_cc.target
     end
     # :nodoc:
-    # @api private 
+    # @api private
     def write_png(surface, i, dir, prefix)
       surface.write_to_png("#{dir}/#{prefix}#{i}.png")
     end

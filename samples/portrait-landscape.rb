@@ -1,11 +1,11 @@
 require 'squib'
 
 # For decks with both landscape and portrait orientations,
-# we recommend using two separate decks. 
+# we recommend using two separate decks.
 # For print-on-demand, we can rotate all of the images in the final step.
 
 # Normal cards
-Squib::Deck.new(width: 825, height: 1125) do 
+Squib::Deck.new(width: 825, height: 1125) do
   background color: '#aaa'
 
   text str: "This is portrait"

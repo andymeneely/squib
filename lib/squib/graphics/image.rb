@@ -1,7 +1,7 @@
 module Squib
 
   # Cache all pngs we've already loaded
-  # 
+  #
   # :nodoc:
   # @api private
   def cache_load_image(file)
@@ -13,7 +13,7 @@ module Squib
   class Card
 
     # :nodoc:
-    # @api private 
+    # @api private
     def png(file, x, y, alpha, blend)
       return if file.nil? or file.eql? ''
       png = Squib.cache_load_image(file)
@@ -25,7 +25,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def svg(file, id, x, y, width, height, alpha, blend)
       Squib.logger.debug {"Rendering: #{file}, #{id} #{x}, #{y}, #{width}, #{height}, #{alpha}, #{blend}"}
       return if file.nil? or file.eql? ''

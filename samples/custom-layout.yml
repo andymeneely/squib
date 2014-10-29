@@ -1,4 +1,4 @@
-frame: 
+frame:
   x: 38
   y: 38
   width: 750
@@ -10,7 +10,7 @@ title:
   width: 625
   height: 100
   align: !ruby/symbol center #see http://www.yaml.org/YAML_for_ruby.html#symbols
-  valign: !ruby/symbol middle  
+  valign: !ruby/symbol middle
 subtitle:
   x: 150
   y: 150
@@ -37,15 +37,15 @@ icon_right:
 # Called "extends"
 # Any layout can extend another layout, so long as it's not a circle
 # Order doesn't matter since it's done after YAML procesing
-# And, if the entry overrides 
+# And, if the entry overrides
 bonus: #becomes our bonus rectangle
   x: 250
   y: 600
   width:  300
   height: 200
   radius: 32
-bonus_inner: 
-  extends: bonus 
+bonus_inner:
+  extends: bonus
   x: += 10 # i.e. 260
   y: += 10 # i.e. 610
   width: -= 20  # i.e. 180

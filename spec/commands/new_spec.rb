@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'squib'
 
-describe  Squib::Commands::New do 
+describe  Squib::Commands::New do
 
-  describe "#process" do 
+  describe "#process" do
     before(:all) do
       @old_stderr = $stderr
       $stderr = StringIO.new
@@ -44,5 +44,5 @@ describe  Squib::Commands::New do
       Dir.chdir(@oldpwd)
     end
 end
-  
+
 end

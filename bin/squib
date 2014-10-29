@@ -9,11 +9,11 @@ Mercenary.program(:squib) do |p|
 
   p.command(:new) do |c|
     c.syntax "new PATH"
-    c.description "Creates a new Squib project scaffolding in PATH. Must be a new directory or already empty." 
+    c.description "Creates a new Squib project scaffolding in PATH. Must be a new directory or already empty."
 
     c.action do |args, options|
       Squib::Commands::New.new.process(args)
     end
   end
-  
+
 end

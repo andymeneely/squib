@@ -1,8 +1,8 @@
 module Squib
   class Card
-      
+
     # :nodoc:
-    # @api private 
+    # @api private
     def rect(x, y, width, height, x_radius, y_radius, fill_color, stroke_color, stroke_width)
       width=@width if width==:native; height=@height if height==:native
       use_cairo do |cc|
@@ -17,7 +17,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def circle(x, y, radius, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.circle(x, y, radius)
@@ -31,7 +31,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def triangle(x1, y1, x2, y2, x3, y3, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.triangle(x1, y1, x2, y2, x3, y3)
@@ -45,7 +45,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def line(x1, y1, x2, y2, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.move_to(x1, y1)
@@ -55,6 +55,6 @@ module Squib
         cc.stroke
       end
     end
-      
+
   end
 end

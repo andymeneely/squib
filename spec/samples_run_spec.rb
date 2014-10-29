@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'squib'
 require 'pp'
 
-describe Squib do 
+describe Squib do
 
   context "all samples run without error" do
     it "should execute with no errors" do
@@ -15,6 +15,6 @@ describe Squib do
         end
       end
     end
-  end    
+  end
 
 end

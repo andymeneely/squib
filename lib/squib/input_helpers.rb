@@ -12,7 +12,7 @@ module Squib
       opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = expand_singletons(opts, params)
-      opts = rangeify(opts) if params.include? :range      
+      opts = rangeify(opts) if params.include? :range
       opts = fileify(opts) if params.include? :file
       opts = fileify(opts, false) if params.include? :file_to_save
       opts = colorify(opts, true) if params.include? :nillable_color
@@ -37,7 +37,7 @@ module Squib
       Squib::EXPANDING_PARAMS.each_pair do |param_name, api_param|
         if needed_params.include? param_name
           unless opts[api_param].respond_to?(:each)
-            opts[api_param] = [opts[api_param]] * @cards.size 
+            opts[api_param] = [opts[api_param]] * @cards.size
           end
         end
       end
@@ -50,8 +50,8 @@ module Squib
     # :nodoc:
     # @api private
     def layoutify(opts)
-      unless opts[:layout].respond_to?(:each) 
-        opts[:layout] = [opts[:layout]] * @cards.size 
+      unless opts[:layout].respond_to?(:each)
+        opts[:layout] = [opts[:layout]] * @cards.size
       end
       opts[:layout].each_with_index do |layout, i|
         unless layout.nil?
@@ -61,7 +61,7 @@ module Squib
               opts[key.to_sym] = [] if opts[key.to_sym].nil?
               opts[key.to_sym][i] ||= entry[key] #don't override if it's already there
             end
-          else 
+          else
             Squib.logger.warn ("Layout entry '#{layout}' does not exist." )
           end
         end
@@ -99,7 +99,7 @@ module Squib
     # @api private
     def fileify(opts, file_must_exist=true)
       [opts[:file]].flatten.each do |file|
-        if file_must_exist and !File.exists?(file) 
+        if file_must_exist and !File.exists?(file)
           raise "File #{File.expand_path(file)} does not exist!"
         end
       end
@@ -114,7 +114,7 @@ module Squib
       if allow_create
         Squib.logger.warn {"Dir #{opts[key]} does not exist, creating it."}
         Dir.mkdir opts[key]
-        return opts 
+        return opts
       else
         raise "'#{opts[key]}' does not exist!"
       end
@@ -145,14 +145,14 @@ module Squib
         opts[:font][i] = Squib::SYSTEM_DEFAULTS[:default_font] if font == :default
       end
       Squib.logger.debug {"After fontify: #{opts}"}
-      opts 
+      opts
     end
-    module_function :fontify 
+    module_function :fontify
 
     # :nodoc:
     # @api private
     def radiusify(opts)
-      opts[:radius].each_with_index do |radius, i| 
+      opts[:radius].each_with_index do |radius, i|
         unless radius.nil?
           opts[:x_radius][i] = radius
           opts[:y_radius][i] = radius

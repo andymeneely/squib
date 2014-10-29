@@ -4,13 +4,13 @@ module Squib
 
   # Pulls Excel data from `.xlsx` files into a column-based hash
   #
-  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row. 
+  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
   # See the example `samples/excel.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
   #
   # @example
   #   # Excel file looks like this:
   #   # | h1 | h2 |
-  #   # ------------ 
+  #   # ------------
   #   # | 1  | 2  |
   #   # | 3  | 4  |
   #   data = xlsx file: 'data.xlsx', sheet: 0
@@ -41,11 +41,11 @@ module Squib
   module_function :xlsx
 
   class Deck
-    
+
     # Convenience call for Squib.xlsx
     def xlsx(opts = {})
       Squib.xlsx(opts)
-    end    
+    end
 
   end
 end

@@ -1,9 +1,9 @@
-a: 
+a:
   extends: c
   x: 50
 b:
   extends: a
   x: 150
-c: 
+c:
   extends: b
   y: 250

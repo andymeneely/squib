@@ -21,8 +21,8 @@ module Squib
       opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout, :blend])
       Dir.chdir(@img_dir) do
         @progress_bar.start("Loading PNG(s)", opts[:range].size) do |bar|
-          opts[:range].each do |i| 
-            @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i], opts[:blend][i]) 
+          opts[:range].each do |i|
+            @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i], opts[:alpha][i], opts[:blend][i])
             bar.increment
           end
         end
@@ -32,7 +32,7 @@ module Squib
     # Renders an entire svg file at the given location. Uses the SVG-specified units and DPI to determine the pixel width and height.
     #
     # See {file:samples/load-images.rb samples/load-images.rb} and {file:samples/tgc-overlay.rb samples/tgc-overlay.rb} as examples.
-    # @example 
+    # @example
     #   svg 1..2, 'icon.svg', '#stone', x: 50, y:50
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
@@ -54,8 +54,8 @@ module Squib
         @progress_bar.start("Loading SVG(s)", p[:range].size) do |bar|
           p[:range].each do |i|
             unless p[:force_id][i] && p[:id][i].to_s.empty?
-              @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i], 
-                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i]) 
+              @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i],
+                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i])
             end
             bar.increment
           end

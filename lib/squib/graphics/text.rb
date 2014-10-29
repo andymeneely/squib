@@ -4,7 +4,7 @@ module Squib
   class Card
 
     # :nodoc:
-    # @api private 
+    # @api private
     def draw_text_hint(cc,x,y,layout, color,angle)
       color = @deck.text_hint if color.to_s.eql? 'off' and not @deck.text_hint.to_s.eql? 'off'
       return if color.to_s.eql? 'off' or color.nil?
@@ -22,7 +22,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def ellipsize(layout, ellipsize)
       unless ellipsize.nil?
         h = { :none   => Pango::Layout::ELLIPSIZE_NONE,
@@ -38,7 +38,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def wrap(layout, wrap)
       unless wrap.nil?
         h = { :word  => Pango::Layout::WRAP_WORD,
@@ -54,7 +54,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def align(layout, align)
       unless align.nil?
           h = { :left => Pango::ALIGN_LEFT,
@@ -67,9 +67,9 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def valign(cc, layout, x, y, valign)
-      if layout.height > 0 
+      if layout.height > 0
         ink_extents = layout.extents[1]
         case valign
         when :middle
@@ -81,7 +81,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def setwh(layout, width, height)
       layout.width = width * Pango::SCALE unless width.nil? || width == :native
       layout.height = height * Pango::SCALE unless height.nil? || height == :native
@@ -89,17 +89,17 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
-    def text(str, font, font_size, color, 
+    # @api private
+    def text(str, font, font_size, color,
              x, y, width, height,
-             markup, justify, wrap, ellipsize, 
+             markup, justify, wrap, ellipsize,
              spacing, align, valign, hint, angle)
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       use_cairo do |cc|
         cc.set_source_color(color)
         cc.move_to(x,y)
         cc.rotate(angle)
-        
+
         layout = cc.create_pango_layout
         font_desc = Pango::FontDescription.new(font)
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?
@@ -111,8 +111,8 @@ module Squib
         layout = ellipsize(layout, ellipsize)
         layout = align(layout, align)
         layout.justify = justify unless justify.nil?
-        layout.spacing = spacing * Pango::SCALE unless spacing.nil? 
-        cc.update_pango_layout(layout) 
+        layout.spacing = spacing * Pango::SCALE unless spacing.nil?
+        cc.update_pango_layout(layout)
         valign(cc, layout, x,y, valign)
         cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)

@@ -1,6 +1,6 @@
 require 'squib'
 
-Squib::Deck.new(layout: 'custom-layout.yml') do 
+Squib::Deck.new(layout: 'custom-layout.yml') do
   background color: :white
   hint text: :cyan
 
@@ -29,6 +29,6 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   # For debugging purposes, you can always print out the loaded layout
   #require 'pp'
   #pp @layout
-  
+
   save_png prefix: 'layout_'
 end

@@ -6,9 +6,9 @@ module Squib
 
     # Generate a new Squib project into a fresh directory.
     #
-    # Provides conventions for using Git (you are using version control, right??). 
+    # Provides conventions for using Git (you are using version control, right??).
     # Also provides some basic layout and config files to start from, along with templates for instructions and other notes you don't want to forget.
-    # 
+    #
     #
     # @example
     #   squib new foo-blasters
@@ -22,7 +22,7 @@ module Squib
     class New
 
       # :nodoc:
-      # @api private 
+      # @api private
       def process(args)
         raise ArgumentError.new('Please specify a path.') if args.empty?
 

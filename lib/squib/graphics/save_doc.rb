@@ -9,7 +9,7 @@ module Squib
     # @option opts file [String] the name of the PDF file to save. See {file:README.md#Specifying_Files Specifying Files}
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
     # @option opts margin [Integer] (75) the margin around the outside of the page
-    # @option opts gap [Integer] (0) the space in pixels between the cards 
+    # @option opts gap [Integer] (0) the space in pixels between the cards
     # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)
     # @return [nil]
     # @api public
@@ -39,7 +39,7 @@ module Squib
     end
 
     # :nodoc:
-    # @api private 
+    # @api private
     def trim(surface, trim, width, height)
       if trim > 0
         tmp = Cairo::ImageSurface.new(width-2*trim, height-2*trim)

@@ -3,7 +3,7 @@ require 'squib'
 
 Squib::Deck.new(config: 'custom-config.yml') do
   # Custom color defined in our config
-  background color: :foo 
+  background color: :foo
 
   # Hints are turned on in the config file
   text str: "The Title", x: 0, y: 78, width: 825,

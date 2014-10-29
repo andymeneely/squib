@@ -2,8 +2,8 @@ module Squib
   class Deck
 
     # Given inches, returns the number of pixels according to the deck's DPI.
-    # 
-    # @example 
+    #
+    # @example
     #   inches(2.5) # 750 (for default Deck::dpi of 300)
     #
     # @param [Decimal] n, the number of inches

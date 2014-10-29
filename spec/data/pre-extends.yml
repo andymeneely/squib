@@ -2,6 +2,6 @@ title:
   extends: frame
   y: 50
   width: 100
-frame: 
+frame:
   x: 38
   y: 38

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'], 
+data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
         'level' => [1,2,3]}
 longtext = "This is left-justified text.\nWhat do you know about tweetle beetles? well... \nWhen tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle. AND... When beetles fight these battles in a bottle with their paddles and the bottle's on a poodle and the poodle's eating noodles... ...they call this a muddle puddle tweetle poodle beetle noodle bottle paddle battle."
 
@@ -25,7 +25,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: "Font string sizes can be overridden per card.", x: 65, y: 350,
        font: 'Impact 36', font_size: [16, 20, 24]
 
-  text str: "This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint", 
+  text str: "This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint",
        hint: :red,
        x: 65, y: 400,
        width: 300, height: 200,
@@ -52,16 +52,16 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
         font: 'Arial 18'
 
   text str: longtext, font: 'Arial 16',
-       x: 65, y: 700, 
-       width: inches(2.25), height: inches(1), 
+       x: 65, y: 700,
+       width: inches(2.25), height: inches(1),
        justify: true
 
-  text str: "<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome", 
+  text str: "<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome",
        markup: true,
        x: 50, y: 1000,
-       width: 750, height: 100, 
+       width: 750, height: 100,
        valign: :bottom,
        font: 'Arial 32', hint: :cyan
-  
+
   save prefix: 'text_', format: :png
 end

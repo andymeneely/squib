@@ -8,15 +8,15 @@ require 'squib/deck'
 require 'squib/card'
 
 module Squib
-  
+
   # Access the internal logger that Squib uses. By default, Squib configure the logger to the WARN level
-  # Use this to suppress or increase output levels. 
+  # Use this to suppress or increase output levels.
   # @example
   #   Squib.logger.level = Logger::DEBUG #show waaaay more information than you probably need, unless you're a dev
   #   Squib.logger.level = Logger::ERROR #basically turns it off
-  # 
+  #
   # @return [Logger] the ruby logger
-  # @api public 
+  # @api public
   def logger
     if @logger.nil?
       @logger = Logger.new(STDOUT);
@@ -28,5 +28,5 @@ module Squib
     @logger
   end
   module_function :logger
-  
+
 end

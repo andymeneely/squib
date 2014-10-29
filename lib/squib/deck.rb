@@ -19,37 +19,37 @@ module Squib
     include Squib::InputHelpers
 
     # :nodoc:
-    # @api private 
+    # @api private
     attr_reader :width, :height
-    
+
     # :nodoc:
-    # @api private 
+    # @api private
     attr_reader :cards
-    
+
     # :nodoc:
-    # @api private 
+    # @api private
     attr_reader :text_hint
 
     # :nodoc:
-    # @api private 
+    # @api private
     attr_reader :layout, :config
 
     # Squib's constructor that sets the immutable properties.
     #
-    # This is the starting point for Squib. In providing a block to the constructor, you have access to all of Deck's instance methods. 
-    # The documented methods in Deck are the ones intended for use by most users. 
+    # This is the starting point for Squib. In providing a block to the constructor, you have access to all of Deck's instance methods.
+    # The documented methods in Deck are the ones intended for use by most users.
     # If your game requires multiple different sizes or orientations, I recommend using multiple `Squib::Deck`s in your `deck.rb`. You can modify the internals of `Squib::Deck` (e.g. `@cards`), but that's not recommended.
-    # @example 
+    # @example
     #   require 'squib'
     #   Squib::Deck.new do
     #     text str: 'Hello, World!'
     #   end
-    # 
-    # @param width: [Integer] the width of each card in pixels
-    # @param height: [Integer] the height of each card in pixels
-    # @param cards: [Integer] the number of cards in the deck
-    # @param dpi: [Integer] the pixels per inch when rendering out to PDF or calculating using inches. 
-    # @param config: [String] the file used for global settings of this deck
+    #
+    # @param width [Integer] the width of each card in pixels
+    # @param height [Integer] the height of each card in pixels
+    # @param cards [Integer] the number of cards in the deck
+    # @param dpi [Integer] the pixels per inch when rendering out to PDF or calculating using inches.
+    # @param config [String] the file used for global settings of this deck
     # @param block [Block] the main body of the script.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
@@ -77,7 +77,7 @@ module Squib
     end
 
     # Iterates over each card in the deck
-    # 
+    #
     # @api private
     def each(&block)
       @cards.each { |card| block.call(card) }
@@ -129,10 +129,10 @@ module Squib
             parent_val + child_val.sub("+=",'').strip.to_f
           elsif child_val.to_s.strip.start_with?('-=')
             parent_val - child_val.sub("-=",'').strip.to_f
-          else 
+          else
             child_val #child overrides parent when merging, no +=
           end
-        end 
+        end
         h = h.merge(from_extends) do |key, older_sibling, younger_sibling|
           younger_sibling #when two siblings have the same entry, the "younger" (lower one) overrides
         end

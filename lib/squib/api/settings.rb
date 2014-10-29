@@ -1,7 +1,7 @@
 module Squib
   class Deck
 
-    # Toggle hints globally. 
+    # Toggle hints globally.
     #
     # Text hints are rectangles around where the text will be laid out. They are intended to be temporary.
     # Setting a hint to nil or to :off will disable hints. @see samples/text.rb
@@ -9,7 +9,7 @@ module Squib
     #   hint text: :cyan
     #   hint text: :cyan
     #
-    # @param [String] text the color of the text hint. To turn off use :off. @see README.md 
+    # @param [String] text the color of the text hint. To turn off use :off. @see README.md
     # @return [nil] Returns nothing
     # @api public
     def hint(text: :off)
@@ -17,7 +17,7 @@ module Squib
     end
 
     # Sets various defaults for this deck. Defaults can be overriden by the commands themselves when that command supports it.
-    # @example 
+    # @example
     #   set font: 'Arial 26'
     #   text 'blah'                     # in Arial 26
     #   text 'blah24', font: 'Arial 24' # in Arial 24
@@ -31,7 +31,7 @@ module Squib
       opts = needs(opts, [:font, :img_dir])
       @font = opts[:font][0] #was expanded - just need the first
       @img_dir = opts[:img_dir]
-    end 
+    end
 
   end
 end

@@ -1,6 +1,6 @@
 module Squib
   class Deck
-    # Fills the background with the given color 
+    # Fills the background with the given color
     # @example
     #   background color: :white
     #
@@ -14,6 +14,6 @@ module Squib
       opts = needs(opts,[:range, :color])
       opts[:range].each { |i| @cards[i].background(opts[:color][i]) }
     end
-      
+
   end
 end

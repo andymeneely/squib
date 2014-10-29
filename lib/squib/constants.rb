@@ -1,8 +1,8 @@
 module Squib
     # Squib's defaults for when arguments are not specified in the command nor layouts.
-    # 
+    #
     # @api public
-    SYSTEM_DEFAULTS = { 
+    SYSTEM_DEFAULTS = {
       :align => :left,
       :alpha => 1.0,
       :angle => 0,
@@ -40,7 +40,7 @@ module Squib
       :x1 => 100,
       :x2 => 150,
       :x3 => 100,
-      :x_radius => 0, 
+      :x_radius => 0,
       :y => 0,
       :y1 => 100,
       :y2 => 150,
@@ -49,9 +49,9 @@ module Squib
     }
 
     # Squib's configuration defaults
-    # 
+    #
     # @api public
-    CONFIG_DEFAULTS = { 
+    CONFIG_DEFAULTS = {
       'custom_colors' => {},
       'dpi' => 300,
       'hint' => :none,
@@ -59,8 +59,8 @@ module Squib
       'img_dir' => '.',
     }
 
-    # These are parameters that are intended to be "expanded" across 
-    # range if they are singletons. 
+    # These are parameters that are intended to be "expanded" across
+    # range if they are singletons.
     #
     # For example, using a different font for each card, using one `text`
     #
