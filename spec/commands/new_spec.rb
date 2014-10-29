@@ -8,7 +8,7 @@ describe  Squib::Commands::New do
       @old_stderr = $stderr
       $stderr = StringIO.new
       @oldpwd = Dir.pwd
-      Dir.chdir(File.expand_path('../../samples/_output', File.dirname(__FILE__)))
+      Dir.chdir(output_dir)
     end
 
     before(:each) do

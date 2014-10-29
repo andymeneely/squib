@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'squib'
 require 'squib/input_helpers'
 
 class DummyDeck
@@ -15,7 +16,6 @@ end
 
 describe Squib::InputHelpers do
 
-
   before(:each) do
     @deck = DummyDeck.new
     @deck.layout = {
@@ -29,12 +29,11 @@ describe Squib::InputHelpers do
 
   context '#layoutify' do
     it 'warns on the logger when the layout does not exist' do
-      @old_logger = Squib.logger
-      Squib.logger = instance_double(Logger)
-      expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
-      expect(Squib.logger).to receive(:debug)
-      expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]})
-      Squib.logger = @old_logger
+      mock_squib_logger(@old_logger) do
+        expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
+        expect(Squib.logger).to receive(:debug)
+        expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]})
+      end
     end
 
     it 'applies the layout in a normal situation' do
@@ -83,11 +82,24 @@ describe Squib::InputHelpers do
     end
   end
 
-  context '#dir' do
+  context '#dirify' do
     it 'should raise an error if the directory does not exist' do
       expect{@deck.send(:dirify, {dir: 'nonexist'}, :dir, false)}.to \
         raise_error(RuntimeError,"'nonexist' does not exist!")
     end
+
+    it 'should warn and make a directory creation is allowed' do
+      opts = {dir: 'tocreate'}
+      Dir.chdir(output_dir) do
+        FileUtils.rm_rf('tocreate', secure: true)
+        mock_squib_logger(@old_logger) do
+          expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
+          expect(@deck.send(:dirify, opts, :dir, true)).to eq(opts)
+          expect(Dir.exists? 'tocreate').to be true
+        end
+      end
+    end
+
   end
 
   context '#colorify' do

@@ -112,7 +112,7 @@ module Squib
     def dirify(opts, key, allow_create=false)
       return opts if Dir.exists?(opts[key])
       if allow_create
-        Squib.logger.warn {"Dir #{opts[key]} does not exist, creating it."}
+        Squib.logger.warn("Dir '#{opts[key]}' does not exist, creating it.")
         Dir.mkdir opts[key]
         return opts
       else
