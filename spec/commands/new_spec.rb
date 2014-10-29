@@ -43,6 +43,6 @@ describe  Squib::Commands::New do
       $stderr = @old_stderr
       Dir.chdir(@oldpwd)
     end
-end
+  end
 
 end

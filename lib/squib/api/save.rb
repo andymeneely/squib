@@ -40,4 +40,3 @@ module Squib
 
   end
 end
-

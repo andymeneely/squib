@@ -49,4 +49,3 @@ module Squib
 
   end
 end
-
