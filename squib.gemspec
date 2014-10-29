@@ -13,18 +13,18 @@ Gem::Specification.new do |spec|
   spec.version       = Squib::VERSION
   spec.license       = 'MIT'
 
-  spec.summary       = %q{A Ruby DSL for prototyping card games}
-  spec.description   = %q{Squib is a Ruby DSL for prototyping card games}
+  spec.summary       = 'A Ruby DSL for prototyping card games'
+  spec.description   = 'Squib is a Ruby DSL for prototyping card games'
   spec.authors       = ['Andy Meneely']
-  spec.email         = ['playconfidencegames@gmail.com']
+  spec.email         = 'playconfidencegames@gmail.com'
   spec.homepage      = 'https://github.com/andymeneely/squib'
 
   spec.rdoc_options = ['--charset=UTF-8']
   spec.extra_rdoc_files = %w(README.md LICENSE.txt)
 
   spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'cairo', '~> 1.12.9'
