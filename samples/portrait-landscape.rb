@@ -8,16 +8,16 @@ require 'squib'
 Squib::Deck.new(width: 825, height: 1125) do
   background color: '#aaa'
 
-  text str: "This is portrait"
+  text str: 'This is portrait'
 
-  save_png prefix: "portrait_"
+  save_png prefix: 'portrait_'
 end
 
 # Money cards are landscape
 Squib::Deck.new(width: 1125, height: 825) do
   background color: '#aaa'
 
-  text str: "This is landscape"
+  text str: 'This is landscape'
 
-  save_png prefix: "landscape_", rotate: true
+  save_png prefix: 'landscape_', rotate: true
 end

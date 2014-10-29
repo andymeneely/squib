@@ -16,38 +16,38 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
 
   text str: "UTF-8 \u2663", x: 565, y: 150, font: 'Arial weight=900 36'
 
-  text str: "Font strings are expressive!", x:65, y: 200,
+  text str: 'Font strings are expressive!', x:65, y: 200,
        font: 'Impact bold italic 36'
 
-  text str: "Font strings are expressive!", x:65, y: 300,
+  text str: 'Font strings are expressive!', x:65, y: 300,
        font: 'Arial,Verdana weight=900 style=oblique 36'
 
-  text str: "Font string sizes can be overridden per card.", x: 65, y: 350,
+  text str: 'Font string sizes can be overridden per card.', x: 65, y: 350,
        font: 'Impact 36', font_size: [16, 20, 24]
 
-  text str: "This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint",
+  text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint',
        hint: :red,
        x: 65, y: 400,
        width: 300, height: 200,
        align: :center, valign: :middle,
        font: 'Arial 18'
 
-  text str: "Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42",
+  text str: 'Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42',
        hint: :green, font: 'Arial 22',
        x: 450, y: 400,
        width: 280, height: 180,
        ellipsize: true
 
   hint text: :cyan
-  text str: "Text hints are also globally togglable!",
+  text str: 'Text hints are also globally togglable!',
         x: 65, y: 625,
         font: 'Arial 22'
   hint text: :off
-  text str: "See? No hint here.",
+  text str: 'See? No hint here.',
         x: 565, y: 625,
         font: 'Arial 22'
 
-  text str: "Rotated",
+  text str: 'Rotated',
         x: 565, y: 675, angle: 0.1,
         font: 'Arial 18'
 
@@ -56,7 +56,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        width: inches(2.25), height: inches(1),
        justify: true
 
-  text str: "<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome",
+  text str: '<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome',
        markup: true,
        x: 50, y: 1000,
        width: 750, height: 100,

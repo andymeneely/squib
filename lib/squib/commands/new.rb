@@ -26,7 +26,7 @@ module Squib
       def process(args)
         raise ArgumentError.new('Please specify a path.') if args.empty?
 
-        new_project_path = File.expand_path(args.join(" "), Dir.pwd)
+        new_project_path = File.expand_path(args.join(' '), Dir.pwd)
         template_path = File.expand_path('../project_template', File.dirname(__FILE__))
 
         FileUtils.mkdir_p new_project_path

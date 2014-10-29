@@ -32,7 +32,7 @@ module Squib
       (s.first_row+1).upto(s.last_row) do |row|
         cell = s.cell(row,col)
         # Roo hack for avoiding unnecessary .0's on whole integers
-        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, "General"]
+        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, 'General']
         data[header] << cell
       end#row
     end#col

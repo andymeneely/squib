@@ -3,15 +3,15 @@ require 'squib/deck'
 
 describe Squib::Deck do
 
-  it "initializes with default parameters" do
+  it 'initializes with default parameters' do
     d = Squib::Deck.new
     expect(d.width).to eq(825)
     expect(d.height).to eq(1125)
     expect(d.cards.size).to eq(1)
   end
 
-  context "in dealing with ranges" do
-    it "calls text on all cards by default" do
+  context 'in dealing with ranges' do
+    it 'calls text on all cards by default' do
       card1 = instance_double(Squib::Card)
       card2 = instance_double(Squib::Card)
       expect(card1).to receive(:text).once
@@ -22,7 +22,7 @@ describe Squib::Deck do
       end
     end
 
-    it "calls text on some cards with an integer" do
+    it 'calls text on some cards with an integer' do
       card1 = instance_double(Squib::Card)
       card2 = instance_double(Squib::Card)
       expect(card2).to receive(:text).once
@@ -32,7 +32,7 @@ describe Squib::Deck do
       end
     end
 
-    it "calls text with ranges" do
+    it 'calls text with ranges' do
       card1 = instance_double(Squib::Card)
       card2 = instance_double(Squib::Card)
       card3 = instance_double(Squib::Card)
@@ -45,22 +45,22 @@ describe Squib::Deck do
     end
   end
 
-  context "#load_layout" do
+  context '#load_layout' do
 
-    it "loads a normal layout with no extends" do
+    it 'loads a normal layout with no extends' do
       d = Squib::Deck.new(layout: test_file('no-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
               'x' => 38,
               'valign' => :middle,
-              'str' => "blah",
-              'font' => "Mr. Font",
+              'str' => 'blah',
+              'font' => 'Mr. Font',
               }
             }
           )
     end
 
-    it "loads with a single extends" do
+    it 'loads with a single extends' do
       d = Squib::Deck.new(layout: test_file('single-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
@@ -77,7 +77,7 @@ describe Squib::Deck do
           )
     end
 
-    it "applies the extends regardless of order" do
+    it 'applies the extends regardless of order' do
       d = Squib::Deck.new(layout: test_file('pre-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
@@ -94,7 +94,7 @@ describe Squib::Deck do
           )
     end
 
-    it "applies the single-level extends multiple times" do
+    it 'applies the single-level extends multiple times' do
       d = Squib::Deck.new(layout: test_file('single-level-multi-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
@@ -117,7 +117,7 @@ describe Squib::Deck do
           )
     end
 
-    it "applies multiple extends in a single rule" do
+    it 'applies multiple extends in a single rule' do
       d = Squib::Deck.new(layout: test_file('multi-extends-single-entry.yml'))
       expect(d.layout).to \
         eq({'aunt' => {
@@ -142,7 +142,7 @@ describe Squib::Deck do
           )
     end
 
-    it "applies multi-level extends" do
+    it 'applies multi-level extends' do
       d = Squib::Deck.new(layout: test_file('multi-level-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
@@ -165,22 +165,22 @@ describe Squib::Deck do
           )
     end
 
-    it "fails on a self-circular extends" do
+    it 'fails on a self-circular extends' do
       file = test_file('self-circular-extends.yml')
       expect { Squib::Deck.new(layout: file) }.to \
-        raise_error(RuntimeError, "Invalid layout: circular extends with 'a'")
+        raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
-    it "fails on a easy-circular extends" do
+    it 'fails on a easy-circular extends' do
       file = test_file('easy-circular-extends.yml')
       expect { Squib::Deck.new(layout: file) }.to \
-        raise_error(RuntimeError, "Invalid layout: circular extends with 'a'")
+        raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
-    it "hard on a easy-circular extends" do
+    it 'hard on a easy-circular extends' do
       file = test_file('hard-circular-extends.yml')
       expect { Squib::Deck.new(layout: file) }.to \
-        raise_error(RuntimeError, "Invalid layout: circular extends with 'a'")
+        raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
   end
