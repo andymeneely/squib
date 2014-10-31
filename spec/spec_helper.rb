@@ -1,5 +1,6 @@
 require 'simplecov'
 require 'coveralls'
+require 'squib'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
@@ -7,8 +8,22 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start
 
+RSpec.configure do |config|
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+end
+
 def test_file(str)
   "#{File.expand_path(File.dirname(__FILE__))}/data/#{str}"
+end
+
+# Refine Squib to allow setting the logger
+module Squib
+  def logger=(l)
+    @logger = l
+  end
+  module_function 'logger='
 end
 
 def mock_squib_logger(old_logger)

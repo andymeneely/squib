@@ -7,13 +7,6 @@ class DummyDeck
   attr_accessor :layout, :cards, :custom_colors
 end
 
-module Squib
-  def logger=(l)
-    @logger = l
-  end
-  module_function 'logger='
-end
-
 describe Squib::InputHelpers do
 
   before(:each) do

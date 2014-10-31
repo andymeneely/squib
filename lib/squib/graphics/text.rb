@@ -40,28 +40,29 @@ module Squib
     # :nodoc:
     # @api private
     def wrap(layout, wrap)
-      unless wrap.nil?
-        h = { :word  => Pango::Layout::WRAP_WORD,
-              :char => Pango::Layout::WRAP_CHAR,
-              :word_char    => Pango::Layout::WRAP_WORD_CHAR,
-              true    => Pango::Layout::WRAP_WORD_CHAR,
-              false => nil,
-              :none => nil
-            }
-        layout.wrap = h[wrap]
-      end
+      layout.wrap = case wrap.to_s
+                    when 'word'
+                      Pango::Layout::WRAP_WORD
+                    when 'char'
+                      Pango::Layout::WRAP_CHAR
+                    when 'word_char', true
+                      Pango::Layout::WRAP_WORD_CHAR
+                    else
+                      nil
+                    end
       layout
     end
 
     # :nodoc:
     # @api private
     def align(layout, align)
-      unless align.nil?
-          h = { :left => Pango::ALIGN_LEFT,
-                :right => Pango::ALIGN_RIGHT,
-                :center => Pango::ALIGN_CENTER
-              }
-          layout.alignment = h[align]
+      case align.to_s
+      when 'left'
+        layout.alignment = Pango::ALIGN_LEFT
+      when 'right'
+        layout.alignment = Pango::ALIGN_RIGHT
+      when 'center'
+        layout.alignment = Pango::ALIGN_CENTER
       end
       layout
     end
@@ -71,10 +72,10 @@ module Squib
     def valign(cc, layout, x, y, valign)
       if layout.height > 0
         ink_extents = layout.extents[1]
-        case valign
-        when :middle
+        case valign.to_s
+        when 'middle'
           cc.move_to(x, y + (layout.height - ink_extents.height) / (2 * Pango::SCALE))
-        when :bottom
+        when 'bottom'
           cc.move_to(x, y + (layout.height - ink_extents.height) / Pango::SCALE)
         end
       end
@@ -113,7 +114,7 @@ module Squib
         layout.justify = justify unless justify.nil?
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
         cc.update_pango_layout(layout)
-        valign(cc, layout, x,y, valign)
+        valign(cc, layout, x, y, valign)
         cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)
       end
