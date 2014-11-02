@@ -23,39 +23,35 @@ module Squib
 
     # :nodoc:
     # @api private
-    def ellipsize(layout, ellipsize)
-      unless ellipsize.nil?
-        h = { :none   => Pango::Layout::ELLIPSIZE_NONE,
-              :start  => Pango::Layout::ELLIPSIZE_START,
-              :middle => Pango::Layout::ELLIPSIZE_MIDDLE,
-              :end    => Pango::Layout::ELLIPSIZE_END,
-              true    => Pango::Layout::ELLIPSIZE_END,
-              false   => Pango::Layout::ELLIPSIZE_NONE
-            }
-        layout.ellipsize = h[ellipsize]
+    def set_ellipsize!(layout, ellipsize)
+      case ellipsize.to_s.downcase
+      when 'none', 'false'
+        layout.ellipsize = Pango::Layout::ELLIPSIZE_NONE
+      when 'start'
+        layout.ellipsize = Pango::Layout::ELLIPSIZE_START
+      when 'middle'
+        layout.ellipsize = Pango::Layout::ELLIPSIZE_MIDDLE
+      when 'end', 'true'
+        layout.ellipsize = Pango::Layout::ELLIPSIZE_END
       end
-      layout
     end
 
     # :nodoc:
     # @api private
-    def wrap(layout, wrap)
-      layout.wrap = case wrap.to_s
-                    when 'word'
-                      Pango::Layout::WRAP_WORD
-                    when 'char'
-                      Pango::Layout::WRAP_CHAR
-                    when 'word_char', true
-                      Pango::Layout::WRAP_WORD_CHAR
-                    else
-                      nil
-                    end
-      layout
+    def set_wrap!(layout, wrap)
+      case wrap.to_s.downcase
+        when 'word'
+          layout.wrap = Pango::Layout::WRAP_WORD
+        when 'char'
+          layout.wrap = Pango::Layout::WRAP_CHAR
+        when 'word_char', 'true'
+          layout.wrap = Pango::Layout::WRAP_WORD_CHAR
+        end
     end
 
     # :nodoc:
     # @api private
-    def align(layout, align)
+    def set_align!(layout, align)
       case align.to_s
       when 'left'
         layout.alignment = Pango::ALIGN_LEFT
@@ -64,7 +60,6 @@ module Squib
       when 'center'
         layout.alignment = Pango::ALIGN_CENTER
       end
-      layout
     end
 
     # :nodoc:
@@ -83,7 +78,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    def setwh(layout, width, height)
+    def set_wh!(layout, width, height)
       layout.width = width * Pango::SCALE unless width.nil? || width == :native
       layout.height = height * Pango::SCALE unless height.nil? || height == :native
       layout
@@ -107,10 +102,10 @@ module Squib
         layout.font_description = font_desc
         layout.text = str.to_s
         layout.markup = str.to_s if markup
-        layout = setwh(layout, width, height)
-        layout = wrap(layout, wrap)
-        layout = ellipsize(layout, ellipsize)
-        layout = align(layout, align)
+        set_wh!(layout, width, height)
+        set_wrap!(layout, wrap)
+        set_ellipsize!(layout, ellipsize)
+        set_align!(layout, align)
         layout.justify = justify unless justify.nil?
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
         cc.update_pango_layout(layout)

@@ -23,7 +23,6 @@ describe Squib::Card, '#text' do
         expect(@layout).to receive(:text=).with('foo').once
         expect(@layout).to receive(:width=).with(20 * Pango::SCALE).once
         expect(@layout).to receive(:height=).with(25 * Pango::SCALE).once
-        expect(@layout).to receive(:wrap=).with(nil).once
         expect(@layout).to receive(:ellipsize=).with(Pango::Layout::ELLIPSIZE_NONE).once
         expect(@layout).to receive(:alignment=).with(Pango::Layout::ALIGN_LEFT).once
         expect(@layout).to receive(:justify=).with(false).once
@@ -91,6 +90,15 @@ describe Squib::Card, '#text' do
       card.text('foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, :word_char, false,
+                1.0, :left, :top, nil, 0.0)
+    end
+
+    it 'sets wrap to word_char with true' do
+      card = Squib::Card.new(@deck, 100, 150)
+      expect(@layout).to receive(:wrap=).with(Pango::Layout::WRAP_WORD_CHAR).once
+      card.text('foo', 'Sans 12', nil, '#abc',
+                10, 15, 20, 50,
+                nil, false, true, false,
                 1.0, :left, :top, nil, 0.0)
     end
 
