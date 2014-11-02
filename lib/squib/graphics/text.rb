@@ -64,7 +64,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    def valign(cc, layout, x, y, valign)
+    def valign!(cc, layout, x, y, valign)
       if layout.height > 0
         ink_extents = layout.extents[1]
         case valign.to_s
@@ -109,7 +109,7 @@ module Squib
         layout.justify = justify unless justify.nil?
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
         cc.update_pango_layout(layout)
-        valign(cc, layout, x, y, valign)
+        valign!(cc, layout, x, y, valign)
         cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)
       end
