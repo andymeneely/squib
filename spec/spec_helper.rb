@@ -1,6 +1,5 @@
 require 'simplecov'
 require 'coveralls'
-require 'squib'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
@@ -8,11 +7,14 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start
 
+require 'squib'
+
 RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
 end
+
 
 def test_file(str)
   "#{File.expand_path(File.dirname(__FILE__))}/data/#{str}"
