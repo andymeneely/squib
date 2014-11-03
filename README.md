@@ -9,15 +9,15 @@ Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for
 * Rendering decks to PNGs and PDFs
 * Data-driven layouts
 * Unit conversion
-* Plus the full power of Ruby! 
+* Plus the full power of Ruby!
 
-Check this out. 
+Check this out.
 
 ```ruby
 require 'squib'
 
 Squib::Deck.new do
-  text str: 'Hello, World!'  
+  text str: 'Hello, World!'
   save_png
 end
 ```
@@ -38,7 +38,7 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io). 
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. For Mac, I recommend using [rvm](https://rvm.io).
 
 Note: Squib requires Ruby 2.0 or later.
 
@@ -75,38 +75,36 @@ The central file here is `deck.rb`. Here's a [basic example](https://github.com/
 After going over this README, here are some other places to go learn Squib:
 
 * The YARD-generated API documentation [for the latest Squib gem](http://rubydoc.info/gems/squib/) is a method-by-method reference. The `Deck` class is the main class to look at. If you are following Squib master, see [the latest version](http://rubydoc.info/github/andymeneely/squib)
-* The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples. To run them, you will need to clone the repository and run them with Squib installed. 
+* The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples. To run them, you will need to clone the repository and run them with Squib installed.
 * [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
 
 ## Viewing this README
 
-If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. The samples can be found on this repository, and are quite helpful. If you want to see this documentation in YARD, 
+The best place to read this documentation is on [http://andymeneely.github.io/squib/doc].
 
-Sadly, RubyDoc.info is buggy and doesn't support `{include:file...}` directive properly, so these online links will still not show the samples inline:
-
- * The [latest Gem release](http://rubydoc.info/gems/squib/)
- * The [master branch](http://rubydoc.info/github/andymeneely/squib) of this repository 
-
-To view this locally, you can do the following
+If you want to view it offline, you can do the following
 
 ```sh
 $ gem install yard
 $ yard server --gems
 ```
-
 Then go to [http://localhost:8808/docs/squib/file/README.md](http://localhost:8808/docs/squib/file/README.md)
+
+If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. 
+
+Also, RubyDoc.info is buggy and doesn't support `{include:file...}` directive properly, so these online links will still not show the samples inline
 
 ## Squib API
 
 The Squib DSL is based on a collection of methods provided to the `Squib::Deck` class. The general philosophy of Squib is to specify as little as possible with layers of defaults, highly flexible input, and good ol' Ruby duck-typing. Ruby does a lot to make Squib useful.
 
-Squib essentially has two main classes: `Deck` and `Card`. `Deck` is the front-end, and `Card` is the back-end. The contract of `Deck` is to do the various manipulations of options and then delegate the operation to `Card` to do the low-level graphical operations. 
+Squib essentially has two main classes: `Deck` and `Card`. `Deck` is the front-end, and `Card` is the back-end. The contract of `Deck` is to do the various manipulations of options and then delegate the operation to `Card` to do the low-level graphical operations.
 
 For most users, I recommending solely using `Deck` methods. If you want to roll up your sleeves and get your hands messy, you can access the Cairo or Pango contexts the directly via the `Card` class. The API documentation doesn't really cover these, however, so you're on your own there.
 
 ## Specifying Parameters
 
-Squib is all about sane defaults and shorthand specification. Arguments are almost always using hashes, which look a lot like [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. All parameters are optional. For example `x` and `y` default to 0 (i.e. the upper-left corner of the card). Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules. 
+Squib is all about sane defaults and shorthand specification. Arguments are almost always using hashes, which look a lot like [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. All parameters are optional. For example `x` and `y` default to 0 (i.e. the upper-left corner of the card). Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules.
 
 Note: you MUST use named parameters rather than positional parameters. For example: `save :png` will lead to an error like this:
 
@@ -151,17 +149,17 @@ Colors can be specified in a wide variety of ways, mostly in a hex-string. Take 
 
 {include:file:samples/colors.rb}
 
-Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). 
+Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb).
 
 ## Specifying Files
 
-All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened relative to the current directory. Files opened for writing (e.g. for `save_png`) will be overwritten without warning. 
+All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened relative to the current directory. Files opened for writing (e.g. for `save_png`) will be overwritten without warning.
 
 ## Custom Layouts
 
-Working with x-y coordinates all the time can be tiresome, and ideally everything in a game prototype should be data-driven and easily changed. For this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for any argument given to the command. 
+Working with x-y coordinates all the time can be tiresome, and ideally everything in a game prototype should be data-driven and easily changed. For this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for any argument given to the command.
 
-To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options. 
+To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options.
 
 Note: YAML is very finnicky about having not allowing tabs. Use two spaces for indentation instead. If you get a `Psych` syntax error, this is likely the culprit. Indendation is also strongly enforced in Yaml too. See the [Yaml docs](http://www.yaml.org/YAML_for_ruby.html).
 
@@ -183,14 +181,14 @@ icon_left
 # The layout for icon_left will have the width/height from icon!
 ```
 
-Also!! Squib provides a more feature-rich way of merging: the `extends` key in layouts. When defining an extends key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent. 
+Also!! Squib provides a more feature-rich way of merging: the `extends` key in layouts. When defining an extends key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
 
 ```yaml
-yin: 
+yin:
   x: 100
   y: 100
   radius: 100
-yang: 
+yang:
   extends: yin
   x: += 50
 ```
@@ -203,7 +201,7 @@ See the `use_layout` sample found [here](https://github.com/andymeneely/squib/tr
 
 Squib supports various configuration properties that can be specified in an external file. The `config:` option in `Deck.new` can specify an optional configuration file in YML format. The properties there are intended to be immutable for the life of the Deck. The options include:
 
-* `progress_bars` (Boolean, default: false).  When set to `true`, long-running operations will show a progress bar on the command line. 
+* `progress_bars` (Boolean, default: false).  When set to `true`, long-running operations will show a progress bar on the command line.
 * `dpi` (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).
 * `hint` (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the `set` command. This setting is overriden by `set` and individual commands.
 * `custom_colors` (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.
@@ -224,13 +222,19 @@ Squib tries to keep you DRY with the following features:
 
 ## Source control
 
-You are using source control, right?? 
+You are using source control, right??
 
 By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control. For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files don't usually get checked in unless absolutely necessary. For big binaries with graphics I tend to keep those
 
+## SublimeText
+
+Using SublimeText? I like you already. I've written up some Squib snippets to ease remembering Squib commands. It's called `Squib Snippets` on Package Control. Compatible with SublimeText 3. Source code is also [on Github](https://github.com/andymeneely/sublime-squib) (contributions welcome!). Check it out:
+
+![Sublime Squib Snippets](https://raw.githubusercontent.com/andymeneely/squib/screencasts/sublime-squib-snippets.gif)
+
 ## Decks with multiple orientations or sizes
 
-If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so you can render your print-on-demand PNGs in portrait but keep everything ekse oriented toward landscape. The following example demonstrates how to do this, found [here](https://github.com/andymeneely/squib/tree/master/samples/portrait-landscape.rb).
+If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so you can render your print-on-demand PNGs in portrait but keep everything else oriented toward landscape. The following example demonstrates how to do this, found [here](https://github.com/andymeneely/squib/tree/master/samples/portrait-landscape.rb).
 
 {include:file:samples/portrait-landscape.rb}
 
@@ -254,4 +258,4 @@ Truthfully, I just thought it was a cool, simple word that was not used much in 
 
 * Squibs are small explosive devices, much like Squib "explodes" your rules into a playable game
 * Squibs are often used in heist movies, leading to a sudden plot twist that often resembles the twists of good tabletop game
-* Squibs are also part of the Harry Potter world - they are people who are non-magical but wizard-born. Squib is aware of wizarding magic and comes from that heritage, but it's not magical itself. 
+* Squibs are also part of the Harry Potter world - they are people who are non-magical but wizard-born. Squib is aware of wizarding magic and comes from that heritage, but it's not magical itself.
