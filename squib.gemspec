@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-mocks', '~> 3.0'
-  spec.add_development_dependency 'redcarpet', '~> 3.2' # for YARD
+  spec.add_development_dependency 'redcarpet', '~> 3.1'
   spec.add_development_dependency 'github-markup', '~> 1.3'
   spec.add_development_dependency 'yard', '~> 0.8'
   spec.add_development_dependency 'coveralls'
