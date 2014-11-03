@@ -8,7 +8,7 @@ module Squib
     # :nodoc:
     # @api private
     def needs(opts, params)
-      Squib.logger.debug {"Given opts: #{opts}"}
+      Squib.logger.debug {"Method #{caller(1,1)} was given the following opts: #{opts}"}
       opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = expand_singletons(opts, params)
