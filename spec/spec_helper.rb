@@ -15,17 +15,20 @@ RSpec.configure do |config|
   end
 end
 
-
 def test_file(str)
   "#{File.expand_path(File.dirname(__FILE__))}/data/#{str}"
 end
 
-# Refine Squib to allow setting the logger
+# Refine Squib to allow setting the logger and progress bar
 module Squib
   def logger=(l)
     @logger = l
   end
   module_function 'logger='
+
+  class Deck
+    attr_accessor :progress_bar
+  end
 end
 
 def mock_squib_logger(old_logger)
