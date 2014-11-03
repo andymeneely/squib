@@ -84,6 +84,15 @@ describe Squib::Card, '#text' do
                 1.0, :left, :top, nil, 0.0)
     end
 
+    it 'sets wrap to word with word string' do
+      card = Squib::Card.new(@deck, 100, 150)
+      expect(@layout).to receive(:wrap=).with(Pango::Layout::WRAP_WORD).once
+      card.text('foo', 'Sans 12', nil, '#abc',
+                10, 15, 20, 50,
+                nil, false, 'word', false,
+                1.0, :left, :top, nil, 0.0)
+    end
+
     it 'sets wrap to word_char with symbol word_char' do
       card = Squib::Card.new(@deck, 100, 150)
       expect(@layout).to receive(:wrap=).with(Pango::Layout::WRAP_WORD_CHAR).once
@@ -99,6 +108,24 @@ describe Squib::Card, '#text' do
       card.text('foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, false,
+                1.0, :left, :top, nil, 0.0)
+    end
+
+    it 'sets ellipsize to start properly' do
+      card = Squib::Card.new(@deck, 100, 150)
+      expect(@layout).to receive(:ellipsize=).with(Pango::Layout::ELLIPSIZE_START).once
+      card.text('foo', 'Sans 12', nil, '#abc',
+                10, 15, 20, 50,
+                nil, false, true, :start,
+                1.0, :left, :top, nil, 0.0)
+    end
+
+    it 'sets ellipsize to middle properly' do
+      card = Squib::Card.new(@deck, 100, 150)
+      expect(@layout).to receive(:ellipsize=).with(Pango::Layout::ELLIPSIZE_MIDDLE).once
+      card.text('foo', 'Sans 12', nil, '#abc',
+                10, 15, 20, 50,
+                nil, false, true, 'middle',
                 1.0, :left, :top, nil, 0.0)
     end
 
