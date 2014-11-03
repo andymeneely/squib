@@ -4,7 +4,8 @@ module Squib
     # :nodoc:
     # @api private
     def rect(x, y, width, height, x_radius, y_radius, fill_color, stroke_color, stroke_width)
-      width=@width if width==:native; height=@height if height==:native
+      width  = @width   if width == :native
+      height = @height  if height == :native
       use_cairo do |cc|
         cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
         cc.set_source_color(stroke_color)
