@@ -21,8 +21,8 @@ module Squib
     if @logger.nil?
       @logger = Logger.new(STDOUT);
       @logger.level = Logger::WARN;
-      @logger.formatter = proc do |severity, datetime, progname, msg|
-        "#{severity} #{progname}: #{msg}\n"
+      @logger.formatter = proc do |severity, datetime, m_progname, msg|
+        "#{datetime} #{severity}: #{msg}\n"
       end
     end
     @logger
