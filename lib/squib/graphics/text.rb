@@ -13,8 +13,6 @@ module Squib
       w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
       h = layout.extents[1].height / Pango::SCALE if h < 0
-
-      Squib.logger.warn 'Text hints are broken on non-zero angles' if angle > 0
       cc.rounded_rectangle(x,y,w,h,0,0)
       cc.set_source_color(color)
       cc.set_line_width(2.0)
@@ -40,19 +38,19 @@ module Squib
     # @api private
     def set_wrap!(layout, wrap)
       case wrap.to_s.downcase
-        when 'word'
-          layout.wrap = Pango::Layout::WRAP_WORD
-        when 'char'
-          layout.wrap = Pango::Layout::WRAP_CHAR
-        when 'word_char', 'true'
-          layout.wrap = Pango::Layout::WRAP_WORD_CHAR
-        end
+      when 'word'
+        layout.wrap = Pango::Layout::WRAP_WORD
+      when 'char'
+        layout.wrap = Pango::Layout::WRAP_CHAR
+      when 'word_char', 'true'
+        layout.wrap = Pango::Layout::WRAP_WORD_CHAR
+      end
     end
 
     # :nodoc:
     # @api private
     def set_align!(layout, align)
-      case align.to_s
+      case align.to_s.downcase
       when 'left'
         layout.alignment = Pango::ALIGN_LEFT
       when 'right'
@@ -93,8 +91,10 @@ module Squib
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       use_cairo do |cc|
         cc.set_source_color(color)
-        cc.move_to(x,y)
+        cc.translate(x,y)
         cc.rotate(angle)
+        cc.translate(-1*x,-1*y)
+        cc.move_to(x,y)
 
         layout = cc.create_pango_layout
         font_desc = Pango::FontDescription.new(font)

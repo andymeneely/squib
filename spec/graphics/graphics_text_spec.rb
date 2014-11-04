@@ -17,7 +17,9 @@ describe Squib::Card, '#text' do
         expect(@context).to receive(:save).once
         expect(@context).to receive(:set_source_color).once
         expect(@context).to receive(:move_to).with(10, 15).once
+        expect(@context).to receive(:translate).with(-10, -15).once
         expect(@context).to receive(:rotate).with(0.0).once
+        expect(@context).to receive(:translate).with(10, 15).once
         expect(@context).to receive(:create_pango_layout).once.and_return(@layout)
         expect(@layout).to receive(:font_description=).with(Pango::FontDescription.new('Sans 12')).once
         expect(@layout).to receive(:text=).with('foo').once

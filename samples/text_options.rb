@@ -29,7 +29,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        hint: :red,
        x: 65, y: 400,
        width: 300, height: 200,
-       align: :center, valign: :middle,
+       align: :center, valign: 'MIDDLE', #case-insenstive strings allowed too.
        font: 'Arial 18'
 
   text str: 'Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42',
@@ -48,8 +48,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
         font: 'Arial 22'
 
   text str: 'Rotated',
-        x: 565, y: 675, angle: 0.1,
-        font: 'Arial 18'
+        x: 565, y: 675, angle: 0.2,
+        font: 'Arial 18', hint: :red
 
   text str: longtext, font: 'Arial 16',
        x: 65, y: 700,

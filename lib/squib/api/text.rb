@@ -34,7 +34,7 @@ module Squib
     # @option opts justify [Boolean] (false) toggles whether or not the text is justified or not.
     # @option opts valign [:top, :middle, :bottom] (:top) When width and height are set, align text vertically according to the ink extents of the text.
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
-    # @option opts angle [FixNum] (0) Rotation of the text in radians.
+    # @option opts angle [FixNum] (0) Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}).
     # @return [nil] Returns nothing
     # @api public
