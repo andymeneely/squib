@@ -119,4 +119,20 @@ describe Squib::InputHelpers do
     end
   end
 
+  context '#rotateify' do
+    it 'computes a clockwise rotate properly' do
+      opts = @deck.send(:rotateify, {rotate: :clockwise})
+      expect(opts).to eq({ :angle => 0.5 * Math::PI,
+                           :rotate => :clockwise
+                         })
+    end
+
+    it 'computes a counter-clockwise rotate properly' do
+      opts = @deck.send(:rotateify, {rotate: :counterclockwise})
+      expect(opts).to eq({ :angle => 1.5 * Math::PI,
+                           :rotate => :counterclockwise
+                         })
+    end
+  end
+
 end
