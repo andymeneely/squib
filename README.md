@@ -16,13 +16,13 @@ Check this out.
 ```ruby
 require 'squib'
 
-Squib::Deck.new do
-  text str: 'Hello, World!'
+Squib::Deck.new(cards: 2) do
+  text str: %w(Hello World!)
   save_png
 end
 ```
 
-We just created a deck with 1 card, 825x1125 pixels, with the string "Hello, World" in the upper-left corner, saved to a PNG.
+We just created a 2-card deck with "Hello" on the first card, and "World" on the second, and saved them out to PNGs.
 
 ## Installation
 
@@ -80,7 +80,7 @@ After going over this README, here are some other places to go learn Squib:
 
 ## Viewing this README
 
-The best place to read this documentation is on [http://andymeneely.github.io/squib/doc].
+The best place to read this documentation is on [our website](http://andymeneely.github.io/squib/doc).
 
 If you want to view it offline, you can do the following
 
@@ -90,9 +90,9 @@ $ yard server --gems
 ```
 Then go to [http://localhost:8808/docs/squib/file/README.md](http://localhost:8808/docs/squib/file/README.md)
 
-If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. 
+If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. Github doesn't render those and you might find them helpful.
 
-Also, RubyDoc.info is buggy and doesn't support `{include:file...}` directive properly, so these online links will still not show the samples inline
+Also, RubyDoc.info linked from RubyGems is buggy and doesn't support `{include:file...}` directive properly, so the embedded samples will also not show up there.
 
 ## Squib API
 
@@ -212,13 +212,14 @@ See the `custom_config` sample found [here](https://github.com/andymeneely/squib
 
 {include:file:samples/custom_config.rb}
 
-## Staying DRY (Don't Repeat Yourself)
+## Staying DRY
 
-Squib tries to keep you DRY with the following features:
+Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 
-* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Yaml's "merge keys" takes this a step further and lets you specify base styles that can then be extended by other styles.
+* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Yaml's "merge keys" takes this a step further and lets you specify base styles that can then be extended by other styles. Squib goes even further and has a special "extends" that works especially well for grouped-together styles.
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
-* Custom colors keep you from hardcoding magic color strings everywhere. Custom colors are entered into the `config.yml` file.
+* Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into `config.yml` file.
+* Plus, you know, Ruby.
 
 ## Source control
 
@@ -240,7 +241,7 @@ If you want to make a deck that has some portrait and some landscape cards, I re
 
 # Development
 
-Squib is currently in pre-release alpha, so the API is still maturing. If you are using Squib, however, I'd love to hear about it! Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues).
+Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. If you are using Squib, however, I'd love to hear about it! Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues).
 
 # Contributing
 

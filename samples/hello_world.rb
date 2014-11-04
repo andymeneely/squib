@@ -1,7 +1,6 @@
-#!/usr/bin/env ruby
 require 'squib'
 
-Squib::Deck.new do
-  text str: 'Hello, World!'
+Squib::Deck.new(cards: 2) do
+  text str: %w(Hello World!)
   save_png
 end
