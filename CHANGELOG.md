@@ -1,5 +1,13 @@
 # Squib CHANGELOG
 
+## v0.0.5
+* New sample for demonstrating direct cairo access
+* README now includes a snazzy screencast of the Sublime snippets
+* Rotation of text works more conventionally now, and works with text hints
+* Better code styles thanks to RuboCop
+* Better unit testing, now with mocking!
+* Various version bumps: rspec, yard
+
 ## v0.0.4
 * Added a font size override so you can vary the font size with the same style across strings more easily
 * Added text autoscale sample
