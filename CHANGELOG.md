@@ -1,6 +1,7 @@
 # Squib CHANGELOG
 
 ## v0.0.5
+* Image rotation for png and svg via `angle`
 * New sample for demonstrating direct cairo access
 * README now includes a snazzy screencast of the Sublime snippets
 * Rotation of text works more conventionally now, and works with text hints
