@@ -25,5 +25,10 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png file: 'ball.png', x: 50, y: 700
   png file: 'grit.png', x: 70, y: 750, blend: :color_burn, alpha: 0.75
 
+  # Images can be rotated around their upper-left corner
+  png file: 'shiny-purse.png', x: 300, y: 700, angle: 0.0 # default (no rotate)
+  png file: 'shiny-purse.png', x: 300, y: 800, angle: Math::PI / 4
+  svg file: 'spanner.svg',     x: 300, y: 900, angle: Math::PI / 2 - 0.1
+
   save prefix: 'load_images_', format: :png
 end
