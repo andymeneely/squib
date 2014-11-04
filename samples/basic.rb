@@ -12,8 +12,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: data['level'], x: 75, y: 85, width: 128,
        font: 'Arial 72', align: :center
 
-   png range: [0,2], file: 'shiny-purse.png', x: 620, y: 75
-   svg range: 1..2, file: 'spanner.svg', x: 620, y: 218
+  png range: [0,2], file: 'shiny-purse.png', x: 620, y: 75
+  svg range: 1..2, file: 'spanner.svg', x: 620, y: 218
 
   save prefix: 'basic_', format: :png
 end
