@@ -1,5 +1,7 @@
 # Squib CHANGELOG
 
+## Samples show you can use text instead of symbols
+
 ## v0.0.5
 * Image rotation for png and svg via `angle`
 * New sample for demonstrating direct cairo access

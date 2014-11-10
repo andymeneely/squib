@@ -9,15 +9,15 @@ title:
   y: 50
   width: 625
   height: 100
-  align: !ruby/symbol center #see http://www.yaml.org/YAML_for_ruby.html#symbols
-  valign: !ruby/symbol middle
+  align: center #strings also work for most options
+  valign: !ruby/symbol middle #yaml also support symbols, see http://www.yaml.org/YAML_for_ruby.html#symbols
 subtitle:
   x: 150
   y: 150
   width: 575
   height: 60
-  align: !ruby/symbol center
-  valign: !ruby/symbol middle
+  align: center 
+  valign: middle
 icon:
   width: 125
   height: 125
