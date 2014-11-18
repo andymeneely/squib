@@ -2,6 +2,7 @@
 
 # Custom layouts now support loading & merging multiple files, see README and updated sample
 # Samples now show that you can use text instead of symbols
+# Better regression testing technique that tracks when a sample has changed.
 
 ## v0.0.5
 * Image rotation for png and svg via `angle`
