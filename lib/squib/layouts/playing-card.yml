@@ -1,0 +1,17 @@
+bonus_ul:
+  x: 75
+  y: 75
+  width: 200
+  height: 200
+bonus_lr:
+  extends: bonus_ul
+  x: 750
+  y: 1050
+  angle: 3.14159
+art:
+  x: 150
+  y: 275
+  width: 525
+  height: 575
+  valign: middle
+  align: center

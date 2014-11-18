@@ -1,0 +1,37 @@
+title:
+  x: 275
+  y: 75
+  width: 475
+  height: 125
+art:
+  x: 275
+  y: 225
+  width: 475
+  height: 475
+description:
+  x: 275
+  y: 725
+  width: 475
+  height: 200
+snark:
+  x: 275
+  y: 950
+  width: 475
+  height: 100
+bonus1:
+  x: 75
+  y: 75
+  width:  175
+  height: 175
+bonus2:
+  extends: bonus1
+  y: += 198
+bonus3:
+  extends: bonus2
+  y: += 198
+bonus4:
+  extends: bonus3
+  y: += 198
+bonus5:
+  extends: bonus4
+  y: += 198

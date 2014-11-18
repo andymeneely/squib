@@ -112,9 +112,16 @@ module Squib
       @layout = {}
       Squib::logger.info { "  using layout(s): #{files}" }
       Array(files).each do |file|
-        yml = @layout.merge(YAML.load_file(file))
-        yml.each do |key, value|
-          @layout[key] = recurse_extends(yml, key, {})
+        thefile = file
+        thefile = "#{File.dirname(__FILE__)}/layouts/#{file}" unless File.exists?(file)
+        if File.exists? thefile
+          yml = @layout.merge(YAML.load_file(thefile))
+          yml.each do |key, value|
+            @layout[key] = recurse_extends(yml, key, {})
+          end
+        else
+          puts "the file: #{thefile}"
+          Squib::logger.error { "Layout file not found: #{file}" }
         end
       end
     end

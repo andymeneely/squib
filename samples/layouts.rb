@@ -14,9 +14,9 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   text str: 'The Title', layout: :title
 
   # Layouts also support YAML merge keys toreuse settings
-  svg file: 'spanner.svg', layout: :icon_left
+  svg file: 'spanner.svg',     layout: :icon_left
   png file: 'shiny-purse.png', layout: :icon_middle
-  svg file: 'spanner.svg', layout: :icon_right
+  svg file: 'spanner.svg',     layout: :icon_right
 
   # Squib has its own, richer merge key: "extends"
   rect fill_color: :black, layout: :bonus
@@ -33,9 +33,28 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   save_png prefix: 'layout_'
 end
 
-Squib::Deck.new(layout:['custom-layout.yml', 'custom-layout2.yml']) do
-  text str: 'The Title', layout: :title             # from custom-layout.yml
-  text str: 'The Subtitle', layout: :subtitle       # redefined in custom-layout2.yml
+Squib::Deck.new(layout: ['custom-layout.yml', 'custom-layout2.yml']) do
+  text str: 'The Title',       layout: :title       # from custom-layout.yml
+  text str: 'The Subtitle',    layout: :subtitle    # redefined in custom-layout2.yml
   text str: 'The Description', layout: :description # from custom-layout2.yml
   save_png prefix: 'layout2_'
+end
+
+# Built-in layouts are easy to use and extend
+Squib::Deck.new(layout: 'playing-card.yml') do
+  text str: "A\u2660",      layout: :bonus_ul, font: 'Sans bold 100', hint: :red
+  text str: "A\u2660",      layout: :bonus_lr, font: 'Sans bold 100', hint: :red
+  text str: "artwork here", layout: :art, hint: :red
+  save_png prefix: 'layout_builtin_playing_card_'
+end
+
+# Built-in layouts are easy to use and extend
+Squib::Deck.new(layout: 'hand.yml') do
+  %w(title bonus1 bonus2 bonus3 bonus4 bonus5
+    description snark art).each do |icon|
+    text str: icon.capitalize, layout: icon,
+         hint: :red, valign: 'middle', align: 'center'
+  end
+  png file: 'pokercard.png', alpha: 0.5
+  save_png prefix: 'layout_builtin_hand_'
 end
