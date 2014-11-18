@@ -48,7 +48,7 @@ describe Squib::Deck do
   context '#load_layout' do
 
     it 'loads a normal layout with no extends' do
-      d = Squib::Deck.new(layout: test_file('no-extends.yml'))
+      d = Squib::Deck.new(layout: layout_file('no-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
               'x' => 38,
@@ -61,7 +61,7 @@ describe Squib::Deck do
     end
 
     it 'loads with a single extends' do
-      d = Squib::Deck.new(layout: test_file('single-extends.yml'))
+      d = Squib::Deck.new(layout: layout_file('single-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
               'x' => 38,
@@ -78,7 +78,7 @@ describe Squib::Deck do
     end
 
     it 'applies the extends regardless of order' do
-      d = Squib::Deck.new(layout: test_file('pre-extends.yml'))
+      d = Squib::Deck.new(layout: layout_file('pre-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
               'x' => 38,
@@ -95,7 +95,7 @@ describe Squib::Deck do
     end
 
     it 'applies the single-level extends multiple times' do
-      d = Squib::Deck.new(layout: test_file('single-level-multi-extends.yml'))
+      d = Squib::Deck.new(layout: layout_file('single-level-multi-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
               'x' => 38,
@@ -118,7 +118,7 @@ describe Squib::Deck do
     end
 
     it 'applies multiple extends in a single rule' do
-      d = Squib::Deck.new(layout: test_file('multi-extends-single-entry.yml'))
+      d = Squib::Deck.new(layout: layout_file('multi-extends-single-entry.yml'))
       expect(d.layout).to \
         eq({'aunt' => {
               'a' => 101,
@@ -143,7 +143,7 @@ describe Squib::Deck do
     end
 
     it 'applies multi-level extends' do
-      d = Squib::Deck.new(layout: test_file('multi-level-extends.yml'))
+      d = Squib::Deck.new(layout: layout_file('multi-level-extends.yml'))
       expect(d.layout).to \
         eq({'frame' => {
               'x' => 38,
@@ -166,26 +166,26 @@ describe Squib::Deck do
     end
 
     it 'fails on a self-circular extends' do
-      file = test_file('self-circular-extends.yml')
+      file = layout_file('self-circular-extends.yml')
       expect { Squib::Deck.new(layout: file) }.to \
         raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
     it 'fails on a easy-circular extends' do
-      file = test_file('easy-circular-extends.yml')
+      file = layout_file('easy-circular-extends.yml')
       expect { Squib::Deck.new(layout: file) }.to \
         raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
     it 'hard on a easy-circular extends' do
-      file = test_file('hard-circular-extends.yml')
+      file = layout_file('hard-circular-extends.yml')
       expect { Squib::Deck.new(layout: file) }.to \
         raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
     it 'redefines keys on multiple layouts' do
-      a = test_file('multifile-a.yml')
-      b = test_file('multifile-b.yml')
+      a = layout_file('multifile-a.yml')
+      b = layout_file('multifile-b.yml')
       d = Squib::Deck.new(layout: [a, b])
       expect(d.layout).to eq({
           'title'    => { 'x' => 300 },
@@ -195,8 +195,8 @@ describe Squib::Deck do
     end
 
     it 'evaluates extends on each file first' do
-      a = test_file('multifile-extends-a.yml')
-      b = test_file('multifile-extends-b.yml')
+      a = layout_file('multifile-extends-a.yml')
+      b = layout_file('multifile-extends-b.yml')
       d = Squib::Deck.new(layout: [a, b])
       expect(d.layout).to eq({
           'grandparent' => { 'x' => 100 },
