@@ -1,0 +1,15 @@
+# Used in the layouts.rb sample in conjunction with custom-layout.yml
+#
+# When used with custom-layout.yml loaded first, this layout overrides subtitle
+subtitle:
+  x: 150
+  y: 150
+  width: 575
+  height: 60
+  align: left 
+  valign: middle
+  font_size: 25
+# This one is completely new
+description: 
+  extends: subtitle
+  y: += 350

@@ -1,0 +1,8 @@
+grandparent:
+  x: 100
+parent_a:
+  extends: grandparent
+  x: += 10   # evaluates to 110
+parent_b: 
+  extends: grandparent
+  x: += 20   # evaluates to 120, for now...

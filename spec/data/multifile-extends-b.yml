@@ -1,0 +1,9 @@
+child_a:
+  extends: parent_a
+  x: += 3    # evaluates to 113
+parent_b:    # redefined
+  extends: grandparent
+  x: += 30   # evaluates to 130
+child_b:
+  extends: parent_b
+  x: += 3    # evaluates to 133

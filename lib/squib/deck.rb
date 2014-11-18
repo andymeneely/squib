@@ -50,6 +50,7 @@ module Squib
     # @param cards [Integer] the number of cards in the deck
     # @param dpi [Integer] the pixels per inch when rendering out to PDF or calculating using inches.
     # @param config [String] the file used for global settings of this deck
+    # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
     # @param block [Block] the main body of the script.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
@@ -105,12 +106,13 @@ module Squib
 
     # Load the layout configuration file, if exists
     # @api private
-    def load_layout(file)
-      return if file.nil?
+    def load_layout(files)
       @layout = {}
-      yml = YAML.load_file(file)
-      yml.each do |key, value|
-        @layout[key] = recurse_extends(yml, key, {})
+      Array(files).each do |file|
+        yml = @layout.merge(YAML.load_file(file))
+        yml.each do |key, value|
+          @layout[key] = recurse_extends(yml, key, {})
+        end
       end
     end
 

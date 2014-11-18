@@ -32,3 +32,10 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
 
   save_png prefix: 'layout_'
 end
+
+Squib::Deck.new(layout:['custom-layout.yml', 'custom-layout2.yml']) do
+  text str: 'The Title', layout: :title             # from custom-layout.yml
+  text str: 'The Subtitle', layout: :subtitle       # redefined in custom-layout2.yml
+  text str: 'The Description', layout: :description # from custom-layout2.yml
+  save_png prefix: 'layout2_'
+end

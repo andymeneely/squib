@@ -169,6 +169,12 @@ Layouts will override Squib's defaults, but are overriden by anything specified 
 * If anything was not yet specified, use what was given in a layout (if a layout was specified in the command and the file was given to the Deck)
 * If still anything was not yet specified, use what was given in Squib's defaults.
 
+Layouts also allow merging, extending, and combining layouts. The sample demonstrates this, but they are also explained below. See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+
+{include:file:samples/layouts.rb}
+
+### Merge Keys and `extends`
+
 Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
 
 ```yaml
@@ -193,9 +199,42 @@ yang:
   x: += 50
 ```
 
-See the `use_layout` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+### Multiple layout files
 
-{include:file:samples/use_layout.rb}
+Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each_ file. YAML merge keys are NOT supported across multiple files (use extends instead). Here's a demonstrative example:
+
+```yaml
+# load order: a.yml, b.yml
+
+##############
+# file a.yml #
+##############
+grandparent:
+  x: 100
+parent_a:
+  extends: grandparent
+  x: += 10   # evaluates to 110
+parent_b: 
+  extends: grandparent
+  x: += 20   # evaluates to 120
+
+##############
+# file b.yml #
+##############
+child_a:
+  extends: parent_a
+  x: += 3    # evaluates to 113
+parent_b:    # redefined
+  extends: grandparent
+  x: += 30   # evaluates to 130
+child_b:
+  extends: parent_b
+  x: += 3    # evaluates to 133
+```
+
+This can hopefully be helpful for:
+  * Creating a base layout for structure, and one for color (for easier color/black-and-white switching)
+  * Sharing base layouts with other designers
 
 ## Configuration File
 

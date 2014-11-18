@@ -1,6 +1,7 @@
 # Squib CHANGELOG
 
-## Samples show you can use text instead of symbols
+# Custom layouts now support loading & merging multiple files, see README and updated sample
+# Samples now show that you can use text instead of symbols
 
 ## v0.0.5
 * Image rotation for png and svg via `angle`

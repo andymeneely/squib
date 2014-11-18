@@ -183,6 +183,30 @@ describe Squib::Deck do
         raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
     end
 
+    it 'redefines keys on multiple layouts' do
+      a = test_file('multifile-a.yml')
+      b = test_file('multifile-b.yml')
+      d = Squib::Deck.new(layout: [a, b])
+      expect(d.layout).to eq({
+          'title'    => { 'x' => 300 },
+          'subtitle' => { 'x' => 200 }, 
+          'desc'     => { 'x' => 400 }
+          })
+    end
+
+    it 'evaluates extends on each file first' do
+      a = test_file('multifile-extends-a.yml')
+      b = test_file('multifile-extends-b.yml')
+      d = Squib::Deck.new(layout: [a, b])
+      expect(d.layout).to eq({
+          'grandparent' => { 'x' => 100 },
+          'parent_a'    => { 'x' => 110, 'extends' => 'grandparent' }, 
+          'parent_b'    => { 'x' => 130, 'extends' => 'grandparent' },
+          'child_a'     => { 'x' => 113, 'extends' => 'parent_a' },
+          'child_b'     => { 'x' => 133, 'extends' => 'parent_b' }
+          })
+    end
+
   end
 
 end
