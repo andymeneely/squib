@@ -24,7 +24,7 @@ def sample_regression_file(file)
 end
 
 def scrub_hex(str)
-  str.gsub(/0x\w{7,8}/,'')
+  str.gsub(/0x\w{1,8}/,'')
      .gsub(/ptr=.{8}/,'')
      .gsub(/FontDescription:.{8}/,'FontDescription')
      .gsub(/Handle:.{8}/,'Handle')
