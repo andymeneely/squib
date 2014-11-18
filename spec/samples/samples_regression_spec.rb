@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'squib'
 require 'pp'
-require 'method_log_proxy'
-
 
 describe Squib do
 
