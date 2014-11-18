@@ -2,6 +2,7 @@
 
 # Custom layouts now support loading & merging multiple files, see README and updated sample
 # Samples now show that you can use text instead of symbols
+# Improved logging, and documentation on increasing logger verboseness
 # Better regression testing technique that tracks when a sample has changed.
 
 ## v0.0.5

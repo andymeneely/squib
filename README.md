@@ -251,6 +251,16 @@ See the `custom_config` sample found [here](https://github.com/andymeneely/squib
 
 {include:file:samples/custom_config.rb}
 
+## Making Squib Verbose
+
+By default, Squib's logger is set to WARN, but more fine-grained logging is embedded in the code. To set the logger, just put this at the top of your script:
+
+```ruby
+Squib::logger.level = Logger::INFO
+```
+
+If you REALLY want to see tons of output, you can also set DEBUG, but that's not intended for general consumption.
+
 ## Staying DRY
 
 Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:

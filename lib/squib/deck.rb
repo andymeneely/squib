@@ -63,6 +63,7 @@ module Squib
       @progress_bar = Squib::Progress.new(false)
       @text_hint = :off
       cards.times{ @cards << Squib::Card.new(self, width, height) }
+      show_info(config, layout)
       load_config(config)
       load_layout(layout)
       if block_given?
@@ -95,6 +96,7 @@ module Squib
     # @api private
     def load_config(file)
       if File.exists?(file) && config = YAML.load_file(file)
+        Squib::logger.info { "  using config: #{file}" }
         config = Squib::CONFIG_DEFAULTS.merge(config)
         @dpi = config['dpi'].to_i
         @text_hint = config['text_hint']
@@ -108,6 +110,7 @@ module Squib
     # @api private
     def load_layout(files)
       @layout = {}
+      Squib::logger.info { "  using layout(s): #{files}" }
       Array(files).each do |file|
         yml = @layout.merge(YAML.load_file(file))
         yml.each do |key, value|
@@ -157,6 +160,11 @@ module Squib
       if visited.key? key
         raise "Invalid layout: circular extends with '#{key}'"
       end
+    end
+
+    def show_info(config, layout)
+      Squib::logger.info "Squib v#{Squib::VERSION}"
+      Squib::logger.info "  building #{@cards.size} #{@width}x#{@height} cards"
     end
 
     ##################
