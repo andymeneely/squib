@@ -26,7 +26,7 @@ describe  Squib::Commands::New do
     end
 
     it 'creates a new template on an empty directory' do
-      FileUtils.mkdir_p('foo')
+      Dir.mkdir('foo')
       @cmd.process(['foo'])
       expect(File.exists?('foo/deck.rb')).to be true
     end
