@@ -25,10 +25,10 @@ end
 
 def scrub_hex(str)
   str.gsub(/0x\w{1,8}/,'')
-     .gsub(/ptr=.{8}/,'')
-     .gsub(/FontDescription:.{8}/,'FontDescription')
-     .gsub(/Handle:.{8}/,'Handle')
-     # .gsub(/RGB:./,'RGB:')
+     .gsub(/ptr=\w{1,8}/,'')
+     .gsub(/FontDescription:\w{8}/,'FontDescription')
+     .gsub(/Handle:\w{1,8}/,'Handle')
+     .gsub(/RGB:\w{1,8}/,'RGB:')
 end
 
 # Build a mock cairo instance that allows basically any method
