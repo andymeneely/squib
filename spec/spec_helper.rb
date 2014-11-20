@@ -29,8 +29,8 @@ end
 
 def overwrite_sample(sample_name, log)
   # Use this to overwrite the regression with current state
-  File.open(sample_regression_file(sample_name), 'w+') do |f|
-    f.write(log.string.force_encoding("UTF-8").encode("UTF-8"))
+  File.open(sample_regression_file(sample_name), 'w+:UTF-8') do |f|
+    f.write(log.string)
   end
 end
 
