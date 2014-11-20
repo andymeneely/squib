@@ -1,4 +1,3 @@
-=== hello_world.rb ===
 cairo: save([])
 cairo: set_source_color([#<Cairo::Color::RGB: @alpha=1.0, @red=0.0, @green=0.0, @blue=0.0>])
 cairo: translate([0, 0])

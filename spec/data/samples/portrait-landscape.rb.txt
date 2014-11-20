@@ -1,4 +1,3 @@
-=== portrait-landscape.rb ===
 cairo: save([])
 cairo: set_source_color([#<Cairo::Color::RGB: @alpha=1.0, @red=0.6666666666666666, @green=0.6666666666666666, @blue=0.6666666666666666>])
 cairo: paint([])
@@ -44,6 +43,6 @@ cairo: restore([])
 cairo: translate([412.5, 562.5])
 cairo: rotate([1.5707963267948966])
 cairo: translate([-562.5, -412.5])
-cairo: set_source([#<Cairo::ImageSurface:>])
+cairo: set_source([ImageSurface])
 cairo: paint([])
 surface: write_to_png(["_output/landscape_0.png"])

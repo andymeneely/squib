@@ -1,4 +1,3 @@
-=== cairo_access.rb ===
 cairo: save([])
 cairo: set_source_color([:white])
 cairo: paint([])
