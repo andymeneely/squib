@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 require 'squib'
 
 data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
