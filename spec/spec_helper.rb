@@ -19,15 +19,27 @@ def layout_file(str)
   "#{File.expand_path(File.dirname(__FILE__))}/data/layouts/#{str}"
 end
 
+def sample_file(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/../samples/#{file}"
+end
+
 def sample_regression_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/samples/#{file}.txt"
+end
+
+def overwrite_sample(sample_name, log)
+  # Use this to overwrite the regression with current state
+  File.open(sample_regression_file(sample_name), 'w+') do |f|
+    f.write(log.string.force_encoding("UTF-8")) # write back out to expected file
+  end
 end
 
 def scrub_hex(str)
   str.gsub(/0x\w{1,8}/,'')
      .gsub(/ptr=\w{1,8}/,'')
      .gsub(/#<Pango::FontDescription:.*>/,'')
-     .gsub(/Handle:\w{1,8}/,'Handle')
+     .gsub(/#<Cairo::ImageSurface:.*>/,'ImageSurface')
+     .gsub(/#<RSVG::Handle.*>/,'RSVG::Handle')
      .gsub(/RGB:\w{1,8}/,'RGB:')
 end
 
