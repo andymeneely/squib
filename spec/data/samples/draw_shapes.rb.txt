@@ -32,3 +32,4 @@ cairo: set_source_color([#<Cairo::Color::RGB: @alpha=1.0, @red=0.0, @green=0.0, 
 cairo: set_line_width([25.0])
 cairo: stroke([])
 cairo: restore([])
+surface: write_to_png(["_output/shape_0.png"])
