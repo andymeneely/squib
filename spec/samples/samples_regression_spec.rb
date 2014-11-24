@@ -42,9 +42,9 @@ describe "Squib samples" do
   # you made to the samples or Squib.
   # FOR NOW!! These two I can't get working on Travis, so I'm disabling
   # Has to do with UTF-8 encoding of a special characters
-      # hello_world.rb
+      # layouts.rb
       # text_options.rb
-  %w( layouts.rb
+  %w( hello_world.rb
       autoscale_font.rb
       save_pdf.rb
       custom_config.rb
