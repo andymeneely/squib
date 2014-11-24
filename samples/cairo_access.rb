@@ -1,7 +1,7 @@
 require 'squib'
 
 Squib::Deck.new(cards: 2) do
-
+  background color: :white
   # If you really need something custom-made, the underlying cairo context
   # can be accessed directly via each Squib::Card
   #
@@ -11,8 +11,9 @@ Squib::Deck.new(cards: 2) do
   # I also recommend wrapping it in a Cairo save/restore, which Squib calls "use_cairo"
   each do |card|
     card.use_cairo do |cairo_context|
-      cairo_context.set_source_color(:white)
-      cairo_context.paint
+      cairo_context.set_source_color(:blue)
+      cairo_context.circle(150, 150, 150)
+      cairo_context.fill
     end
   end
 
