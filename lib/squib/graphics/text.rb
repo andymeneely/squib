@@ -89,6 +89,7 @@ module Squib
              markup, justify, wrap, ellipsize,
              spacing, align, valign, hint, angle)
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
+      extents = nil
       use_cairo do |cc|
         cc.set_source_color(color)
         cc.translate(x,y)
@@ -112,7 +113,10 @@ module Squib
         valign!(cc, layout, x, y, valign)
         cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)
+        extents = { width: layout.extents[1].width / Pango::SCALE,
+                    height: layout.extents[1].height / Pango::SCALE }
       end
+      return extents
     end
 
   end

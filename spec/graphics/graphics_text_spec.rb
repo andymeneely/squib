@@ -13,6 +13,7 @@ describe Squib::Card, '#text' do
 
     it 'make all the expected calls on a smoke test' do
       mock_squib_logger(@old_logger) do
+        extent = Pango::Rectangle.new(50,60,100,200)
         expect(Squib.logger).to receive(:debug).once
         expect(@context).to receive(:save).once
         expect(@context).to receive(:set_source_color).once
@@ -31,7 +32,7 @@ describe Squib::Card, '#text' do
         expect(@layout).to receive(:spacing=).with(1.0 * Pango::SCALE).once
         expect(@context).to receive(:update_pango_layout).once
         expect(@layout).to receive(:height).once.and_return(25)
-        expect(@layout).to receive(:extents).once.and_return([0,0])
+        expect(@layout).to receive(:extents).thrice.and_return([nil,extent])
         expect(@context).to receive(:update_pango_layout).once
         expect(@context).to receive(:show_pango_layout).once
         expect(@context).to receive(:restore).once
@@ -41,10 +42,11 @@ describe Squib::Card, '#text' do
         #      x, y, width, height,
         #      markup, justify, wrap, ellipsize,
         #      spacing, align, valign, hint, angle)
-        card.text('foo', 'Sans 12', nil, '#abc',
-                  10, 15, 20, 25,
-                  nil, false, false, false,
-                  1.0, :left, :top, nil, 0.0)
+        ret = card.text('foo', 'Sans 12', nil, '#abc',
+                        10, 15, 20, 25,
+                        nil, false, false, false,
+                        1.0, :left, :top, nil, 0.0)
+        expect(ret).to eq({width: 0, height: 0})
       end
     end
   end

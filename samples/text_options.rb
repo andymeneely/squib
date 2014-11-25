@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# encoding: utf-8
+# encoding: UTF-8
 require 'squib'
 
 data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
@@ -29,11 +28,22 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint',
        hint: :red,
        x: 65, y: 400,
-       width: 300, height: 200,
+       width: 300, height: 125,
        align: :center, valign: 'MIDDLE', #case-insenstive strings allowed too.
        font: 'Arial 18'
 
-  text str: 'Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42',
+  extents = text str: 'Ink extent return value',
+       x: 65, y: 550,
+       font: 'Sans Bold', font_size: [16, 20, 24]
+  margin = 10
+  # Extents come back as an array of hashes, which can get split out like this
+  ws = extents.inject([]) { |arr, ext| arr << ext[:width] + 10; arr }
+  hs = extents.inject([]) { |arr, ext| arr << ext[:height] + 10; arr }
+  rect x: 65 - margin/2, y: 550 - margin/2,
+       width: ws, height: hs,
+       radius: 10, stroke_color: :black
+
+  text str: "Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42",
        hint: :green, font: 'Arial 22',
        x: 450, y: 400,
        width: 280, height: 180,

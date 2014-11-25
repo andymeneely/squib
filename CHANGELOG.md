@@ -1,6 +1,7 @@
 # Squib CHANGELOG
 
-# Custom layouts now support loading & merging multiple Yaml files. Updated README, docs, and sample to document it.
+# Custom layouts now support loading & merging multiple Yaml files! Updated README, docs, and sample to document it.
+# `text` now returns the ink extent rectangle of the rendered text. Updated docs and sample to document it.
 # Samples now show that you can use text instead of symbols for things like `center`
 # Improved logging, and documentation on increasing logger verboseness
 # Better regression testing technique that tracks when a sample has changed.
