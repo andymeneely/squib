@@ -1,6 +1,7 @@
 # Squib CHANGELOG
 
 # Custom layouts now support loading & merging multiple Yaml files! Updated README, docs, and sample to document it.
+# Built-in layouts! Currently we support `hand.yml` and `playing-card.yml`. Documented in the `layouts.rb` sample.
 # `text` now returns the ink extent rectangle of the rendered text. Updated docs and sample to document it.
 # Samples now show that you can use text instead of symbols for things like `center`
 # Improved logging, and documentation on increasing logger verboseness
