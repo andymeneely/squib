@@ -40,6 +40,7 @@ def scrub_hex(str)
      .gsub(/#<Pango::FontDescription:.*>/,'')
      .gsub(/#<Cairo::ImageSurface:.*>/,'ImageSurface')
      .gsub(/#<RSVG::Handle.*>/,'RSVG::Handle')
+     .gsub(/#<RSpec::Mocks::Double:.*>/,'MockDouble')
      .gsub(/RGB:\w{1,8}/,'RGB:')
 end
 
