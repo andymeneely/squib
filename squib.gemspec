@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/andymeneely/squib'
 
   spec.rdoc_options = ['--charset=UTF-8']
-  spec.extra_rdoc_files = %w(README.md LICENSE.txt)
+  spec.extra_rdoc_files = Dir['README.md', 'samples/**/*.rb']
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
