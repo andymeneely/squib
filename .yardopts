@@ -1,8 +1,10 @@
 --readme README.md
---markup-provider=redcarpet
+--title 'Squib API Documentation'
 --markup markdown
+--markup-provider=redcarpet
 --api public
 --asset samples:samples
+--charset utf-8
 -
 samples/**/*.rb
 LICENSE.txt
