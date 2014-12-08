@@ -63,12 +63,25 @@ module Squib
   def csv(opts = {})
     opts = Squib::SYSTEM_DEFAULTS.merge(opts)
     opts = Squib::InputHelpers.fileify(opts)
-    hash = {}
-    csv = CSV.open(opts[:file], headers: true, converters: :numeric).read
-    
+    table = CSV.read(opts[:file], headers: true, converters: :numeric)
+    check_duplicate_csv_headers(table)
+    hash = Hash.new
+    table.headers.each do |header|
+      hash[header.to_s] ||= table[header]
+    end
     return hash
   end
   module_function :csv
+
+  # Check if the given CSV table has duplicate columns, and throw a warning
+  # @api private
+  def check_duplicate_csv_headers(table)
+    if table.headers.size != table.headers.uniq.size
+      dups = table.headers.select{|e| table.headers.count(e) > 1 }
+      Squib.logger.warn "CSV duplicated the following column keys: #{dups.join(',')}"
+    end
+  end
+  module_function :check_duplicate_csv_headers
 
   class Deck
 

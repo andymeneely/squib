@@ -13,5 +13,8 @@ Squib::Deck.new(cards: 2) do
   # You can also specify the sheet, starting at 0
   data = xlsx file: 'sample.xlsx', sheet: 2
 
-  save format: :png, prefix: 'sample_excel_'
+  save format: :png, prefix: 'sample_csv_'
 end
+
+# CSV is also a Squib-module-level function, so this also works:
+data = Squib.csv file: 'sample.csv'

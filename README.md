@@ -4,7 +4,7 @@ Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for
 * A concise set of rules for laying out your cards
 * Loading PNGs and SVGs using [Cairo](http://cairographics.org/)
 * Complex text rendering using [Pango](http://www.pango.org/)
-* Reading `.xlsx` files
+* Reading `xlsx` and `csv` files
 * Basic shape drawing
 * Rendering decks to PNGs and PDFs
 * Data-driven layouts
@@ -254,6 +254,14 @@ The following sample demonstrates the config file.
 See the `custom_config` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
 
 {include:file:samples/custom_config.rb}
+
+## Importing from Excel and CSV
+
+Squib supports importing data from `xlsx` files and `csv` files. These methods are column-based, which means that they assume you have a header row in your table, and that header row will define the column. Squib will return a `Hash` of `Arrays` correspoding to each row. Warnings are thrown on things like duplicate columns. See the `excel.rb` and the `csv_import.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/).
+
+{include:file:samples/excel.rb}
+
+Of course, you can always import your game data other ways using just Ruby. There's nothing special about Squib's methods other than their convenience.
 
 ## Making Squib Verbose
 

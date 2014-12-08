@@ -54,6 +54,7 @@ describe "Squib samples" do
       draw_shapes.rb
       colors.rb
       excel.rb
+      csv_import.rb
       portrait-landscape.rb
       tgc_proofs.rb
       ranges.rb
