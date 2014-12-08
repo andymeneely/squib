@@ -1,3 +1,4 @@
+# A basic playing card layout with bonuses in the upper-left and lower-right. The lower-right angle is rotated for text.
 bonus_ul:
   x: 75
   y: 75

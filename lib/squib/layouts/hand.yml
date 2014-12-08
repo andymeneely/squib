@@ -1,3 +1,12 @@
+# A layout designed for a card to be held in your hand.
+#   * Bonuses align along the left-hand side.
+#   * Title along the top.
+#   * Middle area for artwork,
+#   * Room for a text description
+#   * And some theme-based text (which I like call the "snark")
+# Along the lines of Race for the Galaxy or 7 Wonders
+# Based on TheGameCrafter.com's Poker Card, which is 825x1125
+# Sample usage is found in samples/layouts.rb
 title:
   x: 275
   y: 75
