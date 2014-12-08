@@ -201,7 +201,7 @@ yang:
 
 ### Multiple layout files
 
-Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each_ file. YAML merge keys are NOT supported across multiple files (use extends instead). Here's a demonstrative example:
+Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each file_. YAML merge keys are NOT supported across multiple files - use extends instead. Here's a demonstrative example:
 
 ```yaml
 # load order: a.yml, b.yml
@@ -214,7 +214,7 @@ grandparent:
 parent_a:
   extends: grandparent
   x: += 10   # evaluates to 110
-parent_b: 
+parent_b:
   extends: grandparent
   x: += 20   # evaluates to 120
 
@@ -235,6 +235,10 @@ child_b:
 This can hopefully be helpful for:
   * Creating a base layout for structure, and one for color (for easier color/black-and-white switching)
   * Sharing base layouts with other designers
+
+### Built-in Layout Files
+
+If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
 
 ## Configuration File
 
