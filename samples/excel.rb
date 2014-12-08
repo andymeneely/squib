@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require 'squib'
 
 Squib::Deck.new(cards: 3) do

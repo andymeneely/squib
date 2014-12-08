@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require 'squib'
 
 # This sample uses a proof overlay from TheGameCrafter.com to check bleed

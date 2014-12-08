@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require 'squib'
 
 data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
