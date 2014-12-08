@@ -1,14 +1,14 @@
 # Squib CHANGELOG
 
 ## v0.0.6
-# Added a `csv` command that works just like `xslx`. Uses Ruby's CSV inside, with some extra checking and warnings. 
-# Custom layouts now support loading & merging multiple Yaml files! Updated README, docs, and sample to document it.
-# Built-in layouts! Currently we support `hand.yml` and `playing-card.yml`. Documented in the `layouts.rb` sample.
-# `text` now returns the ink extent rectangle of the rendered text. Updated docs and sample to document it.
-# Samples now show that you can use text instead of symbols for things like `center`
-# Improved logging, and documentation on increasing logger verboseness
-# Better regression testing technique that tracks when a sample has changed.
-# Bumped version of Cairo to ~> 1.14
+* Added a `csv` command that works just like `xslx`. Uses Ruby's CSV inside, with some extra checking and warnings. 
+* Custom layouts now support loading & merging multiple Yaml files! Updated README, docs, and sample to document it.
+* Built-in layouts! Currently we support `hand.yml` and `playing-card.yml`. Documented in the `layouts.rb` sample.
+* `text` now returns the ink extent rectangle of the rendered text. Updated docs and sample to document it.
+* Samples now show that you can use text instead of symbols for things like `center`
+* Improved logging, and documentation on increasing logger verboseness
+* Better regression testing technique that tracks when a sample has changed.
+* Bumped version of Cairo to ~> 1.14
 
 ## v0.0.5
 * Image rotation for png and svg via `angle`
