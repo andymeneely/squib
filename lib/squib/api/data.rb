@@ -58,7 +58,7 @@ module Squib
   # http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html
   #
   # @option opts file [String]  the CSV-formatted file to open. Opens relative to the current directory.
-  # @return [Hash] a hash of arrays based on columns in the spreadsheet
+  # @return [Hash] a hash of arrays based on columns in the table
   # @api public
   def csv(opts = {})
     opts = Squib::SYSTEM_DEFAULTS.merge(opts)
@@ -90,6 +90,7 @@ module Squib
       Squib.xlsx(opts)
     end
 
+    # Convenience call on deck goes to the module function
     def csv(opts = {})
       Squib.csv(opts)
     end
