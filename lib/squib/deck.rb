@@ -115,7 +115,7 @@ module Squib
         thefile = file
         thefile = "#{File.dirname(__FILE__)}/layouts/#{file}" unless File.exists?(file)
         if File.exists? thefile
-          yml = @layout.merge(YAML.load_file(thefile))
+          yml = @layout.merge(YAML.load_file(thefile) || {}) #load_file returns false on empty file
           yml.each do |key, value|
             @layout[key] = recurse_extends(yml, key, {})
           end
@@ -157,7 +157,7 @@ module Squib
     # :nodoc:
     # @api private
     def has_extends?(yml, key)
-      yml[key].key?('extends')
+      !!yml[key] && yml[key].key?('extends')
     end
 
     # Safeguard against malformed circular extends

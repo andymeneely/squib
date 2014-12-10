@@ -207,6 +207,18 @@ describe Squib::Deck do
           })
     end
 
+    it 'loads nothing on an empty layout file' do
+      d = Squib::Deck.new(layout: layout_file('empty.yml'))
+      expect(d.layout).to eq({})
+    end
+
+    it 'handles extends on a rule with no args' do
+      d = Squib::Deck.new(layout: layout_file('empty-rule.yml'))
+      expect(d.layout).to eq({
+        'empty' => nil
+      })
+    end
+
   end
 
 end
