@@ -4,7 +4,6 @@ module Squib
     # Renders a png file at the given location.
     #
     # See {file:samples/image.rb samples/image.rb} and {file:samples/tgc-overlay.rb samples/tgc-overlay.rb} as examples.
-    # Note: scaling not currently supported for PNGs.
     # @example
     #   png file: 'img.png', x: 50, y: 50
     #
@@ -12,6 +11,8 @@ module Squib
     # @option opts file [String] ((empty)) file(s) to read in. If it's a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done. See {file:README.md#Specifying_Files Specifying Files}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Arrays, see {file:README#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Arrays, see {file:README#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts width [Integer] (:native) the pixel width that the image should scale to. Scaling PNGs is not recommended for professional-looking cards. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts height [Integer] (:native) the pixel width that the image should scale to. Scaling PNGs is not recommended for professional-looking cards. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
@@ -19,11 +20,12 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
-      opts = needs(opts, [:range, :files, :x, :y, :alpha, :layout, :blend, :angle])
+      opts = needs(opts, [:range, :files, :x, :y, :width, :height, :alpha, :layout, :blend, :angle])
       Dir.chdir(@img_dir) do
         @progress_bar.start('Loading PNG(s)', opts[:range].size) do |bar|
           opts[:range].each do |i|
-            @cards[i].png(opts[:file][i], opts[:x][i], opts[:y][i],
+            @cards[i].png(opts[:file][i],
+                          opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                           opts[:alpha][i], opts[:blend][i], opts[:angle][i])
             bar.increment
           end

@@ -54,6 +54,7 @@ def mock_cairo(strio)
   cxt     = double(Cairo::Context)
   surface = double(Cairo::ImageSurface)
   pango   = double(Pango::Layout)
+  allow(Squib.logger).to receive(:warn) {}
   allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
   allow(Cairo::ImageSurface).to receive(:new).and_return(surface)
   allow(surface).to receive(:width).and_return(100)

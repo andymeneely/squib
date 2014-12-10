@@ -12,6 +12,7 @@ describe "Squib samples" do
   end
 
   it 'should execute with no errors' do
+    allow(Squib.logger).to receive(:warn) {}
     allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
     Dir["#{samples_dir}/**/*.rb"].each do |sample|
       load sample

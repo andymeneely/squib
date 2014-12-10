@@ -4,11 +4,13 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   background color: '#0b7c8e'
   rect x: 38, y: 38, width: 750, height: 1050, x_radius: 38, y_radius: 38
 
-  png file: 'shiny-purse.png', x: 620, y: 75
+  png file: 'shiny-purse.png', x: 620, y: 75 # no scaling is done by default
   svg file: 'spanner.svg', x: 620, y: 218
 
-  # SVGs can be scaled too
+  # Can be scaled if width and height are set
   svg file: 'spanner.svg', x: 50, y: 50, width: 250, height: 250
+  png file: 'shiny-purse.png', x: 305, y: 50, width: 250, height: 250
+  #...but PNGs will warn if it's an upscale
 
   # We can also limit our rendering to a single object, if the SVG ID is set
   # Squib prepends a #-sign if one is not specified

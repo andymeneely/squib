@@ -1,5 +1,7 @@
 # Squib CHANGELOG
 
+* `png` now supports resizing, but warns you about it since it's non-ideal. Documented in yard, tested.
+
 ## v0.0.6
 * Added a `csv` command that works just like `xslx`. Uses Ruby's CSV inside, with some extra checking and warnings. 
 * Custom layouts now support loading & merging multiple Yaml files! Updated README, docs, and sample to document it.

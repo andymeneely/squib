@@ -14,12 +14,18 @@ module Squib
 
     # :nodoc:
     # @api private
-    def png(file, x, y, alpha, blend, angle)
+    def png(file, x, y, width, height, alpha, blend, angle)
       Squib.logger.debug {"Rendering: #{file} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}"}
       return if file.nil? or file.eql? ''
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
         cc.translate(x, y)
+        if width != :native || height != :native
+          width  == :native && width  = png.width.to_f
+          height == :native && height = png.height.to_f
+          Squib.logger.warn "PNG scaling results in antialiasing."
+          cc.scale(width.to_f / png.width.to_f, height.to_f / png.height.to_f)
+        end
         cc.rotate(angle)
         cc.translate(-1 * x, -1 * y)
         cc.set_source(png, x, y)
