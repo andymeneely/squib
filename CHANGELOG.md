@@ -1,10 +1,11 @@
 # Squib CHANGELOG
 
+* Unit conversion! Now you can write "2in" and it will convert based on the current dpi. `save_pdf` not supported (yet).
 * `png` now supports resizing, but warns you about it since it's non-ideal. Documented in yard, tested.
 * Added sample `unicode.rb` to show lots of game-related unicode characters
 
 ## v0.0.6
-* Added a `csv` command that works just like `xslx`. Uses Ruby's CSV inside, with some extra checking and warnings. 
+* Added a `csv` command that works just like `xslx`. Uses Ruby's CSV inside, with some extra checking and warnings.
 * Custom layouts now support loading & merging multiple Yaml files! Updated README, docs, and sample to document it.
 * Built-in layouts! Currently we support `hand.yml` and `playing-card.yml`. Documented in the `layouts.rb` sample.
 * `text` now returns the ink extent rectangle of the rendered text. Updated docs and sample to document it.

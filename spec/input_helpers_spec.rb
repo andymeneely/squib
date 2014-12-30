@@ -4,7 +4,7 @@ require 'squib/input_helpers'
 
 class DummyDeck
   include  Squib::InputHelpers
-  attr_accessor :layout, :cards, :custom_colors
+  attr_accessor :layout, :cards, :custom_colors, :width, :height, :dpi
 end
 
 describe Squib::InputHelpers do
@@ -18,6 +18,9 @@ describe Squib::InputHelpers do
     }
     @deck.cards = %w(a b)
     @deck.custom_colors = {}
+    @deck.width = 100
+    @deck.height = 200
+    @deck.dpi = 300
   end
 
   context '#layoutify' do
@@ -133,6 +136,44 @@ describe Squib::InputHelpers do
                            :rotate => :counterclockwise
                          })
     end
+  end
+
+  context '#convert_units' do
+    it 'does not touch arrays integers' do
+      args = {x: [156]}
+      needed_params = [:x]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({ :x => [156] })
+    end
+
+    it 'does not touch arrays floats' do
+      args = {x: [156.2]}
+      needed_params = [:x]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({ :x => [156.2] })
+    end
+
+    it 'converts array of all inches' do
+      args = {x: ['1in', '2in']}
+      needed_params = [:x]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({:x => [300.0, 600.0] }) #assume 300dpi default
+    end
+
+    it 'converts array of some inches' do
+      args = {x: [156, '2in']}
+      needed_params = [:x]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({:x => [156.0, 600.0]}) #assume 300dpi default
+    end
+
+     it 'converts centimeters' do
+      args = {x: ['2cm']}
+      needed_params = [:x]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({:x => [236.2204722] }) #assume 300dpi default
+    end
+
   end
 
 end

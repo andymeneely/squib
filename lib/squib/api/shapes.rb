@@ -9,16 +9,16 @@ module Squib
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts x [Integer] (0) the x-coordinate to place
-    # @option opts y [Integer] (0) the y-coordinate to place
-    # @option opts width [Integer] the width of the rectangle.
-    # @option opts height [Integer] the height of the rectangle.
-    # @option opts x_radius [Integer] (0) the radius of the rounded corner horiztonally. Zero is a non-rounded corner.
-    # @option opts y_radius [Integer] (0) the radius of the rounded corner vertically. Zero is a non-rounded corner.
-    # @option opts radius [Integer] (nil) when set, overrides both x_radius and y_radius
+    # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts width [Integer] the width of the rectangle. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts height [Integer] the height of the rectangle. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts x_radius [Integer] (0) the radius of the rounded corner horiztonally. Zero is a non-rounded corner. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y_radius [Integer] (0) the radius of the rounded corner vertically. Zero is a non-rounded corner. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts radius [Integer] (nil) when set, overrides both x_radius and y_radius. Supports Unit Conversion, see {file:README#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
-    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README#Units Units}.
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
@@ -41,12 +41,12 @@ module Squib
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts x [Integer] (0) the x-coordinate to place
-    # @option opts y [Integer] (0) the y-coordinate to place
-    # @option opts radius [Integer] (100) radius of the circle
+    # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts radius [Integer] (100) radius of the circle. Supports Unit Conversion, see {file:README#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
-    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README#Units Units}.
     # @return [nil] intended to be void
     # @api public
     def circle(opts = {})
@@ -67,15 +67,15 @@ module Squib
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts x1 [Integer] (0) the x-coordinate to place
-    # @option opts y1 [Integer] (0) the y-coordinate to place
-    # @option opts x2 [Integer] (50) the x-coordinate to place
-    # @option opts y2 [Integer] (50) the y-coordinate to place
-    # @option opts x3 [Integer] (0) the x-coordinate to place
-    # @option opts y3 [Integer] (50) the y-coordinate to place
+    # @option opts x1 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y1 [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts x2 [Integer] (50) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts x3 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y3 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the triangle
-    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README#Units Units}.
     # @return [nil] intended to be void
     # @api public
     def triangle(opts = {})
@@ -96,12 +96,12 @@ module Squib
     #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts x1 [Integer] (0) the x-coordinate to place
-    # @option opts y1 [Integer] (0) the y-coordinate to place
-    # @option opts x2 [Integer] (50) the x-coordinate to place
-    # @option opts y2 [Integer] (50) the y-coordinate to place
+    # @option opts x1 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y1 [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts x2 [Integer] (50) the x-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
+    # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line
-    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README#Units Units}.
     # @return [nil] intended to be void
     # @api public
     def line(opts = {})

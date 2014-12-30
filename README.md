@@ -1,14 +1,15 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game's data and images into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven - think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, and you can compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built with DRY (Don't Repeat Yourself) in mind. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
 * A concise set of rules for laying out your cards
 * Loading PNGs and SVGs using [Cairo](http://cairographics.org/)
 * Complex text rendering using [Pango](http://www.pango.org/)
 * Reading `xlsx` and `csv` files
+* Rendering to individual PNGs or PDF sheets
+* Flexible, data-driven layouts in Yaml
 * Basic shape drawing
-* Rendering decks to PNGs and PDFs
-* Data-driven layouts
 * Unit conversion
+* Obsessively and fanatically tested by its author
 * Plus the full power of Ruby!
 
 Check this out.
@@ -137,9 +138,9 @@ Most public `Deck` methods allow a `range` to be specified as a first parameter.
 
 {include:file:samples/ranges.rb}
 
-## Pixels and Other Units
+## Units
 
-By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. To convert, we provide the `Deck#inch` method, as shown in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
+By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in "in" and "cm" and computing based on the current DPI. Example is in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
 
 {include:file:samples/units.rb}
 

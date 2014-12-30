@@ -106,4 +106,30 @@ module Squib
           :y3 => :y3,
           :y_radius => :y_radius,
       }
+
+    # These parameters are considered for unit conversion
+    #
+    # For example
+    #    text str: 'Hello, World', x: '1in'
+    #
+    # key: the internal name of the param (e.g. :circle_radius)
+    # value: the user-facing API key (e.g. radius: '1in')
+    UNIT_CONVERSION_PARAMS = {
+      :circle_radius => :radius,
+      :height => :height,
+      :rect_radius => :radius,
+      :spacing => :spacing,
+      :stroke_width => :stroke_width,
+      :width => :width,
+      :x => :x,
+      :x1 => :x1,
+      :x2 => :x2,
+      :x3 => :x3,
+      :x_radius => :x_radius,
+      :y => :y,
+      :y1 => :y1,
+      :y2 => :y2,
+      :y3 => :y3,
+      :y_radius => :y_radius,
+    }
 end

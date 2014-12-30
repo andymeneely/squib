@@ -25,7 +25,7 @@ describe Squib::Deck, '#save_pdf' do
       args = { file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
       mock_squib_logger(@old_logger) do
-        expect(Squib.logger).to receive(:debug).thrice
+        expect(Squib.logger).to receive(:debug).at_least(:once)
         expect(Cairo::Context).to receive(:new).and_return(@context).exactly(num_cards + 1).times
         expect(deck).to receive(:dirify) { |arg| arg } #don't create the dir
 
@@ -49,7 +49,7 @@ describe Squib::Deck, '#save_pdf' do
       args = { range: 2..4, file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
       mock_squib_logger(@old_logger) do
-        expect(Squib.logger).to receive(:debug).thrice
+        expect(Squib.logger).to receive(:debug).at_least(:once)
         expect(Cairo::Context).to receive(:new).and_return(@context).exactly(4).times
         expect(deck).to receive(:dirify) { |arg| arg }  #don't create the dir
 

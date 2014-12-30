@@ -1,4 +1,5 @@
 require 'squib/constants'
+require 'squib/api/units'
 
 module Squib
   # :nodoc:
@@ -27,6 +28,7 @@ module Squib
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
       opts = rotateify(opts) if params.include? :rotate
+      opts = convert_units(opts, params)
       opts
     end
     module_function :needs
@@ -188,7 +190,29 @@ module Squib
       Squib.logger.debug {"After rotateify: #{opts}"}
       opts
     end
-    module_function :svgidify
+    module_function :rotateify
+
+    @@INCHES_IN_CM = 0.393700787
+    # Convert units
+    # :nodoc:
+    # @api private
+    def convert_units(opts, needed_params)
+      Squib::UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
+        if needed_params.include? param_name
+          opts[api_param].each_with_index do |arg, i|
+            case arg.to_s
+            when /in$/ #ends with "in"
+              opts[api_param][i] = arg[0..-2].to_f * @dpi
+            when /cm$/ #ends with "cm"
+              opts[api_param][i] = arg[0..-2].to_f * @dpi * @@INCHES_IN_CM
+            end
+          end
+        end
+      end
+      Squib.logger.debug {"After convert_units: #{opts}"}
+      return opts
+    end
+    module_function :convert_units
 
   end
 end
