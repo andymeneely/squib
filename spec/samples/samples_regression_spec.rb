@@ -44,21 +44,22 @@ describe "Squib samples" do
   # FOR NOW!! These two I can't get working on Travis, so I'm disabling
   # Has to do with UTF-8 encoding of a special characters
       # layouts.rb
-      # text_options.rb
-  %w( hello_world.rb
-      autoscale_font.rb
-      save_pdf.rb
-      custom_config.rb
-      load_images.rb
+      # unicode.rb
+  %w( autoscale_font.rb
       basic.rb
       cairo_access.rb
-      draw_shapes.rb
       colors.rb
-      excel.rb
       csv_import.rb
+      custom_config.rb
+      draw_shapes.rb
+      excel.rb
+      hello_world.rb
+      load_images.rb
       portrait-landscape.rb
-      tgc_proofs.rb
       ranges.rb
+      save_pdf.rb
+      text_options.rb
+      tgc_proofs.rb
       units.rb
   ).each do |sample|
     it "has not changed for #{sample}" do

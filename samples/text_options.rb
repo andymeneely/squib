@@ -14,8 +14,6 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: data['name'], x: 250, y: 55, font: 'Arial weight=900 54'
   text str: data['level'], x: 65, y: 40, font: 'Arial 72', color: :burnt_orange
 
-  text str: "UTF-8 \u2663", x: 565, y: 150, font: 'Arial weight=900 36'
-
   text str: 'Font strings are expressive!', x:65, y: 200,
        font: 'Impact bold italic 36'
 
