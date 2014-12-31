@@ -50,7 +50,7 @@ module Squib
     # @return [nil] intended to be void
     # @api public
     def circle(opts = {})
-      opts = {radius: 100}.merge(opts)
+      opts = {radius: 100}.merge(opts) # overriding the non-system default
       opts = needs(opts, [:range, :x, :y, :circle_radius, :layout,
                           :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|

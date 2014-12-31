@@ -1,5 +1,4 @@
 require 'squib/constants'
-require 'squib/api/units'
 
 module Squib
   # :nodoc:
@@ -28,6 +27,7 @@ module Squib
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
       opts = rotateify(opts) if params.include? :rotate
+      opts = rowify(opts) if params.include? :rows
       opts = convert_units(opts, params)
       opts
     end
@@ -192,7 +192,7 @@ module Squib
     end
     module_function :rotateify
 
-    @@INCHES_IN_CM = 0.393700787
+     @@INCHES_IN_CM = 0.393700787
     # Convert units
     # :nodoc:
     # @api private
@@ -213,6 +213,20 @@ module Squib
       return opts
     end
     module_function :convert_units
+
+     # Handles expanding rows. If the "rows" does not respond to to_i (e.g. :infinite),
+    # then compute what we need based on number of cards and number of columns.
+    # :nodoc:
+    # @api private
+    def rowify(opts)
+      unless opts[:rows].respond_to? :to_i
+        raise "Columns must be an integer" unless opts[:columns].respond_to? :to_i
+        opts[:rows] = (@cards.size / opts[:columns].to_i).ceil
+      end
+      opts
+    end
+
+
 
   end
 end

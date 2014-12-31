@@ -1,8 +1,11 @@
 # Squib CHANGELOG
 
+## v0.1.0.txt
+* Added `save_sheet` command that saves a range into PNG sheets, complete with trim, gap, margin, columns, and sometimes automagically computed rows. See samples/saves.rb.
 * Unit conversion! Now you can write "2in" and it will convert based on the current dpi. `save_pdf` not supported (yet).
 * `png` now supports resizing, but warns you about it since it's non-ideal. Documented in yard, tested.
 * Added sample `unicode.rb` to show lots of game-related unicode characters
+* More obsessive automated testing and continuous integration work.
 
 ## v0.0.6
 * Added a `csv` command that works just like `xslx`. Uses Ruby's CSV inside, with some extra checking and warnings.

@@ -8,6 +8,7 @@ module Squib
       :angle => 0,
       :blend => :none,
       :color => :black,
+      :columns => 1,
       :default_font => 'Arial 36',
       :dir => '_output',
       :ellipsize => :end,
@@ -27,6 +28,7 @@ module Squib
       :progress_bar => false,
       :range => :all,
       :rotate => false,
+      :rows => :infinite,
       :sheet => 0,
       :spacing => 0,
       :str => '',
@@ -62,7 +64,7 @@ module Squib
     # These are parameters that are intended to be "expanded" across
     # range if they are singletons.
     #
-    # For example, using a different font for each card, using one `text`
+    # For example: using a different font for each card, using one `text` command
     #
     # key: the internal name of the param (e.g. :files)
     # value: the user-facing API key (e.g. file: 'abc.png')
