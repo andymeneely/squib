@@ -22,7 +22,7 @@ Squib::Deck.new do
   rect x: safe_margin, y: safe_margin,
   	   width: safe_width, height: safe_height, radius: 25
 
-  rect x: '4cm', y: '4 cm', width: 100, height: 100
+  rect x: '4cm', y: '4 cm  ', width: 100, height: 100
 
   save prefix: 'units_', format: :png
 end
