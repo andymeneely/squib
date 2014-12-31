@@ -1,3 +1,5 @@
+require 'squib/constants'
+
 module Squib
   class Deck
 
@@ -13,7 +15,6 @@ module Squib
       @dpi * n.to_f
     end
 
-    @@INCHES_IN_CM = 0.393700787
     # Given cm, returns the number of pixels according to the deck's DPI.
     #
     # @example
@@ -23,7 +24,7 @@ module Squib
     # @return [Decimal] the number of pixels, according to the deck's DPI
     # @api public
     def cm(n)
-      @dpi * @@INCHES_IN_CM * n.to_f
+      @dpi * Squib::INCHES_IN_CM * n.to_f
     end
 
   end

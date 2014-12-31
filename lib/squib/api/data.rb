@@ -54,7 +54,7 @@ module Squib
   #   data = csv file: 'data.csv'
   #   => {'h1' => [1,3], 'h2' => [2,4]}
   #
-  # Parsing uses Ruby's CSV, options: {headers: true, converters: :numeric}
+  # Parsing uses Ruby's CSV, with options `{headers: true, converters: :numeric}`
   # http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html
   #
   # @option opts file [String]  the CSV-formatted file to open. Opens relative to the current directory.

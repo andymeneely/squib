@@ -192,7 +192,6 @@ module Squib
     end
     module_function :rotateify
 
-     @@INCHES_IN_CM = 0.393700787
     # Convert units
     # :nodoc:
     # @api private
@@ -204,7 +203,7 @@ module Squib
             when /in$/ #ends with "in"
               opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi
             when /cm$/ #ends with "cm"
-              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi * @@INCHES_IN_CM
+              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi * Squib::INCHES_IN_CM
             end
           end
         end
@@ -225,8 +224,6 @@ module Squib
       end
       opts
     end
-
-
 
   end
 end

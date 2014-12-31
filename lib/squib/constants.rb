@@ -134,4 +134,9 @@ module Squib
       :y3 => :y3,
       :y_radius => :y_radius,
     }
+
+    # Used for inch-cm conversion
+    # :nodoc:
+    # @api private
+    INCHES_IN_CM = 0.393700787
 end

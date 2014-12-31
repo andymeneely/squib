@@ -95,8 +95,8 @@ module Squib
     #
     # @param surface The surface to trim
     # @param trim The number of pixels around the edge to trim
-    # @width width The width of the surface prior to the trim
-    # @height height The height of the surface prior to the trim
+    # @param width The width of the surface prior to the trim
+    # @param height The height of the surface prior to the trim
     # :nodoc:
     # @api private
     def trim(surface, trim, width, height)

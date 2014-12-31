@@ -169,6 +169,9 @@ module Squib
       end
     end
 
+    # Use Logger to show more detail on the run
+    # :nodoc:
+    # @api private
     def show_info(config, layout)
       Squib::logger.info "Squib v#{Squib::VERSION}"
       Squib::logger.info "  building #{@cards.size} #{@width}x#{@height} cards"

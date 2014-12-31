@@ -22,6 +22,9 @@ module Squib
     @cairo_context = Cairo::Context.new(@cairo_surface)
   end
 
+  # A save/restore wrapper for using Cairo
+  # :nodoc:
+  # @api private
   def use_cairo(&block)
     @cairo_context.save
     block.yield(@cairo_context)
