@@ -1,5 +1,5 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, and you can compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built with DRY (Don't Repeat Yourself) in mind. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, and you can compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don't Repeat Yourself. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
 * A concise set of rules for laying out your cards
 * Loading PNGs and SVGs using [Cairo](http://cairographics.org/)
@@ -9,8 +9,7 @@ Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for
 * Flexible, data-driven layouts in Yaml
 * Basic shape drawing
 * Unit conversion
-* Obsessively and fanatically tested by its author
-* Plus the full power of Ruby!
+* The full power of Ruby!
 
 Check this out.
 
@@ -39,7 +38,7 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit. For Mac, I recommend using [rvm](https://rvm.io).
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit. For Mac, I recommend using [rvm](https://rvm.io).
 
 Note: Squib requires Ruby 2.0 or later.
 
@@ -56,8 +55,7 @@ $ ruby deck.rb
 The `squib new` command will generate files and folders like this:
 
 ```
-_output
-  gitkeep.txt
+_output/gitkeep.txt
 .gitignore
 ABOUT.md
 config.yml
@@ -71,12 +69,20 @@ The central file here is `deck.rb`. Here's a [basic example](https://github.com/
 
 {include:file:samples/basic.rb basic.rb}
 
+About the other files:
+  * `Gemfile` is for adding in other gems if you are using `bundler`
+  * `config.yml` is a skeleton config file with various options commented out. See {file:README.md#Configuration_File Configuration File}.
+  * `layout.yml` is a skeleton layout file if you want to use it. See {file:README.md#Custom_Layouts Custom Layouts}.
+  * `_output` is the directory where your built files will go. Can easily be changed, of course.
+  * `.gitignore` and `gitkeep.txt` are for if you are using Git. See {file:README.md#Source_control Source control}. (Feel free to remove these if you are not using Git.)
+  * `ABOUT.md` and `PHP NOTES.md` are Markdown files for posting. Not used by Squib, but there by convention.
+
 # Learning Squib
 
 After going over this README, here are some other places to go learn Squib:
 
 * The YARD-generated API documentation [for the latest Squib gem](http://rubydoc.info/gems/squib/) is a method-by-method reference. The `Deck` class is the main class to look at. If you are following Squib master, see [the latest version](http://rubydoc.info/github/andymeneely/squib)
-* The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples. To run them, you will need to clone the repository and run them with Squib installed.
+* The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples.
 * [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
 
 ## Viewing this README
@@ -143,6 +149,8 @@ Most public `Deck` methods allow a `range` to be specified as a first parameter.
 By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in "in" and "cm" and computing based on the current DPI. Example is in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
 
 {include:file:samples/units.rb}
+
+Note: we do not support unit conversion on `save_pdf` and `Squib::Deck.new()`, [yet](https://github.com/andymeneely/squib/issues/21)
 
 ## Specifying Colors
 
@@ -287,7 +295,7 @@ Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 
 You are using source control, right??
 
-By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control. For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files don't usually get checked in unless absolutely necessary. For big binaries with graphics I tend to keep those
+By default, Squib assumes Git. But it's not dogmatic about it. Tracking your progress, backing up, sharing data, topic branches, release management, and reverting into history are just some of the many, many useful things you can do with source control. For me, I tend to ignore any auto-generated files in my output folder, but version control everything else. I also try to keep my graphics vector files, so the files stay small. Version control is intended for source code, so large binary files that change often probably should not get checked in unless absolutely necessary. I tend to keep big raster graphics files (e.g. from Gimp) in cloud storage or elsewhere.
 
 ## SublimeText
 
