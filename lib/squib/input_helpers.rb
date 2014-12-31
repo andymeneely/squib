@@ -200,11 +200,11 @@ module Squib
       Squib::UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
         if needed_params.include? param_name
           opts[api_param].each_with_index do |arg, i|
-            case arg.to_s
+            case arg.to_s.rstrip
             when /in$/ #ends with "in"
-              opts[api_param][i] = arg[0..-2].to_f * @dpi
+              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi
             when /cm$/ #ends with "cm"
-              opts[api_param][i] = arg[0..-2].to_f * @dpi * @@INCHES_IN_CM
+              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi * @@INCHES_IN_CM
             end
           end
         end

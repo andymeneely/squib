@@ -167,6 +167,13 @@ describe Squib::InputHelpers do
       expect(opts).to eq({:x => [156.0, 600.0]}) #assume 300dpi default
     end
 
+    it 'handles whitespace' do
+      args = {x: ['1in   ']}
+      needed_params = [:x]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({:x => [300.0] }) #assume 300dpi default
+    end
+
      it 'converts centimeters' do
       args = {x: ['2cm']}
       needed_params = [:x]
@@ -177,12 +184,12 @@ describe Squib::InputHelpers do
   end
 
   context '#rowify' do
-    # it 'does nothing on an integer' do
-    #   opts = @deck.send(:rowify, {columns: 2, rows: 2})
-    #   expect(opts).to eq({ columns: 2,
-    #                        rows: 2
-    #                     })
-    # end
+    it 'does nothing on an integer' do
+      opts = @deck.send(:rowify, {columns: 2, rows: 2})
+      expect(opts).to eq({ columns: 2,
+                           rows: 2
+                        })
+    end
 
     it 'computes properly on non-integer' do
       opts = @deck.send(:rowify, {columns: 1, rows: :infinite})
