@@ -326,15 +326,11 @@ If you want to make a deck that has some portrait and some landscape cards, I re
 
 ## Rakefile
 
-New Squib projects come with a basic Rakefile. At this stage, it's basically just a shortcut for `ruby deck.rb` or whatever. But, even so this Rakefile has some advantages:
+When you run `squib new`, you are given a basic Rakefile. At this stage of Squib, it's basically just a shortcut for `ruby deck.rb`. But, even in this simple form this Rakefile has some advantages:
 
-* If you're in a subdirectory at the time, `rake` will simply traverse up an `cd` to the proper directory so you don't get rogue `_output` directories
+* If you're in a subdirectory at the time, `rake` will simply traverse up and `cd` to the proper directory so you don't get rogue `_output` directories
 * If you find yourself building multiple decks, you can make your own tasks for each one individually, or all (e.g. `rake marketing`)
 * Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so it's probably a bad idea)
-
-Here's what's included in a `squib new` command:
-
-{include:file:lib/squib/project_template/Rakefile}
 
 # Development
 
