@@ -1,0 +1,3 @@
+verbal:
+  extends: kaisersoze
+  font_size: 25

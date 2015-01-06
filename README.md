@@ -209,6 +209,20 @@ yang:
   x: += 50
 ```
 
+Furthermore, if you want to extend multiple parents, it looks like this:
+
+```yaml
+socrates:
+  x: 100
+aristotle:
+  y: 200
+aristotle:
+  extends:
+    - socrates
+    - plato
+  x: += 50
+```
+
 ### Multiple layout files
 
 Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each file_. YAML merge keys are NOT supported across multiple files - use extends instead. Here's a demonstrative example:

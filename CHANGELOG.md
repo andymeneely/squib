@@ -2,7 +2,7 @@
 
 * Added `showcase` feature to create a fancy-looking 3D reflection to showcase your cards. Documented, tested, and added a sample for it.
 * Added a basic Rakefile, documented in README.
-* Some internal refactoring and better testing around layouts
+* Some internal refactoring, better testing, and more documentation with layouts
 
 ## v0.1.0
 * Added `save_sheet` command that saves a range into PNG sheets, complete with trim, gap, margin, columns, and sometimes automagically computed rows. See samples/saves.rb.

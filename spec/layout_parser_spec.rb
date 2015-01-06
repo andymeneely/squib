@@ -173,4 +173,17 @@ describe Squib::LayoutParser do
     Squib::LayoutParser.load_layout('yeti')
   end
 
+  it 'freaks out if you extend something doesn\'t exist' do
+    expect(Squib.logger)
+      .to receive(:error)
+      .with("Processing layout: 'verbal' attempts to extend a missing 'kaisersoze'")
+    layout = Squib::LayoutParser.load_layout(layout_file('extends-nonexists.yml'))
+    expect(layout).to eq({
+      'verbal'  => {
+          'font_size' => 25,
+          'extends' => 'kaisersoze'
+        }
+      })
+  end
+
 end

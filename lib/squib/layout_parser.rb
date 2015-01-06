@@ -34,6 +34,7 @@ module Squib
     def self.recurse_extends(yml, key, visited )
       assert_not_visited(key, visited)
       return yml[key] unless has_extends?(yml, key)
+      return yml[key] unless parents_exist?(yml, key)
       visited[key] = key
       parent_keys = [yml[key]['extends']].flatten
       h = {}
@@ -60,6 +61,19 @@ module Squib
     # @api private
     def self.has_extends?(yml, key)
       !!yml[key] && yml[key].key?('extends')
+    end
+
+    # Checks if we have any absentee parents
+    # @api private
+    def self.parents_exist?(yml, key)
+      exists = true
+      Array(yml[key]['extends']).each do |parent|
+        unless yml.key?(parent)
+          exists = false unless
+          Squib.logger.error "Processing layout: '#{key}' attempts to extend a missing '#{yml[key]['extends']}'"
+        end
+      end
+      return exists
     end
 
     # Safeguard against malformed circular extends
