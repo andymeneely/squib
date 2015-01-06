@@ -199,4 +199,21 @@ describe Squib::InputHelpers do
     end
   end
 
+  context '#faceify' do
+    it 'is false on left' do
+      opts = @deck.send(:faceify, {face: :left})
+      expect(opts).to eq({ face: false })
+    end
+
+    it 'is true on right' do
+      opts = @deck.send(:faceify, {face: 'Right'})
+      expect(opts).to eq({ face: true })
+    end
+
+    it 'is false on anything else' do
+      opts = @deck.send(:faceify, {face: 'flugelhorn'})
+      expect(opts).to eq({ face: false })
+    end
+  end
+
 end

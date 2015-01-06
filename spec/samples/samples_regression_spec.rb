@@ -58,6 +58,7 @@ describe "Squib samples" do
       portrait-landscape.rb
       ranges.rb
       saves.rb
+      showcase.rb
       text_options.rb
       tgc_proofs.rb
       units.rb

@@ -28,6 +28,7 @@ module Squib
       opts = formatify(opts) if params.include? :formats
       opts = rotateify(opts) if params.include? :rotate
       opts = rowify(opts) if params.include? :rows
+      opts = faceify(opts) if params.include? :face
       opts = convert_units(opts, params)
       opts
     end
@@ -222,6 +223,14 @@ module Squib
         raise "Columns must be an integer" unless opts[:columns].respond_to? :to_i
         opts[:rows] = (@cards.size / opts[:columns].to_i).ceil
       end
+      opts
+    end
+
+    # Used for showcase - face right if it's :right
+    # :nodoc:
+    # @api private
+    def faceify(opts)
+      opts[:face] = (opts[:face].to_s.downcase == 'right')
       opts
     end
 
