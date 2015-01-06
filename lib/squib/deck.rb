@@ -86,13 +86,6 @@ module Squib
       @cards.each { |card| block.call(card) }
     end
 
-    # Shows a descriptive place of the location
-    #
-    # @api private
-    def location(opts)
-      opts[:layout] || (" @ #{opts[:x]},#{opts[:y]}")
-    end
-
     # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private
     def load_config(file)
