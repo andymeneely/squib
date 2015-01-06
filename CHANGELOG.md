@@ -1,5 +1,7 @@
 # Squib CHANGELOG
 
+* Added `showcase` feature to create a fancy-looking 3D reflection to showcase your cards. Documented, tested, and added a sample for it.
+
 ## v0.1.0
 * Added `save_sheet` command that saves a range into PNG sheets, complete with trim, gap, margin, columns, and sometimes automagically computed rows. See samples/saves.rb.
 * Unit conversion! Now you can write "2in" and it will convert based on the current dpi. `save_pdf` not supported (yet).
