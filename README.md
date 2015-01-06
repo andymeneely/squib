@@ -76,6 +76,7 @@ About the other files:
   * `_output` is the directory where your built files will go. Can easily be changed, of course.
   * `.gitignore` and `gitkeep.txt` are for if you are using Git. See {file:README.md#Source_control Source control}. (Feel free to remove these if you are not using Git.)
   * `ABOUT.md` and `PHP NOTES.md` are Markdown files for posting. Not used by Squib, but there by convention.
+  * `Rakefile` is a basic build file. Not required but handy - see {file:README.md#Rakefile Rakefile}
 
 # Learning Squib
 
@@ -308,6 +309,18 @@ Using SublimeText? I like you already. I've written up some Squib snippets to ea
 If you want to make a deck that has some portrait and some landscape cards, I recommend you use multiple `Squib::Deck`s. The pixel size of a given card is designed to not change thorughout the life of a `Squib::Deck`. To work with landscape cards, there is a `rotate` option on `save_png` so you can render your print-on-demand PNGs in portrait but keep everything else oriented toward landscape. The following example demonstrates how to do this, found [here](https://github.com/andymeneely/squib/tree/master/samples/portrait-landscape.rb).
 
 {include:file:samples/portrait-landscape.rb}
+
+## Rakefile
+
+New Squib projects come with a basic Rakefile. At this stage, it's basically just a shortcut for `ruby deck.rb` or whatever. But, even so this Rakefile has some advantages:
+
+* If you're in a subdirectory at the time, `rake` will simply traverse up an `cd` to the proper directory so you don't get rogue `_output` directories
+* If you find yourself building multiple decks, you can make your own tasks for each one individually, or all (e.g. `rake marketing`)
+* Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so it's probably a bad idea)
+
+Here's what's included in a `squib new` command:
+
+{include:file:lib/squib/project_template/Rakefile}
 
 # Development
 
