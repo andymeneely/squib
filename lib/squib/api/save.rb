@@ -57,6 +57,8 @@ module Squib
     # @option opts [:left, :right] face (:left) which direction the cards face. Anything but `:right` will face left
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] file ('showcase.png') the file to save in dir. Will be overwritten.
+    # @return [nil] Returns nothing.
+    # @api public
     def showcase(opts = {})
       opts = {file: 'showcase.png', fill_color: :white}.merge(opts)
       opts = needs(opts,[:range, :trim, :trim_radius, :creatable_dir, :file_to_save, :face])
