@@ -28,3 +28,5 @@ samples/_output/*.png
 samples/_output/*.pdf
 samples/_output/foo
 rubocop.txt
+benchmarks/_output/*.png
+benchmarks/_output/*.pdf
