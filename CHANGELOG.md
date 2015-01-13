@@ -1,5 +1,6 @@
 # Squib CHANGELOG
 
+## v0.2.0
 * Added `showcase` feature to create a fancy-looking 3D reflection to showcase your cards. Documented, tested, and added a sample for it.
 * Added a basic Rakefile, documented in README.
 * Some internal refactoring, better testing, and more documentation with layouts
