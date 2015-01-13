@@ -11,5 +11,6 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Merge master branch
  - [ ] Create GitHub release tag
  - [ ] `gem push pkg/squib-x.y.z.gem`
+ - [ ] Github milestone closed
  - [ ] Push `rake doc` to website
  - [ ] Bump version.rb to the next alpha
