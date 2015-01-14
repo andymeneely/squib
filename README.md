@@ -183,9 +183,36 @@ Layouts also allow merging, extending, and combining layouts. The sample demonst
 
 {include:file:samples/layouts.rb}
 
-### Merge Keys and `extends`
+### Special key: `extends`
 
-Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
+Squib provides a way of reusing layouts with the special `extends` key. When defining an `extends` key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
+
+```yaml
+attack:
+  x: 100
+  y: 100
+  radius: 100
+defend:
+  extends: attack
+  x: += 50
+  #defend now is {:x => 150, :y => 100}
+```
+
+Furthermore, if you want to extend multiple parents, it looks like this:
+
+```yaml
+socrates:
+  x: 100
+plato:
+  y: 200
+aristotle:
+  extends:
+    - socrates
+    - plato
+  x: += 50
+```
+
+Note that extends keys are similar to Yaml's ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
 
 ```yaml
 icon: &icon
@@ -197,31 +224,7 @@ icon_left
 # The layout for icon_left will have the width/height from icon!
 ```
 
-Also!! Squib provides a more feature-rich way of merging: the `extends` key in layouts. When defining an extends key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
-
-```yaml
-yin:
-  x: 100
-  y: 100
-  radius: 100
-yang:
-  extends: yin
-  x: += 50
-```
-
-Furthermore, if you want to extend multiple parents, it looks like this:
-
-```yaml
-socrates:
-  x: 100
-aristotle:
-  y: 200
-aristotle:
-  extends:
-    - socrates
-    - plato
-  x: += 50
-```
+If you use both `extends` and Yaml merge keys, the Yaml merge keys are processed first, then extends. For clarity, however, you're probably just better off using `extends` instead.
 
 ### Multiple layout files
 
