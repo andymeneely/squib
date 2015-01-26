@@ -1,5 +1,8 @@
 # Squib CHANGELOG
 
+## v0.3.0a
+* Added new sample table for color constants in `samples/colors.rb`
+
 ## v0.2.0
 * Added `showcase` feature to create a fancy-looking 3D reflection to showcase your cards. Documented, tested, and added a sample for it.
 * Added a basic Rakefile, documented in README.

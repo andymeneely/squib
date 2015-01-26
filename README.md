@@ -159,7 +159,7 @@ Colors can be specified in a wide variety of ways, mostly in a hex-string. Take 
 
 {include:file:samples/colors.rb}
 
-Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb).
+Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). The above sample will generate a table of such constants.
 
 ## Specifying Files
 
