@@ -53,6 +53,7 @@ describe "Squib samples" do
       custom_config.rb
       draw_shapes.rb
       excel.rb
+      gradients.rb
       hello_world.rb
       load_images.rb
       portrait-landscape.rb

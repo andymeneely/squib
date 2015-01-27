@@ -8,11 +8,11 @@ module Squib
       height = @height  if height == :native
       use_cairo do |cc|
         cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
-        cc.set_source_color(stroke_color)
+        cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)
         cc.stroke
         cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
-        cc.set_source_color(fill_color)
+        cc.set_source_squibcolor(fill_color)
         cc.fill
       end
     end
@@ -22,11 +22,11 @@ module Squib
     def circle(x, y, radius, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.circle(x, y, radius)
-        cc.set_source_color(stroke_color)
+        cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)
         cc.stroke
         cc.circle(x, y, radius)
-        cc.set_source_color(fill_color)
+        cc.set_source_squibcolor(fill_color)
         cc.fill
       end
     end
@@ -36,11 +36,11 @@ module Squib
     def triangle(x1, y1, x2, y2, x3, y3, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.triangle(x1, y1, x2, y2, x3, y3)
-        cc.set_source_color(stroke_color)
+        cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)
         cc.stroke
         cc.triangle(x1, y1, x2, y2, x3, y3)
-        cc.set_source_color(fill_color)
+        cc.set_source_squibcolor(fill_color)
         cc.fill
       end
     end
@@ -51,7 +51,7 @@ module Squib
       use_cairo do |cc|
         cc.move_to(x1, y1)
         cc.line_to(x2, y2)
-        cc.set_source_color(stroke_color)
+        cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)
         cc.stroke
       end

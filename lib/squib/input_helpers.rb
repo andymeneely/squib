@@ -132,7 +132,7 @@ module Squib
           if @custom_colors.key? color.to_s
             color = @custom_colors[color.to_s]
           end
-          opts[key][i] = Cairo::Color.parse(color)
+          opts[key][i] = color
         end
       end
       Squib.logger.debug {"After colorify: #{opts}"}

@@ -99,26 +99,21 @@ describe Squib::InputHelpers do
   end
 
   context '#colorify' do
-    it 'should parse if nillable' do
+    it 'should pass through if nillable' do
       color = @deck.send(:colorify, {color: ['#fff']}, true)[:color]
-      expect(color.to_a[0].to_a).to eq([1.0, 1.0, 1.0, 1.0])
-    end
-
-    it 'raises and error if the color does not exist' do
-      expect{ @deck.send(:colorify, {color: [:nonexist]}, false) }.to \
-        raise_error(ArgumentError, 'unknown color name: nonexist')
+      expect(color).to eq(['#fff'])
     end
 
     it 'pulls from custom colors in the config' do
       @deck.custom_colors['foo'] = '#abc'
       expect(@deck.send(:colorify, {color: [:foo]}, false)[:color][0].to_s).to \
-        eq('#AABBCCFF')
+        eq('#abc')
     end
 
     it 'pulls custom colors even when a string' do
       @deck.custom_colors['foo'] = '#abc'
       expect(@deck.send(:colorify, {color: ['foo']}, false)[:color][0].to_s).to \
-        eq('#AABBCCFF')
+        eq('#abc')
     end
   end
 

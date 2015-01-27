@@ -5,7 +5,7 @@ module Squib
     # @api private
     def background(color)
       use_cairo do |cc|
-        cc.set_source_color(color)
+        cc.set_source_squibcolor(color)
         cc.paint
       end
     end

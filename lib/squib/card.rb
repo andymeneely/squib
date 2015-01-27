@@ -1,5 +1,6 @@
 require 'cairo'
 require 'squib/input_helpers'
+require 'squib/graphics/cairo_context_wrapper'
 
 module Squib
   # Back end graphics. Private.
@@ -19,7 +20,7 @@ module Squib
     def initialize(deck, width, height)
       @deck=deck; @width=width; @height=height
       @cairo_surface = Cairo::ImageSurface.new(width,height)
-      @cairo_context = Cairo::Context.new(@cairo_surface)
+      @cairo_context = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(@cairo_surface))
     end
 
   # A save/restore wrapper for using Cairo
