@@ -22,7 +22,7 @@ module Squib
     # @option opts font_size [Integer] (nil) an override of font string description, for scaling the font according to the size of the string
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts color [String] (:black) the color the font will render to. See {file:README.md#Specifying_Colors Specifying Colors}
+    # @option opts color [String] (:black) the color the font will render to. Gradients supported. See {file:README.md#Specifying_Colors___Gradients Specifying Colors}
     # @option opts markup: [Boolean] (false) Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html).
     # @option opts width [Integer, :native] (:native) the width of the box the string will be placed in. Stretches to the content by default.. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts height [Integer, :native] the height of the box the string will be placed in. Stretches to the content by default. Supports Unit Conversion, see {file:README.md#Units Units}.

@@ -1,6 +1,7 @@
 # Squib CHANGELOG
 
 ## v0.3.0a
+* Gradients! Can now specify linear or radial gradients anywhere you specify colors. See README for more details.
 * Added new sample table for color constants in `samples/colors.rb`
 
 ## v0.2.0

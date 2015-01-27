@@ -16,8 +16,8 @@ module Squib
     # @option opts x_radius [Integer] (0) the radius of the rounded corner horiztonally. Zero is a non-rounded corner. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y_radius [Integer] (0) the radius of the rounded corner vertically. Zero is a non-rounded corner. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts radius [Integer] (nil) when set, overrides both x_radius and y_radius. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
-    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
+    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
@@ -44,8 +44,8 @@ module Squib
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts radius [Integer] (100) radius of the circle. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle
-    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle
+    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @return [nil] intended to be void
     # @api public
@@ -73,8 +73,8 @@ module Squib
     # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts x3 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y3 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts fill_color [String] ('#0000') the color with which to fill the triangle
-    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the triangle
+    # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @return [nil] intended to be void
     # @api public
@@ -100,7 +100,7 @@ module Squib
     # @option opts y1 [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts x2 [Integer] (50) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts stroke_color [String] (:black) the color with which to stroke the line
+    # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @return [nil] intended to be void
     # @api public
