@@ -44,11 +44,12 @@ describe "Squib samples" do
   # FOR NOW!! These two I can't get working on Travis, so I'm disabling
   # Has to do with UTF-8 encoding of a special characters
       # layouts.rb
+  # These are samples that don't really need a regression log
+      # colors.rb
       # unicode.rb
   %w( autoscale_font.rb
       basic.rb
       cairo_access.rb
-      colors.rb
       csv_import.rb
       custom_config.rb
       draw_shapes.rb
