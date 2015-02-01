@@ -5,6 +5,17 @@ require 'benchmark'
 
 task default: [:install, :spec]
 
+# Useful for hooking up with SublimeText.
+# e.g. rake sample[basic.rb]
+task :run,[:file] => :install do |t, args|
+  args.with_defaults(file: 'basic.rb')
+  Dir.chdir('samples') do
+    puts "Running samples/#{args[:file]}"
+    load args[:file]
+  end
+end
+
+
 RSpec::Core::RakeTask.new(:spec)
 
 task doc: [:yarddoc, :apply_google_analytics]
