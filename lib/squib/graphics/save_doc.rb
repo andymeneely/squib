@@ -49,6 +49,7 @@ module Squib
     # @option opts colulmns [Integer] (1) the number of columns in the grid
     # @option opts rows [Integer] (:infinite) the number of rows in the grid. When set to :infinite, the sheet scales to the rows needed. If there are more cards than rows*columns, new sheets are started.
     # @option opts [String] prefix (card_) the prefix of the file name(s)
+    # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
     # @option opts margin [Integer] (0) the margin around the outside of the page
     # @option opts gap [Integer] (0) the space in pixels between the cards
@@ -57,7 +58,7 @@ module Squib
     # @api public
     def save_sheet(opts = {})
       opts = {margin: 0}.merge(opts) # overriding the non-system default
-      p = needs(opts, [:range, :prefix, :creatable_dir, :margin, :gap, :trim, :rows, :columns])
+      p = needs(opts, [:range, :prefix, :count_format, :creatable_dir, :margin, :gap, :trim, :rows, :columns])
       # EXTRACT METHOD HERE
       sheet_width = (p[:columns] * (@width + 2 * p[:gap] - 2 * p[:trim])) + (2 * p[:margin])
       sheet_height = (p[:rows] * (@height + 2 * p[:gap] - 2 * p[:trim])) + (2 * p[:margin])
@@ -68,7 +69,8 @@ module Squib
       @progress_bar.start("Saving PNG sheet to #{p[:dir]}/#{p[:prefix]}_*", @cards.size + 1) do |bar|
         p[:range].each do |i|
           if num_this_sheet >= (p[:columns] * p[:rows]) # new sheet
-            cc.target.write_to_png("#{p[:dir]}/#{p[:prefix]}#{sheet_num}.png")
+            filename = "#{p[:dir]}/#{p[:prefix]}#{p[:count_format] % sheet_num}.png"
+            cc.target.write_to_png(filename)
             new_sheet = false
             num_this_sheet = 0
             sheet_num += 1
@@ -87,7 +89,7 @@ module Squib
           end
           bar.increment
         end
-        cc.target.write_to_png("#{p[:dir]}/#{p[:prefix]}#{sheet_num}.png")
+        cc.target.write_to_png("#{p[:dir]}/#{p[:prefix]}#{p[:count_format] % sheet_num}.png")
       end
     end
 

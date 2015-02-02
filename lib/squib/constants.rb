@@ -9,6 +9,7 @@ module Squib
       :blend => :none,
       :color => :black,
       :columns => 1,
+      :count_format => '%02d',
       :default_font => 'Arial 36',
       :dir => '_output',
       :ellipsize => :end,
