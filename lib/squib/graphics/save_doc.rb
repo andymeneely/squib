@@ -8,16 +8,17 @@ module Squib
     #
     # @option opts file [String] the name of the PDF file to save. See {file:README.md#Specifying_Files Specifying Files}
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
-    # @option opts margin [Integer] (75) the margin around the outside of the page
-    # @option opts gap [Integer] (0) the space in pixels between the cards
-    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)
+    # @option opts width [Integer] (3300) the height of the page in pixels. Default is 11in * 300dpi. Supports unit conversion.
+    # @option opts height [Integer] (2550) the height of the page in pixels. Default is 8.5in * 300dpi. Supports unit conversion.
+    # @option opts margin [Integer] (75) the margin around the outside of the page. Supports unit conversion.
+    # @option opts gap [Integer] (0) the space in pixels between the cards. Supports unit conversion.
+    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports unit conversion.
     # @return [nil]
     # @api public
     def save_pdf(opts = {})
-      p = needs(opts, [:range, :file_to_save, :creatable_dir, :margin, :gap, :trim])
-      width  = 11  * @dpi
-      height = 8.5 * @dpi #TODO: allow this to be specified too
-      cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", width, height))
+      opts = {width: 3300, height: 2550}.merge(opts)
+      p = needs(opts, [:range, :paper_width, :paper_height, :file_to_save, :creatable_dir, :margin, :gap, :trim])
+      cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", p[:width], p[:height]))
       x = p[:margin]
       y = p[:margin]
       @progress_bar.start("Saving PDF to #{p[:dir]}/#{p[:file]}", p[:range].size) do |bar|
@@ -27,10 +28,10 @@ module Squib
           cc.paint
           bar.increment
           x += surface.width + p[:gap]
-          if x > (width - surface.width - p[:margin])
+          if x > (p[:width] - surface.width - p[:margin])
             x = p[:margin]
             y += surface.height + p[:gap]
-            if y > (height - surface.height - p[:margin])
+            if y > (p[:height] - surface.height - p[:margin])
               x = p[:margin]
               y = p[:margin]
               cc.show_page #next page
@@ -51,7 +52,7 @@ module Squib
     # @option opts [String] prefix (card_) the prefix of the file name(s)
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
-    # @option opts margin [Integer] (0) the margin around the outside of the page
+    # @option opts margin [Integer] (0) the margin around the outside of the page.
     # @option opts gap [Integer] (0) the space in pixels between the cards
     # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)
     # @return [nil]

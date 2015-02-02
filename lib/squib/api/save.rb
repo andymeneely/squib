@@ -62,7 +62,7 @@ module Squib
     # @api public
     def showcase(opts = {})
       opts = {file: 'showcase.png', fill_color: :white}.merge(opts)
-      opts = needs(opts,[:range, :trim, :trim_radius, :creatable_dir, :file_to_save, :face])
+      opts = needs(opts,[:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save, :face])
       render_showcase(opts[:range], opts[:trim], opts[:trim_radius],
                       opts[:scale], opts[:offset], opts[:fill_color],
                       opts[:reflect_offset], opts[:reflect_percent], opts[:reflect_strength],

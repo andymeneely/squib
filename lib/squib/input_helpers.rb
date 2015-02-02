@@ -198,10 +198,14 @@ module Squib
     # :nodoc:
     # @api private
     def convert_units(opts, needed_params)
-      Squib::UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
+      UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
         if needed_params.include? param_name
-          opts[api_param].each_with_index do |arg, i|
-            opts[api_param][i] = Args::UnitConversion.parse(arg, @dpi)
+          if EXPANDING_PARAMS.include? param_name
+            opts[api_param].each_with_index do |arg, i|
+              opts[api_param][i] = Args::UnitConversion.parse(arg, @dpi)
+            end
+          else #not an expanding param
+            opts[api_param] = Args::UnitConversion.parse(opts[api_param], @dpi)
           end
         end
       end

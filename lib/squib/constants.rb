@@ -128,10 +128,15 @@ module Squib
     # value: the user-facing API key (e.g. radius: '1in')
     UNIT_CONVERSION_PARAMS = {
       :circle_radius => :radius,
+      :gap => :gap,
       :height => :height,
+      :margin => :margin,
+      :paper_width => :width,
+      :paper_height => :height,
       :rect_radius => :radius,
       :spacing => :spacing,
       :stroke_width => :stroke_width,
+      :trim => :trim,
       :width => :width,
       :x => :x,
       :x1 => :x1,

@@ -176,6 +176,13 @@ describe Squib::InputHelpers do
       expect(opts).to eq({:x => [236.2204722] }) #assume 300dpi default
     end
 
+    it 'handles non-expading singletons' do
+      args = {margin: '1in', trim: '1in', gap: '1in'}
+      needed_params = [:margin, :trim, :gap]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({margin: 300, trim: 300, gap: 300}) #assume 300dpi default
+    end
+
   end
 
   context '#rowify' do
