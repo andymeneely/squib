@@ -14,8 +14,8 @@ module Squib
 
     # :nodoc:
     # @api private
-    def png(file, x, y, width, height, alpha, blend, angle)
-      Squib.logger.debug {"Rendering: #{file} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}"}
+    def png(file, x, y, width, height, alpha, blend, angle, mask)
+      Squib.logger.debug {"Rendering: #{file} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
       return if file.nil? or file.eql? ''
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
@@ -30,14 +30,19 @@ module Squib
         cc.translate(-1 * x, -1 * y)
         cc.set_source(png, x, y)
         cc.operator = blend unless blend == :none
-        cc.paint(alpha)
+        if mask.nil?
+          cc.paint(alpha)
+        else
+          cc.set_source_squibcolor(mask)
+          cc.mask(png, x, y)
+        end
       end
     end
 
     # :nodoc:
     # @api private
-    def svg(file, id, x, y, width, height, alpha, blend, angle)
-      Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}"}
+    def svg(file, id, x, y, width, height, alpha, blend, angle, mask)
+      Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
       return if file.nil? or file.eql? ''
       svg = RSVG::Handle.new_from_file(file)
       width = svg.width if width == :native
@@ -50,9 +55,14 @@ module Squib
         cc.translate(x, y)
         cc.rotate(angle)
         cc.translate(-1 * x, -1 * y)
-        cc.set_source(tmp, x, y)
         cc.operator = blend unless blend == :none
-        cc.paint(alpha)
+        if mask.nil?
+          cc.set_source(tmp, x, y)
+          cc.paint(alpha)
+        else
+          cc.set_source_squibcolor(mask)
+          cc.mask(tmp, x, y)
+        end
       end
     end
 

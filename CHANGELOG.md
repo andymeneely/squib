@@ -1,7 +1,9 @@
 # Squib CHANGELOG
 
 ## v0.3.0a
-* Gradients! Can now specify linear or radial gradients anywhere you specify colors. See README for more details.
+* Masks! The `png` and `svg` commands can be used as if they are a mask, so you can color the icon with any color you like. Can be handy for switching to black-and-white, or for reusing the same image but different colors across cards.
+* Gradients! Can now specify linear or radial gradients anywhere you specify colors. See README and `samples/gradients.rb` for more details.
+* Special thanks to Shalom Craimer for the idea and proof-of-concept on the above two features!
 * Added new sample table for color constants in `samples/colors.rb`
 
 ## v0.2.0

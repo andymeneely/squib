@@ -7,7 +7,7 @@ describe Squib::Deck, 'images' do
      it 'calls Card#png, Dir, and progress bar' do
       card = instance_double(Squib::Card)
       progress = double(Squib::Progress)
-      expect(card).to receive(:png).with('foo', 0, 1, :native, :native, 0.5, :overlay, 0.75).once
+      expect(card).to receive(:png).with('foo', 0, 1, :native, :native, 0.5, :overlay, 0.75, nil).once
       expect(Dir).to receive(:chdir).with('.').and_yield.once
       expect(progress).to receive(:start).and_yield(progress).once
       expect(progress).to receive(:increment).once
@@ -23,7 +23,7 @@ describe Squib::Deck, 'images' do
      it 'calls Card#svg, Dir, and progress bar' do
       card = instance_double(Squib::Card)
       progress = double(Squib::Progress)
-      expect(card).to receive(:svg).with('foo', '#bar', 0, 1, 20, 30, 0.5, :overlay, 0.75).once
+      expect(card).to receive(:svg).with('foo', '#bar', 0, 1, 20, 30, 0.5, :overlay, 0.75, nil).once
       expect(Dir).to receive(:chdir).with('.').and_yield.once
       expect(progress).to receive(:start).and_yield(progress).once
       expect(progress).to receive(:increment).once

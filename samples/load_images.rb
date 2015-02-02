@@ -32,5 +32,19 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png file: 'shiny-purse.png', x: 300, y: 800, angle: Math::PI / 4
   svg file: 'spanner.svg',     x: 300, y: 900, angle: Math::PI / 2 - 0.1
 
+  # Images can also be used as masks instead of being directly painted.
+  # This is particularly useful for switching directly over to black-and-white for printing
+  # Or, if you want the same image to be used but with different colors/gradients
+  svg mask: '#00ff00',
+      file: 'glass-heart.svg',
+      x: 500, y: 600, width: 200, height: 200
+  svg mask: '(500,1000)(500,800) #333@0.0 #ccc@1.0 ',
+      file: 'glass-heart.svg',
+      x: 500, y: 800, width: 200, height: 200
+
+  # Masks are based on transparency, so this is just a square
+  png mask: :magenta, file: 'shiny-purse.png',
+      x: 650, y: 950
+
   save prefix: 'load_images_', format: :png
 end
