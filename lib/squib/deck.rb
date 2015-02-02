@@ -6,6 +6,7 @@ require 'squib/progress'
 require 'squib/input_helpers'
 require 'squib/constants'
 require 'squib/layout_parser'
+require 'squib/args/unit_conversion'
 
 # The project module
 #
@@ -46,8 +47,8 @@ module Squib
     #     text str: 'Hello, World!"
     #   end
     #
-    # @param width [Integer] the width of each card in pixels
-    # @param height [Integer] the height of each card in pixels
+    # @param width [Integer] the width of each card in pixels. Supports unit conversion (e.g. '2.5in').
+    # @param height [Integer] the height of each card in pixels. Supports unit conversion (e.g. '3.5in').
     # @param cards [Integer] the number of cards in the deck
     # @param dpi [Integer] the pixels per inch when rendering out to PDF or calculating using inches.
     # @param config [String] the file used for global settings of this deck
@@ -55,20 +56,21 @@ module Squib
     # @param block [Block] the main body of the script.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
-      @width=width; @height=height
-      @dpi = dpi
-      @font = Squib::SYSTEM_DEFAULTS[:default_font]
-      @cards = []
+      @dpi           = dpi
+      @width         = Args::UnitConversion.parse width, dpi
+      @height        = Args::UnitConversion.parse height, dpi
+      @font          = Squib::SYSTEM_DEFAULTS[:default_font]
+      @cards         = []
       @custom_colors = {}
-      @img_dir = '.'
-      @progress_bar = Squib::Progress.new(false)
-      @text_hint = :off
-      cards.times{ @cards << Squib::Card.new(self, width, height) }
+      @img_dir       = '.'
+      @progress_bar  = Squib::Progress.new(false)
+      @text_hint     = :off
+      cards.times{ @cards << Squib::Card.new(self, @width, @height) }
       show_info(config, layout)
       load_config(config)
-      @layout = LayoutParser.load_layout(layout)
+      @layout        = LayoutParser.load_layout(layout)
       if block_given?
-        instance_eval(&block)
+        instance_eval(&block) # here we go. wheeeee!
       end
     end
 

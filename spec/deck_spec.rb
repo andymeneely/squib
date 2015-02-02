@@ -10,6 +10,12 @@ describe Squib::Deck do
     expect(d.cards.size).to eq(1)
   end
 
+  it 'can be built with unit conversion' do
+    d = Squib::Deck.new(width: '1in', height: '2in')
+    expect(d.width).to eq(300)
+    expect(d.height).to eq(600)
+  end
+
   context 'in dealing with ranges' do
     it 'calls text on all cards by default' do
       card1 = instance_double(Squib::Card)
