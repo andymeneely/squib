@@ -4,8 +4,11 @@
 * Masks! The `png` and `svg` commands can be used as if they are a mask, so you can color the icon with any color you like. Can be handy for switching to black-and-white, or for reusing the same image but different colors across cards.
 * Gradients! Can now specify linear or radial gradients anywhere you specify colors. See README and `samples/gradients.rb` for more details.
 * Number padding! `save_png` will now pad zeros on the filenames for friendlier sorting. You can also specify your own with `count_format` using the classical format string from Ruby's `Kernel::sprintf` (mostly just C-style format strings). Default: `'%02d'. The `prefix:` option is still there too.
-* Special thanks to Shalom Craimer for the idea and proof-of-concept on the above two features!
-* Added new sample table for color constants in `samples/colors.rb`
+* Added unit conversion to `Squib::New` and `save_pdf`
+* Added arbitrary paper sizes to `save_pdf`
+* Added new sample table for color viewing constants in `samples/colors.rb`
+
+Special thanks to [Shalom Craimer](https://github.com/scraimer) for the idea and proof-of-concept on gradient and mask features!
 
 ## v0.2.0
 * Added `showcase` feature to create a fancy-looking 3D reflection to showcase your cards. Documented, tested, and added a sample for it.
