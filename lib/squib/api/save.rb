@@ -11,9 +11,9 @@ module Squib
     # @return self
     # @api public
     def save(opts = {})
-      opts = needs(opts, [:range, :creatable_dir, :formats, :prefix, :rotate])
-      save_png(opts) if opts[:format].include? :png
-      save_pdf(opts) if opts[:format].include? :pdf
+      # opts = needs(opts, [:range, :creatable_dir, :formats, :prefix, :rotate])
+      save_png(opts) if Array(opts[:format]).include? :png
+      save_pdf(opts) if Array(opts[:format]).include? :pdf
       self
     end
 
