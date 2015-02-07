@@ -81,7 +81,6 @@ module Squib
           surface = trim(@cards[i].cairo_surface, p[:trim], @width, @height)
           cc.set_source(surface, x, y)
           cc.paint
-          bar.increment
           num_this_sheet += 1
           x += surface.width + p[:gap]
           if num_this_sheet % p[:columns] == 0 # new row
