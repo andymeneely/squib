@@ -214,4 +214,25 @@ describe Squib::InputHelpers do
     end
   end
 
+  context '#formatify' do
+    it 'sets format to nil when format is not set' do
+      opts = @deck.send(:formatify, {foo: true})
+      expect(opts).to eq({
+        foo: true,
+        format: [nil]
+        })
+    end
+
+    it 'updates the format to array' do
+      opts = @deck.send(:formatify, {format: :png})
+      expect(opts).to eq({format: [:png]})
+    end
+
+    it 'updates the format to flattened array' do
+      opts = @deck.send(:formatify, {format: [[:png]]})
+      expect(opts).to eq({format: [:png]})
+    end
+
+  end
+
 end
