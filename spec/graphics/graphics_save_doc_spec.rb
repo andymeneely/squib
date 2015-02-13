@@ -24,41 +24,37 @@ describe Squib::Deck, '#save_pdf' do
       num_cards = 9
       args = { file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
-      mock_squib_logger(@old_logger) do
-        expect(Squib.logger).to receive(:debug).at_least(:once)
-        expect(Cairo::Context).to receive(:new).and_return(@context).exactly(num_cards + 1).times
-        expect(deck).to receive(:dirify) { |arg| arg } #don't create the dir
+      expect(Squib.logger).to receive(:debug).at_least(:once)
+      expect(Cairo::Context).to receive(:new).and_return(@context).exactly(num_cards + 1).times
+      expect(deck).to receive(:dirify) { |arg| arg } #don't create the dir
 
-        expect_card_place(75, 75)
-        expect_card_place(831, 75)
-        expect_card_place(1587, 75)
-        expect_card_place(2343, 75)
-        expect_card_place(75, 1131)
-        expect_card_place(831, 1131)
-        expect_card_place(1587, 1131)
-        expect_card_place(2343, 1131)
-        expect(@context).to receive(:show_page).once
-        expect_card_place(75, 75)
+      expect_card_place(75, 75)
+      expect_card_place(831, 75)
+      expect_card_place(1587, 75)
+      expect_card_place(2343, 75)
+      expect_card_place(75, 1131)
+      expect_card_place(831, 1131)
+      expect_card_place(1587, 1131)
+      expect_card_place(2343, 1131)
+      expect(@context).to receive(:show_page).once
+      expect_card_place(75, 75)
 
-        deck.save_pdf(args)
-      end
+      deck.save_pdf(args)
     end
 
     it 'only does the three cards on a limited range' do
       num_cards = 9
       args = { range: 2..4, file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
-      mock_squib_logger(@old_logger) do
-        expect(Squib.logger).to receive(:debug).at_least(:once)
-        expect(Cairo::Context).to receive(:new).and_return(@context).exactly(4).times
-        expect(deck).to receive(:dirify) { |arg| arg }  #don't create the dir
+      expect(Squib.logger).to receive(:debug).at_least(:once)
+      expect(Cairo::Context).to receive(:new).and_return(@context).exactly(4).times
+      expect(deck).to receive(:dirify) { |arg| arg }  #don't create the dir
 
-        expect_card_place(75, 75)
-        expect_card_place(831, 75)
-        expect_card_place(1587, 75)
+      expect_card_place(75, 75)
+      expect_card_place(831, 75)
+      expect_card_place(1587, 75)
 
-        deck.save_pdf(args)
-      end
+      deck.save_pdf(args)
     end
 
   end

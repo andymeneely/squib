@@ -98,18 +98,11 @@ module Squib
   def logger=(l)
     @logger = l
   end
-  module_function 'logger='
+  module_function :logger=
 
   class Deck
     attr_accessor :progress_bar
   end
-end
-
-def mock_squib_logger(old_logger)
-  old_logger = Squib.logger
-  Squib.logger = instance_double(Logger)
-  yield
-  Squib.logger = old_logger
 end
 
 def output_dir

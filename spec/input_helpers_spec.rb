@@ -25,11 +25,9 @@ describe Squib::InputHelpers do
 
   context '#layoutify' do
     it 'warns on the logger when the layout does not exist' do
-      mock_squib_logger(@old_logger) do
-        expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
-        expect(Squib.logger).to receive(:debug)
-        expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]})
-      end
+      expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
+      expect(Squib.logger).to receive(:debug)
+      expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]})
     end
 
     it 'applies the layout in a normal situation' do
@@ -88,11 +86,9 @@ describe Squib::InputHelpers do
       opts = {dir: 'tocreate'}
       Dir.chdir(output_dir) do
         FileUtils.rm_rf('tocreate', secure: true)
-        mock_squib_logger(@old_logger) do
-          expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
-          expect(@deck.send(:dirify, opts, :dir, true)).to eq(opts)
-          expect(Dir.exists? 'tocreate').to be true
-        end
+        expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
+        expect(@deck.send(:dirify, opts, :dir, true)).to eq(opts)
+        expect(Dir.exists? 'tocreate').to be true
       end
     end
 
