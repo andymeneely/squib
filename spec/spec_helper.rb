@@ -57,6 +57,7 @@ def mock_cairo(strio)
   cxt     = double(Cairo::Context)
   surface = double(Cairo::ImageSurface)
   pango   = double(Pango::Layout)
+  font    = double(Pango::FontDescription)
   allow(Squib.logger).to receive(:warn) {}
   allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
   allow(Cairo::ImageSurface).to receive(:new).and_return(surface)
@@ -68,6 +69,7 @@ def mock_cairo(strio)
   allow(pango).to receive(:height).and_return(25)
   allow(pango).to receive(:width).and_return(25)
   allow(pango).to receive(:extents).and_return([Pango::Rectangle.new(0,0,0,0)]*2)
+  allow(Pango::FontDescription).to receive(:new).and_return(font)
 
   %w(save set_source_color paint restore translate rotate move_to
     update_pango_layout width height show_pango_layout rounded_rectangle
@@ -81,9 +83,14 @@ def mock_cairo(strio)
     allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args})\n") }
   end
 
+  %w(size=).each do |m|
+    allow(font).to receive(m) { |*args| strio << scrub_hex("pango font: #{m}(#{args})\n") }
+  end
+
   %w(write_to_png).each do |m|
     allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args})\n") }
   end
+
 end
 
 # Refine Squib to allow setting the logger and progress bar
