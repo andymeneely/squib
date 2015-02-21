@@ -15,6 +15,9 @@ describe Squib::Card do
     @deck    = double(Squib::Deck)
     @context = double(Cairo::Context)
     allow(Cairo::Context).to receive(:new).and_return(@context)
+    allow(@deck).to receive(:dir).and_return('_output')
+    allow(@deck).to receive(:count_format).and_return('%02d')
+    allow(@deck).to receive(:prefix).and_return('card_')
   end
 
   context 'rect' do

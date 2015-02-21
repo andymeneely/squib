@@ -2,6 +2,7 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'yard'
 require 'benchmark'
+require 'byebug'
 
 task default: [:install, :spec]
 
@@ -26,6 +27,7 @@ YARD::Rake::YardocTask.new(:yarddoc) do |t|
 end
 
 task benchmark: [:install] do
+  require 'squib'
   Squib::logger.level = Logger::ERROR #silence warnings
   Dir.chdir('benchmarks') do
     Benchmark.bm(15) do |bm|

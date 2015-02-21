@@ -16,22 +16,28 @@ module Squib
     # @return [nil]
     # @api public
     def save_pdf(opts = {})
-      opts = {width: 3300, height: 2550}.merge(opts)
-      p = needs(opts, [:range, :paper_width, :paper_height, :file_to_save, :creatable_dir, :margin, :gap, :trim])
-      cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", p[:width], p[:height]))
-      x = p[:margin]
-      y = p[:margin]
-      @progress_bar.start("Saving PDF to #{p[:dir]}/#{p[:file]}", p[:range].size) do |bar|
+      opts   = {width: 3300, height: 2550}.merge(opts)
+      p      = needs(opts, [:range, :paper_width, :paper_height, :file_to_save,
+                          :creatable_dir, :margin, :gap, :trim])
+      width  = p[:width]
+      height = p[:height]
+      file   = "#{p[:dir]}/#{p[:file]}"
+      cc     = Cairo::Context.new(Cairo::PDFSurface.new(file, width, height))
+      x      = p[:margin]
+      y      = p[:margin]
+      @progress_bar.start("Saving PDF to #{file}", p[:range].size) do |bar|
         p[:range].each do |i|
           surface = trim(@cards[i].cairo_surface, p[:trim], @width, @height)
+          cc.set_source(surface, x, y)
+          surface = @cards[i].cairo_surface
           cc.set_source(surface, x, y)
           cc.paint
           bar.increment
           x += surface.width + p[:gap]
-          if x > (p[:width] - surface.width - p[:margin])
+          if x > (width - surface.width - p[:margin])
             x = p[:margin]
             y += surface.height + p[:gap]
-            if y > (p[:height] - surface.height - p[:margin])
+            if y > (height - surface.height - p[:margin])
               x = p[:margin]
               y = p[:margin]
               cc.show_page #next page

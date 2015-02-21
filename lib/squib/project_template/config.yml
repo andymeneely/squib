@@ -18,3 +18,8 @@
 #For reading image file command (e.g. png and svg), read from this directory instead
 #img_dir: img-color
 #img_dir: img-bw
+
+# Use a SVG cairo back end, instead of an in-memory buffer
+# backend: :memory # default
+# backend: :svg    # slower, but can create scalable pdfs
+# tmp_dir: _tmp # for SVG backend, you MUST specify a tmp_dir

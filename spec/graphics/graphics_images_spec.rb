@@ -12,6 +12,9 @@ describe Squib::Card do
       allow(Cairo::ImageSurface).to receive(:from_png).and_return(@png)
       allow(Cairo::ImageSurface).to receive(:new).and_return(@png)
       allow(RSVG::Handle).to receive(:new_from_file).and_return(@svg)
+      allow(@deck).to receive(:dir).and_return('_output')
+      allow(@deck).to receive(:count_format).and_return('%02d')
+      allow(@deck).to receive(:prefix).and_return('card_')
   end
 
   context '#png' do
@@ -43,13 +46,10 @@ describe Squib::Card do
       expect(@svg).to receive(:width).and_return(100).twice
       expect(@svg).to receive(:height).and_return(100).twice
       expect(@context).to receive(:save).once
-      expect(@context).to receive(:translate).with(-37, -38).once
       expect(@context).to receive(:rotate).with(0.0).once
       expect(@context).to receive(:translate).with(37, 38).once
       expect(@context).to receive(:scale).with(1.0, 1.0).once
       expect(@context).to receive(:render_rsvg_handle).with(@svg, 'id').once
-      expect(@context).to receive(:set_source).with(@png, 37, 38).once
-      expect(@context).to receive(:paint).with(0.9).once
       expect(@context).to receive(:restore).once
 
       card = Squib::Card.new(@deck, 100, 150)

@@ -1,0 +1,4 @@
+backend: svg
+prefix: vector_backend_
+count_format: '%02d'
+dir: _output

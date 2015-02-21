@@ -30,3 +30,5 @@ samples/_output/foo
 rubocop.txt
 benchmarks/_output/*.png
 benchmarks/_output/*.pdf
+benchmarks/_output/
+samples/_output/*.svg
