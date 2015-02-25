@@ -71,11 +71,12 @@ def mock_cairo(strio)
   allow(pango).to receive(:width).and_return(25)
   allow(pango).to receive(:extents).and_return([Pango::Rectangle.new(0,0,0,0)]*2)
   allow(Pango::FontDescription).to receive(:new).and_return(font)
+  allow(Cairo::PDFSurface).to receive(:new).and_return(nil)
 
   %w(save set_source_color paint restore translate rotate move_to
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
-    triangle line_to operator= show_page clip transform mask).each do |m|
+    triangle line_to operator= show_page clip transform mask rectangle reset_clip).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 

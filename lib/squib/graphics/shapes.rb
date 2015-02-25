@@ -21,7 +21,7 @@ module Squib
     # @api private
     def circle(x, y, radius, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
-        cc.move_to(x,y)
+        cc.move_to(x + radius, y)
         cc.circle(x, y, radius)
         cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)

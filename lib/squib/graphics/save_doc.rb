@@ -19,28 +19,42 @@ module Squib
       opts   = {width: 3300, height: 2550}.merge(opts)
       p      = needs(opts, [:range, :paper_width, :paper_height, :file_to_save,
                           :creatable_dir, :margin, :gap, :trim])
-      width  = p[:width]
-      height = p[:height]
-      file   = "#{p[:dir]}/#{p[:file]}"
-      cc     = Cairo::Context.new(Cairo::PDFSurface.new(file, width, height))
-      x      = p[:margin]
-      y      = p[:margin]
+      paper_width  = p[:width]
+      paper_height = p[:height]
+      file         = "#{p[:dir]}/#{p[:file]}"
+      cc           = Cairo::Context.new(Cairo::PDFSurface.new(file, paper_width, paper_height))
+      x, y         = p[:margin], p[:margin]
+      card_width   = @width  - 2 * p[:trim]
+      card_height  = @height - 2 * p[:trim]
       @progress_bar.start("Saving PDF to #{file}", p[:range].size) do |bar|
         p[:range].each do |i|
-          surface = trim(@cards[i].cairo_surface, p[:trim], @width, @height)
-          cc.set_source(surface, x, y)
-          surface = @cards[i].cairo_surface
-          cc.set_source(surface, x, y)
-          cc.paint
+          card = @cards[i]
+          cc.translate(x,y)
+          cc.rectangle(p[:trim], p[:trim], card_width, card_height)
+          cc.clip
+          case card.backend
+          when :memory
+            cc.set_source(card.cairo_surface, 0, 0)
+            cc.paint
+          when :svg
+            card.cairo_surface.finish
+            cc.save
+            cc.scale(0.8,0.8) # FIXME I don't know why I need to do this to make it look right.
+            cc.render_rsvg_handle(RSVG::Handle.new_from_file(card.svgfile), nil)
+            cc.restore
+          else
+            abort "No such back end supported for save_pdf: #{backend}"
+          end
           bar.increment
-          x += surface.width + p[:gap]
-          if x > (width - surface.width - p[:margin])
+          cc.reset_clip
+          cc.translate(-x,-y)
+          x += card.width + p[:gap] - 2*p[:trim]
+          if x > (paper_width - card_width - p[:margin])
             x = p[:margin]
-            y += surface.height + p[:gap]
-            if y > (height - surface.height - p[:margin])
-              x = p[:margin]
-              y = p[:margin]
-              cc.show_page #next page
+            y += card.height + p[:gap] - 2*p[:trim]
+            if y > (paper_height - card_height - p[:margin])
+              cc.show_page # next page
+              x,y = p[:margin],p[:margin]
             end
           end
         end
@@ -50,7 +64,7 @@ module Squib
     # Lays out the cards in range and renders a stitched PNG sheet
     #
     # @example
-    #   save_png_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
+    #   save_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
     #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts colulmns [Integer] (1) the number of columns in the grid

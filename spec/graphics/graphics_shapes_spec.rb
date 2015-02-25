@@ -37,7 +37,7 @@ describe Squib::Card do
   context 'circle' do
     it 'make all the expected calls on a smoke test' do
       expect(@context).to receive(:save).once
-      expect(@context).to receive(:move_to).with(37, 38)
+      expect(@context).to receive(:move_to).with(137, 38)
       expect(@context).to receive(:circle).with(37, 38, 100).twice
       expect_stroke('#fff', '#f00', 2.0)
       expect(@context).to receive(:restore).once
