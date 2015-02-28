@@ -63,14 +63,14 @@ module Squib
     #
     # @api public
     CONFIG_DEFAULTS = {
+      'backend'       => 'memory',
+      'count_format'  => SYSTEM_DEFAULTS[:count_format],
       'custom_colors' => {},
+      'dir'           => SYSTEM_DEFAULTS[:dir],
       'dpi'           => 300,
       'hint'          => :none,
-      'progress_bar'  => false,
       'img_dir'       => '.',
-      'dir'           => SYSTEM_DEFAULTS[:dir],
-      'backend'       => 'memory',
-      'count_format'  => SYSTEM_DEFAULTS[:count_format]
+      'progress_bar'  => false,
     }
 
     # These are parameters that are intended to be "expanded" across
