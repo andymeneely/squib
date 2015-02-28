@@ -1,5 +1,13 @@
 # Squib CHANGELOG
 
+# v0.4.0
+* SVG backend support! You can now set the deck's back end to work with SVGs instead of images, making the resulting PDFs vectorized. (You can still save to PNGs too.) This was a big change for Squib, and it's got a few known issues here and there. See discussion on the README for more details.
+* Bugfix: Stray stroke on circles (#35)
+* Bugfix: Progress bar increment error (#34)
+
+Known issues
+*
+
 ## v0.3.0
 * Masks! The `png` and `svg` commands can be used as if they are a mask, so you can color the icon with any color you like. Can be handy for switching to black-and-white, or for reusing the same image but different colors across cards.
 * Gradients! Can now specify linear or radial gradients anywhere you specify colors. See README and `samples/gradients.rb` for more details.
