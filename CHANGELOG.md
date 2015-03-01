@@ -8,6 +8,7 @@
 
 Known issues
 * Masking SVGs onto an SVG backend will rasterize as an intermediate step. (#43)
+* Compatibility change: gradient coordinates for the `mask` option in `svg` and `png` commands are relative to the given x,y - NOT to card as it was before.
 
 ## v0.3.0
 * Masks! The `png` and `svg` commands can be used as if they are a mask, so you can color the icon with any color you like. Can be handy for switching to black-and-white, or for reusing the same image but different colors across cards.

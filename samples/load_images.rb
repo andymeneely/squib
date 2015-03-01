@@ -13,8 +13,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   #...but PNGs will warn if it's an upscale
 
   # We can also limit our rendering to a single object, if the SVG ID is set
-  # Squib prepends a #-sign if one is not specified
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
+  # Squib prepends a #-sign if one is not specified
   svg file: 'spanner.svg', id: 'backdrop', x: 50, y: 450, width: 125, height: 125
 
   # WARNING! If you choose to use the SVG ID, the x-y coordinates are still
@@ -38,11 +38,11 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   svg mask: '#00ff00',
       file: 'glass-heart.svg',
       x: 500, y: 600, width: 200, height: 200
-  svg mask: '(500,1000)(500,800) #333@0.0 #ccc@1.0 ',
+  svg mask: '(0,0)(0,500) #ccc@0.0 #333@1.0',
       file: 'glass-heart.svg',
       x: 500, y: 800, width: 200, height: 200
 
-  # Masks are based on transparency, so this is just a square
+  # Masks are based on the alpha channel, so this is just a magenta square
   png mask: :magenta, file: 'shiny-purse.png',
       x: 650, y: 950
 
