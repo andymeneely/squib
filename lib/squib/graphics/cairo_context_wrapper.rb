@@ -15,7 +15,8 @@ module Squib
         :translate, :rotate, :move_to, :update_pango_layout, :width, :height,
         :show_pango_layout, :rounded_rectangle, :set_line_width, :stroke, :fill,
         :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
-        :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout
+        :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
+        :antialias=
 
       def set_source_squibcolor(arg)
         if match = arg.match(LINEAR_GRADIENT)

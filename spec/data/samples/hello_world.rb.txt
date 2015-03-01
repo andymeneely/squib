@@ -1,3 +1,5 @@
+cairo: antialias=(["best"])
+cairo: antialias=(["best"])
 cairo: save([])
 cairo: set_source_color([:black])
 cairo: translate([0, 0])

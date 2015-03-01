@@ -1,3 +1,4 @@
+cairo: antialias=(["best"])
 cairo: save([])
 cairo: set_source_color(["#0b7c8e"])
 cairo: paint([])

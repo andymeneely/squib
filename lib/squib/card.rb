@@ -25,6 +25,7 @@ module Squib
       @svgfile       = "#{deck.dir}/#{deck.prefix}#{deck.count_format % index}.svg"
       @cairo_surface = make_surface(@svgfile, backend)
       @cairo_context = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(@cairo_surface))
+      @cairo_context.antialias = @deck.antialias
     end
 
     def make_surface(svgfile, backend)

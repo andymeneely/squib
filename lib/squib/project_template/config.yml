@@ -4,6 +4,9 @@
 # Default: 300
 #dpi: 72
 
+#antialias: best #recommended. Only about 10% slower than fast
+#antialias: default # set the anti-aliasing algorithm. default defers to the underlying graphics device. See http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t
+
 # Text hints are used to show the boundaries of text boxes.
 # Can be enabled/disabled at the command-level, or set globally with `set`
 #text_hint: '#F00'
@@ -21,5 +24,4 @@
 
 # Use a SVG cairo back end, instead of an in-memory buffer
 # backend: :memory # default
-# backend: :svg    # slower, but can create scalable pdfs
-# tmp_dir: _tmp # for SVG backend, you MUST specify a tmp_dir
+# backend: :svg    # can create scalable pdfs, but rendering done at the printer level is not as good as Cairo.

@@ -63,6 +63,7 @@ module Squib
     #
     # @api public
     CONFIG_DEFAULTS = {
+      'antialias'     => 'best',
       'backend'       => 'memory',
       'count_format'  => SYSTEM_DEFAULTS[:count_format],
       'custom_colors' => {},

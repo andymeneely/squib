@@ -30,7 +30,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    attr_reader :text_hint
+    attr_reader :text_hint, :antialias
 
     # :nodoc:
     # @api private
@@ -58,6 +58,7 @@ module Squib
     # @param block [Block] the main body of the script.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
+      @antialias     = CONFIG_DEFAULTS['antialias']
       @dpi           = dpi
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
@@ -109,6 +110,7 @@ module Squib
         @dir                  = config['dir']
         @prefix               = config['prefix']
         @count_format         = config['count_format']
+        @antialias            = config['antialias']
       end
     end
 

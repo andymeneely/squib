@@ -1,3 +1,4 @@
+cairo: antialias=(["best"])
 cairo: save([])
 cairo: rounded_rectangle([300, 300, 400, 400, 0, 0])
 cairo: set_source_color([:red])

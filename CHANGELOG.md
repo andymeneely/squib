@@ -2,11 +2,13 @@
 
 # v0.4.0
 * SVG backend support! You can now set the deck's back end to work with SVGs instead of images, making the resulting PDFs vectorized. (You can still save to PNGs too.) This was a big change for Squib, and it's got a few known issues here and there. See discussion on the README for more details.
-* Bugfix: Stray stroke on circles (#35)
+* Added config option for antialiasing method. My benchmarks showed that 'best' is only 10% slower than 'fast' on extremely alias-intensive tasks, so that's the Squib default now.
+* Bugfix: Stray stroke on circles after text (#35)
 * Bugfix: Progress bar increment error (#34)
 
 Known issues
-*
+* Masking SVGs onto an SVG backend will rasterize as an intermediate step.
+* Scale on vectorized PDFs is not perfect.
 
 ## v0.3.0
 * Masks! The `png` and `svg` commands can be used as if they are a mask, so you can color the icon with any color you like. Can be handy for switching to black-and-white, or for reusing the same image but different colors across cards.

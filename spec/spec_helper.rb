@@ -76,7 +76,8 @@ def mock_cairo(strio)
   %w(save set_source_color paint restore translate rotate move_to
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
-    triangle line_to operator= show_page clip transform mask rectangle reset_clip).each do |m|
+    triangle line_to operator= show_page clip transform mask rectangle
+    reset_clip antialias=).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 

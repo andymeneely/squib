@@ -20,13 +20,14 @@ describe Squib::Deck, '#save_pdf' do
     before(:each) do
       allow(Cairo::PDFSurface).to receive(:new).and_return(nil) #don't create the file
       allow(Cairo::Context).to    receive(:new).and_return(cxt)
+      allow(cxt).to receive(:antialias=)
     end
 
     it 'make all the expected calls on a smoke test' do
       num_cards = 9
       deck = Squib::Deck.new(cards: 9, width: 825, height: 1125)
-      expect(Squib.logger).to receive(:debug).at_least(:once)
       expect(deck).to receive(:dirify) { |arg| arg } #don't create the dir
+      expect(Squib.logger).to receive(:debug).at_least(:once)
 
       expect_card_place(75, 75)
       expect_card_place(831, 75)
