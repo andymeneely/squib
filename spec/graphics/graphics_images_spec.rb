@@ -21,7 +21,7 @@ describe Squib::Card do
 
   context '#png' do
     it 'makes all the expected calls on a smoke test' do
-      expect(@context).to receive(:antialias=).with('best')
+      expect(@context).to receive(:antialias=).with('subpixel')
       expect(@context).to receive(:save).once
       expect(@context).to receive(:translate).with(-37, -38).once
       expect(@context).to receive(:rotate).with(0.0).once
@@ -48,7 +48,7 @@ describe Squib::Card do
     it 'makes all the expected calls on a smoke test' do
       expect(@svg).to receive(:width).and_return(100).twice
       expect(@svg).to receive(:height).and_return(100).twice
-      expect(@context).to receive(:antialias=).with('best').once
+      expect(@context).to receive(:antialias=).with('subpixel').once
       expect(@context).to receive(:save).once
       expect(@context).to receive(:rotate).with(0.0).once
       expect(@context).to receive(:translate).with(37, 38).once

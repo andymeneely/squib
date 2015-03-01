@@ -1,4 +1,4 @@
-cairo: antialias=(["best"])
+cairo: antialias=(["subpixel"])
 cairo: save([])
 cairo: set_source_color([:white])
 cairo: paint([])

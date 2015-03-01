@@ -74,6 +74,12 @@ module Squib
       'progress_bar'  => false,
     }
 
+    #Translate the hints to the methods.
+    ANTIALIAS_OPTS = {
+      'best' => 'subpixel',
+      'good' => 'gray',
+      'fast' => 'gray',
+    }
     # These are parameters that are intended to be "expanded" across
     # range if they are singletons.
     #

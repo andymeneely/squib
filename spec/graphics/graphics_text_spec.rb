@@ -20,7 +20,7 @@ describe Squib::Card, '#text' do
     it 'make all the expected calls on a smoke test' do
       extent = Pango::Rectangle.new(50,60,100,200)
       expect(Squib.logger).to receive(:debug).once
-      expect(context).to receive(:antialias=).with('best').once
+      expect(context).to receive(:antialias=).with('subpixel').once
       expect(context).to receive(:save).once
       expect(context).to receive(:set_source_color).once
       expect(context).to receive(:move_to).with(10, 15).once
