@@ -1,15 +1,17 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, and you can compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don't Repeat Yourself. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, then compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don't Repeat Yourself. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
 * A concise set of rules for laying out your cards
-* Loading PNGs and SVGs using [Cairo](http://cairographics.org/)
+* Loading PNGs and SVGs
 * Complex text rendering using [Pango](http://www.pango.org/)
 * Reading `xlsx` and `csv` files
-* Rendering to individual PNGs or PDF sheets
+* Rendering to PNGs, PDFs, and SVGs (sheets or individual files)
 * Flexible, data-driven layouts in Yaml
-* Basic shape drawing
+* Basic shape drawing, blending operators, gradients, etc.
 * Unit conversion
 * The full power of Ruby!
+
+Squib is based on the [Cairo](http://cairographics.org/) graphics rendering engine, the library of choice for WebKit, Gecko, Inkscape and many, many others.
 
 Check this out.
 
@@ -287,6 +289,21 @@ This can hopefully be helpful for:
 
 If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
 
+## Backends: Raster vs. Vector
+Under the hood, Cairo has the ability to support a variety of surfaces to draw on, including both raster images stored in memory and vectors stored in SVG files. Thus, Squib supports the ability to handle both. They are options in the configuration file `backend: memory` or `backend: svg`.
+
+If you save to a PDF then the backend will determine how your cards are saved too. For `memory`, the PDF will be filled with compressed raster images and be a larger file (yet it will still print at high quality... see discussion below). For SVG backends, PDFs will be smaller. If you have your deck backed by SVG, then the cards are auto-saved, so there is no `save_svg` in Squib. (Technically, the operations are stored and then flushed to the SVG file at the very end.)
+
+There are trade-offs that one should consider here.
+
+* _Print quality is **higher** for raster images_. This seems counterintuitive at first, but consider where Squib sits in your workflow. It's the final assembly line for your cards before they get printed. Cairo puts _a ton_ of work into rendering each pixel perfectly when it works with raster images. Printers, on the other hand, don't think in vectors and will render your paths in their own memory with their own embedded libraries without putting a lot of work into antialiasing and various other graphical esoterica. You may notice that print-on-demand companies such as The Game Crafter [only accept raster file types](https://www.thegamecrafter.com/help/supported-file-types), because they don't want their customers complaining about printers not rendering vectors with enough care.
+* _PDFs are **smaller** for SVG back ends_. If file size is a limitation for you, and it can be for some printers or internet forums, then an SVG back end for vectorized PDFs is the way to go.
+* _Squib is **greedy** with memory_. While I've tested Squib with big decks on older computers, the `memory` backend is quite greedy with RAM. If memory is at a premium for you, switching to SVG might help.
+
+Note: you can still load PNGs into an SVG-backed deck and load SVGs into a memory-backed deck. To me, the sweet spot is to keep all of my icons, text, and other stuff in vector form for infinite scaling and then render them all to pixels with Squib.
+
+Fortunately, switching backends in Squib should be as trivial as changing the setting in the config file. So go ahead and experiment with both and see what works for you. See below for how the configuration options work.
+
 ## Configuration File
 
 Squib supports various configuration properties that can be specified in an external file. The `config:` option in `Deck.new` can specify an optional configuration file in YML format. The properties there are intended to be immutable for the life of the Deck. The options include:
@@ -296,6 +313,8 @@ Squib supports various configuration properties that can be specified in an exte
 * `hint` (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the `set` command. This setting is overriden by `set` and individual commands.
 * `custom_colors` (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.
 * `antialias` (`fast, good, best, none`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only X% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
+* `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
+* `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
 
 The following sample demonstrates the config file.
 

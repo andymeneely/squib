@@ -39,7 +39,7 @@ module Squib
           when :svg
             card.cairo_surface.finish
             cc.save
-            cc.scale(0.8,0.8) # FIXME I don't know why I need to do this to make it look right.
+            cc.scale(0.8,0.8) # I really don't know why I needed to do this at all. But 0.8 is the magic number to get this to scale right
             cc.render_rsvg_handle(RSVG::Handle.new_from_file(card.svgfile), nil)
             cc.restore
           else
