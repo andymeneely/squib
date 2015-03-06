@@ -1,4 +1,5 @@
 require 'squib/constants'
+require 'squib/args/unit_conversion'
 
 module Squib
   # :nodoc:
@@ -132,7 +133,7 @@ module Squib
           if @custom_colors.key? color.to_s
             color = @custom_colors[color.to_s]
           end
-          opts[key][i] = Cairo::Color.parse(color)
+          opts[key][i] = color
         end
       end
       Squib.logger.debug {"After colorify: #{opts}"}
@@ -197,15 +198,14 @@ module Squib
     # :nodoc:
     # @api private
     def convert_units(opts, needed_params)
-      Squib::UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
+      UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
         if needed_params.include? param_name
-          opts[api_param].each_with_index do |arg, i|
-            case arg.to_s.rstrip
-            when /in$/ #ends with "in"
-              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi
-            when /cm$/ #ends with "cm"
-              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi * Squib::INCHES_IN_CM
+          if EXPANDING_PARAMS.include? param_name
+            opts[api_param].each_with_index do |arg, i|
+              opts[api_param][i] = Args::UnitConversion.parse(arg, @dpi)
             end
+          else #not an expanding param
+            opts[api_param] = Args::UnitConversion.parse(opts[api_param], @dpi)
           end
         end
       end

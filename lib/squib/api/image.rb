@@ -17,16 +17,17 @@ module Squib
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts mask [String] (nil) If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
-      opts = needs(opts, [:range, :files, :x, :y, :width, :height, :alpha, :layout, :blend, :angle])
+      opts = needs(opts, [:range, :files, :x, :y, :width, :height, :alpha, :layout, :blend, :angle, :mask])
       Dir.chdir(@img_dir) do
         @progress_bar.start('Loading PNG(s)', opts[:range].size) do |bar|
           opts[:range].each do |i|
             @cards[i].png(opts[:file][i],
                           opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
-                          opts[:alpha][i], opts[:blend][i], opts[:angle][i])
+                          opts[:alpha][i], opts[:blend][i], opts[:angle][i], opts[:mask][i])
             bar.increment
           end
         end
@@ -51,16 +52,17 @@ module Squib
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts mask [String] (nil) If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgid, :force_svgid, :x, :y, :width, :height, :layout, :alpha, :blend, :angle])
+      p = needs(opts,[:range, :files, :svgid, :force_svgid, :x, :y, :width, :height, :layout, :alpha, :blend, :angle, :mask])
       Dir.chdir(@img_dir) do
         @progress_bar.start('Loading SVG(s)', p[:range].size) do |bar|
           p[:range].each do |i|
             unless p[:force_id][i] && p[:id][i].to_s.empty?
               @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i],
-                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i], p[:angle][i])
+                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i], p[:angle][i],p[:mask][i])
             end
             bar.increment
           end

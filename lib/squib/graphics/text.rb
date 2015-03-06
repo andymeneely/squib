@@ -91,7 +91,7 @@ module Squib
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       extents = nil
       use_cairo do |cc|
-        cc.set_source_color(color)
+        cc.set_source_squibcolor(color)
         cc.translate(x,y)
         cc.rotate(angle)
         cc.translate(-1*x,-1*y)

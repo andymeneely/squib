@@ -11,6 +11,11 @@ Squib::Deck.new(width: 825, height: 1125, cards: 16) do
   # Place on multiple pages over the PDF, with bleed beeing trimmed off
   save_pdf file: 'save-pdf.pdf', margin: 75, gap: 5, trim: 37
 
+  # PDFs also support arbitrary paper sizes, in pixels or any other supported units
+  save_pdf file: 'save-pdf-small.pdf',
+           width: '7in', height: '5in',
+           range: 0..1
+
   # Note that our PNGs still are not trimmed even though the pdf ones were
   save_png range: 1, prefix: 'saves_notrim_'
 

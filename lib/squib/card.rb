@@ -1,5 +1,6 @@
 require 'cairo'
 require 'squib/input_helpers'
+require 'squib/graphics/cairo_context_wrapper'
 
 module Squib
   # Back end graphics. Private.
@@ -8,7 +9,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    attr_reader :width, :height
+    attr_reader :width, :height, :backend, :svgfile
 
     # :nodoc:
     # @api private
@@ -16,11 +17,30 @@ module Squib
 
     # :nodoc:
     # @api private
-    def initialize(deck, width, height)
-      @deck=deck; @width=width; @height=height
-      @cairo_surface = Cairo::ImageSurface.new(width,height)
-      @cairo_context = Cairo::Context.new(@cairo_surface)
+    def initialize(deck, width, height, backend=:memory, index=-1)
+      @deck          = deck
+      @width         = width
+      @height        = height
+      @backend       = backend
+      @svgfile       = "#{deck.dir}/#{deck.prefix}#{deck.count_format % index}.svg"
+      @cairo_surface = make_surface(@svgfile, backend)
+      @cairo_context = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(@cairo_surface))
+      @cairo_context.antialias = ANTIALIAS_OPTS[(@deck.antialias.downcase)] || 'subpixel'
     end
+
+    def make_surface(svgfile, backend)
+      case backend
+      when :memory
+        Cairo::ImageSurface.new(@width, @height)
+      when :svg
+        Dir.mkdir @deck.dir unless Dir.exists?(@deck.dir)
+        Cairo::SVGSurface.new(svgfile, @width, @height)
+      else
+        Squib.logger.fatal "Back end not recognized: '#{backend}'"
+        abort
+      end
+    end
+
 
   # A save/restore wrapper for using Cairo
   # :nodoc:

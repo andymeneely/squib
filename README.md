@@ -1,15 +1,17 @@
 # Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![Inline docs](http://inch-ci.org/github/andymeneely/squib.png?branch=master)](http://inch-ci.org/github/andymeneely/squib)
-Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, and you can compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don't Repeat Yourself. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
+Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, then compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don't Repeat Yourself. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
 * A concise set of rules for laying out your cards
-* Loading PNGs and SVGs using [Cairo](http://cairographics.org/)
+* Loading PNGs and SVGs
 * Complex text rendering using [Pango](http://www.pango.org/)
 * Reading `xlsx` and `csv` files
-* Rendering to individual PNGs or PDF sheets
+* Rendering to PNGs, PDFs, and SVGs (sheets or individual files)
 * Flexible, data-driven layouts in Yaml
-* Basic shape drawing
+* Basic shape drawing, blending operators, gradients, etc.
 * Unit conversion
 * The full power of Ruby!
+
+Squib is based on the [Cairo](http://cairographics.org/) graphics rendering engine, the library of choice for WebKit, Gecko, Inkscape and many, many others.
 
 Check this out.
 
@@ -151,15 +153,35 @@ By default, Squib thinks in pixels. This decision was made so that we can have p
 
 {include:file:samples/units.rb}
 
-Note: we do not support unit conversion on `save_pdf` and `Squib::Deck.new()`, [yet](https://github.com/andymeneely/squib/issues/21)
+Note: we do not support unit conversion on `save_pdf` and `Squib::Deck.new()`, [yet](https://github.com/andymeneely/squib/issues/21). We are also working on support for unit conversion within layout parsing, so using it as a part of `extends` is not yet supported.
 
-## Specifying Colors
+## Specifying Colors & Gradients
 
 Colors can be specified in a wide variety of ways, mostly in a hex-string. Take a look at the examples from `samples/colors.rb`, found [here](https://github.com/andymeneely/squib/tree/master/samples/colors.rb)
 
 {include:file:samples/colors.rb}
 
-Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb).
+Under the hood, Squib uses the `rcairo` [color parser](https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb) to accept a variety of color specifications, along with over [300 pre-defined constants](https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb). The above sample will generate a table of such constants.
+
+Additionally, in most places where colors are allowed, you may also supply a string that defines a gradient. Squib supports two flavors of gradients: linear and radial. Gradients are specified by supplying some xy coordinates, which are relative to the card (not the command). Each stop must be between 0.0 and 1.0, and you can supply as many as you like. Colors can be specified as above (in any of the hex notations or built-in constant). If you add two (or more) colors at the same stop, then the gradient keeps the colors in the in order specified and treats it like sharp transition.
+
+The format for gradient strings look like this:
+
+Linear:
+```
+(x1,y1)(x2,y2) color1@stop1 color2@stop2
+```
+The xy coordinates define the angle of the gradient.
+
+Radial:
+```
+(x1,y1,radius1)(x2,y2,radius2) color1@stop1 color2@stop2
+```
+The coordinates specify an inner circle first, then an outer circle.
+
+Check out the following sample from `samples/gradients.rb`, found [here](https://github.com/andymeneely/squib/tree/master/samples/colors.rb)
+
+{include:file:samples/gradients.rb}
 
 ## Specifying Files
 
@@ -183,9 +205,36 @@ Layouts also allow merging, extending, and combining layouts. The sample demonst
 
 {include:file:samples/layouts.rb}
 
-### Merge Keys and `extends`
+### Special key: `extends`
 
-Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
+Squib provides a way of reusing layouts with the special `extends` key. When defining an `extends` key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
+
+```yaml
+attack:
+  x: 100
+  y: 100
+  radius: 100
+defend:
+  extends: attack
+  x: += 50
+  #defend now is {:x => 150, :y => 100}
+```
+
+Furthermore, if you want to extend multiple parents, it looks like this:
+
+```yaml
+socrates:
+  x: 100
+plato:
+  y: 200
+aristotle:
+  extends:
+    - socrates
+    - plato
+  x: += 50
+```
+
+Note that extends keys are similar to Yaml's ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
 
 ```yaml
 icon: &icon
@@ -197,31 +246,7 @@ icon_left
 # The layout for icon_left will have the width/height from icon!
 ```
 
-Also!! Squib provides a more feature-rich way of merging: the `extends` key in layouts. When defining an extends key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
-
-```yaml
-yin:
-  x: 100
-  y: 100
-  radius: 100
-yang:
-  extends: yin
-  x: += 50
-```
-
-Furthermore, if you want to extend multiple parents, it looks like this:
-
-```yaml
-socrates:
-  x: 100
-aristotle:
-  y: 200
-aristotle:
-  extends:
-    - socrates
-    - plato
-  x: += 50
-```
+If you use both `extends` and Yaml merge keys, the Yaml merge keys are processed first, then extends. For clarity, however, you're probably just better off using `extends` instead.
 
 ### Multiple layout files
 
@@ -264,6 +289,21 @@ This can hopefully be helpful for:
 
 If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
 
+## Backends: Raster vs. Vector
+Under the hood, Cairo has the ability to support a variety of surfaces to draw on, including both raster images stored in memory and vectors stored in SVG files. Thus, Squib supports the ability to handle both. They are options in the configuration file `backend: memory` or `backend: svg`.
+
+If you save to a PDF then the backend will determine how your cards are saved too. For `memory`, the PDF will be filled with compressed raster images and be a larger file (yet it will still print at high quality... see discussion below). For SVG backends, PDFs will be smaller. If you have your deck backed by SVG, then the cards are auto-saved, so there is no `save_svg` in Squib. (Technically, the operations are stored and then flushed to the SVG file at the very end.)
+
+There are trade-offs that one should consider here.
+
+* _Print quality is **higher** for raster images_. This seems counterintuitive at first, but consider where Squib sits in your workflow. It's the final assembly line for your cards before they get printed. Cairo puts _a ton_ of work into rendering each pixel perfectly when it works with raster images. Printers, on the other hand, don't think in vectors and will render your paths in their own memory with their own embedded libraries without putting a lot of work into antialiasing and various other graphical esoterica. You may notice that print-on-demand companies such as The Game Crafter [only accept raster file types](https://www.thegamecrafter.com/help/supported-file-types), because they don't want their customers complaining about printers not rendering vectors with enough care.
+* _PDFs are **smaller** for SVG back ends_. If file size is a limitation for you, and it can be for some printers or internet forums, then an SVG back end for vectorized PDFs is the way to go.
+* _Squib is **greedy** with memory_. While I've tested Squib with big decks on older computers, the `memory` backend is quite greedy with RAM. If memory is at a premium for you, switching to SVG might help.
+
+Note: you can still load PNGs into an SVG-backed deck and load SVGs into a memory-backed deck. To me, the sweet spot is to keep all of my icons, text, and other stuff in vector form for infinite scaling and then render them all to pixels with Squib.
+
+Fortunately, switching backends in Squib should be as trivial as changing the setting in the config file. So go ahead and experiment with both and see what works for you. See below for how the configuration options work.
+
 ## Configuration File
 
 Squib supports various configuration properties that can be specified in an external file. The `config:` option in `Deck.new` can specify an optional configuration file in YML format. The properties there are intended to be immutable for the life of the Deck. The options include:
@@ -272,6 +312,9 @@ Squib supports various configuration properties that can be specified in an exte
 * `dpi` (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).
 * `hint` (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the `set` command. This setting is overriden by `set` and individual commands.
 * `custom_colors` (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.
+* `antialias` (`fast, good, best, none`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only X% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
+* `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
+* `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
 
 The following sample demonstrates the config file.
 

@@ -1,5 +1,6 @@
 require 'simplecov'
 require 'coveralls'
+require 'byebug'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
@@ -44,6 +45,7 @@ def scrub_hex(str)
      .gsub(/#<Pango::FontDescription:.*>/,'')
      .gsub(/#<Cairo::ImageSurface:.*>/,'ImageSurface')
      .gsub(/#<Cairo::LinearPattern:.*>/,'LinearPattern')
+     .gsub(/#<Cairo::RadialPattern:.*>/,'RadialPattern')
      .gsub(/#<Cairo::Matrix:.*>/,'Matrix')
      .gsub(/#<RSVG::Handle.*>/,'RSVG::Handle')
      .gsub(/#<RSpec::Mocks::Double:.*>/,'MockDouble')
@@ -56,6 +58,7 @@ def mock_cairo(strio)
   cxt     = double(Cairo::Context)
   surface = double(Cairo::ImageSurface)
   pango   = double(Pango::Layout)
+  font    = double(Pango::FontDescription)
   allow(Squib.logger).to receive(:warn) {}
   allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
   allow(Cairo::ImageSurface).to receive(:new).and_return(surface)
@@ -67,11 +70,14 @@ def mock_cairo(strio)
   allow(pango).to receive(:height).and_return(25)
   allow(pango).to receive(:width).and_return(25)
   allow(pango).to receive(:extents).and_return([Pango::Rectangle.new(0,0,0,0)]*2)
+  allow(Pango::FontDescription).to receive(:new).and_return(font)
+  allow(Cairo::PDFSurface).to receive(:new).and_return(nil)
 
   %w(save set_source_color paint restore translate rotate move_to
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
-    triangle line_to operator= show_page clip transform mask).each do |m|
+    triangle line_to operator= show_page clip transform mask rectangle
+    reset_clip antialias=).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 
@@ -80,9 +86,14 @@ def mock_cairo(strio)
     allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args})\n") }
   end
 
+  %w(size=).each do |m|
+    allow(font).to receive(m) { |*args| strio << scrub_hex("pango font: #{m}(#{args})\n") }
+  end
+
   %w(write_to_png).each do |m|
     allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args})\n") }
   end
+
 end
 
 # Refine Squib to allow setting the logger and progress bar
@@ -90,18 +101,11 @@ module Squib
   def logger=(l)
     @logger = l
   end
-  module_function 'logger='
+  module_function :logger=
 
   class Deck
     attr_accessor :progress_bar
   end
-end
-
-def mock_squib_logger(old_logger)
-  old_logger = Squib.logger
-  Squib.logger = instance_double(Logger)
-  yield
-  Squib.logger = old_logger
 end
 
 def output_dir

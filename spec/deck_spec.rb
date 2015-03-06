@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'squib/deck'
+require 'squib'
 
 describe Squib::Deck do
 
@@ -8,6 +8,12 @@ describe Squib::Deck do
     expect(d.width).to eq(825)
     expect(d.height).to eq(1125)
     expect(d.cards.size).to eq(1)
+  end
+
+  it 'can be built with unit conversion' do
+    d = Squib::Deck.new(width: '1in', height: '2in')
+    expect(d.width).to eq(300)
+    expect(d.height).to eq(600)
   end
 
   context 'in dealing with ranges' do

@@ -25,11 +25,9 @@ describe Squib::InputHelpers do
 
   context '#layoutify' do
     it 'warns on the logger when the layout does not exist' do
-      mock_squib_logger(@old_logger) do
-        expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
-        expect(Squib.logger).to receive(:debug)
-        expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]})
-      end
+      expect(Squib.logger).to receive(:warn).with("Layout entry 'foo' does not exist.").twice
+      expect(Squib.logger).to receive(:debug)
+      expect(@deck.send(:layoutify, {layout: :foo})).to eq({layout: [:foo,:foo]})
     end
 
     it 'applies the layout in a normal situation' do
@@ -88,37 +86,30 @@ describe Squib::InputHelpers do
       opts = {dir: 'tocreate'}
       Dir.chdir(output_dir) do
         FileUtils.rm_rf('tocreate', secure: true)
-        mock_squib_logger(@old_logger) do
-          expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
-          expect(@deck.send(:dirify, opts, :dir, true)).to eq(opts)
-          expect(Dir.exists? 'tocreate').to be true
-        end
+        expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
+        expect(@deck.send(:dirify, opts, :dir, true)).to eq(opts)
+        expect(Dir.exists? 'tocreate').to be true
       end
     end
 
   end
 
   context '#colorify' do
-    it 'should parse if nillable' do
+    it 'should pass through if nillable' do
       color = @deck.send(:colorify, {color: ['#fff']}, true)[:color]
-      expect(color.to_a[0].to_a).to eq([1.0, 1.0, 1.0, 1.0])
-    end
-
-    it 'raises and error if the color does not exist' do
-      expect{ @deck.send(:colorify, {color: [:nonexist]}, false) }.to \
-        raise_error(ArgumentError, 'unknown color name: nonexist')
+      expect(color).to eq(['#fff'])
     end
 
     it 'pulls from custom colors in the config' do
       @deck.custom_colors['foo'] = '#abc'
       expect(@deck.send(:colorify, {color: [:foo]}, false)[:color][0].to_s).to \
-        eq('#AABBCCFF')
+        eq('#abc')
     end
 
     it 'pulls custom colors even when a string' do
       @deck.custom_colors['foo'] = '#abc'
       expect(@deck.send(:colorify, {color: ['foo']}, false)[:color][0].to_s).to \
-        eq('#AABBCCFF')
+        eq('#abc')
     end
   end
 
@@ -181,6 +172,13 @@ describe Squib::InputHelpers do
       expect(opts).to eq({:x => [236.2204722] }) #assume 300dpi default
     end
 
+    it 'handles non-expading singletons' do
+      args = {margin: '1in', trim: '1in', gap: '1in'}
+      needed_params = [:margin, :trim, :gap]
+      opts = @deck.send(:convert_units, args, needed_params)
+      expect(opts).to eq({margin: 300, trim: 300, gap: 300}) #assume 300dpi default
+    end
+
   end
 
   context '#rowify' do
@@ -214,6 +212,27 @@ describe Squib::InputHelpers do
       opts = @deck.send(:faceify, {face: 'flugelhorn'})
       expect(opts).to eq({ face: false })
     end
+  end
+
+  context '#formatify' do
+    it 'sets format to nil when format is not set' do
+      opts = @deck.send(:formatify, {foo: true})
+      expect(opts).to eq({
+        foo: true,
+        format: [nil]
+        })
+    end
+
+    it 'updates the format to array' do
+      opts = @deck.send(:formatify, {format: :png})
+      expect(opts).to eq({format: [:png]})
+    end
+
+    it 'updates the format to flattened array' do
+      opts = @deck.send(:formatify, {format: [[:png]]})
+      expect(opts).to eq({format: [:png]})
+    end
+
   end
 
 end

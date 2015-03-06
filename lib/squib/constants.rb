@@ -9,6 +9,7 @@ module Squib
       :blend => :none,
       :color => :black,
       :columns => 1,
+      :count_format => '%02d',
       :default_font => 'Arial 36',
       :dir => '_output',
       :ellipsize => :end,
@@ -25,6 +26,7 @@ module Squib
       :justify => false,
       :margin => 75,
       :markup => false,
+      :mask => nil,
       :offset => 1.1,
       :prefix => 'card_',
       :progress_bar => false,
@@ -61,13 +63,23 @@ module Squib
     #
     # @api public
     CONFIG_DEFAULTS = {
+      'antialias'     => 'best',
+      'backend'       => 'memory',
+      'count_format'  => SYSTEM_DEFAULTS[:count_format],
       'custom_colors' => {},
-      'dpi' => 300,
-      'hint' => :none,
-      'progress_bar' => false,
-      'img_dir' => '.',
+      'dir'           => SYSTEM_DEFAULTS[:dir],
+      'dpi'           => 300,
+      'hint'          => :none,
+      'img_dir'       => '.',
+      'progress_bar'  => false,
     }
 
+    #Translate the hints to the methods.
+    ANTIALIAS_OPTS = {
+      'best' => 'subpixel',
+      'good' => 'gray',
+      'fast' => 'gray',
+    }
     # These are parameters that are intended to be "expanded" across
     # range if they are singletons.
     #
@@ -95,6 +107,7 @@ module Squib
           :justify => :justify,
           :layout => :layout,
           :markup => :markup,
+          :mask => :mask,
           :rect_radius => :radius,
           :spacing => :spacing,
           :str => :str,
@@ -125,10 +138,15 @@ module Squib
     # value: the user-facing API key (e.g. radius: '1in')
     UNIT_CONVERSION_PARAMS = {
       :circle_radius => :radius,
+      :gap => :gap,
       :height => :height,
+      :margin => :margin,
+      :paper_width => :width,
+      :paper_height => :height,
       :rect_radius => :radius,
       :spacing => :spacing,
       :stroke_width => :stroke_width,
+      :trim => :trim,
       :width => :width,
       :x => :x,
       :x1 => :x1,

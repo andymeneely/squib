@@ -13,8 +13,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   #...but PNGs will warn if it's an upscale
 
   # We can also limit our rendering to a single object, if the SVG ID is set
-  # Squib prepends a #-sign if one is not specified
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
+  # Squib prepends a #-sign if one is not specified
   svg file: 'spanner.svg', id: 'backdrop', x: 50, y: 450, width: 125, height: 125
 
   # WARNING! If you choose to use the SVG ID, the x-y coordinates are still
@@ -31,6 +31,20 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png file: 'shiny-purse.png', x: 300, y: 700, angle: 0.0 # default (no rotate)
   png file: 'shiny-purse.png', x: 300, y: 800, angle: Math::PI / 4
   svg file: 'spanner.svg',     x: 300, y: 900, angle: Math::PI / 2 - 0.1
+
+  # Images can also be used as masks instead of being directly painted.
+  # This is particularly useful for switching directly over to black-and-white for printing
+  # Or, if you want the same image to be used but with different colors/gradients
+  svg mask: '#00ff00',
+      file: 'glass-heart.svg',
+      x: 500, y: 600, width: 200, height: 200
+  svg mask: '(0,0)(0,500) #ccc@0.0 #333@1.0',
+      file: 'glass-heart.svg',
+      x: 500, y: 800, width: 200, height: 200
+
+  # Masks are based on the alpha channel, so this is just a magenta square
+  png mask: :magenta, file: 'shiny-purse.png',
+      x: 650, y: 950
 
   save prefix: 'load_images_', format: :png
 end

@@ -15,10 +15,15 @@ describe Squib::Card do
     @deck    = double(Squib::Deck)
     @context = double(Cairo::Context)
     allow(Cairo::Context).to receive(:new).and_return(@context)
+    allow(@deck).to receive(:dir).and_return('_output')
+    allow(@deck).to receive(:count_format).and_return('%02d')
+    allow(@deck).to receive(:prefix).and_return('card_')
+    allow(@deck).to receive(:antialias).and_return('best')
   end
 
   context 'rect' do
     it 'make all the expected calls on a smoke test' do
+      expect(@context).to receive(:antialias=).with('subpixel')
       expect(@context).to receive(:save).once
       expect(@context).to receive(:rounded_rectangle).with(37, 38, 50, 100, 10, 15).twice
       expect_stroke('#fff', '#f00', 2.0)
@@ -33,7 +38,9 @@ describe Squib::Card do
 
   context 'circle' do
     it 'make all the expected calls on a smoke test' do
+      expect(@context).to receive(:antialias=).with('subpixel')
       expect(@context).to receive(:save).once
+      expect(@context).to receive(:move_to).with(137, 38)
       expect(@context).to receive(:circle).with(37, 38, 100).twice
       expect_stroke('#fff', '#f00', 2.0)
       expect(@context).to receive(:restore).once
@@ -47,6 +54,7 @@ describe Squib::Card do
 
   context 'triangle' do
     it 'make all the expected calls on a smoke test' do
+      expect(@context).to receive(:antialias=).with('subpixel')
       expect(@context).to receive(:save).once
       expect(@context).to receive(:triangle).with(1, 2, 3, 4, 5, 6).twice
       expect_stroke('#fff', '#f00', 2.0)
@@ -59,6 +67,7 @@ describe Squib::Card do
 
   context 'line' do
     it 'make all the expected calls on a smoke test' do
+      expect(@context).to receive(:antialias=).with('subpixel')
       expect(@context).to receive(:save).once
       expect(@context).to receive(:move_to).with(1, 2).once
       expect(@context).to receive(:line_to).with(3, 4).once
