@@ -5,7 +5,6 @@ require 'squib/graphics/cairo_context_wrapper'
 module Squib
   # Back end graphics. Private.
   class Card
-    include Squib::InputHelpers
 
     # :nodoc:
     # @api private

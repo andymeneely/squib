@@ -3,9 +3,9 @@ require 'squib'
 
 data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
         'level' => [1,2,3]}
-longtext = "This is left-justified text.\nWhat do you know about tweetle beetles? well... \nWhen tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle. AND... When beetles fight these battles in a bottle with their paddles and the bottle's on a poodle and the poodle's eating noodles... ...they call this a muddle puddle tweetle poodle beetle noodle bottle paddle battle."
+longtext = "This is left-justified text, with newlines.\nWhat do you know about tweetle beetles? well... When tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle."
 
-Squib::Deck.new(width: 825, height: 1125, cards: 3) do
+Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   background color: :white
   rect x: 15, y: 15, width: 795, height: 1095, x_radius: 50, y_radius: 50
   rect x: 30, y: 30, width: 128, height: 128, x_radius: 25, y_radius: 25
@@ -62,8 +62,18 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
 
   text str: longtext, font: 'Arial 16',
        x: 65, y: 700,
-       width: inches(2.25), height: inches(1),
+       width: '1.5in', height: inches(1),
        justify: true
+
+  # Here's how you embed images into text.
+  embed_text = 'Embedded icons! Take one 1 :tool: and gain 2 :health:. If Level 2, take 2 :tool:'
+  # embed_text = '1 :tool: 2 :health: 2 :tool:'
+  text(str: embed_text, font: 'Sans 18',
+       x: '1.8in', y: '2.5in', width: '0.85in',
+       align: :center, ellipsize: false) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+  end
 
   text str: '<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome',
        markup: true,
@@ -72,5 +82,6 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        valign: :bottom,
        font: 'Arial 32', hint: :cyan
 
-  save prefix: 'text_', format: :png
+
+  save range: 0, prefix: 'text_', format: :png
 end

@@ -1,3 +1,5 @@
+require 'squib/api/text_embed'
+
 module Squib
   class Deck
 
@@ -41,9 +43,12 @@ module Squib
     def text(opts = {})
       opts = needs(opts, [:range, :str, :font, :font_size, :x, :y, :width, :height, :color, :wrap,
                           :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout, :angle])
+      embed = TextEmbed.new
+      yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
       opts[:range].each do |i|
-        extents[i] = @cards[i].text(opts[:str][i], opts[:font][i], opts[:font_size][i], opts[:color][i],
+        extents[i] = @cards[i].text(embed,
+                       opts[:str][i], opts[:font][i], opts[:font_size][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i],
                        opts[:ellipsize][i], opts[:spacing][i], opts[:align][i],

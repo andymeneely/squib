@@ -6,14 +6,14 @@ module Squib
     # :nodoc:
     # @api private
     def draw_text_hint(cc,x,y,layout, color,angle)
-      color = @deck.text_hint if color.to_s.eql? 'off' and not @deck.text_hint.to_s.eql? 'off'
+      color = @deck.text_hint if color.eql? 'off' and not @deck.text_hint.to_s.eql? 'off'
       return if color.to_s.eql? 'off' or color.nil?
       # when w,h < 0, it was never set. extents[1] are ink extents
       w = layout.width / Pango::SCALE
       w = layout.extents[1].width / Pango::SCALE if w < 0
       h = layout.height / Pango::SCALE
       h = layout.extents[1].height / Pango::SCALE if h < 0
-      cc.rounded_rectangle(x,y,w,h,0,0)
+      cc.rounded_rectangle(0, 0, w, h, 0, 0)
       cc.set_source_color(color)
       cc.set_line_width(2.0)
       cc.stroke
@@ -62,14 +62,14 @@ module Squib
 
     # :nodoc:
     # @api private
-    def valign!(cc, layout, x, y, valign)
+    def valign!(cc, layout, valign)
       if layout.height > 0
         ink_extents = layout.extents[1]
-        case valign.to_s
+        case valign.to_s.downcase
         when 'middle'
-          cc.move_to(x, y + (layout.height - ink_extents.height) / (2 * Pango::SCALE))
+          cc.move_to(0, (layout.height - ink_extents.height) / (2 * Pango::SCALE))
         when 'bottom'
-          cc.move_to(x, y + (layout.height - ink_extents.height) / Pango::SCALE)
+          cc.move_to(0, (layout.height - ink_extents.height) / Pango::SCALE)
         end
       end
     end
@@ -82,36 +82,97 @@ module Squib
       layout
     end
 
+    def next_embed(keys, str)
+      ret     = nil
+      ret_key = nil
+      keys.each do |key|
+        i = str.index(key)
+        ret ||= i
+        unless i.nil? || i > ret
+          ret = i
+          ret_key = key
+        end
+      end
+      ret_key
+    end
+
+    def process_embeds(embed, str, layout, cc)
+      return unless embed.rules.any?
+      while (key = next_embed(embed.rules.keys, str)) != nil
+        rule          = embed.rules[key]
+        spacing       = rule[:width] * Pango::SCALE
+        index         = str.gsub(/<span letter_spacing="\d+"> <\/span>/,' ').index(key)
+        str           = str.sub(key, "<span letter_spacing=\"#{spacing.to_i}\"> </span>")
+        layout.markup = str
+        cc.update_pango_layout(layout)
+        iter = layout.iter
+        while iter.next_char! && iter.index < index; end
+        rect          = layout.index_to_pos(index)
+        letter_width  = iter.char_extents.width - spacing # the spacing of our actual letter
+        x             = (rect.x + letter_width / 2) / Pango::SCALE
+        # x = rect.x / Pango::SCALE
+        y             = rect.y / Pango::SCALE
+        circle(x, y + 2, 2, :red, :red, 0)
+        # circle(x,y + 2, 2, :red, :red, 0)
+        puts <<-EOS
+        Embedding #{key}
+          at index: #{index}
+          xy #{x},#{y}
+          spacing at #{spacing} or #{spacing / Pango::SCALE}px
+          space character width #{letter_width} or #{letter_width / Pango::SCALE}px
+          and string is:
+            #{str}
+        EOS
+        svg(rule[:file], rule[:id], x, y, rule[:width], rule[:height],
+            rule[:alpha], rule[:blend], rule[:angle], SYSTEM_DEFAULTS[:mask])
+      end
+      # embed.rules.each do |rule|
+        # cc.update_pango_layout(layout)
+        # index       = str.index(rule[:key])
+        # unless index.nil?
+        #   puts "embed #{rule[:type]} #{rule[:file]} into #{rule[:key]} at #{x},#{y}, index #{index}"
+        # end
+      # end
+    end
+
     # :nodoc:
     # @api private
-    def text(str, font, font_size, color,
+    def text(embed,str, font, font_size, color,
              x, y, width, height,
              markup, justify, wrap, ellipsize,
              spacing, align, valign, hint, angle)
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       extents = nil
+      str = str.to_s
       use_cairo do |cc|
         cc.set_source_squibcolor(color)
         cc.translate(x,y)
         cc.rotate(angle)
-        cc.translate(-1*x,-1*y)
-        cc.move_to(x,y)
+        cc.move_to(0, 0)
 
-        layout = cc.create_pango_layout
-        font_desc = Pango::FontDescription.new(font)
+        font_desc      = Pango::FontDescription.new(font)
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?
+        layout         = cc.create_pango_layout
         layout.font_description = font_desc
-        layout.text = str.to_s
-        layout.markup = str.to_s if markup
+        layout.text   = str
+        layout.markup = str if markup
+
         set_wh!(layout, width, height)
         set_wrap!(layout, wrap)
         set_ellipsize!(layout, ellipsize)
         set_align!(layout, align)
+
         layout.justify = justify unless justify.nil?
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
         cc.update_pango_layout(layout)
-        valign!(cc, layout, x, y, valign)
-        cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
+
+        valign!(cc, layout, valign)
+        cc.update_pango_layout(layout)
+
+        process_embeds(embed, str, layout, cc)
+        cc.update_pango_layout(layout)
+
+        cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
