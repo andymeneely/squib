@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		}
+	],
+	"build_systems":
+	[
+		{
+			"shell_cmd": "rake run[text_options]",
+			"name": "rake run[text_options]",
+		}
+	],
+
+}

@@ -32,3 +32,4 @@ benchmarks/_output/*.png
 benchmarks/_output/*.pdf
 benchmarks/_output/
 samples/_output/*.svg
+*.sublime-workspace
