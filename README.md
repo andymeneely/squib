@@ -40,9 +40,12 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit. For Mac, I recommend using [rvm](https://rvm.io).
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups. 
+  * Windows: I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit. 
+  * Mac: I recommend using [rvm](https://rvm.io).
+  * Cywgin is not 100% supported, but could potentially work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113)
 
-Note: Squib requires Ruby 2.0 or later.
+Squib requires Ruby 2.0 or later.
 
 ## Getting Started
 
@@ -312,7 +315,7 @@ Squib supports various configuration properties that can be specified in an exte
 * `dpi` (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).
 * `hint` (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the `set` command. This setting is overriden by `set` and individual commands.
 * `custom_colors` (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.
-* `antialias` (`fast, good, best, none`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only X% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
+* `antialias` (`fast, good, best, none`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only ~10% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
 * `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
 * `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
 
