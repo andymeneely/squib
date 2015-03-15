@@ -9,8 +9,16 @@
 	"build_systems":
 	[
 		{
-			"shell_cmd": "rake run[text_options]",
+			"name": "rake",
+			"shell_cmd": "rake",
+		},
+		{
 			"name": "rake run[text_options]",
+			"shell_cmd": "rake run[text_options]",
+		},
+		{
+			"name": "rake run[embed_text]",
+			"shell_cmd": "rake run[embed_text]",
 		}
 	],
 
