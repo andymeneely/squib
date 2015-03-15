@@ -5,7 +5,7 @@ data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
         'level' => [1,2,3]}
 longtext = "This is left-justified text, with newlines.\nWhat do you know about tweetle beetles? well... When tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle."
 
-Squib::Deck.new(width: 825, height: 1125, cards: 1) do
+Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   background color: :white
   rect x: 15, y: 15, width: 795, height: 1095, x_radius: 50, y_radius: 50
   rect x: 30, y: 30, width: 128, height: 128, x_radius: 25, y_radius: 25
@@ -41,12 +41,14 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
        width: ws, height: hs,
        radius: 10, stroke_color: :black
 
+  # If width & height are defined and the text will overflow the box, we can ellipsize.
   text str: "Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42",
        hint: :green, font: 'Arial 22',
        x: 450, y: 400,
        width: 280, height: 180,
        ellipsize: true
 
+  # Text hints are guides for showing you how your text boxes are laid out exactly
   hint text: :cyan
   text str: 'Text hints are also globally togglable!',
         x: 65, y: 625,
@@ -60,14 +62,15 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
         x: 565, y: 675, angle: 0.2,
         font: 'Arial 18', hint: :red
 
+  # Text can be justified, and have newlines
   text str: longtext, font: 'Arial 16',
        x: 65, y: 700,
        width: '1.5in', height: inches(1),
        justify: true
 
   # Here's how you embed images into text.
-  embed_text = 'Embedded icons! Take one 1 :tool: and gain 2 :health:. If Level 2, take 2 :tool:'
-  # embed_text = '1 :tool: 2 :health: 2 :tool:'
+  # Pass a block to the
+  embed_text = 'Embedded icons! Take 1 :tool: and gain 2:health:. If Level 2, take 2 :tool:'
   text(str: embed_text, font: 'Sans 18',
        x: '1.8in', y: '2.5in', width: '0.85in',
        align: :center, ellipsize: false) do |embed|
@@ -83,5 +86,5 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
        font: 'Arial 32', hint: :cyan
 
 
-  save range: 0, prefix: 'text_', format: :png
+  save prefix: 'text_', format: :png
 end

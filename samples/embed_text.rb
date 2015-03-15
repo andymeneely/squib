@@ -5,8 +5,7 @@ Squib::Deck.new do
   rect x: 0, y: 0, width: 825, height: 1125
   rect x: 0, y: 0, width: 180, height: 180, stroke_color: :red
 
-  # embed_text = 'Take 1:tool:and gain 2 :health:. Take 2 :tool: if level 2'
-  embed_text = '  1:tool: 2 :health:'
+  embed_text = 'Take 1 :tool:and gain 2 :health:. Take 2 :tool: if level 2'
   text(str: embed_text, font: 'Sans 18',
        x: 0, y: 0, width: 180,
        align: :right, ellipsize: false, justify: false) do |embed|

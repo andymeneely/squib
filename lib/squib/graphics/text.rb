@@ -121,21 +121,6 @@ module Squib
                         end
         x             = Pango.pixels(rect.x + (letter_width / 2))
         y             = Pango.pixels(rect.y)
-        circle(x, y + 2, 2, :red, :red, 0)
-        puts <<-EOS
-        Embedding #{key}
-          at index: #{index}
-          iter index #{iter.index}
-          layout width: #{layout.width}
-          line width: #{iter.line_extents[0].width} or #{Pango.pixels iter.line_extents[0].width}px
-          pango's x at start of paragraph is #{Pango.pixels para_x}px
-          pango's index_to_ps xy #{rect.x},#{rect.y} or #{Pango.pixels rect.x},#{Pango.pixels rect.y} (px)
-          xy #{x},#{y}
-          spacing at #{spacing} or #{Pango.pixels spacing}px
-          space character width #{letter_width} or #{letter_width / Pango::SCALE}px
-          and string is:
-            #{str}
-        EOS
         svg(rule[:file], rule[:id], x, y, rule[:width], rule[:height],
             rule[:alpha], rule[:blend], rule[:angle], SYSTEM_DEFAULTS[:mask])
       end
