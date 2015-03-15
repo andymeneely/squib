@@ -96,6 +96,8 @@ module Squib
       ret_key
     end
 
+    # :nodoc:
+    # @api private
     def process_embeds(embed, str, layout, cc)
       return unless embed.rules.any?
       while (key = next_embed(embed.rules.keys, str)) != nil
@@ -105,20 +107,31 @@ module Squib
         str           = str.sub(key, "<span letter_spacing=\"#{spacing.to_i}\"> </span>")
         layout.markup = str
         cc.update_pango_layout(layout)
-        iter = layout.iter
-        while iter.next_char! && iter.index < index; end
         rect          = layout.index_to_pos(index)
-        letter_width  = iter.char_extents.width - spacing # the spacing of our actual letter
-        x             = (rect.x + letter_width / 2) / Pango::SCALE
-        # x = rect.x / Pango::SCALE
-        y             = rect.y / Pango::SCALE
+        iter          = layout.iter
+        while iter.next_char! && iter.index < index; end
+        letter_width  = iter.char_extents.width - spacing # the width of our inserted space char
+        para_x        = case layout.alignment
+                        when Pango::Layout::Alignment::CENTER
+                          (layout.width - iter.line_extents[0].width) / 2
+                        when Pango::Layout::Alignment::RIGHT
+                          layout.width - iter.line_extents[0].width
+                        else
+                          0
+                        end
+        x             = Pango.pixels(rect.x + (letter_width / 2))
+        y             = Pango.pixels(rect.y)
         circle(x, y + 2, 2, :red, :red, 0)
-        # circle(x,y + 2, 2, :red, :red, 0)
         puts <<-EOS
         Embedding #{key}
           at index: #{index}
+          iter index #{iter.index}
+          layout width: #{layout.width}
+          line width: #{iter.line_extents[0].width} or #{Pango.pixels iter.line_extents[0].width}px
+          pango's x at start of paragraph is #{Pango.pixels para_x}px
+          pango's index_to_ps xy #{rect.x},#{rect.y} or #{Pango.pixels rect.x},#{Pango.pixels rect.y} (px)
           xy #{x},#{y}
-          spacing at #{spacing} or #{spacing / Pango::SCALE}px
+          spacing at #{spacing} or #{Pango.pixels spacing}px
           space character width #{letter_width} or #{letter_width / Pango::SCALE}px
           and string is:
             #{str}
@@ -126,13 +139,6 @@ module Squib
         svg(rule[:file], rule[:id], x, y, rule[:width], rule[:height],
             rule[:alpha], rule[:blend], rule[:angle], SYSTEM_DEFAULTS[:mask])
       end
-      # embed.rules.each do |rule|
-        # cc.update_pango_layout(layout)
-        # index       = str.index(rule[:key])
-        # unless index.nil?
-        #   puts "embed #{rule[:type]} #{rule[:file]} into #{rule[:key]} at #{x},#{y}, index #{index}"
-        # end
-      # end
     end
 
     # :nodoc:
@@ -170,8 +176,6 @@ module Squib
         cc.update_pango_layout(layout)
 
         process_embeds(embed, str, layout, cc)
-        cc.update_pango_layout(layout)
-
         cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
