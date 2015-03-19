@@ -120,8 +120,7 @@ module Squib
         end
         x             = Pango.pixels(rect.x + (letter_width / 2))
         y             = Pango.pixels(rect.y)
-        svg(rule[:file], rule[:id], x, y, rule[:width], rule[:height],
-            rule[:alpha], rule[:blend], rule[:angle], SYSTEM_DEFAULTS[:mask])
+        rule[:draw].call(self, x, y)
       end
     end
 
