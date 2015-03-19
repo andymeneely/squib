@@ -19,6 +19,11 @@
 		{
 			"name": "rake run[embed_text]",
 			"shell_cmd": "rake run[embed_text]",
+		},
+		{
+			"name":        "rspec spec/samples/samples_regression_spec.rb",
+			"shell_cmd":   "rspec spec/samples/samples_regression_spec.rb",
+			"working_dir": "${project_path:${folder}}"
 		}
 	],
 
