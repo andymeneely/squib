@@ -85,15 +85,14 @@ About the other files:
 
 # Learning Squib
 
-After going over this README, here are some other places to go learn Squib:
+In addition to this README, be sure to also check out the following resources for more details:
 
-* The YARD-generated API documentation [for the latest Squib gem](http://rubydoc.info/gems/squib/) is a method-by-method reference. The `Deck` class is the main class to look at. If you are following Squib master, see [the latest version](http://rubydoc.info/github/andymeneely/squib)
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples.
 * [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
 
 ## Viewing this README
 
-The best place to read this documentation is on [our website](http://andymeneely.github.io/squib/doc).
+The best place to read this documentation is on [our website](http://andymeneely.github.io/squib/doc). Be sure to check out the method-by-method documentation, particularly for the [Deck](Squib/Deck.html) class.
 
 If you want to view it offline, you can do the following
 
@@ -107,7 +106,7 @@ If you're viewing this on Github, you might see some confusing tags like `{inclu
 
 Also, RubyDoc.info linked from RubyGems is buggy and doesn't support `{include:file...}` directive properly, so the embedded samples will also not show up there.
 
-## Squib API
+## Squib Decks and Cards
 
 The Squib DSL is based on a collection of methods provided to the `Squib::Deck` class. The general philosophy of Squib is to specify as little as possible with layers of defaults, highly flexible input, and good ol' Ruby duck-typing. Ruby does a lot to make Squib useful.
 
@@ -190,29 +189,56 @@ Check out the following sample from `samples/gradients.rb`, found [here](https:/
 
 All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened relative to the current directory. Files opened for writing (e.g. for `save_png`) will be overwritten without warning.
 
+If you find that you `cd` a lot while working on the command line, your `_output` folder might get generated in multiple places. An easy way to fix this is to use a `Rakefile`, [see below](#Rakefile)
+
 ## Custom Layouts
 
 Working with x-y coordinates all the time can be tiresome, and ideally everything in a game prototype should be data-driven and easily changed. For this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for any argument given to the command.
 
 To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options.
 
-Note: YAML is very finnicky about having not allowing tabs. Use two spaces for indentation instead. If you get a `Psych` syntax error, this is likely the culprit. Indendation is also strongly enforced in Yaml too. See the [Yaml docs](http://www.yaml.org/YAML_for_ruby.html).
+Instead of this:
+```ruby
+# deck.rb
+Squib::Deck.new(layout: 'custom-layout.yml') do
+  rect x: 75, y: 75, width: 675, height: 975
+end
+```
 
-Layouts will override Squib's defaults, but are overriden by anything specified in the command itself. Thus, the order of precedence looks like this:
+You can put your logic in the layout file and reference them:
+```yaml
+# custom-layout.yml
+frame:
+  x: 75
+  y: 75
+  width: 975
+  height: 675
+```
+Then your script looks like this:
+```ruby
+# deck.rb
+Squib::Deck.new(layout: 'custom-layout.yml') do
+  rect layout: 'frame'
+end
+```
+The goal is to make your Ruby code more separate data from logic, which in turn makes your code more readable and maintainable. With `extends` (see below), layouts become even more powerful in keeping you from repeating yourself.
+
+Note: YAML is very finnicky about not allowing tab characters. Use two spaces for indentation instead. If you get a `Psych` syntax error, this is likely the culprit. Indendation is also strongly enforced in Yaml too. See the [Yaml docs](http://www.yaml.org/YAML_for_ruby.html).
+
+### Order of Precedence
+
+Layouts will override Squib's system defaults, but are overriden by anything specified in the command itself. Thus, the order of precedence looks like this:
 
 * Use what the command specified
 * If anything was not yet specified, use what was given in a layout (if a layout was specified in the command and the file was given to the Deck)
 * If still anything was not yet specified, use what was given in Squib's defaults.
 
-Layouts also allow merging, extending, and combining layouts. The sample demonstrates this, but they are also explained below. See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
-
-{include:file:samples/layouts.rb}
-
 ### Special key: `extends`
 
-Squib provides a way of reusing layouts with the special `extends` key. When defining an `extends` key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
+Squib provides a way of reusing layouts with the special `extends` key. When defining an `extends` key, we can merge in another key and modify data coming in if we want to. This allows us to do things like place text next to an icon and be able to move them with each other. Like this:
 
 ```yaml
+# If we change the xy of attack, we move defend too!
 attack:
   x: 100
   y: 100
@@ -223,7 +249,7 @@ defend:
   #defend now is {:x => 150, :y => 100}
 ```
 
-Furthermore, if you want to extend multiple parents, it looks like this:
+If you want to extend multiple parents, it looks like this:
 
 ```yaml
 socrates:
@@ -236,6 +262,7 @@ aristotle:
     - plato
   x: += 50
 ```
+If multiple keys override the same keys in a parent, the later ("younger") child takes precedent.
 
 Note that extends keys are similar to Yaml's ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
 
@@ -249,11 +276,11 @@ icon_left
 # The layout for icon_left will have the width/height from icon!
 ```
 
-If you use both `extends` and Yaml merge keys, the Yaml merge keys are processed first, then extends. For clarity, however, you're probably just better off using `extends` instead.
+If you use both `extends` and Yaml merge keys, the Yaml merge keys are processed first, then extends. For clarity, however, you're probably just better off using `extends` exclusively.
 
 ### Multiple layout files
 
-Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each file_. YAML merge keys are NOT supported across multiple files - use extends instead. Here's a demonstrative example:
+Squib also supports the combination of multiple layout files. If you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each file_. Here's a complex example:
 
 ```yaml
 # load order: a.yml, b.yml
@@ -274,23 +301,30 @@ parent_b:
 # file b.yml #
 ##############
 child_a:
-  extends: parent_a
-  x: += 3    # evaluates to 113
+  extends: parent_a  # i.e. extends a layout in a separate file
+  x: += 3    # evaluates to 113 (i.e 110 + 3)
 parent_b:    # redefined
   extends: grandparent
-  x: += 30   # evaluates to 130
+  x: += 30   # evaluates to 130 (i.e. 100 + 30)
 child_b:
   extends: parent_b
-  x: += 3    # evaluates to 133
+  x: += 3    # evaluates to 133 (i.e. 130 + 3)
 ```
 
-This can hopefully be helpful for:
+This can be helpful for:
   * Creating a base layout for structure, and one for color (for easier color/black-and-white switching)
   * Sharing base layouts with other designers
+
+YAML merge keys are NOT supported across multiple files - use `extends` instead.
 
 ### Built-in Layout Files
 
 If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
+
+### Layout Sample
+This sample demonstrates many different ways of using and combining layouts. This is the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+
+{include:file:samples/layouts.rb}
 
 ## Backends: Raster vs. Vector
 Under the hood, Cairo has the ability to support a variety of surfaces to draw on, including both raster images stored in memory and vectors stored in SVG files. Thus, Squib supports the ability to handle both. They are options in the configuration file `backend: memory` or `backend: svg`.
@@ -347,7 +381,7 @@ If you REALLY want to see tons of output, you can also set DEBUG, but that's not
 
 Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 
-* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Yaml's "merge keys" takes this a step further and lets you specify base styles that can then be extended by other styles. Squib goes even further and has a special "extends" that works especially well for grouped-together styles.
+* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Squib goes even further and has a special "extends" that works especially well for grouped-together styles.
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
 * Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into `config.yml` file.
 * Plus, you know, Ruby.
@@ -376,7 +410,7 @@ When you run `squib new`, you are given a basic Rakefile. At this stage of Squib
 
 * If you're in a subdirectory at the time, `rake` will simply traverse up and `cd` to the proper directory so you don't get rogue `_output` directories
 * If you find yourself building multiple decks, you can make your own tasks for each one individually, or all (e.g. `rake marketing`)
-* Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so it's probably a bad idea)
+* Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so that's probably a bad idea)
 
 # Development
 
