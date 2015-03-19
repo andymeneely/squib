@@ -69,7 +69,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        justify: true
 
   # Here's how you embed images into text.
-  # Pass a block to the
+  # Pass a block to the method call and use the given context
   embed_text = 'Embedded icons! Take 1 :tool: and gain 2:health:. If Level 2, take 2 :tool:'
   text(str: embed_text, font: 'Sans 18',
        x: '1.8in', y: '2.5in', width: '0.85in',
