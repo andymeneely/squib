@@ -1,5 +1,6 @@
 language: ruby
-cache: bundler
+sudo: false # taking advantage of container-based infrastructure
+cache: bundler # maybe someday they'll add support for us freeloaders...
 rvm:
   - 2.0
   - 2.1
