@@ -24,6 +24,7 @@ module Squib
       :hint => :off,
       :img_dir => '.',
       :justify => false,
+      :key => '*',
       :margin => 75,
       :markup => false,
       :mask => nil,
