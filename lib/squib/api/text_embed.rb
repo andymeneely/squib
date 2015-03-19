@@ -1,7 +1,11 @@
 module Squib
   class TextEmbed
+    # :nodoc:
+    # @api private
     attr_reader :rules
 
+    # :nodoc:
+    # @api private
     def initialize
       @rules = {} # store an array of options for later usage
     end
@@ -17,6 +21,7 @@ module Squib
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @api public
     def svg(opts)
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       # TODO: add input validation here. We need the key for example.

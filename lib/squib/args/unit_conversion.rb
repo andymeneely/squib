@@ -2,8 +2,12 @@ require 'squib/constants'
 
 module Squib
   module Args
+    # :nodoc:
+    # @api private
     module UnitConversion
 
+      # :nodoc:
+      # @api private
       module_function
       def parse(arg, dpi=300)
         case arg.to_s.rstrip

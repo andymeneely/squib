@@ -82,6 +82,8 @@ module Squib
       layout
     end
 
+    # :nodoc:
+    # @api private
     def next_embed(keys, str)
       ret     = nil
       ret_key = nil

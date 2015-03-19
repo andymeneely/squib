@@ -60,6 +60,8 @@ module Squib
       return tmp_cc.target
     end
 
+    # :nodoc:
+    # @api private
     def perspective(src, scale, face_right)
       dest_cxt = Cairo::Context.new(Cairo::ImageSurface.new(src.width * scale, src.height))
       in_thickness = 1 # Take strip 1 pixel-width at a time

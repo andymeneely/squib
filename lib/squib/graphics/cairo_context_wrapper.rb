@@ -3,10 +3,16 @@ require 'squib/graphics/gradient_regex'
 
 module Squib
   module Graphics
+    # Wrapper class for the Cairo context. Private.
     class CairoContextWrapper
       extend Forwardable
+
+      # :nodoc:
+      # @api private
       attr_accessor :cairo_cxt
 
+      # :nodoc:
+      # @api private
       def initialize(cairo_cxt)
         @cairo_cxt = cairo_cxt
       end
@@ -18,6 +24,8 @@ module Squib
         :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
         :antialias=
 
+      # :nodoc:
+      # @api private
       def set_source_squibcolor(arg)
         if match = arg.match(LINEAR_GRADIENT)
           x1, y1, x2, y2 = match.captures

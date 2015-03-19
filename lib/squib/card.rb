@@ -27,6 +27,8 @@ module Squib
       @cairo_context.antialias = ANTIALIAS_OPTS[(@deck.antialias.downcase)] || 'subpixel'
     end
 
+    # :nodoc:
+    # @api private
     def make_surface(svgfile, backend)
       case backend
       when :memory
