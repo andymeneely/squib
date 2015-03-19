@@ -1,5 +1,11 @@
 # Squib CHANGELOG
 
+# v0.5.0
+* Embedding of SVGs and PNGs into text! See README, `text_options.rb`, and `embed_text.rb`, and API documentation. This was a finnicky feature, so feedback and bug reports are welcome. (#30)
+
+Known issues
+* Embedding icons for right-aligned and center-aligned is wrong for the first icon (#46). This is likely a Pango bug - I'm working on getting that fixed. There is a workaround.
+
 # v0.4.0
 * SVG backend support! You can now set the deck's back end to work with SVGs instead of images, making the resulting PDFs vectorized. (You can still save to PNGs too.) This was a big change for Squib, and it's got at least one known issue and probably a few more here and there. See discussion on the README for more details.
 * Added config option for antialiasing method. My benchmarks showed that 'best' is only 10% slower than 'fast' on extremely alias-intensive tasks, so 'best' is the Squib default now.
