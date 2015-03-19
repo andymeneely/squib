@@ -23,8 +23,7 @@ describe Squib::Card, '#text' do
       expect(context).to receive(:antialias=).with('subpixel').once
       expect(context).to receive(:save).once
       expect(context).to receive(:set_source_color).once
-      expect(context).to receive(:move_to).with(10, 15).once
-      expect(context).to receive(:translate).with(-10, -15).once
+      expect(context).to receive(:move_to).with(0, 0).once
       expect(context).to receive(:rotate).with(0.0).once
       expect(context).to receive(:translate).with(10, 15).once
       expect(context).to receive(:create_pango_layout).once.and_return(layout)
@@ -49,7 +48,7 @@ describe Squib::Card, '#text' do
       #      x, y, width, height,
       #      markup, justify, wrap, ellipsize,
       #      spacing, align, valign, hint, angle)
-      ret = card.text('foo', 'Sans 12', nil, '#abc',
+      ret = card.text(Squib::TextEmbed.new,'foo', 'Sans 12', nil, '#abc',
                       10, 15, 20, 25,
                       nil, false, false, false,
                       1.0, :left, :top, nil, 0.0)
@@ -75,7 +74,7 @@ describe Squib::Card, '#text' do
     it 'aligns right with strings' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:alignment=).with(Pango::Layout::ALIGN_RIGHT).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, false, false,
                 1.0, 'right', :top, nil, 0.0)
@@ -84,7 +83,7 @@ describe Squib::Card, '#text' do
     it 'aligns center with strings' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:alignment=).with(Pango::Layout::ALIGN_CENTER).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, false, false,
                 1.0, 'center', :top, nil, 0.0)
@@ -93,7 +92,7 @@ describe Squib::Card, '#text' do
     it 'sets wrap to char with string char' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:wrap=).with(Pango::Layout::WRAP_CHAR).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, 'char', false,
                 1.0, :left, :top, nil, 0.0)
@@ -102,7 +101,7 @@ describe Squib::Card, '#text' do
     it 'sets wrap to word with word string' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:wrap=).with(Pango::Layout::WRAP_WORD).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, 'word', false,
                 1.0, :left, :top, nil, 0.0)
@@ -111,7 +110,7 @@ describe Squib::Card, '#text' do
     it 'sets wrap to word_char with symbol word_char' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:wrap=).with(Pango::Layout::WRAP_WORD_CHAR).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, :word_char, false,
                 1.0, :left, :top, nil, 0.0)
@@ -120,7 +119,7 @@ describe Squib::Card, '#text' do
     it 'sets wrap to word_char with true' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:wrap=).with(Pango::Layout::WRAP_WORD_CHAR).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, false,
                 1.0, :left, :top, nil, 0.0)
@@ -129,7 +128,7 @@ describe Squib::Card, '#text' do
     it 'sets ellipsize to start properly' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:ellipsize=).with(Pango::Layout::ELLIPSIZE_START).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, :start,
                 1.0, :left, :top, nil, 0.0)
@@ -138,7 +137,7 @@ describe Squib::Card, '#text' do
     it 'sets ellipsize to middle properly' do
       card = Squib::Card.new(deck, 100, 150)
       expect(layout).to receive(:ellipsize=).with(Pango::Layout::ELLIPSIZE_MIDDLE).once
-      card.text('foo', 'Sans 12', nil, '#abc',
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, 'middle',
                 1.0, :left, :top, nil, 0.0)
