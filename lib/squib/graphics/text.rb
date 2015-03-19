@@ -111,14 +111,11 @@ module Squib
         iter          = layout.iter
         while iter.next_char! && iter.index < index; end
         letter_width  = iter.char_extents.width - spacing # the width of our inserted space char
-        para_x        = case layout.alignment
-                        when Pango::Layout::Alignment::CENTER
-                          (layout.width - iter.line_extents[0].width) / 2
-                        when Pango::Layout::Alignment::RIGHT
-                          layout.width - iter.line_extents[0].width
-                        else
-                          0
-                        end
+        case layout.alignment
+          when Pango::Layout::Alignment::CENTER,
+               Pango::Layout::Alignment::RIGHT
+            Squib.logger.warn "Center- or right-aligned text do not always embed properly. This is a known issue with a workaround. See https://github.com/andymeneely/squib/issues/46"
+        end
         x             = Pango.pixels(rect.x + (letter_width / 2))
         y             = Pango.pixels(rect.y)
         svg(rule[:file], rule[:id], x, y, rule[:width], rule[:height],
