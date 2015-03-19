@@ -24,6 +24,11 @@
 			"name":        "rspec spec/samples/samples_regression_spec.rb",
 			"shell_cmd":   "rspec spec/samples/samples_regression_spec.rb",
 			"working_dir": "${project_path:${folder}}"
+		},
+		{
+			"name":        "rspec spec/graphics/graphics_text_spec.rb",
+			"shell_cmd":   "rspec spec/graphics/graphics_text_spec.rb",
+			"working_dir": "${project_path:${folder}}"
 		}
 	],
 
