@@ -59,6 +59,7 @@ def mock_cairo(strio)
   surface = double(Cairo::ImageSurface)
   pango   = double(Pango::Layout)
   font    = double(Pango::FontDescription)
+  iter    = double('pango_iter')
   allow(Squib.logger).to receive(:warn) {}
   allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
   allow(Cairo::ImageSurface).to receive(:new).and_return(surface)
@@ -69,7 +70,13 @@ def mock_cairo(strio)
   allow(cxt).to receive(:target).and_return(surface)
   allow(pango).to receive(:height).and_return(25)
   allow(pango).to receive(:width).and_return(25)
+  allow(pango).to receive(:index_to_pos).and_return(Pango::Rectangle.new(0,0,0,0))
   allow(pango).to receive(:extents).and_return([Pango::Rectangle.new(0,0,0,0)]*2)
+  allow(pango).to receive(:iter).and_return(iter)
+  allow(pango).to receive(:alignment).and_return(Pango::Layout::Alignment::LEFT)
+  allow(iter).to receive(:next_char!).and_return(false)
+  allow(iter).to receive(:char_extents).and_return(Pango::Rectangle.new(5,5,5,5))
+  allow(iter).to receive(:index).and_return(1000)
   allow(Pango::FontDescription).to receive(:new).and_return(font)
   allow(Cairo::PDFSurface).to receive(:new).and_return(nil)
 
@@ -92,6 +99,10 @@ def mock_cairo(strio)
 
   %w(write_to_png).each do |m|
     allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args})\n") }
+  end
+
+  %w(next_char!).each do |m|
+    allow(iter).to receive(m) { |*args| strio << scrub_hex("pango_iter: #{m}(#{args})\n") }
   end
 
 end
