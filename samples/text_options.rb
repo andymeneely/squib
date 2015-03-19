@@ -73,7 +73,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   embed_text = 'Embedded icons! Take 1 :tool: and gain 2:health:. If Level 2, take 2 :tool:'
   text(str: embed_text, font: 'Sans 18',
        x: '1.8in', y: '2.5in', width: '0.85in',
-       align: :center, ellipsize: false) do |embed|
+       align: :left, ellipsize: false) do |embed|
     embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
   end
