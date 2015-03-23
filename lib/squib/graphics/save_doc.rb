@@ -67,7 +67,7 @@ module Squib
     #   save_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
     #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts colulmns [Integer] (1) the number of columns in the grid
+    # @option opts colulmns [Integer] (5) the number of columns in the grid
     # @option opts rows [Integer] (:infinite) the number of rows in the grid. When set to :infinite, the sheet scales to the rows needed. If there are more cards than rows*columns, new sheets are started.
     # @option opts [String] prefix (card_) the prefix of the file name(s)
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)

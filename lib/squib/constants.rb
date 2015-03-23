@@ -8,7 +8,7 @@ module Squib
       :angle => 0,
       :blend => :none,
       :color => :black,
-      :columns => 1,
+      :columns => 5,
       :count_format => '%02d',
       :default_font => 'Arial 36',
       :dir => '_output',
