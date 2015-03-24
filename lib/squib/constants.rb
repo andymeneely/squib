@@ -12,6 +12,8 @@ module Squib
       :count_format => '%02d',
       :default_font => 'Arial 36',
       :dir => '_output',
+      :dx => 0, # delta
+      :dy => 0, # delta
       :dx1 => 0,
       :dx2 => 0,
       :dy1 => 0,
@@ -147,6 +149,12 @@ module Squib
     # value: the user-facing API key (e.g. radius: '1in')
     UNIT_CONVERSION_PARAMS = {
       :circle_radius => :radius,
+      :dx => 0, # delta
+      :dy => 0, # delta
+      :dx1 => 0,
+      :dx2 => 0,
+      :dy1 => 0,
+      :dy2 => 0,
       :gap => :gap,
       :height => :height,
       :margin => :margin,

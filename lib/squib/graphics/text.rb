@@ -62,24 +62,24 @@ module Squib
 
     # :nodoc:
     # @api private
-    def valign!(cc, layout, valign)
-      if layout.height > 0
-        ink_extents = layout.extents[1]
-        case valign.to_s.downcase
-        when 'middle'
-          cc.move_to(0, (layout.height - ink_extents.height) / (2 * Pango::SCALE))
-        when 'bottom'
-          cc.move_to(0, (layout.height - ink_extents.height) / Pango::SCALE)
-        end
+    def compute_valign(layout, valign)
+      return 0 unless layout.height > 0
+      ink_extents = layout.extents[1]
+      case valign.to_s.downcase
+      when 'middle'
+        Pango.pixels( (layout.height - ink_extents.height) / 2)
+      when 'bottom'
+        Pango.pixels(layout.height - ink_extents.height)
+      else
+        0
       end
     end
 
     # :nodoc:
     # @api private
     def set_wh!(layout, width, height)
-      layout.width = width * Pango::SCALE unless width.nil? || width == :native
+      layout.width  = width * Pango::SCALE unless width.nil? || width == :native
       layout.height = height * Pango::SCALE unless height.nil? || height == :native
-      layout
     end
 
     # :nodoc:
@@ -100,15 +100,17 @@ module Squib
 
     # :nodoc:
     # @api private
-    def process_embeds(embed, str, layout, cc)
+    def process_embeds(embed, str, layout, vertical_start)
       return unless embed.rules.any?
-      while (key = next_embed(embed.rules.keys, str)) != nil
+      layout.markup   = str
+      clean_str       = layout.text
+      while (key = next_embed(embed.rules.keys, clean_str)) != nil
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
-        index         = str.gsub(/<span letter_spacing="\d+"> <\/span>/,' ').index(key)
-        str           = str.sub(key, "<span letter_spacing=\"#{spacing.to_i}\"> </span>")
+        index         = clean_str.index(key)
+        str.sub!(key, "<span letter_spacing=\"#{spacing.to_i}\"> </span>")
         layout.markup = str
-        cc.update_pango_layout(layout)
+        clean_str     = layout.text
         rect          = layout.index_to_pos(index)
         iter          = layout.iter
         while iter.next_char! && iter.index < index; end
@@ -118,8 +120,17 @@ module Squib
                Pango::Layout::Alignment::RIGHT
             Squib.logger.warn "Center- or right-aligned text do not always embed properly. This is a known issue with a workaround. See https://github.com/andymeneely/squib/issues/46"
         end
-        x             = Pango.pixels(rect.x + (letter_width / 2))
-        y             = Pango.pixels(rect.y)
+        x             = Pango.pixels(rect.x + (letter_width / 2)) + rule[:dx]
+        y             = Pango.pixels(rect.y) + rule[:dy] + vertical_start
+        puts  <<-EOS
+  Embed: #{key}
+  Index: #{index}
+  Spacing: #{spacing} or #{Pango.pixels(spacing)}px
+  Markup string: #{str}
+  index_to_pos: #{rect.x},#{rect.y} or #{Pango.pixels(rect.x)},#{Pango.pixels(rect.y)}
+  Computed x,y: #{x},#{y}
+  =================
+        EOS
         rule[:draw].call(self, x, y)
       end
     end
@@ -155,10 +166,13 @@ module Squib
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
         cc.update_pango_layout(layout)
 
-        valign!(cc, layout, valign)
+        vertical_start = compute_valign(layout, valign)
+
+        process_embeds(embed, str, layout, vertical_start)
+
+        cc.move_to(0, vertical_start)
         cc.update_pango_layout(layout)
 
-        process_embeds(embed, str, layout, cc)
         cc.show_pango_layout(layout)
         draw_text_hint(cc,x,y,layout,hint,angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
