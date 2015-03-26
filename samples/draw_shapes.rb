@@ -15,8 +15,8 @@ Squib::Deck.new do
        x2: 150, y2: 650,
        stroke_width: 25.0
 
-  curve x1: 50,  y1: 850, dx1: 150, dy1: 700,
-        x2: 625, y2: 900, dx2: 150, dy2: 700,
+  curve x1: 50,  y1: 850, cx1: 150, cy1: 700,
+        x2: 625, y2: 900, cx2: 150, cy2: 700,
         stroke_width: 12.0, stroke_color: :cyan,
         fill_color: :burgundy
 

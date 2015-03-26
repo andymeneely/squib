@@ -8,9 +8,10 @@ Squib::Deck.new do
   text(str: embed_text, font: 'Sans 21',
        x: 0, y: 0, width: 180, hint: :red,
        align: :left, ellipsize: false, justify: false) do |embed|
-    embed.svg key: ':tool:',   width: 28, height: 28, dx: 0, dy: 3, file: 'spanner.svg'
-    embed.svg key: ':health:', width: 28, height: 28, dx: 2, dy: 3, file: 'glass-heart.svg'
-    embed.png key: ':purse:',  width: 28, height: 28, dx: 0, dy: 3, file: 'shiny-purse.png'
+    # Notice how we use dx and dy to adjust the icon to not rest directly on the baseline
+    embed.svg key: ':tool:',   width: 28, height: 28, dx:  0, dy: 4, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, dx: -2, dy: 4, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: 28, height: 28, dx:  0, dy: 4, file: 'shiny-purse.png'
   end
 
   embed_text = 'Middle align: Take 1 :tool: and gain 2 :health:. Take 2 :tool: and gain 3 :purse:'
@@ -22,27 +23,23 @@ Squib::Deck.new do
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
-  embed_text = 'This :tool: will not align on the bottom properly. :purse:'
+  embed_text = 'This :tool: aligns on the bottom properly. :purse:'
   text(str: embed_text, font: 'Sans 21',
        x: 400, y: 0, width: 180, height: 300, valign: :bottom,
-       align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
+       align: :left, ellipsize: false, justify: false, hint: :green) do |embed|
     embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
-  embed_text = 'This :tool: will not align on the bottom properly. :purse:'
+  embed_text = 'Justify will :tool: work too :purse: with more words just for fun'
   text(str: embed_text, font: 'Sans 21',
-       x: 400, y: 350, width: 180, height: 300, valign: :bottom,
-       align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
-    # embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
-    # embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
-    # embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
+       x: 0, y: 300, width: 180, height: 300, valign: :bottom,
+       align: :left, ellipsize: false, justify: true, hint: :magenta) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
-
-  text str: 'But this does align properly', font: 'Sans 21', 
-       x: 600, y: 0, width: 180, height: 300, valign: :bottom,
-       align: :left, ellipsize: false, justify: false, hint: :cyan
 
   save_png prefix: 'embed_'
 end

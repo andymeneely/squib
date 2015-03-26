@@ -100,10 +100,11 @@ module Squib
 
     # :nodoc:
     # @api private
-    def process_embeds(embed, str, layout, vertical_start)
-      return unless embed.rules.any?
+    def process_embeds(embed, str, layout)
+      return [] unless embed.rules.any?
       layout.markup   = str
       clean_str       = layout.text
+      draw_calls = []
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
@@ -121,18 +122,10 @@ module Squib
             Squib.logger.warn "Center- or right-aligned text do not always embed properly. This is a known issue with a workaround. See https://github.com/andymeneely/squib/issues/46"
         end
         x             = Pango.pixels(rect.x + (letter_width / 2)) + rule[:dx]
-        y             = Pango.pixels(rect.y) + rule[:dy] + vertical_start
-        puts  <<-EOS
-  Embed: #{key}
-  Index: #{index}
-  Spacing: #{spacing} or #{Pango.pixels(spacing)}px
-  Markup string: #{str}
-  index_to_pos: #{rect.x},#{rect.y} or #{Pango.pixels(rect.x)},#{Pango.pixels(rect.y)}
-  Computed x,y: #{x},#{y}
-  =================
-        EOS
-        rule[:draw].call(self, x, y)
+        y             = Pango.pixels(rect.y) + rule[:dy]
+        draw_calls << {x: x, y: y, draw: rule[:draw]} # defer drawing until we've valigned
       end
+      return draw_calls
     end
 
     # :nodoc:
@@ -154,8 +147,8 @@ module Squib
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
-        layout.text   = str
-        layout.markup = str if markup
+        layout.text    = str
+        layout.markup  = str if markup
 
         set_wh!(layout, width, height)
         set_wrap!(layout, wrap)
@@ -166,15 +159,16 @@ module Squib
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
         cc.update_pango_layout(layout)
 
+        embed_draws    = process_embeds(embed, str, layout)
+
         vertical_start = compute_valign(layout, valign)
-
-        process_embeds(embed, str, layout, vertical_start)
-
         cc.move_to(0, vertical_start)
+
         cc.update_pango_layout(layout)
 
         cc.show_pango_layout(layout)
-        draw_text_hint(cc,x,y,layout,hint,angle)
+        embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
+        draw_text_hint(cc, x, y, layout, hint, angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
       end

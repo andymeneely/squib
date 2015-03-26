@@ -60,15 +60,15 @@ module Squib
 
         # :nodoc:
     # @api private
-    def curve(x1, y1, dx1, dy1, x2, y2, dx2, dy2, fill_color, stroke_color, stroke_width)
+    def curve(x1, y1, cx1, cy1, x2, y2, cx2, cy2, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.move_to(x1, y1)
-        cc.curve_to(dx1, dy1, dx2, dy2, x2, y2)
+        cc.curve_to(cx1, cy1, cx2, cy2, x2, y2)
         cc.set_line_width(stroke_width)
         cc.set_source_squibcolor(stroke_color)
         cc.stroke
-        cc.move_to(x1, y1)  
-        cc.curve_to(dx1, dy1, dx2, dy2, x2, y2)
+        cc.move_to(x1, y1)
+        cc.curve_to(cx1, cy1, cx2, cy2, x2, y2)
         cc.set_source_squibcolor(fill_color)
         cc.fill
       end

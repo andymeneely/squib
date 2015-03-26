@@ -116,20 +116,24 @@ module Squib
     # Draw a curve using the given coordinates
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts x1 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts y1 [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts x2 [Integer] (50) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts x1 [Integer] (0) the x-coordinate of the first endpoint. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts y1 [Integer] (0) the y-coordinate of the first endpoint. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts x2 [Integer] (50) the x-coordinate of the second endpoint. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts y2 [Integer] (50) the y-coordinate of the second endpoint. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts cx1 [Integer] (0) the x-coordinate of the first control point. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts cy1 [Integer] (0) the y-coordinate of the first control point. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts cx2 [Integer] (50) the x-coordinate of the second control point. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts cy2 [Integer] (50) the y-coordinate of the second control point. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @return [nil] intended to be void
     # @api public
     def curve(opts = {})
-      opts = needs(opts, [:range, :x1, :y1, :dx1, :dy1, :x2, :y2, :dx2, :dy2,
+      opts = needs(opts, [:range, :x1, :y1, :cx1, :cy1, :x2, :y2, :cx2, :cy2,
                           :layout, :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|
-        @cards[i].curve(opts[:x1][i], opts[:y1][i], opts[:dx1][i], opts[:dy1][i],
-                        opts[:x2][i], opts[:y2][i], opts[:dx2][i], opts[:dy2][i],
+        @cards[i].curve(opts[:x1][i], opts[:y1][i], opts[:cx1][i], opts[:cy1][i],
+                        opts[:x2][i], opts[:y2][i], opts[:cx2][i], opts[:cy2][i],
                         opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
       end
     end
