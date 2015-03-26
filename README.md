@@ -40,8 +40,8 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups. 
-  * Windows: I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit. 
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups.
+  * Windows: I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit.
   * Mac: I recommend using [rvm](https://rvm.io).
   * Cywgin is not 100% supported, but could potentially work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113)
 
@@ -190,6 +190,66 @@ Check out the following sample from `samples/gradients.rb`, found [here](https:/
 All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened relative to the current directory. Files opened for writing (e.g. for `save_png`) will be overwritten without warning.
 
 If you find that you `cd` a lot while working on the command line, your `_output` folder might get generated in multiple places. An easy way to fix this is to use a `Rakefile`, [see below](#Rakefile)
+
+## Working with Text
+The `text` method is a particularly powerful method with a ton of options. Be sure to check the [API docs](docs/Squib/Deck#text-instance_method) on an option-by-option discussion, but here are the highlights.
+
+**Fonts**. The font is specified in a given Pango "font string", which can involve a ton of options embedded there in the string. In addition to the typical bold and italic variations, you can also specify all-caps, the specific boldness weight (e.g. 900), or go with oblique. These options are only available if the underlying font supports them, however. Here's are some example Pango font strings:
+
+```
+Sans 18
+Arial,Verdana weight=900 style=oblique 36
+Times New Roman,Sans 25
+```
+
+Note: When the font has a space it, you'll need to put a backup to get Pango's parsing to work.
+
+It's also important to note that most of the font rendering is done by a combination of your installed fonts, your OS, and your graphics card. Thus, different systems will render text slightly differently.
+
+Furthermore, options like `font_size` allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and `extends` too.
+
+### Width and Height
+
+By default, Pango text boxes will scale the text box to whatever you need, hence the `:native` default. However, for most of the other customizations to work (e.g. center-aligned) you'll need to specify the width. If both the width and the height are specified and the text overflows, then the `ellipsize` option is consulted to figure out what to do with the overflow. Also, the `valign` will only work if `height` is also set to something other than `:native`.
+
+###Hints
+
+Laying out text by typing in numbers can be confusing. What Squib calls "hints" is merely a rectangle around the text box. Hints can be turned on globally in the config file, using the `set` method, or in an individual text method. These are there merely for prototyping and are not intended for production. Additionally, these are not to be conflated with "rendering hints" that Pango and Cairo mention in their documentation.
+
+###Extents
+
+Sometimes you want size things based on the size of your rendered text. For example, drawing a rectangle around card's title such that the rectangle perfectly fits. Squib returns the final rendered size of the text so you can work with it afterward. It's an array of hashes that correspond to each card. The output looks like this:
+
+```ruby
+Squib::Deck.new(cards: 2) do
+  extents = text(str: ['Hello', 'World!'])
+  p extents
+end
+```
+Will output:
+```
+[{:width=>109, :height=>55}, {:width=>142, :height=>55}] # Hello was 109 pixels wide, World 142 pixels
+```
+
+###Embedding Images
+
+Squib can embed icons into the flow of text. To do this, you need to define text keys for Squib to look for, and then the corresponding files. The object given to the block is a [TextEmbed](docs/Squib/TextEmbed), which supports PNG and SVG. Here's a minimal example:
+
+```ruby
+text(str: 'Gain 1 :health:') do |embed|
+  embed.svg key: ':health:', file: 'heart.svg'
+end
+```
+
+### Text Samples
+
+Examples of all of the above are crammed into the `text_options.rb` sample [found here](https://github.com/andymeneely/squib/tree/master/samples/text_options.rb).
+
+{include:file:samples/text_options.rb}
+
+Also, the `embed_text.rb` sample has more examples of embedding text, which can be [found here](https://github.com/andymeneely/squib/tree/master/samples/embed_text.rb).
+
+{include:file:samples/embed_text.rb}
 
 ## Custom Layouts
 
@@ -411,6 +471,10 @@ When you run `squib new`, you are given a basic Rakefile. At this stage of Squib
 * If you're in a subdirectory at the time, `rake` will simply traverse up and `cd` to the proper directory so you don't get rogue `_output` directories
 * If you find yourself building multiple decks, you can make your own tasks for each one individually, or all (e.g. `rake marketing`)
 * Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so that's probably a bad idea)
+
+# Using Google Sheets
+
+We don't officially support Google Sheets ([yet](https://github.com/andymeneely/squib/issues/49)), but [this Gist](https://gist.github.com/pickfifteen/aeee73ec2ce162b0aee8) might be helpful in automatically exporting the CSV.
 
 # Development
 
