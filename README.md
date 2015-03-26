@@ -104,7 +104,7 @@ Then go to [http://localhost:8808/docs/squib/file/README.md](http://localhost:88
 
 If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. Github doesn't render those and you might find them helpful.
 
-Also, RubyDoc.info linked from RubyGems is buggy and doesn't support `{include:file...}` directive properly, so the embedded samples will also not show up there.
+Also, RubyDoc.info linked from RubyGems appears to be perpetually broken and doesn't support `{include:file...}` directive properly, so the embedded samples will also not show up there, either.
 
 ## Squib Decks and Cards
 
@@ -141,7 +141,7 @@ text str: %w(red green blue),
      y: [700, 750, 800]
 ```
 
-Under the hood, Squib actually views every argument as applied each card individually. If a single argument is given to the command, it's considered a singleton that gets expanded into a deck-sized array. Supplying the array bypasses that array. This means that any array you supply instead of a singleton ought to be the same size as the deck and align the same way the indexes in the supplied `range` are.
+Under the hood, Squib actually views every argument as applied each card individually. If a single argument is given to the command, it's considered a singleton that gets expanded into a deck-sized array. Supplying the array bypasses that expansion - which means that any array you supply instead of a singleton ought to be the same size as the deck and align the same way the indexes in the supplied `range` are. If you don't, Ruby will fill that up with nils and not apply the rule across those cards.
 
 ## Specifying Ranges
 
@@ -472,19 +472,31 @@ When you run `squib new`, you are given a basic Rakefile. At this stage of Squib
 * If you find yourself building multiple decks, you can make your own tasks for each one individually, or all (e.g. `rake marketing`)
 * Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so that's probably a bad idea)
 
-# Using Google Sheets
+## Using Google Sheets
 
 We don't officially support Google Sheets ([yet](https://github.com/andymeneely/squib/issues/49)), but [this Gist](https://gist.github.com/pickfifteen/aeee73ec2ce162b0aee8) might be helpful in automatically exporting the CSV.
 
-# Development
+# Get Involved
 
-Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. If you are using Squib, however, I'd love to hear about it! Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues).
+Squib is an open source tool, and I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can. I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler).
 
-# Contributing
+Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). For bugs, a minimal code example along with your OS and Ruby details would be ideal.
 
-Squib is an open source tool, and I would love participation. If you want your code integrated:
+## Testing Pre-Builds
 
-1. Fork it ( https://github.com/[my-github-username]/squib/fork )
+If you want to test new features as I develop them, you can always point your Gemfile to the repository. Your Gemfile specification looks like this:
+
+```
+gem 'squib', :git => 'git://github.com/andymeneely/squib', :branch => "dev"
+```
+* The `dev` branch is where I am working on features in-process. I have not done much regression testing at this point, but would love testing feedback nonetheless.
+* The `master` branch is where I consider features that are done and tested, but not released yet.
+
+## Contributing
+
+If you want your code integrated:
+
+1. Fork the git repository ( https://github.com/[my-github-username]/squib/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
