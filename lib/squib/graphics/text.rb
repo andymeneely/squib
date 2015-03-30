@@ -117,8 +117,6 @@ module Squib
       end
       searches.each do |search|
         rect          = layout.index_to_pos(search[:index])
-        iter          = layout.iter
-        while iter.next_char! && iter.index < search[:index]; end
         case layout.alignment
           when Pango::Layout::Alignment::CENTER,
                Pango::Layout::Alignment::RIGHT
