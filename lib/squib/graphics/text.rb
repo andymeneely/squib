@@ -105,6 +105,7 @@ module Squib
       layout.markup   = str
       clean_str       = layout.text
       draw_calls = []
+      searches = []
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
@@ -112,17 +113,20 @@ module Squib
         str.sub!(key, "<span size=\"0\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
-        rect          = layout.index_to_pos(index)
+        searches << { index: index, rule: rule }
+      end
+      searches.each do |search|
+        rect          = layout.index_to_pos(search[:index])
         iter          = layout.iter
-        while iter.next_char! && iter.index < index; end
+        while iter.next_char! && iter.index < search[:index]; end
         case layout.alignment
           when Pango::Layout::Alignment::CENTER,
                Pango::Layout::Alignment::RIGHT
             Squib.logger.warn "Center- or right-aligned text do not always embed properly. This is a known issue with a workaround. See https://github.com/andymeneely/squib/issues/46"
         end
-        x             = Pango.pixels(rect.x) + rule[:dx]
-        y             = Pango.pixels(rect.y) + rule[:dy]
-        draw_calls << {x: x, y: y, draw: rule[:draw]} # defer drawing until we've valigned
+        x             = Pango.pixels(rect.x) + search[:rule][:dx]
+        y             = Pango.pixels(rect.y) + search[:rule][:dy]
+        draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
       end
       return draw_calls
     end
