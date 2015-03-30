@@ -109,19 +109,18 @@ module Squib
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
-        str.sub!(key, "<span letter_spacing=\"#{spacing.to_i}\"> </span>")
+        str.sub!(key, "<span size=\"0\">a<span letter_spacing=\"#{spacing.to_i}\">a</span></span>")
         layout.markup = str
         clean_str     = layout.text
         rect          = layout.index_to_pos(index)
         iter          = layout.iter
         while iter.next_char! && iter.index < index; end
-        letter_width  = iter.char_extents.width - spacing # the width of our inserted space char
         case layout.alignment
           when Pango::Layout::Alignment::CENTER,
                Pango::Layout::Alignment::RIGHT
             Squib.logger.warn "Center- or right-aligned text do not always embed properly. This is a known issue with a workaround. See https://github.com/andymeneely/squib/issues/46"
         end
-        x             = Pango.pixels(rect.x + (letter_width / 2)) + rule[:dx]
+        x             = Pango.pixels(rect.x) + rule[:dx]
         y             = Pango.pixels(rect.y) + rule[:dy]
         draw_calls << {x: x, y: y, draw: rule[:draw]} # defer drawing until we've valigned
       end
