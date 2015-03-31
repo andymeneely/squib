@@ -32,10 +32,35 @@ Squib::Deck.new do
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
-  embed_text = 'Justify will :tool: work too :purse: with more words just for fun'
+  embed_text = 'Wrapping multiples: These are 1 :tool::tool::tool: and these are multiple :tool::tool: :tool::tool:'
   text(str: embed_text, font: 'Sans 21',
-       x: 0, y: 300, width: 180, height: 300, valign: :bottom,
+       x: 600, y: 0, width: 180, height: 300, valign: :middle,
+       align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+  end
+
+  embed_text = ':tool:Justify will :tool: work too, and :purse: with more words just for fun'
+  text(str: embed_text, font: 'Sans 21',
+       x: 0, y: 320, width: 180, height: 300, valign: :bottom,
        align: :left, ellipsize: false, justify: true, hint: :magenta) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
+  end
+
+  embed_text = 'Right-aligned works :tool: with :health: and :purse:'
+  text(str: embed_text, font: 'Sans 21',
+       x: 200, y: 320, width: 180, height: 300, valign: :bottom,
+       align: :right, ellipsize: false, justify: false, hint: :magenta) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
+  end
+
+  embed_text = ':tool:Center-aligned works :tool: with :health: and :purse:'
+  text(str: embed_text, font: 'Sans 21',
+       x: 400, y: 320, width: 180, height: 300,
+       align: :center, ellipsize: false, justify: false, hint: :magenta) do |embed|
     embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'

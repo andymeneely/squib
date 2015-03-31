@@ -117,11 +117,6 @@ module Squib
       end
       searches.each do |search|
         rect          = layout.index_to_pos(search[:index])
-        case layout.alignment
-          when Pango::Layout::Alignment::CENTER,
-               Pango::Layout::Alignment::RIGHT
-            Squib.logger.warn "Center- or right-aligned text do not always embed properly. This is a known issue with a workaround. See https://github.com/andymeneely/squib/issues/46"
-        end
         x             = Pango.pixels(rect.x) + search[:rule][:dx]
         y             = Pango.pixels(rect.y) + search[:rule][:dy]
         draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
