@@ -138,6 +138,7 @@ module Squib
         cc.translate(x,y)
         cc.rotate(angle)
         cc.move_to(0, 0)
+        initial_matrix = cc.matrix.to_a
 
         font_desc      = Pango::FontDescription.new(font)
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?
@@ -161,12 +162,15 @@ module Squib
         cc.move_to(0, vertical_start)
 
         cc.update_pango_layout(layout)
+        before_show = cc.matrix.to_a
         cc.show_pango_layout(layout)
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
           puts "====EXCEPTION!===="
-          puts "Cairo matrix: #{cc.get_matrix}"
+          puts "Initial matrix: #{initial_matrix}"
+          puts "Before show matrix: #{before_show}"
+          puts "Current matrix: #{cc.matrix.to_a}"
           puts e
           puts "=================="
         end
