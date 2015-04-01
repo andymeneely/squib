@@ -161,8 +161,9 @@ module Squib
         cc.move_to(0, vertical_start)
 
         cc.update_pango_layout(layout)
-
+        cc.save
         cc.show_pango_layout(layout)
+        cc.restore
         embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         draw_text_hint(cc, x, y, layout, hint, angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
