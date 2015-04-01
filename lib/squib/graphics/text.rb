@@ -110,7 +110,7 @@ module Squib
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
-        str.sub!(key, "<span size=\"1\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
+        str.sub!(key, "<span size=\"0\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
         searches << { index: index, rule: rule }
