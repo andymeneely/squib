@@ -165,17 +165,19 @@ module Squib
         # before_show = cc.matrix.to_a
         m = cc.matrix.to_a || [1,0,0,1,0,0]
         cc.show_pango_layout(layout)
-        cc.matrix = Cairo::Matrix.new(m[0],m[1],m[2],m[3],m[4],m[5])
         begin
-          embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
+          cc.matrix = Cairo::Matrix.new(m[0],m[1],m[2],m[3],m[4],m[5])
         rescue Exception => e
+          cc.matrix = Cairo::Matrix.new(1, 0, 0, 1, 0, 0)
           puts "====EXCEPTION!===="
+          puts "Matrix: #{m}"
           # puts "Initial matrix: #{initial_matrix}"
           # puts "Before show matrix: #{before_show}"
           # puts "Current matrix: #{cc.matrix.to_a}"
           puts e
           puts "=================="
         end
+          embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         draw_text_hint(cc, x, y, layout, hint, angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
