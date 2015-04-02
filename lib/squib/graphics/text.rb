@@ -115,6 +115,7 @@ module Squib
         clean_str     = layout.text
         searches << { index: index, rule: rule }
       end
+      # byebug
       searches.each do |search|
         rect          = layout.index_to_pos(search[:index])
         x             = Pango.pixels(rect.x) + search[:rule][:dx]
@@ -138,7 +139,7 @@ module Squib
         cc.translate(x,y)
         cc.rotate(angle)
         cc.move_to(0, 0)
-        initial_matrix = cc.matrix.to_a
+        # initial_matrix = cc.matrix.to_a
 
         font_desc      = Pango::FontDescription.new(font)
         font_desc.size = font_size * Pango::SCALE unless font_size.nil?
@@ -162,15 +163,17 @@ module Squib
         cc.move_to(0, vertical_start)
 
         cc.update_pango_layout(layout)
-        before_show = cc.matrix.to_a
+        # before_show = cc.matrix.to_a
+        matrix = cc.matrix
         cc.show_pango_layout(layout)
+        cc.matrix = matrix
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
           puts "====EXCEPTION!===="
-          puts "Initial matrix: #{initial_matrix}"
-          puts "Before show matrix: #{before_show}"
-          puts "Current matrix: #{cc.matrix.to_a}"
+          # puts "Initial matrix: #{initial_matrix}"
+          # puts "Before show matrix: #{before_show}"
+          # puts "Current matrix: #{cc.matrix.to_a}"
           puts e
           puts "=================="
         end

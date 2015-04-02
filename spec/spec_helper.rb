@@ -58,8 +58,10 @@ def mock_cairo(strio)
   cxt     = double(Cairo::Context)
   surface = double(Cairo::ImageSurface)
   pango   = double(Pango::Layout)
+
   font    = double(Pango::FontDescription)
   iter    = double('pango_iter')
+  matrix  = double('matrix')
   allow(Squib.logger).to receive(:warn) {}
   allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
   allow(Cairo::ImageSurface).to receive(:new).and_return(surface)
@@ -68,6 +70,7 @@ def mock_cairo(strio)
   allow(Cairo::Context).to receive(:new).and_return(cxt)
   allow(cxt).to receive(:create_pango_layout).and_return(pango)
   allow(cxt).to receive(:target).and_return(surface)
+  allow(cxt).to receive(:matrix).and_return(matrix)
   allow(pango).to receive(:height).and_return(25)
   allow(pango).to receive(:width).and_return(25)
   allow(pango).to receive(:index_to_pos).and_return(Pango::Rectangle.new(0,0,0,0))
@@ -85,7 +88,7 @@ def mock_cairo(strio)
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
     triangle line_to operator= show_page clip transform mask rectangle
-    reset_clip antialias= curve_to).each do |m|
+    reset_clip antialias= curve_to matrix=).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 

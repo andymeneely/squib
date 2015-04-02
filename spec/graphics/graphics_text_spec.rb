@@ -40,7 +40,9 @@ describe Squib::Card, '#text' do
       expect(layout ).to receive(:height).once.and_return(25)
       expect(layout ).to receive(:extents).thrice.and_return([nil,extent])
       expect(context).to receive(:update_pango_layout).once
+      expect(context).to receive(:matrix).and_return(nil).once
       expect(context).to receive(:show_pango_layout).once
+      expect(context).to receive(:matrix=).once
       expect(context).to receive(:restore).once
 
       card = Squib::Card.new(deck, 100, 150)
