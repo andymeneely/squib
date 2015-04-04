@@ -14,14 +14,14 @@ Squib::Deck.new do
   #   embed.png key: ':purse:',  width: 28, height: 28, dx:  0, dy: 4, file: 'shiny-purse.png'
   # end
 
-  embed_text = 'Middle align: Take 1 :tool: and gain 2 :health:. Take 2 :tool: and gain 3 :purse:'
-  text(str: embed_text, font: 'Sans 21',
-       x: 200, y: 0, width: 180, height: 300, valign: :middle,
-       align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
-    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
-    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
-    embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
-  end
+  # embed_text = 'Middle align: Take 1 :tool: and gain 2 :health:. Take 2 :tool: and gain 3 :purse:'
+  # text(str: embed_text, font: 'Sans 21',
+  #      x: 200, y: 0, width: 180, height: 300, valign: :middle,
+  #      align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
+  #   embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+  #   embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+  #   embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
+  # end
 
   # embed_text = 'This :tool: aligns on the bottom properly. :purse:'
   # text(str: embed_text, font: 'Sans 21',
@@ -66,5 +66,18 @@ Squib::Deck.new do
   #   embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   # end
 
-  save_png prefix: 'embed_'
+  # save_png prefix: 'embed_'
+end
+
+Squib::Deck.new(cards: 3) do
+
+  embed_text = 'Take 1 :tool: and gain 2 :health:.'
+  text(str: embed_text, font: 'Sans', font_size: [18, 25, 32],
+       x: 0, y: 0, width: 180, height: 300, valign: :bottom,
+       align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+  end
+  save_png prefix: 'embed_multi_'
+  # save_sheet prefix: 'embed_multisheet_', columns: 4
 end

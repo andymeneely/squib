@@ -113,18 +113,17 @@ module Squib
       return [] unless embed.rules.any?
       layout.markup   = str
       clean_str       = layout.text
-      draw_calls = []
-      searches = []
+      draw_calls      = []
+      searches        = []
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
-        str.sub!(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
+        str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
         searches << { index: index, rule: rule }
       end
-      # byebug
       searches.each do |search|
         rect          = layout.index_to_pos(search[:index])
         x             = Pango.pixels(rect.x) + search[:rule][:dx]
