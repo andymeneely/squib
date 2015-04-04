@@ -23,12 +23,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: 'Font string sizes can be overridden per card.', x: 65, y: 350,
        font: 'Impact 36', font_size: [16, 20, 24]
 
-  text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint',
+  text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, has a red hint, and "smart quotes"',
        hint: :red,
        x: 65, y: 400,
        width: 300, height: 125,
-       align: :center, valign: 'MIDDLE', #case-insenstive strings allowed too.
-       font: 'Arial 18'
+       align: :center, valign: 'MIDDLE', # these can be specified with case-insenstive strings too
+       font: 'Serif 16', quotes: [:smart,:smart, :dumb]
 
   extents = text str: 'Ink extent return value',
        x: 65, y: 550,

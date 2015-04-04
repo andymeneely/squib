@@ -1,4 +1,5 @@
 require 'squib/api/text_embed'
+require 'squib/args/smart_quotes'
 
 module Squib
   class Deck
@@ -38,17 +39,20 @@ module Squib
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
     # @option opts angle [FixNum] (0) Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}).
+    # @options ops quotes [:smart, :dumb, or Array]. Convert straight ("dumb") quotes to curly ("smart") quotes. The 'smart' option assumes UTF-8 characters. If you supply a two-element array of characters, those will be used (first is left, second is right). Smart quoting looks for a quote next to a letter, word, number, or underscore character. Default is to show straight quotes.
     # @return [Array] Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.
     # @api public
     def text(opts = {})
       opts = needs(opts, [:range, :str, :font, :font_size, :x, :y, :width, :height, :color, :wrap,
-                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout, :angle])
+                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout,
+                          :angle, :quotes])
       embed = TextEmbed.new
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
       opts[:range].each do |i|
-        extents[i] = @cards[i].text(embed,
-                       opts[:str][i], opts[:font][i], opts[:font_size][i], opts[:color][i],
+        str = Args::SmartQuotes.new.process(opts[:str][i], opts[:quotes][i])
+        extents[i] = @cards[i].text(embed, str,
+                       opts[:font][i], opts[:font_size][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i],
                        opts[:ellipsize][i], opts[:spacing][i], opts[:align][i],
