@@ -98,6 +98,15 @@ module Squib
       ret_key
     end
 
+    # When we do embedded icons, we create a 3-character string that has a font
+    # size of zero and a letter-spacing that fits the icon we need. That gives
+    # us the wrapping behavior we need but no clutter beneath.  On most
+    # platforms, this works fine. On Linux, this creates
+    # a Cairo transformation matrix that
+    ZERO_WIDTH_CHAR_SIZE = 0 # this works on most platforms
+    # some platforms make this Pango pixels (1/1024), others a 1 pt font
+    ZERO_WIDTH_CHAR_SIZE = 1 if RbConfig::CONFIG['host_os'] === 'linux-gnu'
+
     # :nodoc:
     # @api private
     def process_embeds(embed, str, layout)
@@ -110,7 +119,7 @@ module Squib
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
-        str.sub!(key, "<span size=\"0\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
+        str.sub!(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
         searches << { index: index, rule: rule }
@@ -162,22 +171,16 @@ module Squib
         cc.move_to(0, vertical_start)
 
         cc.update_pango_layout(layout)
-        # before_show = cc.matrix.to_a
-        m = cc.matrix.to_a || [1,0,0,1,0,0]
         cc.show_pango_layout(layout)
         begin
-          cc.matrix = Cairo::Matrix.new(m[0],m[1],m[2],m[3],m[4],m[5])
-        rescue Exception => e
-          cc.matrix = Cairo::Matrix.new(1, 0, 0, 1, 0, 0)
-          puts "====EXCEPTION!===="
-          puts "Matrix: #{m}"
-          # puts "Initial matrix: #{initial_matrix}"
-          # puts "Before show matrix: #{before_show}"
-          # puts "Current matrix: #{cc.matrix.to_a}"
-          puts e
-          puts "=================="
-        end
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
+        rescue Exception => e
+          puts "====EXCEPTION!===="
+          puts e
+          puts "If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55"
+          puts "=================="
+          raise e
+        end
         draw_text_hint(cc, x, y, layout, hint, angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }

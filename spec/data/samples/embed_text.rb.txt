@@ -31,7 +31,6 @@ pango: markup=(["Middle align: Take 1 :tool: and gain 2 :health:. Take 2 :tool: 
 cairo: move_to([0, 0.0])
 cairo: update_pango_layout([MockDouble])
 cairo: show_pango_layout([MockDouble])
-cairo: matrix=([Matrix])
 cairo: rounded_rectangle([0, 0, 0, 0, 0, 0])
 cairo: set_source_color([:cyan])
 cairo: set_line_width([2.0])
