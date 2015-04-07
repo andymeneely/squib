@@ -66,8 +66,8 @@ Squib::Deck.new do
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
-  embed_text = 'Markup and typography replacements with ":tool:" icons <i>won\'t</i> fail'
-  text(str: embed_text, font: 'Serif 21', markup: true,
+  embed_text = 'Markup --- and typography replacements --- with ":tool:" icons <i>won\'t</i> fail'
+  text(str: embed_text, font: 'Serif 18', markup: true,
        x: 600, y: 320, width: 180, height: 300,
        align: :center, hint: :magenta) do |embed|
     embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'

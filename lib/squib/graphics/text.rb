@@ -119,7 +119,8 @@ module Squib
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
-        index         = clean_str.index(key)
+        index         = clean_str.index(key) 
+        index         = clean_str[0..index].bytesize #convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
