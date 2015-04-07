@@ -155,7 +155,8 @@ module Squib
         layout.font_description = font_desc
         layout.text    = str
         if markup
-          layout.markup = Args::Typographer.new(@deck.config).process(layout.text)
+          str = Args::Typographer.new(@deck.config).process(layout.text)
+          layout.markup = str
         end
 
         set_wh!(layout, width, height)
