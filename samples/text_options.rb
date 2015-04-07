@@ -78,12 +78,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
   end
 
-  text str: '<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome',
+  text str: "<b>Markup</b> is <i>quite</i> <s>'easy'</s> <span fgcolor=\"\#ff0000\">awesome</span>. Can't beat those \"smart\" 'quotes', now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...",
        markup: true,
        x: 50, y: 1000,
        width: 750, height: 100,
        valign: :bottom,
-       font: 'Arial 32', hint: :cyan
+       font: 'Serif 18', hint: :cyan
 
 
   save prefix: 'text_', format: :png

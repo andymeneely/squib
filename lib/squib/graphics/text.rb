@@ -1,4 +1,5 @@
 require 'pango'
+require 'squib/args/typographer'
 
 module Squib
   class Card
@@ -153,7 +154,9 @@ module Squib
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
         layout.text    = str
-        layout.markup  = str if markup
+        if markup
+          layout.markup = Args::Typographer.new(@deck.config).process(layout.text)
+        end
 
         set_wh!(layout, width, height)
         set_wrap!(layout, wrap)

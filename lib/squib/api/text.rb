@@ -1,5 +1,4 @@
 require 'squib/api/text_embed'
-require 'squib/args/smart_quotes'
 
 module Squib
   class Deck
@@ -26,7 +25,7 @@ module Squib
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts color [String] (:black) the color the font will render to. Gradients supported. See {file:README.md#Specifying_Colors___Gradients Specifying Colors}
-    # @option opts markup: [Boolean] (false) Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html).
+    # @option opts markup: [Boolean] (false) Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html). Also does other replacements, such as smart quotes, curly apostraphes, en- and em-dashes, and explict ellipses (not to be confused with ellipsize option). See README for full explanation.
     # @option opts width [Integer, :native] (:native) the width of the box the string will be placed in. Stretches to the content by default.. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts height [Integer, :native] the height of the box the string will be placed in. Stretches to the content by default. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
@@ -39,7 +38,6 @@ module Squib
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
     # @option opts angle [FixNum] (0) Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}).
-    # @options ops quotes [:smart, :dumb, or Array]. Convert straight ("dumb") quotes to curly ("smart") quotes. The 'smart' option assumes UTF-8 characters. If you supply a two-element array of characters, those will be used (first is left, second is right). Smart quoting looks for a quote next to a letter, word, number, or underscore character. Default is to show straight quotes.
     # @return [Array] Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.
     # @api public
     def text(opts = {})
@@ -50,8 +48,7 @@ module Squib
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
       opts[:range].each do |i|
-        str = Args::SmartQuotes.new.process(opts[:str][i], opts[:quotes][i])
-        extents[i] = @cards[i].text(embed, str,
+        extents[i] = @cards[i].text(embed, opts[:str][i],
                        opts[:font][i], opts[:font_size][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i],

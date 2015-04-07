@@ -241,6 +241,17 @@ text(str: 'Gain 1 :health:') do |embed|
 end
 ```
 
+###Markup
+
+If you want to do specialized formatting within a given string, Squib has lots of options. By setting `markup: true`, you enable tons of text processing. This includes:
+
+* Pango Markup. This is an HTML-like formatting language that specifies formatting inside your string. Pango Markup essentially supports any formatting option, but on a letter-by-letter basis. Such as: font options, letter spacing, gravity, color, etc. See the [Pango docs](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html) for details.
+* Quotes are converted to their curly counterparts where appropriate (i.e. &ldquo;smart quotes&rdquo; instead of "straight quotes").
+* Apostraphes are converted to curly as well.
+* LaTeX-style quotes are explicitly converted (<tt>``like this''</tt>)
+* Em-dash and en-dash are converted with triple and double-dashes respectively (<tt>--</tt> is an en-dash, and <tt>---</tt> becomes an em-dash.)
+* Ellipses can be specified with <tt>...</tt>. Note that this is entirely different from the `ellipsize` option (which determines what to do with overflowing text).
+
 ### Text Samples
 
 Examples of all of the above are crammed into the `text_options.rb` sample [found here](https://github.com/andymeneely/squib/tree/master/samples/text_options.rb).
