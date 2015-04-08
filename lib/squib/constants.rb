@@ -80,6 +80,14 @@ module Squib
       'hint'          => :none,
       'img_dir'       => '.',
       'progress_bar'  => false,
+      'ldquote'       => "\u201C", # UTF8 chars
+      'rdquote'       => "\u201D",
+      'lsquote'       => "\u2018",
+      'rsquote'       => "\u2019",
+      'em_dash'       => "\u2014",
+      'en_dash'       => "\u2013",
+      'ellipsis'      => "\u2026",
+      'smart_quotes'  => true,
     }
 
     #Translate the hints to the methods.

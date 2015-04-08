@@ -44,8 +44,8 @@ describe Squib::Args::Typographer do
     expect(t.process(%{can't})).to eq(%{can\u2019t})
   end
 
-  it "single quotes inside double quotes" do
-    expect(t.process(%{"'I can't do that', he said"})).to eq(%{\u201C\u2019I can\u2019t do that\u2019, he said\u201D})
+it "single quotes inside double quotes" do
+    expect(t.process(%{"'I can't do that', he said"})).to eq(%{\u201C\u2018I can\u2019t do that\u2019, he said\u201D})
   end
 
   it "replaces the straightforward ones" do

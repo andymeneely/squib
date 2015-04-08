@@ -51,6 +51,7 @@ describe "Squib samples" do
       basic.rb
       cairo_access.rb
       csv_import.rb
+      config_text_markup.rb
       custom_config.rb
       draw_shapes.rb
       embed_text.rb

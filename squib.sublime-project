@@ -25,6 +25,10 @@
 			"shell_cmd": "rake run[draw_shapes]",
 		},
 		{
+			"name": "rake run[config_text_markup]",
+			"shell_cmd": "rake run[config_text_markup]",
+		},
+		{
 			"name":        "rspec spec/samples/samples_regression_spec.rb",
 			"shell_cmd":   "rspec spec/samples/samples_regression_spec.rb",
 			"working_dir": "${project_path:${folder}}"
@@ -39,6 +43,7 @@
 			"shell_cmd":   "rspec spec/graphics/graphics_text_spec.rb",
 			"working_dir": "${project_path:${folder}}"
 		},
+
 	],
 
 }

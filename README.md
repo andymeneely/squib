@@ -250,7 +250,21 @@ If you want to do specialized formatting within a given string, Squib has lots o
 * Apostraphes are converted to curly as well.
 * LaTeX-style quotes are explicitly converted (<tt>``like this''</tt>)
 * Em-dash and en-dash are converted with triple and double-dashes respectively (<tt>--</tt> is an en-dash, and <tt>---</tt> becomes an em-dash.)
-* Ellipses can be specified with <tt>...</tt>. Note that this is entirely different from the `ellipsize` option (which determines what to do with overflowing text).
+* Ellipses can be specified with <tt>...</tt>. Note that this is entirely different from the `ellipsize` option, which is determining what to do with overflowing text.
+
+The above replacements assume you are using the UTF-8 character set. If you wish to change the characters, set the following configuration options in your `config.yml`
+
+```yaml
+  lsquote: "\u2018" #note that Yaml wants double quotes here to use escape chars
+  rsquote: "\u2019"
+  ldquote: "\u201C"
+  rdquote: "\u201D"
+  em_dash: "\u2014"
+  en_dash: "\u2013"
+  ellipsis: "\u2026"
+```
+
+You can also disable the auto-quoting mechanism by setting `smart_quotes: false` in your config. Explicit replacements will still be performed.
 
 ### Text Samples
 
@@ -258,9 +272,17 @@ Examples of all of the above are crammed into the `text_options.rb` sample [foun
 
 {include:file:samples/text_options.rb}
 
-Also, the `embed_text.rb` sample has more examples of embedding text, which can be [found here](https://github.com/andymeneely/squib/tree/master/samples/embed_text.rb).
+The `embed_text.rb` sample has more examples of embedding text, which can be [found here](https://github.com/andymeneely/squib/tree/master/samples/embed_text.rb).
 
 {include:file:samples/embed_text.rb}
+
+The `config_text_markup.rb` sample demonstrates how quoting can be configured, [found here](https://github.com/andymeneely/squib/tree/master/samples/config_text_markup.rb)
+
+{include:file:samples/config_text_markup.rb}
+
+{include:file:samples/config_text_markup.yml}
+
+
 
 ## Custom Layouts
 

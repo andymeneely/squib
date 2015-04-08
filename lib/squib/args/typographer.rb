@@ -8,17 +8,27 @@ module Squib
       end
 
       def process(str)
-        [
-          :left_curly,
-          :right_curly,
-          :apostraphize,
+        str = explicit_replacements(str)
+        str = smart_quotes(str) if @config['smart_quotes']
+        str
+      end
+
+      def explicit_replacements(str)
+        [ :left_curly, :right_curly, :apostraphize,
+          :ellipsificate, :em_dash, :en_dash ].each do |sym|
+          str = each_non_tag(str) do |token|
+            self.method(sym).call(token)
+          end
+        end
+        str
+      end
+
+      def smart_quotes(str)
+        [ :single_inside_double_quote,
           :right_double_quote,
           :left_double_quote,
           :right_single_quote,
-          :left_single_quote,
-          :ellipsificate,
-          :em_dash,
-          :en_dash ].each do |sym|
+          :left_single_quote].each do |sym|
           str = each_non_tag(str) do |token|
             self.method(sym).call(token)
           end
@@ -43,52 +53,58 @@ module Squib
 
       # Straightforward replace
       def left_curly(str)
-        str.gsub('``', "\u201C")
+        str.gsub('``', @config['ldquote'])
       end
 
       # Straightforward replace
       def right_curly(str)
-        str.gsub(%{''}, "\u201D")
+        str.gsub(%{''}, @config['rdquote'])
       end
 
       # A quote between two letters is an apostraphe
       def apostraphize(str)
-        str.gsub(/(\w)(\')(\w)/, '\1' + "\u2019" + '\3')
-      end
-
-      # Quote next to non-whitespace curls
-      def right_double_quote(str)
-        str.gsub(/(\S)(\")/, '\1' + "\u201D")
-      end
-
-      # Quote next to non-whitespace curls
-      def left_double_quote(str)
-        str.gsub(/(\")(\S)/, "\u201C" + '\2')
-      end
-
-      # Quote next to non-whitespace curls
-      def right_single_quote(str)
-        str.gsub(/(\S)(\')/, '\1' + "\u2019")
-      end
-
-      # Quote next to non-whitespace curls
-      def left_single_quote(str)
-        str.gsub(/(\')(\S)/, "\u2018" + '\2')
+        str.gsub(/(\w)(\')(\w)/, '\1' + @config['rsquote'] + '\3')
       end
 
       # Straightforward replace
       def ellipsificate(str)
-        str.gsub('...', "\u2026")
+        str.gsub('...', @config['ellipsis'])
       end
 
       # Straightforward replace
       def en_dash(str)
-        str.gsub('--', "\u2013")
+        str.gsub('--', @config['en_dash'])
       end
 
       # Straightforward replace
       def em_dash(str)
-        str.gsub('---', "\u2014")
+        str.gsub('---', @config['em_dash'])
+      end
+
+      # Quote next to non-whitespace curls
+      def right_double_quote(str)
+        str.gsub(/(\S)(\")/, '\1' + @config['rdquote'])
+      end
+
+      # Quote next to non-whitespace curls
+      def left_double_quote(str)
+        str.gsub(/(\")(\S)/, @config['ldquote'] + '\2')
+      end
+
+      # Handle the cases where a double quote is next to a single quote
+      def single_inside_double_quote(str)
+        str.gsub(/(\")(\')(\S)/, @config['ldquote'] + @config['lsquote'] + '\3')
+           .gsub(/(\")(\')(\S)/, '\1' + @config['rsquote'] + @config['rdquote'])
+      end
+
+      # Quote next to non-whitespace curls
+      def right_single_quote(str)
+        str.gsub(/(\S)(\')/, '\1' + @config['rsquote'])
+      end
+
+      # Quote next to non-whitespace curls
+      def left_single_quote(str)
+        str.gsub(/(\')(\S)/, @config['lsquote'] + '\2')
       end
 
     end

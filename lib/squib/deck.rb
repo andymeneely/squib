@@ -34,7 +34,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    attr_reader :layout, :config
+    attr_reader :layout, :config, :quote_chars
 
     attr_reader :dir, :prefix, :count_format
 
@@ -70,6 +70,7 @@ module Squib
       @dir           = SYSTEM_DEFAULTS[:dir]
       @prefix        = SYSTEM_DEFAULTS[:prefix]
       @count_format  = SYSTEM_DEFAULTS[:count_format]
+      @quote_chars   = CONFIG_DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote smart_quotes).include?(k) }
       show_info(config, layout)
       load_config(config)
       @width         = Args::UnitConversion.parse width, dpi
@@ -111,6 +112,10 @@ module Squib
         @prefix               = config['prefix']
         @count_format         = config['count_format']
         @antialias            = config['antialias']
+        @quote_chars ||= {}
+        %w(lsquote rsquote ldquote rdquote smart_quotes em_dash en_dash ellipsis).each do |key|
+          @quote_chars[key] = config[key]
+        end
       end
     end
 

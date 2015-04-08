@@ -25,3 +25,16 @@
 # Use a SVG cairo back end, instead of an in-memory buffer
 # backend: :memory # default
 # backend: :svg    # can create scalable pdfs, but rendering done at the printer level is not as good as Cairo.
+
+# Configure what text markup uses replace characters
+# Below are the defaults
+# lsquote: "\u2018" #note that Yaml wants double quotes here to use escape chars
+# rsquote: "\u2019"
+# ldquote: "\u201C"
+# rdquote: "\u201D"
+# em_dash: "\u2014"
+# en_dash: "\u2013"
+# ellipsis: "\u2026"
+
+# We can also disallow smart quotes and only allow explicit replacements with ``LaTeX-style'' quotes.
+# smart_quotes: false
