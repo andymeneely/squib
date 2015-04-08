@@ -70,7 +70,7 @@ module Squib
       @dir           = SYSTEM_DEFAULTS[:dir]
       @prefix        = SYSTEM_DEFAULTS[:prefix]
       @count_format  = SYSTEM_DEFAULTS[:count_format]
-      @quote_chars   = CONFIG_DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote smart_quotes).include?(k) }
+      @quote_chars   = CONFIG_DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote em_dash en_dash ellipsis smart_quotes).include?(k) }
       show_info(config, layout)
       load_config(config)
       @width         = Args::UnitConversion.parse width, dpi

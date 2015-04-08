@@ -280,9 +280,6 @@ The `config_text_markup.rb` sample demonstrates how quoting can be configured, [
 
 {include:file:samples/config_text_markup.rb}
 
-{include:file:samples/config_text_markup.yml}
-
-
 
 ## Custom Layouts
 
