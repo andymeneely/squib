@@ -1,5 +1,10 @@
 # Squib CHANGELOG
 
+## v0.5.1
+* [BUG] Fixed a PDF scaling issue, so now page width and height is properly calculated from DPI (#62)
+
+Thanks to [Brian Cronin](http://www.boardgamegeek.com/user/MurphyIdiot) for the bug report.
+
 ## v0.5.0
 * Embedding of SVGs and PNGs into text! See README, `text_options.rb`, and `embed_text.rb`, and API documentation. This was a finnicky feature, so feedback and bug reports are welcome. (#30)
 * Curves! We can now do Bezier curves. Documented, and added to the sample `draw_shapes.rb` (#37).
