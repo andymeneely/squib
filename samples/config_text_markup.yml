@@ -6,3 +6,4 @@ rdquote: "\u201D"
 em_dash: "\u2014"
 en_dash: "\u2013"
 ellipsis: "\u2026"
+antialias: gray

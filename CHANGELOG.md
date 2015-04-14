@@ -1,14 +1,16 @@
 # Squib CHANGELOG
 
-# v0.5.0
-* Embedding of SVGs and PNGs into text! See README, `text_options.rb`, and `embed_text.rb`, and API documentation. This was a finnicky feature, so feedback and bug reports are welcome.
+## v0.5.0
+* Embedding of SVGs and PNGs into text! See README, `text_options.rb`, and `embed_text.rb`, and API documentation. This was a finnicky feature, so feedback and bug reports are welcome. (#30)
 * Curves! We can now do Bezier curves. Documented, and added to the sample `draw_shapes.rb` (#37).
-* Smart Quotes! The `text` rule now has a `quotes: 'smart'` option where straight quotes get converted to curly quotes. Assumes UTF-8, or you can specify your own quote characters if you're not in UTF-8.
+* Smart Quotes! The `text` rule now has a `quotes: 'smart'` option where straight quotes get converted to curly quotes. Assumes UTF-8, or you can specify your own quote characters if you're not in UTF-8. (#50)
 
 Known issues
 * OSX Yosemite will show this warning: `<Error>: The function ‘CGFontGetGlyphPath’ is obsolete and will be removed in an upcoming update. Unfortunately, this application, or a library it uses, is using this obsolete function, and is thereby contributing to an overall degradation of system performance.` This warning will go away when the Ruby Cairo bindings upgrades from 1.14.1 to 1.14.2.
 
-# v0.4.0
+Special thanks to [pickfifteen](https://github.com/pickfifteen) for testing, feedback, and pull requests!!
+
+## v0.4.0
 * SVG backend support! You can now set the deck's back end to work with SVGs instead of images, making the resulting PDFs vectorized. (You can still save to PNGs too.) This was a big change for Squib, and it's got at least one known issue and probably a few more here and there. See discussion on the README for more details.
 * Added config option for antialiasing method. My benchmarks showed that 'best' is only 10% slower than 'fast' on extremely alias-intensive tasks, so 'best' is the Squib default now.
 * Bugfix: Stray stroke on circles after text (#35)

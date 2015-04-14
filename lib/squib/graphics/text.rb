@@ -76,6 +76,14 @@ module Squib
       end
     end
 
+    def set_font_rendering_opts!(layout)
+      font_options                = Cairo::FontOptions.new
+      font_options.antialias      = ANTIALIAS_OPTS[(@deck.antialias.downcase)] || 'gray'
+      font_options.hint_metrics   = 'on' # TODO make this configurable
+      font_options.hint_style     = 'full' # TODO make this configurable
+      layout.context.font_options = font_options
+    end
+
     # :nodoc:
     # @api private
     def set_wh!(layout, width, height)
@@ -160,6 +168,7 @@ module Squib
           layout.markup = str
         end
 
+        set_font_rendering_opts!(layout)
         set_wh!(layout, width, height)
         set_wrap!(layout, wrap)
         set_ellipsize!(layout, ellipsize)
