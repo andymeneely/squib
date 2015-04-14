@@ -86,5 +86,5 @@ Squib::Deck.new(cards: 3) do
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
   end
   save_png prefix: 'embed_multi_'
-  # save_sheet prefix: 'embed_multisheet_', columns: 4
+  save_sheet prefix: 'embed_multisheet_', columns: 3
 end
