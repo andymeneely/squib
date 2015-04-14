@@ -14,3 +14,4 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Github milestone closed
  - [ ] Push `rake doc` to website
  - [ ] Bump version.rb to the next alpha
+ - [ ] Publish on BoardGameGeek thread
