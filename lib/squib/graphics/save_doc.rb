@@ -22,7 +22,8 @@ module Squib
       paper_width  = p[:width]
       paper_height = p[:height]
       file         = "#{p[:dir]}/#{p[:file]}"
-      cc           = Cairo::Context.new(Cairo::PDFSurface.new(file, paper_width, paper_height))
+      cc           = Cairo::Context.new(Cairo::PDFSurface.new(file, paper_width * 72.0 / @dpi, paper_height * 72.0 / @dpi))
+      cc.scale(72.0 / @dpi, 72.0 / @dpi) # for bug #62
       x, y         = p[:margin], p[:margin]
       card_width   = @width  - 2 * p[:trim]
       card_height  = @height - 2 * p[:trim]

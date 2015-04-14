@@ -28,6 +28,7 @@ describe Squib::Deck, '#save_pdf' do
       deck = Squib::Deck.new(cards: 9, width: 825, height: 1125)
       expect(deck).to receive(:dirify) { |arg| arg } #don't create the dir
       expect(Squib.logger).to receive(:debug).at_least(:once)
+      expect(cxt).to receive(:scale).with(0.24, 0.24)
 
       expect_card_place(75, 75)
       expect_card_place(831, 75)
@@ -50,6 +51,7 @@ describe Squib::Deck, '#save_pdf' do
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
       expect(Squib.logger).to receive(:debug).at_least(:once)
       expect(deck).to receive(:dirify) { |arg| arg }  #don't create the dir
+      expect(cxt).to receive(:scale).with(0.24, 0.24)
 
       expect_card_place(75, 75)
       expect_card_place(831, 75)
