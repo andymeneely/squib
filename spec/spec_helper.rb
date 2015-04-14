@@ -55,12 +55,13 @@ end
 # Build a mock cairo instance that allows basically any method
 # and logs that call to the string buffer
 def mock_cairo(strio)
-  cxt     = double(Cairo::Context)
-  surface = double(Cairo::ImageSurface)
-  pango   = double(Pango::Layout)
+  cxt       = double(Cairo::Context)
+  surface   = double(Cairo::ImageSurface)
+  pango     = double(Pango::Layout)
 
-  font    = double(Pango::FontDescription)
-  iter    = double('pango_iter')
+  font      = double(Pango::FontDescription)
+  iter      = double('pango_iter')
+  pango_cxt = double('pango_cxt')
   allow(Squib.logger).to receive(:warn) {}
   allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
   allow(Cairo::ImageSurface).to receive(:new).and_return(surface)
@@ -77,6 +78,8 @@ def mock_cairo(strio)
   allow(pango).to receive(:iter).and_return(iter)
   allow(pango).to receive(:alignment).and_return(Pango::Layout::Alignment::LEFT)
   allow(pango).to receive(:text).and_return("foo")
+  allow(pango).to receive(:context).and_return(pango_cxt)
+  allow(pango_cxt).to receive(:font_options=)
   allow(iter).to receive(:next_char!).and_return(false)
   allow(iter).to receive(:char_extents).and_return(Pango::Rectangle.new(5,5,5,5))
   allow(iter).to receive(:index).and_return(1000)

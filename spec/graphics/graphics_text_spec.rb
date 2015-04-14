@@ -8,6 +8,7 @@ describe Squib::Card, '#text' do
     let(:context)   { double(Cairo::Context) }
     let(:layout)    { double(Pango::Layout) }
     let(:font_desc) { double(Pango::FontDescription) }
+    let(:pango_cxt) { double(Pango::Context) }
 
     before(:each) do
       allow(Cairo::Context).to receive(:new).and_return(context)
@@ -15,6 +16,7 @@ describe Squib::Card, '#text' do
       allow(deck).to receive(:count_format).and_return('%02d')
       allow(deck).to receive(:prefix).and_return('card_')
       allow(deck).to receive(:antialias).and_return('best')
+      allow(layout).to receive(:context).and_return(pango_cxt)
     end
 
     it 'make all the expected calls on a smoke test' do
@@ -34,6 +36,7 @@ describe Squib::Card, '#text' do
       expect(layout ).to receive(:height=).with(25 * Pango::SCALE).once
       expect(layout ).to receive(:ellipsize=).with(Pango::Layout::ELLIPSIZE_NONE).once
       expect(layout ).to receive(:alignment=).with(Pango::Layout::ALIGN_LEFT).once
+      expect(pango_cxt).to receive(:font_options=).once
       expect(layout ).to receive(:justify=).with(false).once
       expect(layout ).to receive(:spacing=).with(1.0 * Pango::SCALE).once
       expect(context).to receive(:update_pango_layout).once
