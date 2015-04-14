@@ -95,6 +95,8 @@ module Squib
       'best' => 'subpixel',
       'good' => 'gray',
       'fast' => 'gray',
+      'gray' => 'gray',
+      'subpixel' => 'subpixel'
     }
     # These are parameters that are intended to be "expanded" across
     # range if they are singletons.
