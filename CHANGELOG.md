@@ -9,6 +9,7 @@ Thanks to [Brian Cronin](http://www.boardgamegeek.com/user/MurphyIdiot) for the 
 * Embedding of SVGs and PNGs into text! See README, `text_options.rb`, and `embed_text.rb`, and API documentation. This was a finnicky feature, so feedback and bug reports are welcome. (#30)
 * Curves! We can now do Bezier curves. Documented, and added to the sample `draw_shapes.rb` (#37).
 * Smart Quotes! The `text` rule now has a `quotes: 'smart'` option where straight quotes get converted to curly quotes. Assumes UTF-8, or you can specify your own quote characters if you're not in UTF-8. (#50)
+* Font-level antialiasing is inherited from global antialiasing setting (workaround until we get a better solution for #59).
 
 Known issues
 * OSX Yosemite will show this warning: `<Error>: The function ‘CGFontGetGlyphPath’ is obsolete and will be removed in an upcoming update. Unfortunately, this application, or a library it uses, is using this obsolete function, and is thereby contributing to an overall degradation of system performance.` This warning will go away when the Ruby Cairo bindings upgrades from 1.14.1 to 1.14.2.
