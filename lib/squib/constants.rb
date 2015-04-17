@@ -88,6 +88,7 @@ module Squib
       'en_dash'       => "\u2013",
       'ellipsis'      => "\u2026",
       'smart_quotes'  => true,
+      'text_hint'     => 'off',
     }
 
     #Translate the hints to the methods.
