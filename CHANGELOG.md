@@ -4,7 +4,7 @@ Squib follows [semantic versioning](http://semver.org).
 ## v0.6.0 / Unreleased
 
 Features:
-* Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
+* Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times. ()
 
 Bugs:
 * Fixed global text hinting (#63)
