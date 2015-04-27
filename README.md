@@ -523,7 +523,7 @@ If you want to test new features as I develop them, you can always point your Ge
 gem 'squib', :git => 'git://github.com/andymeneely/squib', :branch => "dev"
 ```
 * The `dev` branch is where I am working on features in-process. I have not done much regression testing at this point, but would love testing feedback nonetheless.
-* The `master` branch is where I consider features that are done and tested, but not released yet.
+* The `master` branch is where I consider features and bug that are done and tested, but not released yet.
 
 ## Contributing
 
@@ -534,6 +534,8 @@ If you want your code integrated:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+Be sure to run the unit tests and packaging with just `rake`. Also, you can check that the samples render properly with `rake sanity`.
 
 # What's up the with the name?
 

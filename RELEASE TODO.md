@@ -7,6 +7,7 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Check that sample regression tests are all enabled
  - [ ] Bump version.rb
  - [ ] Do a full rake locally
+ - [ ] `rake sanity`, and check visually
  - [ ] Travis is passing on dev branch
  - [ ] Merge master branch
  - [ ] Create GitHub release tag

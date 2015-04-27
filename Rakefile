@@ -40,6 +40,13 @@ task benchmark: [:install] do
   end
 end
 
+task :sanity do
+  require_relative 'spec/samples/sanity.rb'
+  Sanity.new.run
+end
+
+task sanity_clean: [:install, :spec, :sanity]
+
 task :apply_google_analytics do
   # The string to replace in the html document. This is chosen to be the end
   # body </body> tag. So the script can be injected as the last thing in the

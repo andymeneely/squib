@@ -9,6 +9,13 @@ Features:
 Bugs:
 * Fixed global text hinting (#63)
 
+Compatbility:
+* rsvg2 and pango updated to v2.2.5. Squib follows 2.2.x of both of those. If you run `bundle` you will automatically be upgraded. They appear to be mostly bugfix releases.
+
+Chores:
+* Added `rake sanity` as a visual regression test to ensure the samples don't break
+* Lots of automated test refactoring
+
 Thanks to [pickfifteen](https://github.com/pickfifteen) for the bug report!
 
 ## v0.5.1 / 2015-04-13
