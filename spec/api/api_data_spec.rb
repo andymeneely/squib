@@ -40,9 +40,9 @@ describe Squib::Deck do
 
     it 'loads xlsx with formulas' do
       expect(Squib.xlsx(file: xlsx_file('formulas.xlsx'))).to eq({
-        'A'   => %w(1, 2),
-        'B'   => %w(3, 4),
-        'Sum' => %w(4, 6),
+        'A'   => %w(1 2),
+        'B'   => %w(3 4),
+        'Sum' => %w(4 6),
         })
     end
 
