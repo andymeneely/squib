@@ -13,6 +13,10 @@
 			"shell_cmd": "rake",
 		},
 		{
+			"name": "rake sanity",
+			"shell_cmd": "rake sanity",
+		},
+		{
 			"name": "rake run[text_options]",
 			"shell_cmd": "rake run[text_options]",
 		},

@@ -6,12 +6,7 @@
 		<title>Squib Sanity Test for v<%=Squib::VERSION%></title>
 		<style>
 			body{
-				background-color: #dedede;
-				font-color: white;
-			}
-			table, td, tr{
-				border: 1px solid black;
-				border-collapse: true;
+				background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAHElEQVQYlWO4ePFiAzGY4eLFiw0MxIBRhVRRCADsljgKUbBKPgAAAABJRU5ErkJggg==) repeat;
 			}
 			img{
 				width: 30%;
@@ -20,14 +15,14 @@
 	</head>
 <body>
 	<% count = 0 %>
-	<% images.each do |exp, actual| %>
+	<% images.each do |exp, actual, diff| %>
 		<img src="<%=exp %>">&nbsp;
 		<img src="<%=actual %>">&nbsp;
+		<img src="<%=diff %>">&nbsp;
 		<br>
 		<%=exp %>
 		<hr>
 		<% count += 1 %>
 	<% end %>
-	</table>
 <body>
 </html>
