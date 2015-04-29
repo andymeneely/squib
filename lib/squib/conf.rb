@@ -72,6 +72,10 @@ module Squib
       @config_hash['text_hint']
     end
 
+    def text_hint=(hint)
+      @config_hash['text_hint'] = hint
+    end
+
     def progress_bars
       @config_hash['progress_bars']
     end

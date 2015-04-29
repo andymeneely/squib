@@ -13,7 +13,7 @@ module Squib
     # @return [nil] Returns nothing
     # @api public
     def hint(text: :off)
-      @text_hint = text
+      conf.text_hint = text
     end
 
     # Sets various defaults for this deck. Defaults can be overriden by the commands themselves when that command supports it.
