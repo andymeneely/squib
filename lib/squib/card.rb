@@ -16,21 +16,21 @@ module Squib
 
     # :nodoc:
     # @api private
-    def initialize(deck, width, height, backend=:memory, index=-1)
+    def initialize(deck, width, height, index=-1)
       @deck          = deck
       @width         = width
       @height        = height
-      @backend       = backend
+      @backend       = deck.backend
       @svgfile       = "#{deck.dir}/#{deck.prefix}#{deck.count_format % index}.svg"
-      @cairo_surface = make_surface(@svgfile, backend)
+      @cairo_surface = make_surface(@svgfile, @backend)
       @cairo_context = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(@cairo_surface))
-      @cairo_context.antialias = ANTIALIAS_OPTS[(@deck.antialias.downcase)] || 'subpixel'
+      @cairo_context.antialias = deck.antialias
     end
 
     # :nodoc:
     # @api private
     def make_surface(svgfile, backend)
-      case backend
+      case backend.downcase.to_sym
       when :memory
         Cairo::ImageSurface.new(@width, @height)
       when :svg

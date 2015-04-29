@@ -3,13 +3,16 @@ module Squib
   module Args
     class Typographer
 
-      def initialize(config = CONFIG_DEFAULTS)
-        @config = config
+      def initialize(config = Conf::DEFAULTS)
+      %w(lsquote ldquote rsquote rdquote smart_quotes
+         em_dash en_dash ellipsis).each do |var|
+          instance_variable_set("@#{var}", config[var])
+        end
       end
 
       def process(str)
-        str = explicit_replacements(str)
-        str = smart_quotes(str) if @config['smart_quotes']
+        str = explicit_replacements(str.to_s)
+        str = smart_quotes(str) if @smart_quotes
         str
       end
 
@@ -53,58 +56,58 @@ module Squib
 
       # Straightforward replace
       def left_curly(str)
-        str.gsub('``', @config['ldquote'])
+        str.gsub('``', @ldquote)
       end
 
       # Straightforward replace
       def right_curly(str)
-        str.gsub(%{''}, @config['rdquote'])
+        str.gsub(%{''}, @rdquote)
       end
 
       # A quote between two letters is an apostraphe
       def apostraphize(str)
-        str.gsub(/(\w)(\')(\w)/, '\1' + @config['rsquote'] + '\3')
+        str.gsub(/(\w)(\')(\w)/, '\1' + @rsquote + '\3')
       end
 
       # Straightforward replace
       def ellipsificate(str)
-        str.gsub('...', @config['ellipsis'])
+        str.gsub('...', @ellipsis)
       end
 
       # Straightforward replace
       def en_dash(str)
-        str.gsub('--', @config['en_dash'])
+        str.gsub('--', @en_dash)
       end
 
       # Straightforward replace
       def em_dash(str)
-        str.gsub('---', @config['em_dash'])
+        str.gsub('---', @em_dash)
       end
 
       # Quote next to non-whitespace curls
       def right_double_quote(str)
-        str.gsub(/(\S)(\")/, '\1' + @config['rdquote'])
+        str.gsub(/(\S)(\")/, '\1' + @rdquote)
       end
 
       # Quote next to non-whitespace curls
       def left_double_quote(str)
-        str.gsub(/(\")(\S)/, @config['ldquote'] + '\2')
+        str.gsub(/(\")(\S)/, @ldquote + '\2')
       end
 
       # Handle the cases where a double quote is next to a single quote
       def single_inside_double_quote(str)
-        str.gsub(/(\")(\')(\S)/, @config['ldquote'] + @config['lsquote'] + '\3')
-           .gsub(/(\")(\')(\S)/, '\1' + @config['rsquote'] + @config['rdquote'])
+        str.gsub(/(\")(\')(\S)/, @ldquote + @lsquote + '\3')
+           .gsub(/(\")(\')(\S)/, '\1' + @rsquote + @rdquote)
       end
 
       # Quote next to non-whitespace curls
       def right_single_quote(str)
-        str.gsub(/(\S)(\')/, '\1' + @config['rsquote'])
+        str.gsub(/(\S)(\')/, '\1' + @rsquote)
       end
 
       # Quote next to non-whitespace curls
       def left_single_quote(str)
-        str.gsub(/(\')(\S)/, @config['lsquote'] + '\2')
+        str.gsub(/(\')(\S)/, @lsquote + '\2')
       end
 
     end

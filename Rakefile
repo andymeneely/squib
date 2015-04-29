@@ -20,6 +20,10 @@ end
 
 RSpec::Core::RakeTask.new(:spec)
 
+RSpec::Core::RakeTask.new(:spec_fastonly) do |t|
+  t.rspec_opts = "--tag ~slow"
+end
+
 task doc: [:yarddoc, :apply_google_analytics]
 
 YARD::Rake::YardocTask.new(:yarddoc) do |t|

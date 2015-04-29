@@ -33,7 +33,7 @@ module Squib
           cc.translate(x,y)
           cc.rectangle(p[:trim], p[:trim], card_width, card_height)
           cc.clip
-          case card.backend
+          case card.backend.downcase.to_sym
           when :memory
             cc.set_source(card.cairo_surface, 0, 0)
             cc.paint

@@ -22,7 +22,7 @@ module Squib
     # @api public
     def png(opts = {})
       opts = needs(opts, [:range, :files, :x, :y, :width, :height, :alpha, :layout, :blend, :angle, :mask])
-      Dir.chdir(@img_dir) do
+      Dir.chdir(img_dir) do
         @progress_bar.start('Loading PNG(s)', opts[:range].size) do |bar|
           opts[:range].each do |i|
             @cards[i].png(opts[:file][i],
@@ -57,7 +57,7 @@ module Squib
     # @api public
     def svg(opts = {})
       p = needs(opts,[:range, :files, :svgid, :force_svgid, :x, :y, :width, :height, :layout, :alpha, :blend, :angle, :mask])
-      Dir.chdir(@img_dir) do
+      Dir.chdir(img_dir) do
         @progress_bar.start('Loading SVG(s)', p[:range].size) do |bar|
           p[:range].each do |i|
             unless p[:force_id][i] && p[:id][i].to_s.empty?

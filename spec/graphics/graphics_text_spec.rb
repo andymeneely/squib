@@ -16,6 +16,8 @@ describe Squib::Card, '#text' do
       allow(deck).to receive(:count_format).and_return('%02d')
       allow(deck).to receive(:prefix).and_return('card_')
       allow(deck).to receive(:antialias).and_return('best')
+      allow(deck).to receive(:antialias).and_return('subpixel')
+      allow(deck).to receive(:backend).and_return('memory')
       allow(layout).to receive(:context).and_return(pango_cxt)
     end
 
@@ -71,7 +73,8 @@ describe Squib::Card, '#text' do
       allow(deck).to receive(:dir).and_return('_output')
       allow(deck).to receive(:count_format).and_return('%02d')
       allow(deck).to receive(:prefix).and_return('card_')
-      allow(deck).to receive(:antialias).and_return('best')
+      allow(deck).to receive(:antialias).and_return('subpixel')
+      allow(deck).to receive(:backend).and_return('memory')
     end
 
     it 'aligns right with strings' do

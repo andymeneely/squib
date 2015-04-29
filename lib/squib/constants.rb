@@ -67,38 +67,6 @@ module Squib
       :y_radius => 0,
     }
 
-    # Squib's configuration defaults
-    #
-    # @api public
-    CONFIG_DEFAULTS = {
-      'antialias'     => 'best',
-      'backend'       => 'memory',
-      'count_format'  => SYSTEM_DEFAULTS[:count_format],
-      'custom_colors' => {},
-      'dir'           => SYSTEM_DEFAULTS[:dir],
-      'dpi'           => 300,
-      'hint'          => :none,
-      'img_dir'       => '.',
-      'progress_bar'  => false,
-      'ldquote'       => "\u201C", # UTF8 chars
-      'rdquote'       => "\u201D",
-      'lsquote'       => "\u2018",
-      'rsquote'       => "\u2019",
-      'em_dash'       => "\u2014",
-      'en_dash'       => "\u2013",
-      'ellipsis'      => "\u2026",
-      'smart_quotes'  => true,
-      'text_hint'     => 'off',
-    }
-
-    #Translate the hints to the methods.
-    ANTIALIAS_OPTS = {
-      'best' => 'subpixel',
-      'good' => 'gray',
-      'fast' => 'gray',
-      'gray' => 'gray',
-      'subpixel' => 'subpixel'
-    }
     # These are parameters that are intended to be "expanded" across
     # range if they are singletons.
     #

@@ -78,7 +78,7 @@ module Squib
 
     def set_font_rendering_opts!(layout)
       font_options                = Cairo::FontOptions.new
-      font_options.antialias      = ANTIALIAS_OPTS[(@deck.antialias.downcase)] || 'gray'
+      font_options.antialias      = Conf::ANTIALIAS_OPTS[(@deck.antialias || 'gray').downcase]
       font_options.hint_metrics   = 'on' # TODO make this configurable
       font_options.hint_style     = 'full' # TODO make this configurable
       layout.context.font_options = font_options
@@ -127,7 +127,7 @@ module Squib
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
-        index         = clean_str.index(key) 
+        index         = clean_str.index(key)
         index         = clean_str[0..index].bytesize #convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
@@ -164,7 +164,7 @@ module Squib
         layout.font_description = font_desc
         layout.text    = str
         if markup
-          str = Args::Typographer.new(@deck.quote_chars).process(layout.text)
+          str = @deck.typographer.process(layout.text)
           layout.markup = str
         end
 
