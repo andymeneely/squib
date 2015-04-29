@@ -151,7 +151,7 @@ Most public `Deck` methods allow a `range` to be specified as a first parameter.
 
 ## Units
 
-By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in "in" and "cm" and computing based on the current DPI. Example is in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
+By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in "in" and "cm" and computing based on the current DPI. The dpi is set on `Squib::Deck.new` (not `config.yml`). Example is in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
 
 {include:file:samples/units.rb}
 
@@ -439,16 +439,21 @@ Fortunately, switching backends in Squib should be as trivial as changing the se
 Squib supports various configuration properties that can be specified in an external file. The `config:` option in `Deck.new` can specify an optional configuration file in YML format. The properties there are intended to be immutable for the life of the Deck. The options include:
 
 * `progress_bars` (Boolean, default: false).  When set to `true`, long-running operations will show a progress bar on the command line.
-* `dpi` (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).
 * `hint` (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the `set` command. This setting is overriden by `set` and individual commands.
 * `custom_colors` (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.
 * `antialias` (`fast, good, best, none, gray, subpixel`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only ~10% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
 * `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
 * `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
 
-The following sample demonstrates the config file.
+For debugging/sanity purposes, if you want to make sure your configuration options are parsed correclty, the above options are also available as methods within Squib::Deck, for example:
 
-See the `custom_config` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+```ruby
+Squib::Deck.new do
+  puts backend # prints 'memory' by default
+end
+```
+
+The following sample demonstrates the config file, found [here](https://github.com/andymeneely/squib/tree/master/samples/)
 
 {include:file:samples/custom_config.rb}
 
