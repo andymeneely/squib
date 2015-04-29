@@ -37,13 +37,16 @@ module Squib
     # @option opts valign [:top, :middle, :bottom] (:top) When width and height are set, align text vertically according to the ink extents of the text.
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
     # @option opts angle [FixNum] (0) Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}).
     # @return [Array] Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.
     # @api public
     def text(opts = {})
+      opts = { stroke_width: 0 }.merge(opts)
       opts = needs(opts, [:range, :str, :font, :font_size, :x, :y, :width, :height, :color, :wrap,
                           :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout,
-                          :angle, :quotes])
+                          :angle, :quotes, :stroke_color, :stroke_width])
       embed = TextEmbed.new
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
@@ -53,7 +56,8 @@ module Squib
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i],
                        opts[:ellipsize][i], opts[:spacing][i], opts[:align][i],
-                       opts[:valign][i], opts[:hint][i], opts[:angle][i])
+                       opts[:valign][i], opts[:hint][i], opts[:angle][i],
+                       opts[:stroke_color][i], opts[:stroke_width][i] )
       end
       return extents
     end

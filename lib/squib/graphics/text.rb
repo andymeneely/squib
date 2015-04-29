@@ -143,17 +143,26 @@ module Squib
       return draw_calls
     end
 
+    def stroke_outline!(cc, layout, stroke_width, stroke_color)
+      if stroke_width > 0
+        cc.set_source_squibcolor(stroke_color)
+        cc.set_line_width(stroke_width)
+        cc.pango_layout_path(layout)
+        cc.stroke
+      end
+    end
+
     # :nodoc:
     # @api private
     def text(embed,str, font, font_size, color,
              x, y, width, height,
              markup, justify, wrap, ellipsize,
-             spacing, align, valign, hint, angle)
+             spacing, align, valign, hint, angle,
+             stroke_color, stroke_width)
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       extents = nil
       str = str.to_s
       use_cairo do |cc|
-        cc.set_source_squibcolor(color)
         cc.translate(x,y)
         cc.rotate(angle)
         cc.move_to(0, 0)
@@ -184,6 +193,8 @@ module Squib
         cc.move_to(0, vertical_start)
 
         cc.update_pango_layout(layout)
+        stroke_outline!(cc, layout, stroke_width, stroke_color)
+        cc.set_source_squibcolor(color)
         cc.show_pango_layout(layout)
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }

@@ -52,11 +52,12 @@ describe Squib::Card, '#text' do
       # text(str, font, font_size, color,
       #      x, y, width, height,
       #      markup, justify, wrap, ellipsize,
-      #      spacing, align, valign, hint, angle)
+      #      spacing, align, valign, hint, angle,
+      #      stroke_width, stroke_color)
       ret = card.text(Squib::TextEmbed.new,'foo', 'Sans 12', nil, '#abc',
                       10, 15, 20, 25,
                       nil, false, false, false,
-                      1.0, :left, :top, nil, 0.0)
+                      1.0, :left, :top, nil, 0.0, '#fff', 0)
       expect(ret).to eq({width: 0, height: 0})
     end
   end
@@ -83,7 +84,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, false, false,
-                1.0, 'right', :top, nil, 0.0)
+                1.0, 'right', :top, nil, 0.0, '#fff', 0)
     end
 
     it 'aligns center with strings' do
@@ -92,7 +93,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, false, false,
-                1.0, 'center', :top, nil, 0.0)
+                1.0, 'center', :top, nil, 0.0, '#fff', 0)
     end
 
     it 'sets wrap to char with string char' do
@@ -101,7 +102,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, 'char', false,
-                1.0, :left, :top, nil, 0.0)
+                1.0, :left, :top, nil, 0.0, '#fff', 0)
     end
 
     it 'sets wrap to word with word string' do
@@ -110,7 +111,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, 'word', false,
-                1.0, :left, :top, nil, 0.0)
+                1.0, :left, :top, nil, 0.0, '#fff', 0)
     end
 
     it 'sets wrap to word_char with symbol word_char' do
@@ -119,7 +120,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, :word_char, false,
-                1.0, :left, :top, nil, 0.0)
+                1.0, :left, :top, nil, 0.0, '#fff', 0)
     end
 
     it 'sets wrap to word_char with true' do
@@ -128,7 +129,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, false,
-                1.0, :left, :top, nil, 0.0)
+                1.0, :left, :top, nil, 0.0, '#fff', 0)
     end
 
     it 'sets ellipsize to start properly' do
@@ -137,7 +138,7 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, :start,
-                1.0, :left, :top, nil, 0.0)
+                1.0, :left, :top, nil, 0.0, '#fff', 0)
     end
 
     it 'sets ellipsize to middle properly' do
@@ -146,7 +147,17 @@ describe Squib::Card, '#text' do
       card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
                 10, 15, 20, 50,
                 nil, false, true, 'middle',
-                1.0, :left, :top, nil, 0.0)
+                1.0, :left, :top, nil, 0.0, '#fff', 0)
+    end
+
+    it 'implements stroke and fill when asked to' do
+      card = Squib::Card.new(deck, 100, 150)
+      expect(context).to receive(:set_line_width).with(3.0).once
+      expect(context).to receive(:pango_layout_path).once
+      card.text(Squib::TextEmbed.new, 'foo', 'Sans 12', nil, '#abc',
+                10, 15, 20, 50,
+                nil, false, true, 'middle',
+                1.0, :left, :top, nil, 0.0, '#f00', 3.0)
     end
 
   end
