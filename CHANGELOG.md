@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
+* Added `stroke_width` and `stroke_color` to the `text` method to outlines text. (#51)
 
 Bugs:
 * Fixed global text hinting (#63)
