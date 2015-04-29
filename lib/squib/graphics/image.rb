@@ -41,10 +41,12 @@ module Squib
 
     # :nodoc:
     # @api private
-    def svg(file, id, x, y, width, height, alpha, blend, angle, mask)
+    def svg(file, data, id, x, y, width, height, alpha, blend, angle, mask)
       Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
-      return if file.nil? or file.eql? ''
-      svg          = RSVG::Handle.new_from_file(file)
+      Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? or data.to_s.empty?
+      return if (file.nil? or file.eql? '') and data.nil? # nothing specified
+      data = File.read(file) if data.to_s.empty?
+      svg          = RSVG::Handle.new_from_data(data)
       width        = svg.width  if width == :native
       height       = svg.height if height == :native
       scale_width  = width.to_f / svg.width.to_f

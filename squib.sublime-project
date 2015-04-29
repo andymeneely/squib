@@ -41,6 +41,10 @@
 			"shell_cmd": "rake run[custom_config]",
 		},
 		{
+			"name": "rake run[load_images]",
+			"shell_cmd": "rake run[load_images]",
+		},
+		{
 			"name":        "rspec spec/samples/samples_regression_spec.rb",
 			"shell_cmd":   "rspec spec/samples/samples_regression_spec.rb",
 			"working_dir": "${project_path:${folder}}"

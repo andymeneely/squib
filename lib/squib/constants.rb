@@ -14,6 +14,7 @@ module Squib
       :cx2 => 0,
       :cy1 => 0,
       :cy2 => 0,
+      :data => nil,
       :default_font => 'Arial 36',
       :dir => '_output',
       :dx => 0, # delta
@@ -107,6 +108,7 @@ module Squib
           :str => :str,
           :stroke_color => :stroke_color,
           :stroke_width => :stroke_width,
+          :svgdata => :data,
           :svgid => :id,
           :valign => :valign,
           :width => :width,

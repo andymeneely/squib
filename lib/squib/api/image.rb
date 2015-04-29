@@ -34,7 +34,7 @@ module Squib
       end
     end
 
-    # Renders an entire svg file at the given location. Uses the SVG-specified units and DPI to determine the pixel width and height.
+    # Renders an entire svg file at the given location. Uses the SVG-specified units and DPI to determine the pixel width and height.  If neither data nor file are specified for a given card, this method does nothing.
     #
     # See {file:samples/load-images.rb samples/load-images.rb} and {file:samples/tgc-overlay.rb samples/tgc-overlay.rb} as examples.
     # @example
@@ -42,6 +42,7 @@ module Squib
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts file [String] ('') file(s) to read in. If it's a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done. See {file:README.md#Specifying_Files Specifying Files}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    # @option opts data [String] (nil) render from an SVG XML string. Overrides file if both are specified (a warning is shown) . If it's a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done. See {file:README.md#Specifying_Files Specifying Files}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}.
     # @option opts id [String] (nil) if set, then only render the SVG element with the given id. Prefix '#' is optional. Note: the x-y coordinates are still relative to the SVG document's page. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts force_id [Boolean] (false) if set, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
@@ -56,12 +57,13 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgid, :force_svgid, :x, :y, :width, :height, :layout, :alpha, :blend, :angle, :mask])
+      p = needs(opts,[:range, :files, :svgdata, :svgid, :force_svgid, :x, :y, :width, :height, 
+                      :layout, :alpha, :blend, :angle, :mask])
       Dir.chdir(img_dir) do
         @progress_bar.start('Loading SVG(s)', p[:range].size) do |bar|
           p[:range].each do |i|
             unless p[:force_id][i] && p[:id][i].to_s.empty?
-              @cards[i].svg(p[:file][i], p[:id][i], p[:x][i], p[:y][i],
+              @cards[i].svg(p[:file][i], p[:data][i], p[:id][i], p[:x][i], p[:y][i],
                             p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i], p[:angle][i],p[:mask][i])
             end
             bar.increment

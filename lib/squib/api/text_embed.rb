@@ -30,7 +30,7 @@ module Squib
       # TODO: add input validation here. We need the key for example.
       rule = {type: :svg}.merge(opts)
       rule[:draw] = Proc.new do |card, x,y|
-        card.svg(rule[:file], rule[:id], x, y, rule[:width], rule[:height],
+        card.svg(rule[:file], rule[:data], rule[:id], x, y, rule[:width], rule[:height],
                  rule[:alpha], rule[:blend], rule[:angle], rule[:mask])
       end
       @rules[opts[:key]] = rule

@@ -61,7 +61,7 @@ Squib::Deck.new do
   text(str: embed_text, font: 'Sans 21',
        x: 400, y: 320, width: 180, height: 300,
        align: :center, ellipsize: false, justify: false, hint: :magenta) do |embed|
-    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':tool:',   width: 28, height: 28, data: File.read('spanner.svg')
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
