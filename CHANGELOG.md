@@ -11,6 +11,7 @@ Bugs:
 
 Compatbility:
 * rsvg2 and pango updated to v2.2.5. Squib follows 2.2.x of both of those. If you run `bundle` you will automatically be upgraded. They appear to be mostly bugfix releases.
+* dpi is currently removed from `config.yml` and is ONLY available in `Squib::Deck.new`. This may change in the future, however.
 
 Chores:
 * Added `rake sanity` as a visual regression test to ensure the samples don't break
