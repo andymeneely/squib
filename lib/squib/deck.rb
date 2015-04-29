@@ -58,7 +58,6 @@ module Squib
       @dpi           = dpi
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
-      @custom_colors = {}
       @conf          = Conf.load(config)
       @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
       show_info(config, layout)
