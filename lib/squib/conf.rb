@@ -42,13 +42,6 @@ module Squib
       normalize_antialias
     end
 
-    # FIXME REMOVE THIS as part of refactoring
-    # Delegate [] to our hash
-    # @api private
-    # def [](key)
-    #   @config_hash[key]
-    # end
-
     # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private
     def self.load(file)
