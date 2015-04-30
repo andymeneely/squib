@@ -155,8 +155,6 @@ By default, Squib thinks in pixels. This decision was made so that we can have p
 
 {include:file:samples/units.rb}
 
-Note: we do not support unit conversion on `save_pdf` and `Squib::Deck.new()`, [yet](https://github.com/andymeneely/squib/issues/21). We are also working on support for unit conversion within layout parsing, so using it as a part of `extends` is not yet supported.
-
 ## Specifying Colors & Gradients
 
 Colors can be specified in a wide variety of ways, mostly in a hex-string. Take a look at the examples from `samples/colors.rb`, found [here](https://github.com/andymeneely/squib/tree/master/samples/colors.rb)
