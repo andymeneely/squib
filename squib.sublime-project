@@ -3,7 +3,13 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "."
+			"path": ".",
+               "folder_exclude_patterns": [
+                    "doc",
+                    ".yardoc",
+                    "coverage",
+                    "pkg",
+               ]
 		}
 	],
 	"build_systems":[
