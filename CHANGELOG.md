@@ -7,6 +7,7 @@ Features:
 * Added `data` field to `svg` to allow for manipulating SVG XML data directly. Works nicely with my new `game_icons` [gem](https://github.com/andymeneely/game_icons) (#65)
 * Added `stroke_width` and `stroke_color` to the `text` method to outlines text. (#51)
 * Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
+* Added an `ellipse` method to (you guessed it) draw ellipses. See the draw_shapes.rb sample (#66)
 
 Bugs:
 * Fixed global text hinting (#63)

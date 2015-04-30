@@ -32,6 +32,34 @@ module Squib
       end
     end
 
+    # Ellipse drawing taken from looking at the control points in Inkscape
+    # Think of it like a rectangle. Curves go from mid-points of the sides
+    # of the rectangle. Control points are at 1/4 and 3/4 of the side.
+    # :nodoc:
+    # @api private
+    def ellipse(x, y, w, h, fill_color, stroke_color, stroke_width)
+      use_cairo do |cc|
+        cc.move_to(x, y + 0.5*h)       # start west
+        cc.curve_to(x, y + 0.25*h,     # west to north
+                    x + 0.25*w, y,
+                    x +  0.5*w, y)
+        cc.curve_to(x + 0.75*w, y,     # north to east
+                    x + w, y + 0.25*h,
+                    x + w, y + 0.5*h)
+        cc.curve_to(x + w, y + 0.75*h, # east to south
+                    x + 0.75*w, y + h,
+                    x + 0.5*w, y + h)
+        cc.curve_to(x + 0.25*w, y + h, # south to west
+                    x, y + 0.75*h,
+                    x, y + 0.5*h)
+        cc.set_source_squibcolor(stroke_color)
+        cc.set_line_width(stroke_width)
+        cc.stroke_preserve
+        cc.set_source_squibcolor(fill_color)
+        cc.fill
+      end
+    end
+
     # :nodoc:
     # @api private
     def triangle(x1, y1, x2, y2, x3, y3, fill_color, stroke_color, stroke_width)

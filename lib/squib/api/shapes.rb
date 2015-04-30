@@ -59,6 +59,34 @@ module Squib
       end
     end
 
+     # Draw an ellipse
+    #
+    # @example
+    #   ellipse x: 0, y: 0, width: 825, height: 1125
+    #
+    # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    #
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts width [Integer] the width of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts height [Integer] the height of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
+    # @return [nil] intended to be void
+    # @api public
+    def ellipse(opts = {})
+      opts = needs(opts, [:range, :x, :y, :width, :height,
+                          :fill_color, :stroke_color, :stroke_width, :layout])
+      opts[:range].each do |i|
+        @cards[i].ellipse(opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
+                          opts[:fill_color][i], opts[:stroke_color][i],
+                          opts[:stroke_width][i])
+      end
+    end
+
     # Draw a triangle using the given coordinates
     #
     # @example

@@ -102,7 +102,7 @@ def mock_cairo(strio)
     update_pango_layout width height show_pango_layout rounded_rectangle
     set_line_width stroke fill set_source scale render_rsvg_handle circle
     triangle line_to operator= show_page clip transform mask rectangle
-    reset_clip antialias= curve_to matrix= pango_layout_path).each do |m|
+    reset_clip antialias= curve_to matrix= pango_layout_path stroke_preserve).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 
