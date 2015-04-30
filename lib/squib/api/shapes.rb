@@ -59,7 +59,7 @@ module Squib
       end
     end
 
-     # Draw an ellipse
+    # Draw an ellipse
     #
     # @example
     #   ellipse x: 0, y: 0, width: 825, height: 1125
