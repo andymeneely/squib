@@ -33,6 +33,10 @@
 			"shell_cmd": "rake run[draw_shapes]",
 		},
 		{
+			"name": "rake run[csv_import]",
+			"shell_cmd": "rake run[csv_import]",
+		},
+		{
 			"name": "rake run[config_text_markup]",
 			"shell_cmd": "rake run[config_text_markup]",
 		},
