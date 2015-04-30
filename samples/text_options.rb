@@ -79,7 +79,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   end
 
   text str: "Stroke n <span fgcolor=\"\#ff0000\">fill</span>",
-       color: :green, stroke_width: 3.0, stroke_color: :blue,
+       color: :green, stroke_width: 2.0, stroke_color: :blue,
        x: '1.8in', y: '3in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
   text str: "<b>Markup</b> is <i>quite</i> <s>'easy'</s> <span fgcolor=\"\#ff0000\">awesome</span>. Can't beat those \"smart\" 'quotes', now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...",

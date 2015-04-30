@@ -163,6 +163,7 @@ module Squib
       extents = nil
       str = str.to_s
       use_cairo do |cc|
+        cc.set_source_squibcolor(color)
         cc.translate(x,y)
         cc.rotate(angle)
         cc.move_to(0, 0)
@@ -193,9 +194,8 @@ module Squib
         cc.move_to(0, vertical_start)
 
         cc.update_pango_layout(layout)
-        stroke_outline!(cc, layout, stroke_width, stroke_color)
-        cc.set_source_squibcolor(color)
         cc.show_pango_layout(layout)
+        stroke_outline!(cc, layout, stroke_width, stroke_color)
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
