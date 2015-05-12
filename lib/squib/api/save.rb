@@ -70,5 +70,12 @@ module Squib
                       opts[:dir], opts[:file])
     end
 
+    
+    def hand(opts = {})
+      opts = {file: 'hand.png', fill_color: :white}.merge(opts)
+      opts = needs(opts,[:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save])
+      render_hand()
+    end
+
   end
 end

@@ -16,6 +16,7 @@
      {"name": "rake",                         "shell_cmd": "rake",},
      {"name": "rake sanity",                  "shell_cmd": "rake sanity",},
      {"name": "rake spec_fastonly",           "shell_cmd": "rake spec_fastonly",},
+     {"name": "rake run[hand]",               "shell_cmd": "rake run[hand]",},
      {"name": "rake run[config_text_markup]", "shell_cmd": "rake run[config_text_markup]",},
      {"name": "rake run[csv_import]",         "shell_cmd": "rake run[csv_import]",},
      {"name": "rake run[custom_config]",      "shell_cmd": "rake run[custom_config]",},
