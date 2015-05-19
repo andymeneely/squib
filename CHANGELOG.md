@@ -6,11 +6,13 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * Added `data` field to `svg` to allow for manipulating SVG XML data directly. Works nicely with my new `game_icons` [gem](https://github.com/andymeneely/game_icons) (#65)
 * Added `stroke_width` and `stroke_color` to the `text` method to outlines text. (#51)
-* Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
+* Added `hand` method that draws cards around a circle. See hand.rb samples (#64)
 * Added an `ellipse` method to (you guessed it) draw ellipses. See the draw_shapes.rb sample (#66)
+* Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
 
 Bugs:
 * Fixed global text hinting (#63)
+* Fixed a broken promise about fill_color in `showcase` (#71)
 
 Compatbility:
 * rsvg2 and pango updated to v2.2.5. Squib follows 2.2.x of both of those. If you run `bundle` you will automatically be upgraded. They appear to be mostly bugfix releases.
