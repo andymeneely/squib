@@ -102,5 +102,27 @@ module Squib
       end
     end
 
+    # :nodoc:
+    # @api private
+    def star(x, y, n, angle, inner_radius, outer_radius, fill_color, stroke_color, stroke_width)
+      use_cairo do |cc|
+        cc.translate(x, y)
+        cc.rotate(angle)
+        cc.translate(-x, -y)
+
+        # coords = []
+        # coords << [x, y - outer_radius]
+        # coords << [x, y - outer_radius]
+        # cc.move_to(*coords.first)
+        # cc.line_to(*coords[1..-1])
+
+        cc.set_source_squibcolor(stroke_color)
+        cc.set_line_width(stroke_width)
+        cc.stroke_preserve
+        cc.set_source_squibcolor(fill_color)
+        cc.fill
+      end
+    end
+
   end
 end

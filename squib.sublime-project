@@ -20,7 +20,7 @@
      // {"name": "rake run[config_text_markup]", "shell_cmd": "rake run[config_text_markup]",},
      // {"name": "rake run[csv_import]",         "shell_cmd": "rake run[csv_import]",},
      // {"name": "rake run[custom_config]",      "shell_cmd": "rake run[custom_config]",},
-     // {"name": "rake run[draw_shapes]",        "shell_cmd": "rake run[draw_shapes]",},
+     {"name": "rake run[draw_shapes]",        "shell_cmd": "rake run[draw_shapes]",},
      // {"name": "rake run[embed_text]",         "shell_cmd": "rake run[embed_text]",},
      // {"name": "rake run[load_images]",        "shell_cmd": "rake run[load_images]",},
      // {"name": "rake run[text_options]",       "shell_cmd": "rake run[text_options]",},

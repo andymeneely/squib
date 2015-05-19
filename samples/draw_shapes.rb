@@ -25,5 +25,8 @@ Squib::Deck.new do
           stroke_width: 5.0, stroke_color: :cyan,
           fill_color: :burgundy
 
+  star x: 50, y: 1000, n: 5, inner_radius: 50, outer_radius: 100,
+       fill_color: :burgundy, stroke_color: :cyan, stroke_width: 8
+
   save_png prefix: 'shape_'
 end

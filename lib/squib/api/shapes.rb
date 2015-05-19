@@ -154,6 +154,7 @@ module Squib
     # @option opts cy2 [Integer] (50) the y-coordinate of the second control point. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @return [nil] intended to be void
     # @api public
     def curve(opts = {})
@@ -163,6 +164,32 @@ module Squib
         @cards[i].curve(opts[:x1][i], opts[:y1][i], opts[:cx1][i], opts[:cy1][i],
                         opts[:x2][i], opts[:y2][i], opts[:cx2][i], opts[:cy2][i],
                         opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
+      end
+    end
+
+    # Draw a star at the given x,y
+    # @example
+    #   star x: 10, y: 10, n: 5, angle: Math::PI / 4, inner_radius: 50, outer_radius: 100,
+    #        fill_color: :green, stroke_color: :burgundy, :stroke_width: 3
+    #
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts x [Fixnum] (0) the x-coordinate of the center. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts y [Fixnum] (0) the y-coordinate of the center. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts n [Integer] (5) the number of points on the star
+    # @option opts angle [Fixnum] (0) the angle at which to rotate
+    # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @return [nil] intended to be void
+    # @api public
+    def star(opts = {})
+      opts = needs(opts, [:range, :x, :y, :n, :angle, :inner_radius, :outer_radius,
+                          :layout, :fill_color, :stroke_color, :stroke_width])
+      opts[:range].each do |i|
+        @cards[i].star(opts[:x][i], opts[:y][i], opts[:n][i], opts[:angle][i],
+                        opts[:inner_radius][i], opts[:outer_radius][i],
+                        opts[:fill_color][i], opts[:stroke_color][i],
+                        opts[:stroke_width][i])
       end
     end
 
