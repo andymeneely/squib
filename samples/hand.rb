@@ -17,5 +17,8 @@ Squib::Deck.new(cards: 8, layout: 'playing-card.yml') do
        radius: 0,
        range: 7.downto(0),
        file: 'hand_pretty.png'
+
+  # Tip: you can have the top card be on the left by reversing the range
+  #  angle_range: (Math::PI / 4)..(Math::PI / -4)
 end
 

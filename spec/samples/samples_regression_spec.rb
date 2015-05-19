@@ -58,6 +58,7 @@ describe "Squib samples" do
       embed_text.rb
       excel.rb
       gradients.rb
+      hand.rb
       hello_world.rb
       load_images.rb
       portrait-landscape.rb
