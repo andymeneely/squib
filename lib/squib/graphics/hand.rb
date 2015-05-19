@@ -1,3 +1,5 @@
+require 'squib/graphics/cairo_context_wrapper'
+
 module Squib
   class Deck
 
@@ -29,8 +31,8 @@ module Squib
         end
       end
       x, y, w, h = cxt.target.ink_extents # I love Ruby assignment ;)
-      png_cxt = Cairo::Context.new(Cairo::ImageSurface.new(w + 2*margin, h + 2*margin))
-      png_cxt.set_source_color(fill_color)
+      png_cxt = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(Cairo::ImageSurface.new(w + 2*margin, h + 2*margin)))
+      png_cxt.set_source_squibcolor(fill_color)
       png_cxt.paint
       png_cxt.translate(-x + margin, -y + margin)
       png_cxt.set_source(cxt.target)
