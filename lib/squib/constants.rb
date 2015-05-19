@@ -6,6 +6,7 @@ module Squib
       :align => :left,
       :alpha => 1.0,
       :angle => 0,
+      :angle_range => (Math::PI / -4.0)..(Math::PI / 4),
       :blend => :none,
       :color => :black,
       :columns => 5,

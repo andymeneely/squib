@@ -9,6 +9,8 @@ require 'squib/constants'
 require 'squib/layout_parser'
 require 'squib/args/unit_conversion'
 require 'squib/conf'
+require 'squib/graphics/showcase'
+require 'squib/graphics/hand'
 
 # The project module
 #
