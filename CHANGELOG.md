@@ -11,6 +11,7 @@ Features:
 * Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
 
 Bugs:
+* Text embed svg and png commands default to integer so the README example works (#73).
 * Fixed global text hinting (#63)
 * Fixed a broken promise about fill_color in `showcase` (#71)
 
@@ -23,7 +24,7 @@ Chores:
 * Added `rake sanity` as a visual regression test to ensure the samples don't break
 * Lots of automated test refactoring
 
-Thanks to [pickfifteen](https://github.com/pickfifteen) for the bug report!
+Thanks to [pickfifteen](https://github.com/pickfifteen), and [Brian Cronin](http://www.boardgamegeek.com/user/MurphyIdiot) for the bug reports!
 
 ## v0.5.1 / 2015-04-13
 
