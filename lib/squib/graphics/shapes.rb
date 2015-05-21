@@ -106,21 +106,22 @@ module Squib
     # @api private
     def star(x, y, n, angle, inner_radius, outer_radius, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
+        cc.new_path
         cc.translate(x, y)
         cc.rotate(angle)
         cc.translate(-x, -y)
-
-        # coords = []
-        # coords << [x, y - outer_radius]
-        # coords << [x, y - outer_radius]
-        # cc.move_to(*coords.first)
-        # cc.line_to(*coords[1..-1])
-
+        cc.move_to(x + outer_radius, y) #i = 0, so 
+        theta = Math::PI / n.to_f # i.e. (2*pi) / (2*n)
+        0.upto(2 * n) do |i|
+            radius = i.even? ? outer_radius : inner_radius
+            cc.line_to(x + radius * Math::cos(i * theta),
+                       y + radius * Math::sin(i * theta))
+        end
         cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)
-        cc.stroke_preserve
+        cc.fill_preserve
         cc.set_source_squibcolor(fill_color)
-        cc.fill
+        cc.stroke
       end
     end
 

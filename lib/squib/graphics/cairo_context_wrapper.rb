@@ -23,7 +23,7 @@ module Squib
         :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
         :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
         :antialias=, :curve_to, :matrix, :matrix=, :identity_matrix, :pango_layout_path,
-        :stroke_preserve, :target
+        :stroke_preserve, :target, :new_path, :fill_preserve
 
       # :nodoc:
       # @api private
