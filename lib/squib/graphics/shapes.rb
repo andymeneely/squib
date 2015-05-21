@@ -106,7 +106,6 @@ module Squib
     # @api private
     def star(x, y, n, angle, inner_radius, outer_radius, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
-        cc.new_path
         cc.translate(x, y)
         cc.rotate(angle)
         cc.translate(-x, -y)
