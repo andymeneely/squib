@@ -149,7 +149,9 @@ module Squib
       :dy => :dx, # delta
       :gap => :gap,
       :height => :height,
+      :inner_radius => :inner_radius
       :margin => :margin,
+      :outer_radius => :outer_radius,
       :paper_width => :width,
       :paper_height => :height,
       :rect_radius => :radius,
