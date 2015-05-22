@@ -47,6 +47,7 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def circle(opts = {})
@@ -104,6 +105,7 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def triangle(opts = {})
@@ -130,6 +132,7 @@ module Squib
     # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def line(opts = {})
@@ -155,6 +158,7 @@ module Squib
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def curve(opts = {})
@@ -177,9 +181,11 @@ module Squib
     # @option opts y [Fixnum] (0) the y-coordinate of the center. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts n [Integer] (5) the number of points on the star
     # @option opts angle [Fixnum] (0) the angle at which to rotate
+    # @option opts inner_radius [Fixnum] (0) the inner radius. Supports Unit conversion.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def star(opts = {})
