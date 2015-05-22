@@ -9,6 +9,7 @@ Features:
 * Added `hand` method that draws cards around a circle. See hand.rb samples (#64)
 * Added an `ellipse` method to (you guessed it) draw ellipses. See the draw_shapes.rb sample (#66)
 * Added a `star` method to (you guessed it) draw stars. See the draw_shapes.rb sample (#72)
+* Added a `polygon` method to (you guessed it) draw polygons. See the draw_shapes.rb sample (#67)
 * Upgraded roo (Excel parsing) to 2.0.0. Nothing major for Squib users, just keeping up with the times.
 
 Bugs:

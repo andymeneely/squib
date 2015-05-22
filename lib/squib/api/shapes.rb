@@ -199,5 +199,30 @@ module Squib
       end
     end
 
+    # Draw a regular polygon at the given x,y
+    # @example
+    #   polygon x: 10, y: 10, n: 5, angle: Math::PI / 4, radius: 50,
+    #           fill_color: :green, stroke_color: :burgundy, :stroke_width: 3
+    #
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts x [Fixnum] (0) the x-coordinate of the center. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts y [Fixnum] (0) the y-coordinate of the center. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts n [Integer] (5) the number of points on the star
+    # @option opts angle [Fixnum] (0) the angle at which to rotate
+    # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
+    # @return [nil] intended to be void
+    # @api public
+    def polygon(opts = {})
+      opts = needs(opts, [:range, :x, :y, :n, :circle_radius, :angle, :layout, :fill_color, :stroke_color, :stroke_width])
+      opts[:range].each do |i|
+        @cards[i].polygon(opts[:x][i], opts[:y][i], opts[:n][i], opts[:angle][i], opts[:radius][i],
+                        opts[:fill_color][i], opts[:stroke_color][i],
+                        opts[:stroke_width][i])
+      end
+    end
+
   end
 end

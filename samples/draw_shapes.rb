@@ -26,7 +26,10 @@ Squib::Deck.new do
           fill_color: :burgundy
 
   star x: 300, y: 1000, n: 5, inner_radius: 10, outer_radius: 25,
-       fill_color: :burgundy, stroke_color: :cyan, stroke_width: 1
+       fill_color: :burgundy, stroke_color: :cyan, stroke_width: 3
+
+  polygon x: 500, y: 1000, n: 5, radius: 25, angle: Math::PI / 2,
+          fill_color: :burgundy, stroke_color: :cyan, stroke_width: 2
 
   save_png prefix: 'shape_'
 end
