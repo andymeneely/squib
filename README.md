@@ -88,7 +88,8 @@ About the other files:
 In addition to this README, be sure to also check out the following resources for more details:
 
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples.
-* [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
+* [Iconoclast](https://github.com/andymeneely/iconoclast) is a basic set collection game I'm developing from scratch with Squib. Be sure to read the [commit history](https://github.com/andymeneely/iconoclast/commits/master) to see how the game has developed from scratch.
+* [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for full-color rendering, and makes use of Ruby in a lot of interesting ways.
 
 ## Viewing this README
 
@@ -522,8 +523,8 @@ Feel free to [file a bug or feature request](https://github.com/andymeneely/squi
 
 If you want to test new features as I develop them, you can always point your Gemfile to the repository. Your Gemfile specification looks like this:
 
-```
-gem 'squib', :git => 'git://github.com/andymeneely/squib', :branch => "dev"
+```ruby
+gem 'squib', git: 'git://github.com/andymeneely/squib', branch: 'dev'
 ```
 * The `dev` branch is where I am working on features in-process. I have not done much regression testing at this point, but would love testing feedback nonetheless.
 * The `master` branch is where I consider features and bug that are done and tested, but not released yet.
