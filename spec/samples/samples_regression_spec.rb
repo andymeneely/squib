@@ -73,7 +73,7 @@ describe "Squib samples" do
       log = StringIO.new
       mock_cairo(log)
       load sample
-      overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
+      # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
       expect(log.string).to eq(test_file_str)
     end
