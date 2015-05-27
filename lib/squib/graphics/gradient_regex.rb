@@ -1,4 +1,5 @@
 module Squib
+  # @api private
   module Graphics
     STOPS = /   # used to capture the stops
       \s*         # leading whitespace is ok

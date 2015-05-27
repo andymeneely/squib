@@ -1,4 +1,5 @@
 module Squib
+  # @api private
   class Card
 
     # :nodoc:
@@ -125,6 +126,8 @@ module Squib
       end
     end
 
+    # :nodoc:
+    # @api private
     def polygon(x, y, n, angle, radius, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.translate(x, y)

@@ -1,6 +1,9 @@
 require 'squib/constants'
 module Squib
+  #@api private
   module Args
+    # Internal class for handling arguments
+    #@api private
     class Typographer
 
       def initialize(config = Conf::DEFAULTS)

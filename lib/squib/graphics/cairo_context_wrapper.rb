@@ -4,6 +4,7 @@ require 'squib/graphics/gradient_regex'
 module Squib
   module Graphics
     # Wrapper class for the Cairo context. Private.
+    # @api private
     class CairoContextWrapper
       extend Forwardable
 
