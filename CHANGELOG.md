@@ -1,7 +1,9 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.6.0 / Unreleased
+## v0.7.0 / Unreleased
+
+## v0.6.0 / 2015-05-26
 
 Features:
 * Added `data` field to `svg` to allow for manipulating SVG XML data directly. Works nicely with my new `game_icons` [gem](https://github.com/andymeneely/game_icons) (#65)
