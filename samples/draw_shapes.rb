@@ -10,7 +10,9 @@ Squib::Deck.new do
 
   triangle x1: 50, y1: 50,
            x2: 150, y2: 150,
-           x3: 75, y3: 250
+           x3: 75, y3: 250,
+           fill_color: :gray, stroke_color: :green, stroke_width: 3.0
+
 
   line x1: 50, y1: 550,
        x2: 150, y2: 650,
@@ -26,10 +28,10 @@ Squib::Deck.new do
           fill_color: :burgundy
 
   star x: 300, y: 1000, n: 5, inner_radius: 10, outer_radius: 25,
-       fill_color: :burgundy, stroke_color: :cyan, stroke_width: 3
+       fill_color: :cyan, stroke_color: :burgundy, stroke_width: 3
 
   polygon x: 500, y: 1000, n: 5, radius: 25, angle: Math::PI / 2,
-          fill_color: :burgundy, stroke_color: :cyan, stroke_width: 2
+          fill_color: :cyan, stroke_color: :burgundy, stroke_width: 2
 
   save_png prefix: 'shape_'
 end

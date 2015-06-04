@@ -48,6 +48,16 @@ module Squib
           @cairo_cxt.set_source_color(arg)
         end
       end
+
+      # Convenience method for a common task
+      # @api private
+      def fill_n_stroke(fill_color, stroke_color, stroke_width)
+        set_source_squibcolor(fill_color)
+        fill_preserve
+        set_source_squibcolor(stroke_color)
+        set_line_width(stroke_width)
+        stroke
+      end
     end
   end
 end

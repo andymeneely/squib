@@ -7,11 +7,11 @@ describe Squib::Card do
   let(:cxt)  { double(Cairo::Context) }
 
   def expect_stroke(cxt, fill_color, stroke_color, stroke_width)
+    expect(cxt).to receive(:set_source_color).with(fill_color).once
+    expect(cxt).to receive(:fill_preserve).once
     expect(cxt).to receive(:set_source_color).with(stroke_color).once
     expect(cxt).to receive(:set_line_width).with(stroke_width).once
     expect(cxt).to receive(:stroke).once
-    expect(cxt).to receive(:set_source_color).with(fill_color).once
-    expect(cxt).to receive(:fill).once
   end
 
   before(:each) do
@@ -27,7 +27,7 @@ describe Squib::Card do
     it 'make all the expected calls on a smoke test' do
       expect(cxt).to receive(:antialias=).with('subpixel')
       expect(cxt).to receive(:save).once
-      expect(cxt).to receive(:rounded_rectangle).with(37, 38, 50, 100, 10, 15).twice
+      expect(cxt).to receive(:rounded_rectangle).with(37, 38, 50, 100, 10, 15).once
       expect_stroke(cxt, '#fff', '#f00', 2.0)
       expect(cxt).to receive(:restore).once
 
@@ -43,7 +43,7 @@ describe Squib::Card do
       expect(cxt).to receive(:antialias=).with('subpixel')
       expect(cxt).to receive(:save).once
       expect(cxt).to receive(:move_to).with(137, 38)
-      expect(cxt).to receive(:circle).with(37, 38, 100).twice
+      expect(cxt).to receive(:circle).with(37, 38, 100).once
       expect_stroke(cxt, '#fff', '#f00', 2.0)
       expect(cxt).to receive(:restore).once
 
@@ -58,7 +58,7 @@ describe Squib::Card do
     it 'make all the expected calls on a smoke test' do
       expect(cxt).to receive(:antialias=).with('subpixel')
       expect(cxt).to receive(:save).once
-      expect(cxt).to receive(:triangle).with(1, 2, 3, 4, 5, 6).twice
+      expect(cxt).to receive(:triangle).with(1, 2, 3, 4, 5, 6).once
       expect_stroke(cxt, '#fff', '#f00', 2.0)
       expect(cxt).to receive(:restore).once
 

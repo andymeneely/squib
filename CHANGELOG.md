@@ -3,6 +3,12 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.7.0 / Unreleased
 
+Compatibility:
+* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This might mean that your `stroke_width` will render wider than before.
+
+Chores:
+* Refactoring to make internal drawing code more DRY (#75)
+
 ## v0.6.0 / 2015-05-26
 
 Features:

@@ -9,12 +9,7 @@ module Squib
       height = @height  if height == :native
       use_cairo do |cc|
         cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.stroke
-        cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
-        cc.set_source_squibcolor(fill_color)
-        cc.fill
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
@@ -24,12 +19,7 @@ module Squib
       use_cairo do |cc|
         cc.move_to(x + radius, y)
         cc.circle(x, y, radius)
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.stroke
-        cc.circle(x, y, radius)
-        cc.set_source_squibcolor(fill_color)
-        cc.fill
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
@@ -53,11 +43,7 @@ module Squib
         cc.curve_to(x + 0.25*w, y + h, # south to west
                     x, y + 0.75*h,
                     x, y + 0.5*h)
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.stroke_preserve
-        cc.set_source_squibcolor(fill_color)
-        cc.fill
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
@@ -66,12 +52,7 @@ module Squib
     def triangle(x1, y1, x2, y2, x3, y3, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
         cc.triangle(x1, y1, x2, y2, x3, y3)
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.stroke
-        cc.triangle(x1, y1, x2, y2, x3, y3)
-        cc.set_source_squibcolor(fill_color)
-        cc.fill
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
@@ -93,13 +74,7 @@ module Squib
       use_cairo do |cc|
         cc.move_to(x1, y1)
         cc.curve_to(cx1, cy1, cx2, cy2, x2, y2)
-        cc.set_line_width(stroke_width)
-        cc.set_source_squibcolor(stroke_color)
-        cc.stroke
-        cc.move_to(x1, y1)
-        cc.curve_to(cx1, cy1, cx2, cy2, x2, y2)
-        cc.set_source_squibcolor(fill_color)
-        cc.fill
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
@@ -118,11 +93,7 @@ module Squib
                        y + radius * Math::sin(i * theta))
         end
         cc.close_path
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.fill_preserve
-        cc.set_source_squibcolor(fill_color)
-        cc.stroke
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
@@ -140,11 +111,7 @@ module Squib
                        y + radius * Math::sin(i * theta))
         end
         cc.close_path
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.fill_preserve
-        cc.set_source_squibcolor(fill_color)
-        cc.stroke
+        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
       end
     end
 
