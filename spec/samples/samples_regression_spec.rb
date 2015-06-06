@@ -3,6 +3,7 @@ require 'squib'
 require 'pp'
 
 describe "Squib samples" do
+  @SAMPLES_DIR      = "#{File.expand_path(File.dirname(__FILE__))}/../../samples/"
   let(:samples_dir) { "#{File.expand_path(File.dirname(__FILE__))}/../../samples/" }
 
   around(:each) do |example|
@@ -11,10 +12,10 @@ describe "Squib samples" do
     end
   end
 
-  it 'should execute with no errors' do
-    allow(Squib.logger).to receive(:warn) {}
-    allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
-    Dir["#{samples_dir}/**/*.rb"].each do |sample|
+  Dir["#{@SAMPLES_DIR}/**/*.rb"].each do |sample|
+    it "should execute #{sample} with no errors", slow: true do
+      allow(Squib.logger).to receive(:warn) {}
+      allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
       load sample
     end
   end
@@ -51,10 +52,13 @@ describe "Squib samples" do
       basic.rb
       cairo_access.rb
       csv_import.rb
+      config_text_markup.rb
       custom_config.rb
       draw_shapes.rb
+      embed_text.rb
       excel.rb
       gradients.rb
+      hand.rb
       hello_world.rb
       load_images.rb
       portrait-landscape.rb
@@ -65,7 +69,7 @@ describe "Squib samples" do
       tgc_proofs.rb
       units.rb
   ).each do |sample|
-    it "has not changed for #{sample}" do
+    it "has not changed for #{sample}", slow: true do
       log = StringIO.new
       mock_cairo(log)
       load sample

@@ -32,3 +32,6 @@ benchmarks/_output/*.png
 benchmarks/_output/*.pdf
 benchmarks/_output/
 samples/_output/*.svg
+*.sublime-workspace
+spec/samples/sanity.html
+spec/samples/_diffs/*.png

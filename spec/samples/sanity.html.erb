@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Squib Sanity Test for v<%=Squib::VERSION%></title>
+		<style>
+			body{
+				background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAHElEQVQYlWO4ePFiAzGY4eLFiw0MxIBRhVRRCADsljgKUbBKPgAAAABJRU5ErkJggg==) repeat;
+			}
+			img{
+				width: 30%;
+			}
+		</style>
+	</head>
+<body>
+	<% count = 0 %>
+	<% images.each do |exp, actual, diff| %>
+		<img src="<%=exp %>">&nbsp;
+		<img src="<%=actual %>">&nbsp;
+		<img src="<%=diff %>">&nbsp;
+		<br>
+		<%=exp %>
+		<hr>
+		<% count += 1 %>
+	<% end %>
+<body>
+</html>

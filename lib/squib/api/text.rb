@@ -1,3 +1,5 @@
+require 'squib/api/text_embed'
+
 module Squib
   class Deck
 
@@ -23,7 +25,7 @@ module Squib
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts color [String] (:black) the color the font will render to. Gradients supported. See {file:README.md#Specifying_Colors___Gradients Specifying Colors}
-    # @option opts markup: [Boolean] (false) Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html).
+    # @option opts markup: [Boolean] (false) Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html). Also does other replacements, such as smart quotes, curly apostraphes, en- and em-dashes, and explict ellipses (not to be confused with ellipsize option). See README for full explanation.
     # @option opts width [Integer, :native] (:native) the width of the box the string will be placed in. Stretches to the content by default.. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts height [Integer, :native] the height of the box the string will be placed in. Stretches to the content by default. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
@@ -35,19 +37,27 @@ module Squib
     # @option opts valign [:top, :middle, :bottom] (:top) When width and height are set, align text vertically according to the ink extents of the text.
     # @option opts ellipsize [:none, :start, :middle, :end, true, false] (:end) When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end`
     # @option opts angle [FixNum] (0) Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}).
     # @return [Array] Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.
     # @api public
     def text(opts = {})
+      opts = { stroke_width: 0 }.merge(opts)
       opts = needs(opts, [:range, :str, :font, :font_size, :x, :y, :width, :height, :color, :wrap,
-                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout, :angle])
+                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout,
+                          :angle, :quotes, :stroke_color, :stroke_width])
+      embed = TextEmbed.new
+      yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
       opts[:range].each do |i|
-        extents[i] = @cards[i].text(opts[:str][i], opts[:font][i], opts[:font_size][i], opts[:color][i],
+        extents[i] = @cards[i].text(embed, opts[:str][i],
+                       opts[:font][i], opts[:font_size][i], opts[:color][i],
                        opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
                        opts[:markup][i], opts[:justify][i], opts[:wrap][i],
                        opts[:ellipsize][i], opts[:spacing][i], opts[:align][i],
-                       opts[:valign][i], opts[:hint][i], opts[:angle][i])
+                       opts[:valign][i], opts[:hint][i], opts[:angle][i],
+                       opts[:stroke_color][i], opts[:stroke_width][i] )
       end
       return extents
     end

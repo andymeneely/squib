@@ -11,6 +11,7 @@ task default: [:install, :spec]
 task :run,[:file] => :install do |t, args|
   args.with_defaults(file: 'basic.rb')
   Dir.chdir('samples') do
+    args[:file]  << ".rb" unless args[:file].end_with? '.rb'
     puts "Running samples/#{args[:file]}"
     load args[:file]
   end
@@ -18,6 +19,10 @@ end
 
 
 RSpec::Core::RakeTask.new(:spec)
+
+RSpec::Core::RakeTask.new(:spec_fastonly) do |t|
+  t.rspec_opts = "--tag ~slow"
+end
 
 task doc: [:yarddoc, :apply_google_analytics]
 
@@ -38,6 +43,13 @@ task benchmark: [:install] do
     end
   end
 end
+
+task :sanity do
+  require_relative 'spec/samples/sanity.rb'
+  Sanity.new.run
+end
+
+task sanity_clean: [:install, :spec, :sanity]
 
 task :apply_google_analytics do
   # The string to replace in the html document. This is chosen to be the end

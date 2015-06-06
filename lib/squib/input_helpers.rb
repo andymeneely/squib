@@ -130,8 +130,8 @@ module Squib
     def colorify(opts, nillable=false, key=:color)
       opts[key].each_with_index do |color, i|
         unless nillable && color.nil?
-          if @custom_colors.key? color.to_s
-            color = @custom_colors[color.to_s]
+          if custom_colors.key? color.to_s
+            color = custom_colors[color.to_s]
           end
           opts[key][i] = color
         end

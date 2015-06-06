@@ -6,12 +6,20 @@ module Squib
       :align => :left,
       :alpha => 1.0,
       :angle => 0,
+      :angle_range => (Math::PI / -4.0)..(Math::PI / 4),
       :blend => :none,
       :color => :black,
-      :columns => 1,
+      :columns => 5,
       :count_format => '%02d',
+      :cx1 => 0,
+      :cx2 => 0,
+      :cy1 => 0,
+      :cy2 => 0,
+      :data => nil,
       :default_font => 'Arial 36',
       :dir => '_output',
+      :dx => 0, # delta
+      :dy => 0, # delta
       :ellipsize => :end,
       :face => :left,
       :fill_color => '#0000',
@@ -22,14 +30,19 @@ module Squib
       :gap => 0,
       :height => :native,
       :hint => :off,
+      :inner_radius => 50,
       :img_dir => '.',
       :justify => false,
+      :key => '*',
       :margin => 75,
       :markup => false,
       :mask => nil,
+      :n => 5,
       :offset => 1.1,
+      :outer_radius => 100,
       :prefix => 'card_',
       :progress_bar => false,
+      :quotes => :dumb,
       :reflect_offset => 15,
       :reflect_percent => 0.25,
       :reflect_strength => 0.2,
@@ -59,27 +72,6 @@ module Squib
       :y_radius => 0,
     }
 
-    # Squib's configuration defaults
-    #
-    # @api public
-    CONFIG_DEFAULTS = {
-      'antialias'     => 'best',
-      'backend'       => 'memory',
-      'count_format'  => SYSTEM_DEFAULTS[:count_format],
-      'custom_colors' => {},
-      'dir'           => SYSTEM_DEFAULTS[:dir],
-      'dpi'           => 300,
-      'hint'          => :none,
-      'img_dir'       => '.',
-      'progress_bar'  => false,
-    }
-
-    #Translate the hints to the methods.
-    ANTIALIAS_OPTS = {
-      'best' => 'subpixel',
-      'good' => 'gray',
-      'fast' => 'gray',
-    }
     # These are parameters that are intended to be "expanded" across
     # range if they are singletons.
     #
@@ -96,6 +88,12 @@ module Squib
           :blend => :blend,
           :circle_radius => :radius,
           :color => :color,
+          :cx1 => :cx1,
+          :cx2 => :cx2,
+          :cy1 => :cy1,
+          :cy2 => :cy2,
+          :dx => :dx,
+          :dy => :dy,
           :ellipsize => :ellipsize,
           :files => :file,
           :fill_color => :fill_color,
@@ -104,15 +102,20 @@ module Squib
           :font_size => :font_size,
           :height => :height,
           :hint => :hint,
+          :inner_radius => :inner_radius,
           :justify => :justify,
           :layout => :layout,
           :markup => :markup,
           :mask => :mask,
+          :n => :n,
+          :outer_radius => :outer_radius,
+          :quotes => :quotes,
           :rect_radius => :radius,
           :spacing => :spacing,
           :str => :str,
           :stroke_color => :stroke_color,
           :stroke_width => :stroke_width,
+          :svgdata => :data,
           :svgid => :id,
           :valign => :valign,
           :width => :width,
@@ -138,9 +141,17 @@ module Squib
     # value: the user-facing API key (e.g. radius: '1in')
     UNIT_CONVERSION_PARAMS = {
       :circle_radius => :radius,
+      :cx1 => :cx1,
+      :cx2 => :cx2,
+      :cy1 => :cy1,
+      :cy2 => :cy2,
+      :dx => :dx, # delta
+      :dy => :dx, # delta
       :gap => :gap,
       :height => :height,
+      :inner_radius => :inner_radius,
       :margin => :margin,
+      :outer_radius => :outer_radius,
       :paper_width => :width,
       :paper_height => :height,
       :rect_radius => :radius,

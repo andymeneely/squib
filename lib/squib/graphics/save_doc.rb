@@ -22,7 +22,8 @@ module Squib
       paper_width  = p[:width]
       paper_height = p[:height]
       file         = "#{p[:dir]}/#{p[:file]}"
-      cc           = Cairo::Context.new(Cairo::PDFSurface.new(file, paper_width, paper_height))
+      cc           = Cairo::Context.new(Cairo::PDFSurface.new(file, paper_width * 72.0 / @dpi, paper_height * 72.0 / @dpi))
+      cc.scale(72.0 / @dpi, 72.0 / @dpi) # for bug #62
       x, y         = p[:margin], p[:margin]
       card_width   = @width  - 2 * p[:trim]
       card_height  = @height - 2 * p[:trim]
@@ -32,7 +33,7 @@ module Squib
           cc.translate(x,y)
           cc.rectangle(p[:trim], p[:trim], card_width, card_height)
           cc.clip
-          case card.backend
+          case card.backend.downcase.to_sym
           when :memory
             cc.set_source(card.cairo_surface, 0, 0)
             cc.paint
@@ -67,7 +68,7 @@ module Squib
     #   save_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
     #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts colulmns [Integer] (1) the number of columns in the grid
+    # @option opts colulmns [Integer] (5) the number of columns in the grid
     # @option opts rows [Integer] (:infinite) the number of rows in the grid. When set to :infinite, the sheet scales to the rows needed. If there are more cards than rows*columns, new sheets are started.
     # @option opts [String] prefix (card_) the prefix of the file name(s)
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)

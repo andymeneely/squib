@@ -3,7 +3,7 @@ require 'squib'
 
 data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
         'level' => [1,2,3]}
-longtext = "This is left-justified text.\nWhat do you know about tweetle beetles? well... \nWhen tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle. AND... When beetles fight these battles in a bottle with their paddles and the bottle's on a poodle and the poodle's eating noodles... ...they call this a muddle puddle tweetle poodle beetle noodle bottle paddle battle."
+longtext = "This is left-justified text, with newlines.\nWhat do you know about tweetle beetles? well... When tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle."
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   background color: :white
@@ -23,12 +23,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: 'Font string sizes can be overridden per card.', x: 65, y: 350,
        font: 'Impact 36', font_size: [16, 20, 24]
 
-  text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint',
+  text str: 'This text has fixed width, fixed height, center-aligned, middle-valigned, has a red hint, and "smart quotes"',
        hint: :red,
        x: 65, y: 400,
        width: 300, height: 125,
-       align: :center, valign: 'MIDDLE', #case-insenstive strings allowed too.
-       font: 'Arial 18'
+       align: :center, valign: 'MIDDLE', # these can be specified with case-insenstive strings too
+       font: 'Serif 16', quotes: [:smart,:smart, :dumb]
 
   extents = text str: 'Ink extent return value',
        x: 65, y: 550,
@@ -41,12 +41,14 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        width: ws, height: hs,
        radius: 10, stroke_color: :black
 
+  # If width & height are defined and the text will overflow the box, we can ellipsize.
   text str: "Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42",
        hint: :green, font: 'Arial 22',
        x: 450, y: 400,
        width: 280, height: 180,
        ellipsize: true
 
+  # Text hints are guides for showing you how your text boxes are laid out exactly
   hint text: :cyan
   text str: 'Text hints are also globally togglable!',
         x: 65, y: 625,
@@ -60,17 +62,33 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
         x: 565, y: 675, angle: 0.2,
         font: 'Arial 18', hint: :red
 
+  # Text can be justified, and have newlines
   text str: longtext, font: 'Arial 16',
        x: 65, y: 700,
-       width: inches(2.25), height: inches(1),
+       width: '1.5in', height: inches(1),
        justify: true
 
-  text str: '<b>Markup</b> is also <i>quite</i> <s>easy</s> awesome',
+  # Here's how you embed images into text.
+  # Pass a block to the method call and use the given context
+  embed_text = 'Embedded icons! Take 1 :tool: and gain 2:health:. If Level 2, take 2 :tool:'
+  text(str: embed_text, font: 'Sans 18',
+       x: '1.8in', y: '2.5in', width: '0.85in',
+       align: :left, ellipsize: false) do |embed|
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+  end
+
+  text str: "Stroke n <span fgcolor=\"\#ff0000\">fill</span>",
+       color: :green, stroke_width: 2.0, stroke_color: :blue,
+       x: '1.8in', y: '3in', width: '0.85in', font: 'Sans Bold 26', markup: true
+
+  text str: "<b>Markup</b> is <i>quite</i> <s>'easy'</s> <span fgcolor=\"\#ff0000\">awesome</span>. Can't beat those \"smart\" 'quotes', now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...",
        markup: true,
        x: 50, y: 1000,
        width: 750, height: 100,
        valign: :bottom,
-       font: 'Arial 32', hint: :cyan
+       font: 'Serif 18', hint: :cyan
+
 
   save prefix: 'text_', format: :png
 end

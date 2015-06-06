@@ -1,3 +1,5 @@
+require 'squib/graphics/cairo_context_wrapper'
+
 module Squib
   class Deck
 
@@ -16,8 +18,9 @@ module Squib
       out_width = range.size * ((@width - 2*trim) * scale * offset) + 2*margin
       out_height = reflect_offset + (1.0 + reflect_percent) * (@height - 2*trim) + 2*margin
       out_cc = Cairo::Context.new(Cairo::ImageSurface.new(out_width, out_height))
-      out_cc.set_source_color(fill_color)
-      out_cc.paint
+      wrapper = Squib::Graphics::CairoContextWrapper.new(out_cc)
+      wrapper.set_source_squibcolor(fill_color)
+      wrapper.paint
 
       cards = range.collect { |i| @cards[i] }
       cards.each_with_index do |card, i|
@@ -60,6 +63,8 @@ module Squib
       return tmp_cc.target
     end
 
+    # :nodoc:
+    # @api private
     def perspective(src, scale, face_right)
       dest_cxt = Cairo::Context.new(Cairo::ImageSurface.new(src.width * scale, src.height))
       in_thickness = 1 # Take strip 1 pixel-width at a time

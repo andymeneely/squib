@@ -1,5 +1,6 @@
 require 'yaml'
 require 'pp'
+require 'forwardable'
 require 'squib'
 require 'squib/card'
 require 'squib/progress'
@@ -7,6 +8,9 @@ require 'squib/input_helpers'
 require 'squib/constants'
 require 'squib/layout_parser'
 require 'squib/args/unit_conversion'
+require 'squib/conf'
+require 'squib/graphics/showcase'
+require 'squib/graphics/hand'
 
 # The project module
 #
@@ -19,24 +23,19 @@ module Squib
   class Deck
     include Enumerable
     include Squib::InputHelpers
+    extend Forwardable
 
+    # Attributes for the width, height (in pixels) and number of cards
+    # These are expected to be immuatble for the life of Deck
+    # @api private
+    attr_reader :width, :height, :cards
+
+    # Delegate these configuration options to the Squib::Conf object
+    def_delegators :conf, :antialias, :backend, :count_format, :custom_colors, :dir,
+                          :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
-    attr_reader :width, :height
-
-    # :nodoc:
-    # @api private
-    attr_reader :cards
-
-    # :nodoc:
-    # @api private
-    attr_reader :text_hint, :antialias
-
-    # :nodoc:
-    # @api private
-    attr_reader :layout, :config
-
-    attr_reader :dir, :prefix, :count_format
+    attr_reader :layout, :conf
 
     # Squib's constructor that sets the immutable properties.
     #
@@ -58,23 +57,15 @@ module Squib
     # @param block [Block] the main body of the script.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
-      @antialias     = CONFIG_DEFAULTS['antialias']
       @dpi           = dpi
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
-      @custom_colors = {}
-      @img_dir       = '.'
-      @progress_bar  = Progress.new(false)
-      @text_hint     = :off
-      @backend       = :memory
-      @dir           = SYSTEM_DEFAULTS[:dir]
-      @prefix        = SYSTEM_DEFAULTS[:prefix]
-      @count_format  = SYSTEM_DEFAULTS[:count_format]
+      @conf          = Conf.load(config)
+      @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
       show_info(config, layout)
-      load_config(config)
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
-      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, @backend, i) }
+      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
       @layout        = LayoutParser.load_layout(layout)
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
@@ -93,25 +84,6 @@ module Squib
     # @api private
     def each(&block)
       @cards.each { |card| block.call(card) }
-    end
-
-    # Load the configuration file, if exists, overriding hardcoded defaults
-    # @api private
-    def load_config(file)
-      if File.exists?(file) && config = YAML.load_file(file)
-        Squib::logger.info { "  using config: #{file}" }
-        config                = CONFIG_DEFAULTS.merge(config)
-        @dpi                  = config['dpi'].to_i
-        @text_hint            = config['text_hint']
-        @progress_bar.enabled = config['progress_bars']
-        @custom_colors        = config['custom_colors']
-        @img_dir              = config['img_dir']
-        @backend              = (config['backend'].to_s.downcase.strip == 'svg') ? :svg : :memory
-        @dir                  = config['dir']
-        @prefix               = config['prefix']
-        @count_format         = config['count_format']
-        @antialias            = config['antialias']
-      end
     end
 
     # Use Logger to show more detail on the run

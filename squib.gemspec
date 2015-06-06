@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'cairo', '~> 1.14.0'
   spec.add_runtime_dependency 'pango', '~> 2.2.0'
-  spec.add_runtime_dependency 'roo', '~> 1.13.2'
+  spec.add_runtime_dependency 'roo', '~> 2.0.0'
   spec.add_runtime_dependency 'rsvg2', '~> 2.2.0'
   spec.add_runtime_dependency 'mercenary', '~> 0.3.4'
   spec.add_runtime_dependency 'ruby-progressbar', '~> 1.6'
@@ -39,8 +39,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.2'
   spec.add_development_dependency 'redcarpet', '~> 3.1'
   spec.add_development_dependency 'github-markup', '~> 1.3'
-  spec.add_development_dependency 'yard', '~> 0.8'
+  # spec.add_development_dependency 'yard', '~> 0.8'
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'byebug'
+  spec.add_development_dependency 'launchy'
+  spec.add_development_dependency 'game_icons'
 
 end

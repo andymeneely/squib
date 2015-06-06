@@ -1,0 +1,9 @@
+# We can configure what characters actually get replaced by quoting them with unicode code points.
+lsquote: "\u2018" #note that Yaml wants double quotes here to use escape chars
+rsquote: "\u2019"
+ldquote: "\u201C"
+rdquote: "\u201D"
+em_dash: "\u2014"
+en_dash: "\u2013"
+ellipsis: "\u2026"
+antialias: gray

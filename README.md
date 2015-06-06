@@ -40,9 +40,12 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups. For Windows users, I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit. For Mac, I recommend using [rvm](https://rvm.io).
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups.
+  * Windows: I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit.
+  * Mac: I recommend using [rvm](https://rvm.io).
+  * Cywgin is not 100% supported, but could potentially work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113)
 
-Note: Squib requires Ruby 2.0 or later.
+Squib requires Ruby 2.0 or later.
 
 ## Getting Started
 
@@ -82,15 +85,15 @@ About the other files:
 
 # Learning Squib
 
-After going over this README, here are some other places to go learn Squib:
+In addition to this README, be sure to also check out the following resources for more details:
 
-* The YARD-generated API documentation [for the latest Squib gem](http://rubydoc.info/gems/squib/) is a method-by-method reference. The `Deck` class is the main class to look at. If you are following Squib master, see [the latest version](http://rubydoc.info/github/andymeneely/squib)
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples.
-* [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for both black-and-white print-and-play and full color.
+* [Iconoclast](https://github.com/andymeneely/iconoclast) is a basic set collection game I'm developing from scratch with Squib. Be sure to read the [commit history](https://github.com/andymeneely/iconoclast/commits/master) to see how the game has developed from scratch.
+* [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for full-color rendering, and makes use of Ruby in a lot of interesting ways.
 
 ## Viewing this README
 
-The best place to read this documentation is on [our website](http://andymeneely.github.io/squib/doc).
+The best place to read this documentation is on [our website](http://andymeneely.github.io/squib/doc). Be sure to check out the method-by-method documentation, particularly for the [Deck](Squib/Deck.html) class.
 
 If you want to view it offline, you can do the following
 
@@ -102,9 +105,9 @@ Then go to [http://localhost:8808/docs/squib/file/README.md](http://localhost:88
 
 If you're viewing this on Github, you might see some confusing tags like `{include:file:...}` - these are directives for YARD to show the embedded examples. Github doesn't render those and you might find them helpful.
 
-Also, RubyDoc.info linked from RubyGems is buggy and doesn't support `{include:file...}` directive properly, so the embedded samples will also not show up there.
+Also, RubyDoc.info linked from RubyGems appears to be perpetually broken and doesn't support `{include:file...}` directive properly, so the embedded samples will also not show up there, either.
 
-## Squib API
+## Squib Decks and Cards
 
 The Squib DSL is based on a collection of methods provided to the `Squib::Deck` class. The general philosophy of Squib is to specify as little as possible with layers of defaults, highly flexible input, and good ol' Ruby duck-typing. Ruby does a lot to make Squib useful.
 
@@ -139,7 +142,7 @@ text str: %w(red green blue),
      y: [700, 750, 800]
 ```
 
-Under the hood, Squib actually views every argument as applied each card individually. If a single argument is given to the command, it's considered a singleton that gets expanded into a deck-sized array. Supplying the array bypasses that array. This means that any array you supply instead of a singleton ought to be the same size as the deck and align the same way the indexes in the supplied `range` are.
+Under the hood, Squib actually views every argument as applied each card individually. If a single argument is given to the command, it's considered a singleton that gets expanded into a deck-sized array. Supplying the array bypasses that expansion - which means that any array you supply instead of a singleton ought to be the same size as the deck and align the same way the indexes in the supplied `range` are. If you don't, Ruby will fill that up with nils and not apply the rule across those cards.
 
 ## Specifying Ranges
 
@@ -149,11 +152,9 @@ Most public `Deck` methods allow a `range` to be specified as a first parameter.
 
 ## Units
 
-By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in "in" and "cm" and computing based on the current DPI. Example is in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
+By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in "in" and "cm" and computing based on the current DPI. The dpi is set on `Squib::Deck.new` (not `config.yml`). Example is in `samples/units.rb` found [here](https://github.com/andymeneely/squib/tree/master/samples/units.rb)
 
 {include:file:samples/units.rb}
-
-Note: we do not support unit conversion on `save_pdf` and `Squib::Deck.new()`, [yet](https://github.com/andymeneely/squib/issues/21). We are also working on support for unit conversion within layout parsing, so using it as a part of `extends` is not yet supported.
 
 ## Specifying Colors & Gradients
 
@@ -187,29 +188,149 @@ Check out the following sample from `samples/gradients.rb`, found [here](https:/
 
 All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened relative to the current directory. Files opened for writing (e.g. for `save_png`) will be overwritten without warning.
 
+If you find that you `cd` a lot while working on the command line, your `_output` folder might get generated in multiple places. An easy way to fix this is to use a `Rakefile`, [see below](#Rakefile)
+
+## Working with Text
+The `text` method is a particularly powerful method with a ton of options. Be sure to check the [API docs](docs/Squib/Deck#text-instance_method) on an option-by-option discussion, but here are the highlights.
+
+**Fonts**. The font is specified in a given Pango "font string", which can involve a ton of options embedded there in the string. In addition to the typical bold and italic variations, you can also specify all-caps, the specific boldness weight (e.g. 900), or go with oblique. These options are only available if the underlying font supports them, however. Here's are some example Pango font strings:
+
+```
+Sans 18
+Arial,Verdana weight=900 style=oblique 36
+Times New Roman,Sans 25
+```
+
+Note: When the font has a space it, you'll need to put a backup to get Pango's parsing to work.
+
+It's also important to note that most of the font rendering is done by a combination of your installed fonts, your OS, and your graphics card. Thus, different systems will render text slightly differently.
+
+Furthermore, options like `font_size` allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and `extends` too.
+
+### Width and Height
+
+By default, Pango text boxes will scale the text box to whatever you need, hence the `:native` default. However, for most of the other customizations to work (e.g. center-aligned) you'll need to specify the width. If both the width and the height are specified and the text overflows, then the `ellipsize` option is consulted to figure out what to do with the overflow. Also, the `valign` will only work if `height` is also set to something other than `:native`.
+
+###Hints
+
+Laying out text by typing in numbers can be confusing. What Squib calls "hints" is merely a rectangle around the text box. Hints can be turned on globally in the config file, using the `set` method, or in an individual text method. These are there merely for prototyping and are not intended for production. Additionally, these are not to be conflated with "rendering hints" that Pango and Cairo mention in their documentation.
+
+###Extents
+
+Sometimes you want size things based on the size of your rendered text. For example, drawing a rectangle around card's title such that the rectangle perfectly fits. Squib returns the final rendered size of the text so you can work with it afterward. It's an array of hashes that correspond to each card. The output looks like this:
+
+```ruby
+Squib::Deck.new(cards: 2) do
+  extents = text(str: ['Hello', 'World!'])
+  p extents
+end
+```
+Will output:
+```
+[{:width=>109, :height=>55}, {:width=>142, :height=>55}] # Hello was 109 pixels wide, World 142 pixels
+```
+
+###Embedding Images
+
+Squib can embed icons into the flow of text. To do this, you need to define text keys for Squib to look for, and then the corresponding files. The object given to the block is a [TextEmbed](docs/Squib/TextEmbed), which supports PNG and SVG. Here's a minimal example:
+
+```ruby
+text(str: 'Gain 1 :health:') do |embed|
+  embed.svg key: ':health:', file: 'heart.svg'
+end
+```
+
+###Markup
+
+If you want to do specialized formatting within a given string, Squib has lots of options. By setting `markup: true`, you enable tons of text processing. This includes:
+
+  * Pango Markup. This is an HTML-like formatting language that specifies formatting inside your string. Pango Markup essentially supports any formatting option, but on a letter-by-letter basis. Such as: font options, letter spacing, gravity, color, etc. See the [Pango docs](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html) for details.
+  * Quotes are converted to their curly counterparts where appropriate (i.e. &ldquo;smart quotes&rdquo; instead of "straight quotes").
+  * Apostraphes are converted to curly as well.
+  * LaTeX-style quotes are explicitly converted (<tt>``like this''</tt>)
+  * Em-dash and en-dash are converted with triple and double-dashes respectively (<tt>--</tt> is an en-dash, and <tt>---</tt> becomes an em-dash.)
+  * Ellipses can be specified with <tt>...</tt>. Note that this is entirely different from the `ellipsize` option (which determines what to do with overflowing text).
+
+A few notes:
+  * Smart quoting assumes the UTF-8 character set.
+  * Pango markup uses an XML/HTML-ish processor. Some characters require HTML-entity escaping (e.g. `&amp;` for `&')
+
+### Text Sample
+```yaml
+  lsquote: "\u2018" #note that Yaml wants double quotes here to use escape chars
+  rsquote: "\u2019"
+  ldquote: "\u201C"
+  rdquote: "\u201D"
+  em_dash: "\u2014"
+  en_dash: "\u2013"
+  ellipsis: "\u2026"
+```
+
+You can also disable the auto-quoting mechanism by setting `smart_quotes: false` in your config. Explicit replacements will still be performed.
+
+### Text Samples
+
+Examples of all of the above are crammed into the `text_options.rb` sample [found here](https://github.com/andymeneely/squib/tree/master/samples/text_options.rb).
+
+{include:file:samples/text_options.rb}
+
+The `embed_text.rb` sample has more examples of embedding text, which can be [found here](https://github.com/andymeneely/squib/tree/master/samples/embed_text.rb).
+
+{include:file:samples/embed_text.rb}
+
+The `config_text_markup.rb` sample demonstrates how quoting can be configured, [found here](https://github.com/andymeneely/squib/tree/master/samples/config_text_markup.rb)
+
+{include:file:samples/config_text_markup.rb}
+
+
 ## Custom Layouts
 
 Working with x-y coordinates all the time can be tiresome, and ideally everything in a game prototype should be data-driven and easily changed. For this, many Squib methods allow for a `layout` to be set. In essence, layouts are a way of setting default values for any argument given to the command.
 
 To use a layout, set the `layout:` option on a `Deck.new` command to point to a YAML file. Any command that allows a `layout` option can be set with a Ruby symbol or String, and the command will then load the specified `x`, `y`, `width`, and `height`. The individual command can also override these options.
 
-Note: YAML is very finnicky about having not allowing tabs. Use two spaces for indentation instead. If you get a `Psych` syntax error, this is likely the culprit. Indendation is also strongly enforced in Yaml too. See the [Yaml docs](http://www.yaml.org/YAML_for_ruby.html).
+Instead of this:
+```ruby
+# deck.rb
+Squib::Deck.new(layout: 'custom-layout.yml') do
+  rect x: 75, y: 75, width: 675, height: 975
+end
+```
 
-Layouts will override Squib's defaults, but are overriden by anything specified in the command itself. Thus, the order of precedence looks like this:
+You can put your logic in the layout file and reference them:
+```yaml
+# custom-layout.yml
+frame:
+  x: 75
+  y: 75
+  width: 975
+  height: 675
+```
+Then your script looks like this:
+```ruby
+# deck.rb
+Squib::Deck.new(layout: 'custom-layout.yml') do
+  rect layout: 'frame'
+end
+```
+The goal is to make your Ruby code more separate data from logic, which in turn makes your code more readable and maintainable. With `extends` (see below), layouts become even more powerful in keeping you from repeating yourself.
+
+Note: YAML is very finnicky about not allowing tab characters. Use two spaces for indentation instead. If you get a `Psych` syntax error, this is likely the culprit. Indendation is also strongly enforced in Yaml too. See the [Yaml docs](http://www.yaml.org/YAML_for_ruby.html).
+
+### Order of Precedence
+
+Layouts will override Squib's system defaults, but are overriden by anything specified in the command itself. Thus, the order of precedence looks like this:
 
 * Use what the command specified
 * If anything was not yet specified, use what was given in a layout (if a layout was specified in the command and the file was given to the Deck)
 * If still anything was not yet specified, use what was given in Squib's defaults.
 
-Layouts also allow merging, extending, and combining layouts. The sample demonstrates this, but they are also explained below. See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
-
-{include:file:samples/layouts.rb}
-
 ### Special key: `extends`
 
-Squib provides a way of reusing layouts with the special `extends` key. When defining an `extends` key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent.
+Squib provides a way of reusing layouts with the special `extends` key. When defining an `extends` key, we can merge in another key and modify data coming in if we want to. This allows us to do things like place text next to an icon and be able to move them with each other. Like this:
 
 ```yaml
+# If we change the xy of attack, we move defend too!
 attack:
   x: 100
   y: 100
@@ -220,7 +341,7 @@ defend:
   #defend now is {:x => 150, :y => 100}
 ```
 
-Furthermore, if you want to extend multiple parents, it looks like this:
+If you want to extend multiple parents, it looks like this:
 
 ```yaml
 socrates:
@@ -233,6 +354,7 @@ aristotle:
     - plato
   x: += 50
 ```
+If multiple keys override the same keys in a parent, the later ("younger") child takes precedent.
 
 Note that extends keys are similar to Yaml's ["merge keys"](http://www.yaml.org/YAML_for_ruby.html#merge_key). With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:
 
@@ -246,11 +368,11 @@ icon_left
 # The layout for icon_left will have the width/height from icon!
 ```
 
-If you use both `extends` and Yaml merge keys, the Yaml merge keys are processed first, then extends. For clarity, however, you're probably just better off using `extends` instead.
+If you use both `extends` and Yaml merge keys, the Yaml merge keys are processed first, then extends. For clarity, however, you're probably just better off using `extends` exclusively.
 
 ### Multiple layout files
 
-Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each file_. YAML merge keys are NOT supported across multiple files - use extends instead. Here's a demonstrative example:
+Squib also supports the combination of multiple layout files. If you provide an `Array` of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after _each file_. Here's a complex example:
 
 ```yaml
 # load order: a.yml, b.yml
@@ -271,23 +393,30 @@ parent_b:
 # file b.yml #
 ##############
 child_a:
-  extends: parent_a
-  x: += 3    # evaluates to 113
+  extends: parent_a  # i.e. extends a layout in a separate file
+  x: += 3    # evaluates to 113 (i.e 110 + 3)
 parent_b:    # redefined
   extends: grandparent
-  x: += 30   # evaluates to 130
+  x: += 30   # evaluates to 130 (i.e. 100 + 30)
 child_b:
   extends: parent_b
-  x: += 3    # evaluates to 133
+  x: += 3    # evaluates to 133 (i.e. 130 + 3)
 ```
 
-This can hopefully be helpful for:
+This can be helpful for:
   * Creating a base layout for structure, and one for color (for easier color/black-and-white switching)
   * Sharing base layouts with other designers
+
+YAML merge keys are NOT supported across multiple files - use `extends` instead.
 
 ### Built-in Layout Files
 
 If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
+
+### Layout Sample
+This sample demonstrates many different ways of using and combining layouts. This is the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+
+{include:file:samples/layouts.rb}
 
 ## Backends: Raster vs. Vector
 Under the hood, Cairo has the ability to support a variety of surfaces to draw on, including both raster images stored in memory and vectors stored in SVG files. Thus, Squib supports the ability to handle both. They are options in the configuration file `backend: memory` or `backend: svg`.
@@ -309,16 +438,21 @@ Fortunately, switching backends in Squib should be as trivial as changing the se
 Squib supports various configuration properties that can be specified in an external file. The `config:` option in `Deck.new` can specify an optional configuration file in YML format. The properties there are intended to be immutable for the life of the Deck. The options include:
 
 * `progress_bars` (Boolean, default: false).  When set to `true`, long-running operations will show a progress bar on the command line.
-* `dpi` (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).
 * `hint` (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the `set` command. This setting is overriden by `set` and individual commands.
 * `custom_colors` (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.
-* `antialias` (`fast, good, best, none`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only X% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
+* `antialias` (`fast, good, best, none, gray, subpixel`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only ~10% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
 * `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
 * `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
 
-The following sample demonstrates the config file.
+For debugging/sanity purposes, if you want to make sure your configuration options are parsed correclty, the above options are also available as methods within Squib::Deck, for example:
 
-See the `custom_config` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
+```ruby
+Squib::Deck.new do
+  puts backend # prints 'memory' by default
+end
+```
+
+The following sample demonstrates the config file, found [here](https://github.com/andymeneely/squib/tree/master/samples/)
 
 {include:file:samples/custom_config.rb}
 
@@ -344,7 +478,7 @@ If you REALLY want to see tons of output, you can also set DEBUG, but that's not
 
 Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 
-* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Yaml's "merge keys" takes this a step further and lets you specify base styles that can then be extended by other styles. Squib goes even further and has a special "extends" that works especially well for grouped-together styles.
+* Custom layouts allow you to specify various arguments in a separate file. This is great for x-y coordinates and alignment properties that would otherwise clutter up perfectly readable code. Squib goes even further and has a special "extends" that works especially well for grouped-together styles.
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
 * Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into `config.yml` file.
 * Plus, you know, Ruby.
@@ -373,21 +507,39 @@ When you run `squib new`, you are given a basic Rakefile. At this stage of Squib
 
 * If you're in a subdirectory at the time, `rake` will simply traverse up and `cd` to the proper directory so you don't get rogue `_output` directories
 * If you find yourself building multiple decks, you can make your own tasks for each one individually, or all (e.g. `rake marketing`)
-* Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so it's probably a bad idea)
+* Don't need the `require squib` at the top of your code (although that breaks `ruby deck.rb`, so that's probably a bad idea)
 
-# Development
+## Using Google Sheets
 
-Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. If you are using Squib, however, I'd love to hear about it! Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues).
+We don't officially support Google Sheets ([yet](https://github.com/andymeneely/squib/issues/49)), but [this Gist](https://gist.github.com/pickfifteen/aeee73ec2ce162b0aee8) might be helpful in automatically exporting the CSV.
 
-# Contributing
+# Get Involved
 
-Squib is an open source tool, and I would love participation. If you want your code integrated:
+Squib is an open source tool, and I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can. I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler).
 
-1. Fork it ( https://github.com/[my-github-username]/squib/fork )
+Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). For bugs, a minimal code example along with your OS and Ruby details would be ideal.
+
+## Testing Pre-Builds
+
+If you want to test new features as I develop them, you can always point your Gemfile to the repository. Your Gemfile specification looks like this:
+
+```ruby
+gem 'squib', git: 'git://github.com/andymeneely/squib', branch: 'dev'
+```
+* The `dev` branch is where I am working on features in-process. I have not done much regression testing at this point, but would love testing feedback nonetheless.
+* The `master` branch is where I consider features and bug that are done and tested, but not released yet.
+
+## Contributing
+
+If you want your code integrated:
+
+1. Fork the git repository ( https://github.com/[my-github-username]/squib/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+Be sure to run the unit tests and packaging with just `rake`. Also, you can check that the samples render properly with `rake sanity`.
 
 # What's up the with the name?
 
