@@ -1,3 +1,4 @@
+require 'cairo'
 require 'squib/args/arg_loader'
 
 module Squib
@@ -8,7 +9,12 @@ module Squib
       include ArgLoader
 
       def self.parameters
-        { fill_color: '#0000', stroke_color: :black, stroke_width: 2.0 }
+        { fill_color: '#0000',
+          stroke_color: :black,
+          stroke_width: 2.0,
+          join: :miter,
+          cap: 'butt'
+        }
       end
 
       def self.expanding_parameters
@@ -17,6 +23,28 @@ module Squib
 
       def self.params_with_units
         [:stroke_width]
+      end
+
+      def validate_join(arg, _i)
+        case arg.to_s.strip.downcase
+        when 'miter'
+          Cairo::LINE_JOIN_MITER
+        when 'round'
+          Cairo::LINE_JOIN_ROUND
+        when 'bevel'
+          Cairo::LINE_JOIN_BEVEL
+        end
+      end
+
+      def validate_cap(arg, _i)
+        case arg.to_s.strip.downcase
+        when 'butt'
+          Cairo::LINE_CAP_BUTT
+        when 'round'
+          Cairo::LINE_CAP_ROUND
+        when 'square'
+          Cairo::LINE_CAP_SQUARE
+        end
       end
 
     end

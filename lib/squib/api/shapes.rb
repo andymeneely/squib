@@ -166,10 +166,11 @@ module Squib
     def curve(opts = {})
       opts = needs(opts, [:range, :x1, :y1, :cx1, :cy1, :x2, :y2, :cx2, :cy2,
                           :layout, :fill_color, :stroke_color, :stroke_width])
+      draw = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       opts[:range].each do |i|
         @cards[i].curve(opts[:x1][i], opts[:y1][i], opts[:cx1][i], opts[:cy1][i],
                         opts[:x2][i], opts[:y2][i], opts[:cx2][i], opts[:cy2][i],
-                        opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
+                        draw[i])
       end
     end
 

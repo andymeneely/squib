@@ -24,7 +24,8 @@ module Squib
         :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
         :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
         :antialias=, :curve_to, :matrix, :matrix=, :identity_matrix, :pango_layout_path,
-        :stroke_preserve, :target, :new_path, :fill_preserve, :close_path
+        :stroke_preserve, :target, :new_path, :fill_preserve, :close_path,
+        :set_line_join, :set_line_cap
 
       # :nodoc:
       # @api private
@@ -51,13 +52,16 @@ module Squib
 
       # Convenience method for a common task
       # @api private
-      def fill_n_stroke(fill_color, stroke_color, stroke_width)
+      def fill_n_stroke(fill_color, stroke_color, stroke_width, line_join = 0, line_cap = Cairo::LINE_CAP_BUTT)
         set_source_squibcolor(fill_color)
         fill_preserve
         set_source_squibcolor(stroke_color)
         set_line_width(stroke_width)
+        set_line_join(line_join)
+        set_line_cap(line_cap)
         stroke
       end
+
     end
   end
 end

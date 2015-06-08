@@ -7,7 +7,7 @@ module Squib
     def rect(box, draw)
       use_cairo do |cc|
         cc.rounded_rectangle(box.x, box.y, box.width, box.height, box.x_radius, box.y_radius)
-        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width)
+        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width, draw.join)
       end
     end
 
@@ -68,11 +68,11 @@ module Squib
 
         # :nodoc:
     # @api private
-    def curve(x1, y1, cx1, cy1, x2, y2, cx2, cy2, fill_color, stroke_color, stroke_width)
+    def curve(x1, y1, cx1, cy1, x2, y2, cx2, cy2, draw)
       use_cairo do |cc|
         cc.move_to(x1, y1)
         cc.curve_to(cx1, cy1, cx2, cy2, x2, y2)
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width, draw.join, draw.cap)
       end
     end
 

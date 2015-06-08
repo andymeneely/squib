@@ -1,5 +1,6 @@
 require 'squib/constants'
 require 'squib/conf'
+require 'ostruct'
 
 module Squib
   # @api private
