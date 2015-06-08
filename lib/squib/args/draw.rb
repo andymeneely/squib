@@ -13,7 +13,8 @@ module Squib
           stroke_color: :black,
           stroke_width: 2.0,
           join: :miter,
-          cap: 'butt'
+          cap: 'butt',
+          dash: ''
         }
       end
 
@@ -44,6 +45,12 @@ module Squib
           Cairo::LINE_CAP_ROUND
         when 'square'
           Cairo::LINE_CAP_SQUARE
+        end
+      end
+
+      def validate_dash(arg, _i)
+        arg.to_s.split.collect do |x|
+          convert_unit(x, @dpi).to_f
         end
       end
 

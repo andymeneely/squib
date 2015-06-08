@@ -7,7 +7,7 @@ module Squib
     def rect(box, draw)
       use_cairo do |cc|
         cc.rounded_rectangle(box.x, box.y, box.width, box.height, box.x_radius, box.y_radius)
-        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width, draw.join)
+        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width, draw.join, draw.cap, draw.dash)
       end
     end
 

@@ -22,6 +22,8 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts join [String] ('miter') how corners will be drawn on stroke. Options are 'miter', 'bevel', or 'round'. Note that this is separate from the x_radius and y_radius of the rounded rectangle. Becomes more obvious with wider strokes.
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
@@ -160,6 +162,7 @@ module Squib
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts cap [String] ('butt') how the end of the line is drawn. Options are "square", "butt", and "round"
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public

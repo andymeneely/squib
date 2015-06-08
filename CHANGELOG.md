@@ -3,11 +3,16 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.7.0 / Unreleased
 
+Features
+* Added `cap` option to `line` and `curve` to define how those ends are drawn
+* Added `join` option to all drawing operations (e.g. `rect`, `star`) to define how corners are drawn.
+* Added `dash` option to all drawing operations (e.g. `rect`, `star`) so you can specify your own dash pattern. Just specify a string with space-separated numbers to specify the on-and-off alternating pattern (e.g. `'2 2'` with a stroke width of 2 is evenly spaced dots). Supports unit conversion, too!
+
 Compatibility:
 * All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This might mean that your `stroke_width` will render wider than before.
 
 Chores:
-* Refactoring to make internal drawing code more DRY (#75)
+* Refactoring to make internal drawing code more DRY (#75, and much more). This is a big re-design that will help ease future features that involve manipulating arguments.
 
 ## v0.6.0 / 2015-05-26
 

@@ -12,6 +12,7 @@ module Squib
 
       # Main class invoked by the client (i.e. api/ methods)
       def load!(args, expand_by: 1, layout: {}, dpi: 300)
+        @dpi = dpi
         set_attributes(args: args)
         expand(by: expand_by)
         layout_args = prep_layout_args(args[:layout], expand_by: expand_by)
