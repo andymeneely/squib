@@ -1,3 +1,6 @@
+require 'squib/args/box'
+require 'squib/args/draw'
+
 module Squib
   class Deck
 
@@ -23,13 +26,12 @@ module Squib
     # @return [nil] intended to be void
     # @api public
     def rect(opts = {})
-      opts = needs(opts, [:range, :x, :y, :width, :height, :rect_radius, :x_radius, :y_radius,
+      opts = needs(opts, [:range, :rect_radius, :x_radius, :y_radius,
                           :fill_color, :stroke_color, :stroke_width, :layout])
+      box  = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       opts[:range].each do |i|
-        @cards[i].rect(opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
-                       opts[:x_radius][i], opts[:y_radius][i],
-                       opts[:fill_color][i], opts[:stroke_color][i],
-                       opts[:stroke_width][i])
+        @cards[i].rect(box[i], draw[i])
       end
     end
 

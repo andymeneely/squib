@@ -4,12 +4,10 @@ module Squib
 
     # :nodoc:
     # @api private
-    def rect(x, y, width, height, x_radius, y_radius, fill_color, stroke_color, stroke_width)
-      width  = @width   if width == :native
-      height = @height  if height == :native
+    def rect(box, draw)
       use_cairo do |cc|
-        cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.rounded_rectangle(box.x, box.y, box.width, box.height, box.x_radius, box.y_radius)
+        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width)
       end
     end
 

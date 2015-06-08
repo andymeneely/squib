@@ -32,9 +32,10 @@ describe Squib::Card do
       expect(cxt).to receive(:restore).once
 
       card = Squib::Card.new(deck, 100, 150)
-      # rect(x, y, width, height, x_radius, y_radius,
-      #      fill_color, stroke_color, stroke_width)
-      card.rect(37, 38, 50, 100, 10, 15, '#fff', '#f00', 2.0)
+      # rect(Args::Box, x_radius, y_radius, Args::Draw)
+      box  = OpenStruct.new(x: 37, y: 38, width: 50, height: 100, x_radius: 10, y_radius: 15)
+      draw = OpenStruct.new(fill_color: '#fff', stroke_color: '#f00', stroke_width: 2.0)
+      card.rect(box, draw)
     end
   end
 
