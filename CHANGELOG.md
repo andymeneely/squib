@@ -13,6 +13,7 @@ Compatibility:
 
 Chores:
 * Refactoring to make internal drawing code more DRY (#75, and much more). This is a big re-design that will help ease future features that involve manipulating arguments.
+* Better testing and general flexibility around the `range` option.
 
 ## v0.6.0 / 2015-05-26
 

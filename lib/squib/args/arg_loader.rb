@@ -65,7 +65,7 @@ module Squib
           val = instance_variable_get(attribute)
           if val.respond_to? :each
             new_val = val.map.with_index do |v, i|
-              v ||= layout[layout_args[i]][param] unless layout_args[i].nil?
+              v ||= layout[layout_args[i].to_s][param] unless layout_args[i].nil?
               v ||= default
             end
             instance_variable_set(attribute, new_val)
@@ -78,7 +78,7 @@ module Squib
       # For each parameter/attribute foo we try to invoke a validate_foo
       def validate
         self.class.parameters.each do |param, default|
-          method    = "validate_#{param}"
+          method = "validate_#{param}"
           if self.respond_to? method
             attribute = "@#{param}"
             val = instance_variable_get(attribute)

@@ -52,17 +52,21 @@ module Squib
 
       # Convenience method for a common task
       # @api private
-      def fill_n_stroke(fill_color, stroke_color, stroke_width,
-                        line_join = 0, line_cap = Cairo::LINE_CAP_BUTT,
-                        dash = [])
-        set_source_squibcolor(fill_color)
+      def fill_n_stroke(draw)
+        set_source_squibcolor draw.fill_color
         fill_preserve
-        set_source_squibcolor(stroke_color)
-        set_line_width(stroke_width)
-        set_line_join(line_join)
-        set_line_cap(line_cap)
-        set_dash(dash)
+        set_source_squibcolor draw.stroke_color
+        set_line_width draw.stroke_width
+        set_line_join draw.join
+        set_line_cap draw.cap
+        set_dash draw.dash
         stroke
+      end
+
+      def rotate_about(x, y, angle)
+        translate(x, y)
+        rotate(angle)
+        translate(-x, -y)
       end
 
     end

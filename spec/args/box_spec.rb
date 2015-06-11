@@ -70,6 +70,15 @@ describe Squib::Args::Box do
          y: [0, 0],    # Box default
         )
     end
+
+    it 'handles symbols' do
+      args = { layout: :attack }
+      box.load!(args, expand_by: 2, layout: layout)
+      expect(box).to have_attributes(
+         x: [50, 50],  # set by layout
+         y: [0, 0],    # Box default
+        )
+    end
   end
 
   context 'unit conversion' do

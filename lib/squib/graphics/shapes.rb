@@ -7,17 +7,18 @@ module Squib
     def rect(box, draw)
       use_cairo do |cc|
         cc.rounded_rectangle(box.x, box.y, box.width, box.height, box.x_radius, box.y_radius)
-        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width, draw.join, draw.cap, draw.dash)
+        cc.fill_n_stroke(draw)
       end
     end
 
     # :nodoc:
     # @api private
-    def circle(x, y, radius, fill_color, stroke_color, stroke_width)
+    def circle(box, draw)
+      x, y, r = box.x, box.y, box.radius
       use_cairo do |cc|
-        cc.move_to(x + radius, y)
-        cc.circle(x, y, radius)
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.move_to(x + r, y)
+        cc.circle(x, y, r)
+        cc.fill_n_stroke(draw)
       end
     end
 
@@ -26,7 +27,8 @@ module Squib
     # of the rectangle. Control points are at 1/4 and 3/4 of the side.
     # :nodoc:
     # @api private
-    def ellipse(x, y, w, h, fill_color, stroke_color, stroke_width)
+    def ellipse(box, draw)
+      x, y, w, h = box.x, box.y, box.width, box.height
       use_cairo do |cc|
         cc.move_to(x, y + 0.5*h)       # start west
         cc.curve_to(x, y + 0.25*h,     # west to north
@@ -41,67 +43,68 @@ module Squib
         cc.curve_to(x + 0.25*w, y + h, # south to west
                     x, y + 0.75*h,
                     x, y + 0.5*h)
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.fill_n_stroke(draw)
       end
     end
 
     # :nodoc:
     # @api private
-    def triangle(x1, y1, x2, y2, x3, y3, fill_color, stroke_color, stroke_width)
+    def triangle(tri, draw)
       use_cairo do |cc|
-        cc.triangle(x1, y1, x2, y2, x3, y3)
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.triangle(tri.x1, tri.y1, tri.x2, tri.y2, tri.x3, tri.y3)
+        cc.fill_n_stroke(draw)
       end
     end
 
     # :nodoc:
     # @api private
-    def line(x1, y1, x2, y2, stroke_color, stroke_width)
+    def line(coord, draw)
       use_cairo do |cc|
-        cc.move_to(x1, y1)
-        cc.line_to(x2, y2)
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
-        cc.stroke
+        cc.move_to(coord.x1, coord.y1)
+        cc.line_to(coord.x2, coord.y2)
+        cc.fill_n_stroke(draw)
       end
     end
 
         # :nodoc:
     # @api private
-    def curve(x1, y1, cx1, cy1, x2, y2, cx2, cy2, draw)
+    def curve(bez, draw)
+      x1, y1, cx1, cy1 = bez.x1, bez.y1, bez.cx1, bez.cy1
+      cx2, cy2, x2, y2 = bez.cx2, bez.cy2, bez.x2, bez.y2
       use_cairo do |cc|
         cc.move_to(x1, y1)
         cc.curve_to(cx1, cy1, cx2, cy2, x2, y2)
-        cc.fill_n_stroke(draw.fill_color, draw.stroke_color, draw.stroke_width, draw.join, draw.cap)
+        cc.fill_n_stroke(draw)
       end
     end
 
     # :nodoc:
     # @api private
-    def star(x, y, n, angle, inner_radius, outer_radius, fill_color, stroke_color, stroke_width)
+    def star(poly, trans, draw)
+      x, y, n = poly.x, poly.y, poly.n
+      inner_radius, outer_radius = poly.inner_radius, poly.outer_radius
       use_cairo do |cc|
-        cc.translate(x, y)
-        cc.rotate(angle)
-        cc.translate(-x, -y)
-        cc.move_to(x + outer_radius, y) #i = 0, so cos(0)=1 and sin(0)=0
-        theta = Math::PI / n.to_f # i.e. (2*pi) / (2*n)
-        0.upto(2 * n) do |i|
-            radius = i.even? ? outer_radius : inner_radius
-            cc.line_to(x + radius * Math::cos(i * theta),
-                       y + radius * Math::sin(i * theta))
+        poly.instance_eval do
+          cc.rotate_about(x, y, trans.angle)
+          cc.move_to(x + outer_radius, y) #i = 0, so cos(0)=1 and sin(0)=0
+          theta = Math::PI / n.to_f # i.e. (2*pi) / (2*n)
+          0.upto(2 * n) do |i|
+              radius = i.even? ? outer_radius : inner_radius
+              cc.line_to(x + radius * Math::cos(i * theta),
+                         y + radius * Math::sin(i * theta))
+          end
         end
         cc.close_path
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.fill_n_stroke(draw)
       end
     end
 
     # :nodoc:
     # @api private
-    def polygon(x, y, n, angle, radius, fill_color, stroke_color, stroke_width)
+    def polygon(poly, trans, draw)
+      x, y, n, radius = poly.x, poly.y, poly.n, poly.radius
       use_cairo do |cc|
-        cc.translate(x, y)
-        cc.rotate(angle)
-        cc.translate(-x, -y)
+        cc.rotate_about(x, y, trans.angle)
         cc.move_to(x + radius, y) # i = 0, so cos(0)=1 and sin(0)=0
         theta = (2 * Math::PI) / n.to_f
         0.upto(n) do |i|
@@ -109,9 +112,10 @@ module Squib
                        y + radius * Math::sin(i * theta))
         end
         cc.close_path
-        cc.fill_n_stroke(fill_color, stroke_color, stroke_width)
+        cc.fill_n_stroke(draw)
       end
     end
 
   end
 end
+
