@@ -65,7 +65,7 @@ module Squib
           val = instance_variable_get(attribute)
           if val.respond_to? :each
             new_val = val.map.with_index do |v, i|
-              v ||= layout[layout_args[i].to_s][param] unless layout_args[i].nil?
+              v ||= layout[layout_args[i].to_s][param.to_s] unless layout_args[i].nil?
               v ||= default
             end
             instance_variable_set(attribute, new_val)

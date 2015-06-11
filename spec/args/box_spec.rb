@@ -49,8 +49,8 @@ describe Squib::Args::Box do
 
   context 'layouts' do
     let(:layout) do
-      { 'attack' => { x: 50 },
-        'defend' => { x: 60 } }
+      { 'attack' => { 'x' => 50 },
+        'defend' => { 'x' => 60 } }
     end
 
     it 'are used when not specified' do
