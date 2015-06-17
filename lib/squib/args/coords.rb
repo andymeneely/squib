@@ -4,14 +4,19 @@ module Squib
   # @api private
   module Args
 
-    class Bezier
+    class Coords
       include ArgLoader
 
       def self.parameters
-        { x1: 100, y1: 100,
-          cx1: 0 , cy1: 0,
+        { x: 0,    y: 0,
+          x1: 100, y1: 100,
           x2: 150, y2: 150,
-          cx2: 0 , cy2: 0}
+          x3: 100, y3: 150,
+          cx1: 0 , cy1: 0,
+          cx2: 0 , cy2: 0,
+          inner_radius: 50, outer_radius: 100,
+          radius: 100,
+          n: 5, }
       end
 
       def self.expanding_parameters

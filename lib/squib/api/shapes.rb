@@ -1,10 +1,8 @@
 require 'squib/args/box'
 require 'squib/args/draw'
 require 'squib/args/card_range'
-require 'squib/args/tri'
-require 'squib/args/bezier'
-require 'squib/args/polygon'
 require 'squib/args/transform'
+require 'squib/args/coords'
 
 module Squib
   class Deck
@@ -58,11 +56,10 @@ module Squib
     # @return [nil] intended to be void
     # @api public
     def circle(opts = {})
-      range = Args::CardRange.new(opts[:range], deck_size: size)
-      opts  = {radius: 100}.merge(opts) # overriding the non-system default
-      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      draw  = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].circle(box[i], draw[i]) }
+      range  = Args::CardRange.new(opts[:range], deck_size: size)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw   = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].circle(coords[i], draw[i]) }
     end
 
     # Draw an ellipse
@@ -115,8 +112,8 @@ module Squib
     def triangle(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      tri   = Args::Tri.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].triangle(tri[i], draw[i]) }
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].triangle(coords[i], draw[i]) }
     end
 
     # Draw a line using the given coordinates
@@ -139,8 +136,8 @@ module Squib
     def line(opts = {})
       range   = Args::CardRange.new(opts[:range], deck_size: size)
       draw    = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      bezier  = Args::Bezier.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].line(bezier[i], draw[i]) }
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].line(coords[i], draw[i]) }
     end
 
     # Draw a curve using the given coordinates
@@ -165,8 +162,8 @@ module Squib
     def curve(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      bezier  = Args::Bezier.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].curve(bezier[i], draw[i]) }
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].curve(coords[i], draw[i]) }
     end
 
     # Draw a star at the given x,y
@@ -190,9 +187,9 @@ module Squib
     def star(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      poly  = Args::Polygon.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].star(poly[i], trans[i], draw[i]) }
+      range.each { |i| @cards[i].star(coords[i], trans[i], draw[i]) }
     end
 
     # Draw a regular polygon at the given x,y
@@ -216,9 +213,9 @@ module Squib
     def polygon(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      poly  = Args::Polygon.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].polygon(poly[i], trans[i], draw[i]) }
+      range.each { |i| @cards[i].polygon(coords[i], trans[i], draw[i]) }
     end
 
   end
