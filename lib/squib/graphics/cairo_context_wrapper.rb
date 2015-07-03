@@ -63,6 +63,17 @@ module Squib
         stroke
       end
 
+      # Convenience method for a common task
+      # @api private
+      def fancy_stroke(draw)
+        set_source_squibcolor draw.stroke_color
+        set_line_width draw.stroke_width
+        set_line_join draw.join
+        set_line_cap draw.cap
+        set_dash draw.dash
+        stroke
+      end
+
       def rotate_about(x, y, angle)
         translate(x, y)
         rotate(angle)

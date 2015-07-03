@@ -82,6 +82,10 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        color: :green, stroke_width: 2.0, stroke_color: :blue,
        x: '1.8in', y: '3in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
+  text str: "Dotted",
+       color: :white, stroke_width: 2.0, dash: '4 2', stroke_color: :black,
+       x: '1.8in', y: '3.1in', width: '0.85in', font: 'Sans Bold 28', markup: true
+
   text str: "<b>Markup</b> is <i>quite</i> <s>'easy'</s> <span fgcolor=\"\#ff0000\">awesome</span>. Can't beat those \"smart\" 'quotes', now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...",
        markup: true,
        x: 50, y: 1000,
