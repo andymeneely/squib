@@ -54,9 +54,6 @@ module Squib
       box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       draw = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      opts = needs(opts, [:str, :font, :font_size, :color, :wrap,
-                          :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout,
-                          :quotes])
       embed = TextEmbed.new
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
