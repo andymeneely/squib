@@ -2,7 +2,8 @@ require 'spec_helper'
 require 'squib/args/box'
 
 describe Squib::Args::Draw do
-  subject(:draw) { Squib::Args::Draw.new }
+  let(:custom_colors) { {'foo' => 'abc'} }
+  subject(:draw)      {Squib::Args::Draw.new(custom_colors)}
 
   context 'unit conversion' do
 
@@ -43,6 +44,19 @@ describe Squib::Args::Draw do
       expect(draw).to have_attributes(dash: [[900, 1200, 1500]])
     end
 
-  end
+    context 'custom colors' do
 
+      it 'looks up custom colors in the config' do
+        draw.load!({color: 'foo'})
+        expect(draw.color).to eq ['abc']
+      end
+
+      it 'passes on through for non-custom color' do
+        draw = Squib::Args::Draw.new(custom_colors)
+        draw.load!({color: 'bar'})
+        expect(draw.color).to eq ['bar']
+      end
+
+    end
+  end
 end

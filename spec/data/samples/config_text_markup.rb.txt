@@ -1,6 +1,6 @@
 cairo: antialias=(["gray"])
 cairo: save([])
-cairo: set_source_color([:white])
+cairo: set_source_color(["white"])
 cairo: paint([])
 cairo: restore([])
 cairo: save([])

@@ -11,8 +11,9 @@ module Squib
     # @return [nil] nothing
     # @api public
     def background(opts = {})
-      opts = needs(opts,[:range, :color])
-      opts[:range].each { |i| @cards[i].background(opts[:color][i]) }
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].background(draw.color[i]) }
     end
 
   end
