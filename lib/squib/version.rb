@@ -1,5 +1,4 @@
 module Squib
-
   # The next version to be released.
   # Uses semantic versioning: http://semver.org/
   #

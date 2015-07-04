@@ -1,8 +1,7 @@
 require 'spec_helper'
 require 'squib'
 
-describe  Squib::Commands::New do
-
+describe Squib::Commands::New do
   describe '#process' do
     before(:all) do
       @old_stderr = $stderr
@@ -17,18 +16,18 @@ describe  Squib::Commands::New do
     end
 
     it 'raises an error if no directory was specified' do
-      expect{@cmd.process([])}.to raise_error(ArgumentError, 'Please specify a path.')
+      expect { @cmd.process([]) }.to raise_error(ArgumentError, 'Please specify a path.')
     end
 
     it 'creates a new template on an fresh directory' do
       @cmd.process(['foo'])
-      expect(File.exists?('foo/deck.rb')).to be true
+      expect(File.exist?('foo/deck.rb')).to be true
     end
 
     it 'creates a new template on an empty directory' do
       Dir.mkdir('foo')
       @cmd.process(['foo'])
-      expect(File.exists?('foo/deck.rb')).to be true
+      expect(File.exist?('foo/deck.rb')).to be true
     end
 
     it 'does not create a new template on an empty ' do
@@ -44,5 +43,4 @@ describe  Squib::Commands::New do
       Dir.chdir(@oldpwd)
     end
   end
-
 end

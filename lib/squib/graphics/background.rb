@@ -1,6 +1,5 @@
 module Squib
   class Card
-
     # :nodoc:
     # @api private
     def background(color)
@@ -9,6 +8,5 @@ module Squib
         cc.paint
       end
     end
-
   end
 end

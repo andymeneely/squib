@@ -2,9 +2,8 @@ require 'spec_helper'
 require 'squib'
 
 describe Squib::Deck, '#text' do
-
   context 'fonts' do
-     it "should use the default font when #text and #set_font don't specify" do
+    it "should use the default font when #text and #set_font don't specify" do
       card = instance_double(Squib::Card)
       expect(card).to receive(:text).with(anything, 'a', 'Arial 36', *([anything] * 17)).once
       Squib::Deck.new do
@@ -33,5 +32,4 @@ describe Squib::Deck, '#text' do
       end
     end
   end
-
 end

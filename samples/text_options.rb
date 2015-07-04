@@ -1,8 +1,8 @@
 # encoding: UTF-8
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
-        'level' => [1,2,3]}
+data = { 'name' => %w(Thief Grifter Mastermind),
+         'level' => [1, 2, 3] }
 longtext = "This is left-justified text, with newlines.\nWhat do you know about tweetle beetles? well... When tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle."
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
@@ -14,10 +14,10 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: data['name'], x: 250, y: 55, font: 'Arial weight=900 54'
   text str: data['level'], x: 65, y: 40, font: 'Arial 72', color: :burnt_orange
 
-  text str: 'Font strings are expressive!', x:65, y: 200,
+  text str: 'Font strings are expressive!', x: 65, y: 200,
        font: 'Impact bold italic 36'
 
-  text str: 'Font strings are expressive!', x:65, y: 300,
+  text str: 'Font strings are expressive!', x: 65, y: 300,
        font: 'Arial,Verdana weight=900 style=oblique 36'
 
   text str: 'Font string sizes can be overridden per card.', x: 65, y: 350,
@@ -28,16 +28,16 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        x: 65, y: 400,
        width: 300, height: 125,
        align: :center, valign: 'MIDDLE', # these can be specified with case-insenstive strings too
-       font: 'Serif 16', quotes: [:smart,:smart, :dumb]
+       font: 'Serif 16', quotes: [:smart, :smart, :dumb]
 
   extents = text str: 'Ink extent return value',
-       x: 65, y: 550,
-       font: 'Sans Bold', font_size: [16, 20, 24]
+                 x: 65, y: 550,
+                 font: 'Sans Bold', font_size: [16, 20, 24]
   margin = 10
   # Extents come back as an array of hashes, which can get split out like this
   ws = extents.inject([]) { |arr, ext| arr << ext[:width] + 10; arr }
   hs = extents.inject([]) { |arr, ext| arr << ext[:height] + 10; arr }
-  rect x: 65 - margin/2, y: 550 - margin/2,
+  rect x: 65 - margin / 2, y: 550 - margin / 2,
        width: ws, height: hs,
        radius: 10, stroke_color: :black
 
@@ -51,16 +51,16 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   # Text hints are guides for showing you how your text boxes are laid out exactly
   hint text: :cyan
   text str: 'Text hints are also globally togglable!',
-        x: 65, y: 625,
-        font: 'Arial 22'
+       x: 65, y: 625,
+       font: 'Arial 22'
   hint text: :off
   text str: 'See? No hint here.',
-        x: 565, y: 625,
-        font: 'Arial 22'
+       x: 565, y: 625,
+       font: 'Arial 22'
 
   text str: 'Rotated',
-        x: 565, y: 675, angle: 0.2,
-        font: 'Arial 18', hint: :red
+       x: 565, y: 675, angle: 0.2,
+       font: 'Arial 18', hint: :red
 
   # Text can be justified, and have newlines
   text str: longtext, font: 'Arial 16',
@@ -88,7 +88,6 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        width: 750, height: 100,
        valign: :bottom,
        font: 'Serif 18', hint: :cyan
-
 
   save prefix: 'text_', format: :png
 end

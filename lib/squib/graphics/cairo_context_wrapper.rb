@@ -19,12 +19,12 @@ module Squib
       end
 
       def_delegators :cairo_cxt, :save, :set_source_color, :paint, :restore,
-        :translate, :rotate, :move_to, :update_pango_layout, :width, :height,
-        :show_pango_layout, :rounded_rectangle, :set_line_width, :stroke, :fill,
-        :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
-        :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
-        :antialias=, :curve_to, :matrix, :matrix=, :identity_matrix, :pango_layout_path,
-        :stroke_preserve, :target, :new_path, :fill_preserve, :close_path
+                     :translate, :rotate, :move_to, :update_pango_layout, :width, :height,
+                     :show_pango_layout, :rounded_rectangle, :set_line_width, :stroke, :fill,
+                     :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
+                     :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
+                     :antialias=, :curve_to, :matrix, :matrix=, :identity_matrix, :pango_layout_path,
+                     :stroke_preserve, :target, :new_path, :fill_preserve, :close_path
 
       # :nodoc:
       # @api private

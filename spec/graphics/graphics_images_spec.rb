@@ -2,22 +2,21 @@ require 'spec_helper'
 require 'squib'
 
 describe Squib::Card do
-
   let(:deck)    { double(Squib::Deck) }
   let(:context) { double(Cairo::Context) }
   let(:svg)     { double(RSVG::Handle) }
   let(:png)     { double(Cairo::ImageSurface) }
 
   before(:each) do
-      allow(Cairo::Context).to receive(:new).and_return(context)
-      allow(Cairo::ImageSurface).to receive(:from_png).and_return(png)
-      allow(Cairo::ImageSurface).to receive(:new).and_return(png)
-      allow(RSVG::Handle).to receive(:new_from_data).and_return(svg)
-      allow(deck).to receive(:dir).and_return('_output')
-      allow(deck).to receive(:count_format).and_return('%02d')
-      allow(deck).to receive(:prefix).and_return('card_')
-      allow(deck).to receive(:antialias).and_return('subpixel')
-      allow(deck).to receive(:backend).and_return('memory')
+    allow(Cairo::Context).to receive(:new).and_return(context)
+    allow(Cairo::ImageSurface).to receive(:from_png).and_return(png)
+    allow(Cairo::ImageSurface).to receive(:new).and_return(png)
+    allow(RSVG::Handle).to receive(:new_from_data).and_return(svg)
+    allow(deck).to receive(:dir).and_return('_output')
+    allow(deck).to receive(:count_format).and_return('%02d')
+    allow(deck).to receive(:prefix).and_return('card_')
+    allow(deck).to receive(:antialias).and_return('subpixel')
+    allow(deck).to receive(:backend).and_return('memory')
   end
 
   context '#png' do
@@ -81,5 +80,4 @@ describe Squib::Card do
       card.svg(nil, '<svg></svg>', nil, 37, 38, 200, 300, 0.9, :none, 0.0, nil)
     end
   end
-
 end

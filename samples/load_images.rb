@@ -10,7 +10,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   # Can be scaled if width and height are set
   svg file: 'spanner.svg', x: 50, y: 50, width: 250, height: 250
   png file: 'shiny-purse.png', x: 305, y: 50, width: 250, height: 250
-  #...but PNGs will warn if it's an upscale
+  # ...but PNGs will warn if it's an upscale
 
   # We can also limit our rendering to a single object, if the SVG ID is set
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75

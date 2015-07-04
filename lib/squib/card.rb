@@ -5,7 +5,6 @@ require 'squib/graphics/cairo_context_wrapper'
 module Squib
   # Back end graphics. Private.
   class Card
-
     # :nodoc:
     # @api private
     attr_reader :width, :height, :backend, :svgfile
@@ -16,7 +15,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    def initialize(deck, width, height, index=-1)
+    def initialize(deck, width, height, index = -1)
       @deck          = deck
       @width         = width
       @height        = height
@@ -34,7 +33,7 @@ module Squib
       when :memory
         Cairo::ImageSurface.new(@width, @height)
       when :svg
-        Dir.mkdir @deck.dir unless Dir.exists?(@deck.dir)
+        Dir.mkdir @deck.dir unless Dir.exist?(@deck.dir)
         Cairo::SVGSurface.new(svgfile, @width, @height)
       else
         Squib.logger.fatal "Back end not recognized: '#{backend}'"
@@ -42,10 +41,9 @@ module Squib
       end
     end
 
-
-  # A save/restore wrapper for using Cairo
-  # :nodoc:
-  # @api private
+    # A save/restore wrapper for using Cairo
+    # :nodoc:
+    # @api private
     def use_cairo(&block)
       @cairo_context.save
       block.yield(@cairo_context)
@@ -62,6 +60,5 @@ module Squib
     require 'squib/graphics/shapes'
     require 'squib/graphics/showcase'
     require 'squib/graphics/text'
-
   end
 end

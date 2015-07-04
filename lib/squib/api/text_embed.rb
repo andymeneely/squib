@@ -29,8 +29,8 @@ module Squib
       opts = { width: 32, height: 32 }.merge(opts)
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       # TODO: add input validation here. We need the key for example.
-      rule = {type: :svg}.merge(opts)
-      rule[:draw] = Proc.new do |card, x,y|
+      rule = { type: :svg }.merge(opts)
+      rule[:draw] = proc do |card, x, y|
         card.svg(rule[:file], rule[:data], rule[:id], x, y, rule[:width], rule[:height],
                  rule[:alpha], rule[:blend], rule[:angle], rule[:mask])
       end
@@ -54,13 +54,12 @@ module Squib
       opts = { width: 32, height: 32 }.merge(opts)
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       # TODO: add input validation here. We need the key for example.
-      rule = {type: :png}.merge(opts)
-      rule[:draw] = Proc.new do |card, x,y|
+      rule = { type: :png }.merge(opts)
+      rule[:draw] = proc do |card, x, y|
         card.png(rule[:file], x, y, rule[:width], rule[:height],
                  rule[:alpha], rule[:blend], rule[:angle], rule[:mask])
       end
       @rules[opts[:key]] = rule
     end
-
   end
 end

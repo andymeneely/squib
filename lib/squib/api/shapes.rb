@@ -1,6 +1,5 @@
 module Squib
   class Deck
-
     # Draw a rounded rectangle
     #
     # @example
@@ -51,12 +50,12 @@ module Squib
     # @return [nil] intended to be void
     # @api public
     def circle(opts = {})
-      opts = {radius: 100}.merge(opts) # overriding the non-system default
+      opts = { radius: 100 }.merge(opts) # overriding the non-system default
       opts = needs(opts, [:range, :x, :y, :circle_radius, :layout,
                           :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|
         @cards[i].circle(opts[:x][i], opts[:y][i], opts[:radius][i],
-          opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
+                         opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
       end
     end
 
@@ -91,7 +90,7 @@ module Squib
     # Draw a triangle using the given coordinates
     #
     # @example
-    #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50, :x3 => 0, :y3 => 50
+    #   triangle x1: 0, y1: 0, x2: 50, y2: 50, x3: 0, y3: 50
     #
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
@@ -123,7 +122,7 @@ module Squib
     # Draw a line using the given coordinates
     #
     # @example
-    #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50
+    #   triangle x1: 0, y1: 0, x2: 50, y2: 50
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x1 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
@@ -193,9 +192,9 @@ module Squib
                           :layout, :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|
         @cards[i].star(opts[:x][i], opts[:y][i], opts[:n][i], opts[:angle][i],
-                        opts[:inner_radius][i], opts[:outer_radius][i],
-                        opts[:fill_color][i], opts[:stroke_color][i],
-                        opts[:stroke_width][i])
+                       opts[:inner_radius][i], opts[:outer_radius][i],
+                       opts[:fill_color][i], opts[:stroke_color][i],
+                       opts[:stroke_width][i])
       end
     end
 
@@ -219,10 +218,9 @@ module Squib
       opts = needs(opts, [:range, :x, :y, :n, :circle_radius, :angle, :layout, :fill_color, :stroke_color, :stroke_width])
       opts[:range].each do |i|
         @cards[i].polygon(opts[:x][i], opts[:y][i], opts[:n][i], opts[:angle][i], opts[:radius][i],
-                        opts[:fill_color][i], opts[:stroke_color][i],
-                        opts[:stroke_width][i])
+                          opts[:fill_color][i], opts[:stroke_color][i],
+                          opts[:stroke_width][i])
       end
     end
-
   end
 end

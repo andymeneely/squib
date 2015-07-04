@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'squib'
 
 describe Squib::Deck do
-
   it 'initializes with default parameters' do
     d = Squib::Deck.new
     expect(d.width).to eq(825)
@@ -53,14 +52,11 @@ describe Squib::Deck do
 
   it 'loads a normal layout with no extends' do
     d = Squib::Deck.new(layout: layout_file('no-extends.yml'))
-    expect(d.layout).to eq({
-      'frame' => {
-        'x' => 38,
-        'valign' => :middle,
-        'str' => 'blah',
-        'font' => 'Mr. Font',
-      }
-    })
+    expect(d.layout).to eq('frame' => {
+                             'x' => 38,
+                             'valign' => :middle,
+                             'str' => 'blah',
+                             'font' => 'Mr. Font'
+                           })
   end
-
 end

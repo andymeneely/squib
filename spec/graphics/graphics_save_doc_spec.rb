@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'squib'
 
 describe Squib::Deck, '#save_pdf' do
-
   context 'typical inputs' do
     let(:cxt) { double(Cairo::Context) }
 
@@ -11,22 +10,22 @@ describe Squib::Deck, '#save_pdf' do
       expect(cxt).to receive(:rectangle).once
       expect(cxt).to receive(:clip).once
       expect(cxt).to receive(:set_source)  # place the card
-                      .with(instance_of(Cairo::ImageSurface), 0, 0).once
+        .with(instance_of(Cairo::ImageSurface), 0, 0).once
       expect(cxt).to receive(:paint).once  # paint placed card
-      expect(cxt).to receive(:translate).with(-x,-y).once
+      expect(cxt).to receive(:translate).with(-x, -y).once
       expect(cxt).to receive(:reset_clip).once
     end
 
     before(:each) do
-      allow(Cairo::PDFSurface).to receive(:new).and_return(nil) #don't create the file
-      allow(Cairo::Context).to    receive(:new).and_return(cxt)
+      allow(Cairo::PDFSurface).to receive(:new).and_return(nil) # don't create the file
+      allow(Cairo::Context).to receive(:new).and_return(cxt)
       allow(cxt).to receive(:antialias=)
     end
 
     it 'make all the expected calls on a smoke test' do
       num_cards = 9
       deck = Squib::Deck.new(cards: 9, width: 825, height: 1125)
-      expect(deck).to receive(:dirify) { |arg| arg } #don't create the dir
+      expect(deck).to receive(:dirify) { |arg| arg } # don't create the dir
       expect(Squib.logger).to receive(:debug).at_least(:once)
       expect(cxt).to receive(:scale).with(0.24, 0.24)
 
@@ -50,7 +49,7 @@ describe Squib::Deck, '#save_pdf' do
       args = { range: 2..4, file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
       expect(Squib.logger).to receive(:debug).at_least(:once)
-      expect(deck).to receive(:dirify) { |arg| arg }  #don't create the dir
+      expect(deck).to receive(:dirify) { |arg| arg }  # don't create the dir
       expect(cxt).to receive(:scale).with(0.24, 0.24)
 
       expect_card_place(75, 75)
@@ -59,7 +58,5 @@ describe Squib::Deck, '#save_pdf' do
 
       deck.save_pdf(args)
     end
-
   end
-
 end

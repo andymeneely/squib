@@ -1,5 +1,4 @@
 module Squib
-
   # Cache all pngs we've already loaded
   #
   # :nodoc:
@@ -11,19 +10,18 @@ module Squib
   module_function :cache_load_image
 
   class Card
-
     # :nodoc:
     # @api private
     def png(file, x, y, width, height, alpha, blend, angle, mask)
-      Squib.logger.debug {"Rendering: #{file} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
-      return if file.nil? or file.eql? ''
+      Squib.logger.debug { "Rendering: #{file} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}" }
+      return if file.nil? || file.eql?('')
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
         cc.translate(x, y)
         if width != :native || height != :native
-          width  == :native && width  = png.width.to_f
+          width == :native && width  = png.width.to_f
           height == :native && height = png.height.to_f
-          Squib.logger.warn "PNG scaling results in antialiasing."
+          Squib.logger.warn 'PNG scaling results in antialiasing.'
           cc.scale(width.to_f / png.width.to_f, height.to_f / png.height.to_f)
         end
         cc.rotate(angle)
@@ -42,9 +40,9 @@ module Squib
     # :nodoc:
     # @api private
     def svg(file, data, id, x, y, width, height, alpha, blend, angle, mask)
-      Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
-      Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? or data.to_s.empty?
-      return if (file.nil? or file.eql? '') and data.nil? # nothing specified
+      Squib.logger.debug { "Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}" }
+      Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? || data.to_s.empty?
+      return if (file.nil? || file.eql?('')) && data.nil? # nothing specified
       data = File.read(file) if data.to_s.empty?
       svg          = RSVG::Handle.new_from_data(data)
       width        = svg.width  if width == :native
@@ -56,7 +54,7 @@ module Squib
         cc.rotate(angle)
         cc.scale(scale_width, scale_height)
         cc.operator = blend unless blend == :none
-        #FIXME Alpha is no longer used since we are not using cc.paint anymore
+        # FIXME: Alpha is no longer used since we are not using cc.paint anymore
         if mask.nil?
           cc.render_rsvg_handle(svg, id)
         else
@@ -68,6 +66,5 @@ module Squib
         end
       end
     end
-
   end
 end

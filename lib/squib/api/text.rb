@@ -2,7 +2,6 @@ require 'squib/api/text_embed'
 
 module Squib
   class Deck
-
     # Renders a string at a given location, width, alignment, font, etc.
     #
     #   Unix-like newlines are interpreted even on Windows.
@@ -48,19 +47,18 @@ module Squib
                           :align, :justify, :spacing, :valign, :markup, :ellipsize, :hint, :layout,
                           :angle, :quotes, :stroke_color, :stroke_width])
       embed = TextEmbed.new
-      yield(embed) if block_given? #store the opts for later use
+      yield(embed) if block_given? # store the opts for later use
       extents = Array.new(@cards.size)
       opts[:range].each do |i|
         extents[i] = @cards[i].text(embed, opts[:str][i],
-                       opts[:font][i], opts[:font_size][i], opts[:color][i],
-                       opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
-                       opts[:markup][i], opts[:justify][i], opts[:wrap][i],
-                       opts[:ellipsize][i], opts[:spacing][i], opts[:align][i],
-                       opts[:valign][i], opts[:hint][i], opts[:angle][i],
-                       opts[:stroke_color][i], opts[:stroke_width][i] )
+                                    opts[:font][i], opts[:font_size][i], opts[:color][i],
+                                    opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
+                                    opts[:markup][i], opts[:justify][i], opts[:wrap][i],
+                                    opts[:ellipsize][i], opts[:spacing][i], opts[:align][i],
+                                    opts[:valign][i], opts[:hint][i], opts[:angle][i],
+                                    opts[:stroke_color][i], opts[:stroke_width][i])
       end
-      return extents
+      extents
     end
-
   end
 end

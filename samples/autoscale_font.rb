@@ -4,7 +4,7 @@ require 'squib'
 # based on the length of individual string.
 # Handy for making minor font scales to fill text boxes.
 def autoscale(str_array)
-  str_array.inject([]) do | memo, str |
+  str_array.inject([]) do |memo, str|
     case str.length
     when 0..10
       memo << 125

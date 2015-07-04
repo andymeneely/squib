@@ -13,7 +13,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   svg file: 'spanner.svg', x: 620, y: 218
 
   # TGC proof overlay
-  png file: 'pokercard.png', x:0, y:0, alpha: 0.5
+  png file: 'pokercard.png', x: 0, y: 0, alpha: 0.5
 
   save_png prefix: 'tgc_sample_'
 end

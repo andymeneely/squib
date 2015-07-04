@@ -1,7 +1,6 @@
 module Squib
   # @api private
   class Card
-
     # :nodoc:
     # @api private
     def rect(x, y, width, height, x_radius, y_radius, fill_color, stroke_color, stroke_width)
@@ -40,19 +39,19 @@ module Squib
     # @api private
     def ellipse(x, y, w, h, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
-        cc.move_to(x, y + 0.5*h)       # start west
-        cc.curve_to(x, y + 0.25*h,     # west to north
-                    x + 0.25*w, y,
-                    x +  0.5*w, y)
-        cc.curve_to(x + 0.75*w, y,     # north to east
-                    x + w, y + 0.25*h,
-                    x + w, y + 0.5*h)
-        cc.curve_to(x + w, y + 0.75*h, # east to south
-                    x + 0.75*w, y + h,
-                    x + 0.5*w, y + h)
-        cc.curve_to(x + 0.25*w, y + h, # south to west
-                    x, y + 0.75*h,
-                    x, y + 0.5*h)
+        cc.move_to(x, y + 0.5 * h)       # start west
+        cc.curve_to(x, y + 0.25 * h,     # west to north
+                    x + 0.25 * w, y,
+                    x + 0.5 * w, y)
+        cc.curve_to(x + 0.75 * w, y,     # north to east
+                    x + w, y + 0.25 * h,
+                    x + w, y + 0.5 * h)
+        cc.curve_to(x + w, y + 0.75 * h, # east to south
+                    x + 0.75 * w, y + h,
+                    x + 0.5 * w, y + h)
+        cc.curve_to(x + 0.25 * w, y + h, # south to west
+                    x, y + 0.75 * h,
+                    x, y + 0.5 * h)
         cc.set_source_squibcolor(stroke_color)
         cc.set_line_width(stroke_width)
         cc.stroke_preserve
@@ -87,7 +86,7 @@ module Squib
       end
     end
 
-        # :nodoc:
+    # :nodoc:
     # @api private
     def curve(x1, y1, cx1, cy1, x2, y2, cx2, cy2, fill_color, stroke_color, stroke_width)
       use_cairo do |cc|
@@ -110,12 +109,12 @@ module Squib
         cc.translate(x, y)
         cc.rotate(angle)
         cc.translate(-x, -y)
-        cc.move_to(x + outer_radius, y) #i = 0, so cos(0)=1 and sin(0)=0
+        cc.move_to(x + outer_radius, y) # i = 0, so cos(0)=1 and sin(0)=0
         theta = Math::PI / n.to_f # i.e. (2*pi) / (2*n)
         0.upto(2 * n) do |i|
-            radius = i.even? ? outer_radius : inner_radius
-            cc.line_to(x + radius * Math::cos(i * theta),
-                       y + radius * Math::sin(i * theta))
+          radius = i.even? ? outer_radius : inner_radius
+          cc.line_to(x + radius * Math.cos(i * theta),
+                     y + radius * Math.sin(i * theta))
         end
         cc.close_path
         cc.set_source_squibcolor(stroke_color)
@@ -136,8 +135,8 @@ module Squib
         cc.move_to(x + radius, y) # i = 0, so cos(0)=1 and sin(0)=0
         theta = (2 * Math::PI) / n.to_f
         0.upto(n) do |i|
-            cc.line_to(x + radius * Math::cos(i * theta),
-                       y + radius * Math::sin(i * theta))
+          cc.line_to(x + radius * Math.cos(i * theta),
+                     y + radius * Math.sin(i * theta))
         end
         cc.close_path
         cc.set_source_squibcolor(stroke_color)
@@ -147,6 +146,5 @@ module Squib
         cc.stroke
       end
     end
-
   end
 end

@@ -28,8 +28,8 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   text str: 'subtitle', layout: 'subtitle'
 
   # For debugging purposes, you can always print out the loaded layout
-  #require 'pp'
-  #pp @layout
+  # require 'pp'
+  # pp @layout
 
   save_png prefix: 'layout_'
 end
@@ -45,14 +45,14 @@ end
 Squib::Deck.new(layout: 'playing-card.yml') do
   text str: "A\u2660",      layout: :bonus_ul, font: 'Sans bold 100', hint: :red
   text str: "A\u2660",      layout: :bonus_lr, font: 'Sans bold 100', hint: :red
-  text str: "artwork here", layout: :art, hint: :red
+  text str: 'artwork here', layout: :art, hint: :red
   save_png prefix: 'layout_builtin_playing_card_'
 end
 
 # Built-in layouts are easy to use and extend
 Squib::Deck.new(layout: 'hand.yml') do
   %w(title bonus1 bonus2 bonus3 bonus4 bonus5
-    description snark art).each do |icon|
+     description snark art).each do |icon|
     text str: icon.capitalize, layout: icon,
          hint: :red, valign: 'middle', align: 'center'
   end

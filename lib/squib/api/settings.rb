@@ -1,6 +1,5 @@
 module Squib
   class Deck
-
     # Toggle hints globally.
     #
     # Text hints are rectangles around where the text will be laid out. They are intended to be temporary.
@@ -29,9 +28,8 @@ module Squib
     # @api public
     def set(opts = {})
       opts = needs(opts, [:font, :img_dir])
-      @font = opts[:font][0] #was expanded - just need the first
+      @font = opts[:font][0] # was expanded - just need the first
       @img_dir = opts[:img_dir]
     end
-
   end
 end

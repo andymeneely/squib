@@ -3,12 +3,11 @@ require 'squib/args/typographer'
 
 module Squib
   class Card
-
     # :nodoc:
     # @api private
-    def draw_text_hint(cc, x, y, layout, color)
-      color = @deck.text_hint if color.to_s.eql? 'off' and not @deck.text_hint.to_s.eql? 'off'
-      return if color.to_s.eql? 'off' or color.nil?
+    def draw_text_hint(cc, _x, _y, layout, color)
+      color = @deck.text_hint if color.to_s.eql? 'off' and !@deck.text_hint.to_s.eql? 'off'
+      return if color.to_s.eql?('off') || color.nil?
       # when w,h < 0, it was never set. extents[1] are ink extents
       w = layout.width / Pango::SCALE
       w = layout.extents[1].width / Pango::SCALE if w < 0
@@ -68,7 +67,7 @@ module Squib
       ink_extents = layout.extents[1]
       case valign.to_s.downcase
       when 'middle'
-        Pango.pixels( (layout.height - ink_extents.height) / 2)
+        Pango.pixels((layout.height - ink_extents.height) / 2)
       when 'bottom'
         Pango.pixels(layout.height - ink_extents.height)
       else
@@ -79,8 +78,8 @@ module Squib
     def set_font_rendering_opts!(layout)
       font_options                = Cairo::FontOptions.new
       font_options.antialias      = Conf::ANTIALIAS_OPTS[(@deck.antialias || 'gray').downcase]
-      font_options.hint_metrics   = 'on' # TODO make this configurable
-      font_options.hint_style     = 'full' # TODO make this configurable
+      font_options.hint_metrics   = 'on' # TODO: make this configurable
+      font_options.hint_style     = 'full' # TODO: make this configurable
       layout.context.font_options = font_options
     end
 
@@ -128,7 +127,7 @@ module Squib
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
-        index         = clean_str[0..index].bytesize #convert to byte index (bug #57)
+        index         = clean_str[0..index].bytesize # convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
@@ -138,9 +137,9 @@ module Squib
         rect          = layout.index_to_pos(search[:index])
         x             = Pango.pixels(rect.x) + search[:rule][:dx]
         y             = Pango.pixels(rect.y) + search[:rule][:dy]
-        draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
+        draw_calls << { x: x, y: y, draw: search[:rule][:draw] } # defer drawing until we've valigned
       end
-      return draw_calls
+      draw_calls
     end
 
     def stroke_outline!(cc, layout, stroke_width, stroke_color)
@@ -154,17 +153,17 @@ module Squib
 
     # :nodoc:
     # @api private
-    def text(embed,str, font, font_size, color,
+    def text(embed, str, font, font_size, color,
              x, y, width, height,
              markup, justify, wrap, ellipsize,
              spacing, align, valign, hint, angle,
              stroke_color, stroke_width)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
+      Squib.logger.debug { "Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc." }
       extents = nil
       str = str.to_s
       use_cairo do |cc|
         cc.set_source_squibcolor(color)
-        cc.translate(x,y)
+        cc.translate(x, y)
         cc.rotate(angle)
         cc.move_to(0, 0)
 
@@ -199,18 +198,17 @@ module Squib
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
-          puts "====EXCEPTION!===="
+          puts '====EXCEPTION!===='
           puts e
-          puts "If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55"
-          puts "=================="
+          puts 'If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55'
+          puts '=================='
           raise e
         end
         draw_text_hint(cc, x, y, layout, hint)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
       end
-      return extents
+      extents
     end
-
   end
 end

@@ -3,7 +3,6 @@ require 'fileutils'
 module Squib
   # Squib's command-line options
   module Commands
-
     # Generate a new Squib project into a fresh directory.
     #
     # Provides conventions for using Git (you are using version control, right??).
@@ -20,11 +19,10 @@ module Squib
     #
     # @api public
     class New
-
       # :nodoc:
       # @api private
       def process(args)
-        raise ArgumentError.new('Please specify a path.') if args.empty?
+        fail ArgumentError.new('Please specify a path.') if args.empty?
 
         new_project_path = File.expand_path(args.join(' '), Dir.pwd)
         template_path = File.expand_path('../project_template', File.dirname(__FILE__))
@@ -38,7 +36,6 @@ module Squib
           end
         end
       end
-
     end
   end
 end

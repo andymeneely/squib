@@ -14,5 +14,4 @@ Squib::Deck.new(config: 'custom-config.yml') do
   svg file: 'spanner2.svg', x: 620, y: 218
   save_png prefix: 'custom-config_'
   save_pdf file: 'custom-config-out.pdf'
-
 end

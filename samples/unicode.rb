@@ -7,7 +7,8 @@ game_chars = %W(\u2620 \u2622 \u2623 \u00AB \u00BB \u2039 \u203A \u2022 \u20D8 \
 cell_height = 80
 cell_width = 400
 cols = 7
-x, y = 1, 80
+x = 1
+y = 80
 Squib::Deck.new(height: (game_chars.size / cols + 1) * cell_height,
                 width: cell_width * cols) do
   background color: :white

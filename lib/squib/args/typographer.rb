@@ -1,14 +1,13 @@
 require 'squib/constants'
 module Squib
-  #@api private
+  # @api private
   module Args
     # Internal class for handling arguments
-    #@api private
+    # @api private
     class Typographer
-
       def initialize(config = Conf::DEFAULTS)
-      %w(lsquote ldquote rsquote rdquote smart_quotes
-         em_dash en_dash ellipsis).each do |var|
+        %w(lsquote ldquote rsquote rdquote smart_quotes
+           em_dash en_dash ellipsis).each do |var|
           instance_variable_set("@#{var}", config[var])
         end
       end
@@ -20,23 +19,23 @@ module Squib
       end
 
       def explicit_replacements(str)
-        [ :left_curly, :right_curly, :apostraphize,
-          :ellipsificate, :em_dash, :en_dash ].each do |sym|
+        [:left_curly, :right_curly, :apostraphize,
+         :ellipsificate, :em_dash, :en_dash].each do |sym|
           str = each_non_tag(str) do |token|
-            self.method(sym).call(token)
+            method(sym).call(token)
           end
         end
         str
       end
 
       def smart_quotes(str)
-        [ :single_inside_double_quote,
-          :right_double_quote,
-          :left_double_quote,
-          :right_single_quote,
-          :left_single_quote].each do |sym|
+        [:single_inside_double_quote,
+         :right_double_quote,
+         :left_double_quote,
+         :right_single_quote,
+         :left_single_quote].each do |sym|
           str = each_non_tag(str) do |token|
-            self.method(sym).call(token)
+            method(sym).call(token)
           end
         end
         str
@@ -54,7 +53,7 @@ module Squib
             full_str << yield(token)
           end
         end
-        return full_str
+        full_str
       end
 
       # Straightforward replace
@@ -64,7 +63,7 @@ module Squib
 
       # Straightforward replace
       def right_curly(str)
-        str.gsub(%{''}, @rdquote)
+        str.gsub(%(''), @rdquote)
       end
 
       # A quote between two letters is an apostraphe
@@ -100,7 +99,7 @@ module Squib
       # Handle the cases where a double quote is next to a single quote
       def single_inside_double_quote(str)
         str.gsub(/(\")(\')(\S)/, @ldquote + @lsquote + '\3')
-           .gsub(/(\")(\')(\S)/, '\1' + @rsquote + @rdquote)
+          .gsub(/(\")(\')(\S)/, '\1' + @rsquote + @rdquote)
       end
 
       # Quote next to non-whitespace curls
@@ -112,7 +111,6 @@ module Squib
       def left_single_quote(str)
         str.gsub(/(\')(\S)/, @lsquote + '\2')
       end
-
     end
   end
 end
