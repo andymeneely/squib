@@ -116,15 +116,15 @@ describe Squib::InputHelpers do
   context '#rotateify' do
     it 'computes a clockwise rotate properly' do
       opts = @deck.send(:rotateify, {rotate: :clockwise})
-      expect(opts).to eq({ :angle => 0.5 * Math::PI,
-                           :rotate => :clockwise
+      expect(opts).to eq({ angle: 0.5 * Math::PI,
+                           rotate: :clockwise
                          })
     end
 
     it 'computes a counter-clockwise rotate properly' do
       opts = @deck.send(:rotateify, {rotate: :counterclockwise})
-      expect(opts).to eq({ :angle => 1.5 * Math::PI,
-                           :rotate => :counterclockwise
+      expect(opts).to eq({ angle: 1.5 * Math::PI,
+                           rotate: :counterclockwise
                          })
     end
   end
@@ -134,42 +134,42 @@ describe Squib::InputHelpers do
       args = {x: [156]}
       needed_params = [:x]
       opts = @deck.send(:convert_units, args, needed_params)
-      expect(opts).to eq({ :x => [156] })
+      expect(opts).to eq({ x: [156] })
     end
 
     it 'does not touch arrays floats' do
       args = {x: [156.2]}
       needed_params = [:x]
       opts = @deck.send(:convert_units, args, needed_params)
-      expect(opts).to eq({ :x => [156.2] })
+      expect(opts).to eq({ x: [156.2] })
     end
 
     it 'converts array of all inches' do
       args = {x: ['1in', '2in']}
       needed_params = [:x]
       opts = @deck.send(:convert_units, args, needed_params)
-      expect(opts).to eq({:x => [300.0, 600.0] }) #assume 300dpi default
+      expect(opts).to eq({x: [300.0, 600.0] }) #assume 300dpi default
     end
 
     it 'converts array of some inches' do
       args = {x: [156, '2in']}
       needed_params = [:x]
       opts = @deck.send(:convert_units, args, needed_params)
-      expect(opts).to eq({:x => [156.0, 600.0]}) #assume 300dpi default
+      expect(opts).to eq({x: [156.0, 600.0]}) #assume 300dpi default
     end
 
     it 'handles whitespace' do
       args = {x: ['1in   ']}
       needed_params = [:x]
       opts = @deck.send(:convert_units, args, needed_params)
-      expect(opts).to eq({:x => [300.0] }) #assume 300dpi default
+      expect(opts).to eq({x: [300.0] }) #assume 300dpi default
     end
 
      it 'converts centimeters' do
       args = {x: ['2cm']}
       needed_params = [:x]
       opts = @deck.send(:convert_units, args, needed_params)
-      expect(opts).to eq({:x => [236.2204722] }) #assume 300dpi default
+      expect(opts).to eq({x: [236.2204722] }) #assume 300dpi default
     end
 
     it 'handles non-expading singletons' do

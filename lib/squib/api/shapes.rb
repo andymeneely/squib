@@ -91,7 +91,7 @@ module Squib
     # Draw a triangle using the given coordinates
     #
     # @example
-    #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50, :x3 => 0, :y3 => 50
+    #   triangle x1: 0, y1: 0, x2: 50, y2: 50, x3: 0, y3: 50
     #
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
@@ -123,7 +123,7 @@ module Squib
     # Draw a line using the given coordinates
     #
     # @example
-    #   triangle :x1 => 0, :y1 => 0, :x2 => 50, :y2 => 50
+    #   triangle x1: 0, y1: 0, x2: 50, y2: 50
     #
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x1 [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
