@@ -1,7 +1,6 @@
 require 'ruby-progressbar'
 
 module Squib
-
   # :nodoc:
   # @api private
   class DoNothing
@@ -23,7 +22,7 @@ module Squib
       @enabled = enabled
     end
 
-    def start(title='', total=100, &block)
+    def start(title = '', total = 100, &_block)
       if @enabled
         @bar = ProgressBar.create(title: title, total: total, format: '%t <%B> %p%% %a')
         yield(@bar)
@@ -33,6 +32,4 @@ module Squib
       end
     end
   end
-
-
 end

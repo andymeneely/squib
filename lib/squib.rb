@@ -8,7 +8,6 @@ require 'squib/deck'
 require 'squib/card'
 
 module Squib
-
   # Access the internal logger that Squib uses. By default, Squib configure the logger to the WARN level
   # Use this to suppress or increase output levels.
   # @example
@@ -19,14 +18,13 @@ module Squib
   # @api public
   def logger
     if @logger.nil?
-      @logger = Logger.new($stdout);
-      @logger.level = Logger::WARN;
-      @logger.formatter = proc do |severity, datetime, m_progname, msg|
+      @logger = Logger.new($stdout)
+      @logger.level = Logger::WARN
+      @logger.formatter = proc do |severity, datetime, _m_progname, msg|
         "#{datetime} #{severity}: #{msg}\n"
       end
     end
     @logger
   end
   module_function :logger
-
 end

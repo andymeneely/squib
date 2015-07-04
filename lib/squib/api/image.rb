@@ -1,6 +1,5 @@
 module Squib
   class Deck
-
     # Renders a png file at the given location.
     #
     # See {file:samples/image.rb samples/image.rb} and {file:samples/tgc-overlay.rb samples/tgc-overlay.rb} as examples.
@@ -57,20 +56,19 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgdata, :svgid, :force_svgid, :x, :y, :width, :height, 
-                      :layout, :alpha, :blend, :angle, :mask])
+      p = needs(opts, [:range, :files, :svgdata, :svgid, :force_svgid, :x, :y, :width, :height,
+                       :layout, :alpha, :blend, :angle, :mask])
       Dir.chdir(img_dir) do
         @progress_bar.start('Loading SVG(s)', p[:range].size) do |bar|
           p[:range].each do |i|
             unless p[:force_id][i] && p[:id][i].to_s.empty?
               @cards[i].svg(p[:file][i], p[:data][i], p[:id][i], p[:x][i], p[:y][i],
-                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i], p[:angle][i],p[:mask][i])
+                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i], p[:angle][i], p[:mask][i])
             end
             bar.increment
           end
         end
       end
     end
-
   end
 end

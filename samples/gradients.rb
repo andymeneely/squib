@@ -6,7 +6,7 @@ Squib::Deck.new do
   # and then color stops are defined between 0 and 1
   background color: '(0,0)(0,1125) #ccc@0.0 #111@1.0'
   line stroke_color: '(0,0)(825,0) #111@1.0 #ccc@0.0',
-      x1: 0, y1: 600, x2: 825, y2: 600,
+       x1: 0, y1: 600, x2: 825, y2: 600,
        stroke_width: 15
 
   # Radial gradients look like this

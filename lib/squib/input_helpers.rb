@@ -5,11 +5,10 @@ module Squib
   # :nodoc:
   # @api private
   module InputHelpers
-
     # :nodoc:
     # @api private
     def needs(opts, params)
-      Squib.logger.debug {"Method #{caller(1,1)} was given the following opts: #{opts}"}
+      Squib.logger.debug { "Method #{caller(1, 1)} was given the following opts: #{opts}" }
       opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = expand_singletons(opts, params)
@@ -45,7 +44,7 @@ module Squib
           end
         end
       end
-      Squib.logger.debug {"After expand_singletons: #{opts}"}
+      Squib.logger.debug { "After expand_singletons: #{opts}" }
       opts
     end
     module_function :expand_singletons
@@ -61,16 +60,16 @@ module Squib
         unless layout.nil?
           entry = @layout[layout.to_s]
           unless entry.nil?
-            entry.each do |key, value|
+            entry.each do |key, _value|
               opts[key.to_sym] = [] if opts[key.to_sym].nil?
-              opts[key.to_sym][i] ||= entry[key] #don't override if it's already there
+              opts[key.to_sym][i] ||= entry[key] # don't override if it's already there
             end
           else
-            Squib.logger.warn ("Layout entry '#{layout}' does not exist." )
+            Squib.logger.warn ("Layout entry '#{layout}' does not exist.")
           end
         end
       end
-      Squib.logger.debug {"After layoutify: #{opts}"}
+      Squib.logger.debug { "After layoutify: #{opts}" }
       opts
     end
     module_function :layoutify
@@ -85,26 +84,26 @@ module Squib
 
     # :nodoc:
     # @api private
-    def rangeify (opts)
+    def rangeify(opts)
       range = opts[:range]
-      raise 'Range cannot be nil' if range.nil?
-      range = 0..(@cards.size-1) if range == :all
+      fail 'Range cannot be nil' if range.nil?
+      range = 0..(@cards.size - 1) if range == :all
       range = range..range if range.is_a? Integer
-      if range.max > (@cards.size-1)
-        raise ArgumentError.new("#{range} is outside of deck range of 0..#{@cards.size-1}")
+      if range.max > (@cards.size - 1)
+        fail ArgumentError.new("#{range} is outside of deck range of 0..#{@cards.size - 1}")
       end
       opts[:range] = range
-      Squib.logger.debug {"After rangeify: #{opts}"}
+      Squib.logger.debug { "After rangeify: #{opts}" }
       opts
     end
     module_function :rangeify
 
     # :nodoc:
     # @api private
-    def fileify(opts, file_must_exist=true)
+    def fileify(opts, file_must_exist = true)
       [opts[:file]].flatten.each do |file|
-        if file_must_exist and !File.exists?(file)
-          raise "File #{File.expand_path(file)} does not exist!"
+        if file_must_exist && !File.exist?(file)
+          fail "File #{File.expand_path(file)} does not exist!"
         end
       end
       opts
@@ -113,42 +112,40 @@ module Squib
 
     # :nodoc:
     # @api private
-    def dirify(opts, key, allow_create=false)
-      return opts if Dir.exists?(opts[key])
+    def dirify(opts, key, allow_create = false)
+      return opts if Dir.exist?(opts[key])
       if allow_create
         Squib.logger.warn("Dir '#{opts[key]}' does not exist, creating it.")
         Dir.mkdir opts[key]
         return opts
       else
-        raise "'#{opts[key]}' does not exist!"
+        fail "'#{opts[key]}' does not exist!"
       end
     end
     module_function :dirify
 
     # :nodoc:
     # @api private
-    def colorify(opts, nillable=false, key=:color)
+    def colorify(opts, nillable = false, key = :color)
       opts[key].each_with_index do |color, i|
         unless nillable && color.nil?
-          if custom_colors.key? color.to_s
-            color = custom_colors[color.to_s]
-          end
+          color = custom_colors[color.to_s] if custom_colors.key? color.to_s
           opts[key][i] = color
         end
       end
-      Squib.logger.debug {"After colorify: #{opts}"}
+      Squib.logger.debug { "After colorify: #{opts}" }
       opts
     end
     module_function :colorify
 
     # :nodoc:
     # @api private
-    def fontify (opts)
+    def fontify(opts)
       opts[:font].each_with_index do |font, i|
-        opts[:font][i] = @font if font==:use_set
+        opts[:font][i] = @font if font == :use_set
         opts[:font][i] = Squib::SYSTEM_DEFAULTS[:default_font] if font == :default
       end
-      Squib.logger.debug {"After fontify: #{opts}"}
+      Squib.logger.debug { "After fontify: #{opts}" }
       opts
     end
     module_function :fontify
@@ -162,7 +159,7 @@ module Squib
           opts[:y_radius][i] = radius
         end
       end
-      Squib.logger.debug {"After radiusify: #{opts}"}
+      Squib.logger.debug { "After radiusify: #{opts}" }
       opts
     end
     module_function :radiusify
@@ -171,11 +168,9 @@ module Squib
     # @api private
     def svgidify(opts)
       opts[:id].each_with_index do |id, i|
-        unless id.nil?
-          opts[:id][i] = '#' << id unless id.start_with? '#'
-        end
+        opts[:id][i] = '#' << id unless id.start_with? '#' unless id.nil?
       end
-      Squib.logger.debug {"After svgidify: #{opts}"}
+      Squib.logger.debug { "After svgidify: #{opts}" }
       opts
     end
     module_function :svgidify
@@ -189,7 +184,7 @@ module Squib
       when :counterclockwise
         opts[:angle] = 1.5 * Math::PI
       end
-      Squib.logger.debug {"After rotateify: #{opts}"}
+      Squib.logger.debug { "After rotateify: #{opts}" }
       opts
     end
     module_function :rotateify
@@ -204,23 +199,23 @@ module Squib
             opts[api_param].each_with_index do |arg, i|
               opts[api_param][i] = Args::UnitConversion.parse(arg, @dpi)
             end
-          else #not an expanding param
+          else # not an expanding param
             opts[api_param] = Args::UnitConversion.parse(opts[api_param], @dpi)
           end
         end
       end
-      Squib.logger.debug {"After convert_units: #{opts}"}
-      return opts
+      Squib.logger.debug { "After convert_units: #{opts}" }
+      opts
     end
     module_function :convert_units
 
-     # Handles expanding rows. If the "rows" does not respond to to_i (e.g. :infinite),
+    # Handles expanding rows. If the "rows" does not respond to to_i (e.g. :infinite),
     # then compute what we need based on number of cards and number of columns.
     # :nodoc:
     # @api private
     def rowify(opts)
       unless opts[:rows].respond_to? :to_i
-        raise "Columns must be an integer" unless opts[:columns].respond_to? :to_i
+        fail 'Columns must be an integer' unless opts[:columns].respond_to? :to_i
         opts[:rows] = (@cards.size / opts[:columns].to_i).ceil
       end
       opts
@@ -233,6 +228,5 @@ module Squib
       opts[:face] = (opts[:face].to_s.downcase == 'right')
       opts
     end
-
   end
 end

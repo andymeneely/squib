@@ -7,7 +7,7 @@ Squib::Deck.new(cards: 8, layout: 'playing-card.yml') do
   text str: ('A'..'Z').to_a, layout: :bonus_ul, font: 'Sans bold 100'
 
   # Defaults are sensible
-  hand #saves to _output/hand.png
+  hand # saves to _output/hand.png
 
   # Here's a prettier version:
   #  - Each card is trimmed with rounded corners
@@ -21,4 +21,3 @@ Squib::Deck.new(cards: 8, layout: 'playing-card.yml') do
   # Tip: you can have the top card be on the left by reversing the range
   #  angle_range: (Math::PI / 4)..(Math::PI / -4)
 end
-

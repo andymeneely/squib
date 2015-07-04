@@ -2,9 +2,8 @@ require 'spec_helper'
 require 'squib'
 
 describe Squib::Deck, 'images' do
-
   context '#png' do
-     it 'calls Card#png, Dir, and progress bar' do
+    it 'calls Card#png, Dir, and progress bar' do
       card = instance_double(Squib::Card)
       progress = double(Squib::Progress)
       expect(card).to receive(:png).with('foo', 0, 1, :native, :native, 0.5, :overlay, 0.75, nil).once
@@ -20,7 +19,7 @@ describe Squib::Deck, 'images' do
   end
 
   context '#svg' do
-     it 'calls Card#svg, Dir, and progress bar' do
+    it 'calls Card#svg, Dir, and progress bar' do
       card = instance_double(Squib::Card)
       progress = double(Squib::Progress)
       expect(card).to receive(:svg).with('foo', nil, '#bar', 0, 1, 20, 30, 0.5, :overlay, 0.75, nil).once
@@ -34,5 +33,4 @@ describe Squib::Deck, 'images' do
       end
     end
   end
-
 end

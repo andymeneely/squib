@@ -2,7 +2,6 @@ require 'roo'
 require 'csv'
 
 module Squib
-
   # Pulls Excel data from `.xlsx` files into a column-based hash
   #
   # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
@@ -28,17 +27,17 @@ module Squib
     s.default_sheet = s.sheets[opts[:sheet]]
     data = {}
     s.first_column.upto(s.last_column) do |col|
-      header = s.cell(s.first_row,col).to_s
+      header = s.cell(s.first_row, col).to_s
       data[header] = []
       (s.first_row + 1).upto(s.last_row) do |row|
-        cell = s.cell(row,col)
+        cell = s.cell(row, col)
         # Roo hack for avoiding unnecessary .0's on whole integers (https://github.com/roo-rb/roo/issues/139)
-        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, 'General']
+        cell = s.excelx_value(row, col) if s.excelx_type(row, col) == [:numeric_or_formula, 'General']
         data[header] << cell
-      end#row
-    end#col
+      end # row
+    end # col
     data
-  end#xlsx
+  end # xlsx
   module_function :xlsx
 
   # Pulls CSV data from `.csv` files into a column-based hash
@@ -65,11 +64,11 @@ module Squib
     opts = Squib::InputHelpers.fileify(opts)
     table = CSV.read(opts[:file], headers: true, converters: :numeric)
     check_duplicate_csv_headers(table)
-    hash = Hash.new
+    hash = {}
     table.headers.each do |header|
       hash[header.to_s] ||= table[header]
     end
-    return hash
+    hash
   end
   module_function :csv
 
@@ -77,14 +76,13 @@ module Squib
   # @api private
   def check_duplicate_csv_headers(table)
     if table.headers.size != table.headers.uniq.size
-      dups = table.headers.select{|e| table.headers.count(e) > 1 }
+      dups = table.headers.select { |e| table.headers.count(e) > 1 }
       Squib.logger.warn "CSV duplicated the following column keys: #{dups.join(',')}"
     end
   end
   module_function :check_duplicate_csv_headers
 
   class Deck
-
     # Convenience call on deck goes to the module function
     def xlsx(opts = {})
       Squib.xlsx(opts)
@@ -94,6 +92,5 @@ module Squib
     def csv(opts = {})
       Squib.csv(opts)
     end
-
   end
 end

@@ -5,7 +5,6 @@ require 'squib/args/typographer'
 module Squib
   # @api private
   class Conf
-
     DEFAULTS = {
       'antialias'     => 'best',
       'backend'       => 'memory',
@@ -23,10 +22,10 @@ module Squib
       'en_dash'       => "\u2013",
       'ellipsis'      => "\u2026",
       'smart_quotes'  => true,
-      'text_hint'     => 'off',
+      'text_hint'     => 'off'
     }
 
-    #Translate the hints to the methods.
+    # Translate the hints to the methods.
     ANTIALIAS_OPTS = {
       nil        => 'subpixel',
       'best'     => 'subpixel',
@@ -46,15 +45,15 @@ module Squib
     # @api private
     def self.load(file)
       yaml = {}
-      if File.exists? file
-        Squib::logger.info { "  using config: #{file}" }
+      if File.exist? file
+        Squib.logger.info { "  using config: #{file}" }
         yaml = YAML.load_file(file) || {}
       end
       Conf.new(DEFAULTS.merge(yaml))
     end
 
     def to_s
-      "Conf: #{@config_hash.to_s}"
+      "Conf: #{@config_hash}"
     end
 
     def img_dir
@@ -73,9 +72,7 @@ module Squib
       @config_hash['progress_bars']
     end
 
-    def typographer
-      @typographer
-    end
+    attr_reader :typographer
 
     def dir
       @config_hash['dir']
@@ -106,6 +103,5 @@ module Squib
     def normalize_antialias
       @config_hash['antialias'] = ANTIALIAS_OPTS[@config_hash['antialias'].downcase.strip]
     end
-
   end
 end

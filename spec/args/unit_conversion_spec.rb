@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'squib/args/unit_conversion'
 
 describe Squib::Args::UnitConversion do
-
   it 'does nothing on just numbers'  do
     expect(subject.parse(20)).to eq(20)
   end
@@ -18,5 +17,4 @@ describe Squib::Args::UnitConversion do
   it 'does cm'                      do
     expect(subject.parse('1cm')).to eq(118.1102361)
   end
-
 end

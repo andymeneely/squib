@@ -77,7 +77,6 @@ Squib::Deck.new do
 end
 
 Squib::Deck.new(cards: 3) do
-
   embed_text = 'Take 1 :tool: and gain 2 :health:.'
   text(str: embed_text, font: 'Sans', font_size: [18, 32, 45],
        x: 0, y: 0, width: 180, height: 300, valign: :bottom,

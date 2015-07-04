@@ -1,6 +1,5 @@
 module Squib
   class Deck
-
     # Saves the given range of cards to either PNG or PDF
     #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
@@ -30,7 +29,7 @@ module Squib
     # @return [nil] Returns nothing
     # @api public
     def save_png(opts = {})
-      opts = needs(opts,[:range, :creatable_dir, :prefix, :count_format, :rotate])
+      opts = needs(opts, [:range, :creatable_dir, :prefix, :count_format, :rotate])
       @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*", @cards.size) do |bar|
         opts[:range].each do |i|
           @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:count_format], opts[:rotate], opts[:angle])
@@ -61,8 +60,8 @@ module Squib
     # @return [nil] Returns nothing.
     # @api public
     def showcase(opts = {})
-      opts = {file: 'showcase.png', fill_color: :white}.merge(opts)
-      opts = needs(opts,[:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save, :face])
+      opts = { file: 'showcase.png', fill_color: :white }.merge(opts)
+      opts = needs(opts, [:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save, :face])
       render_showcase(opts[:range], opts[:trim], opts[:trim_radius],
                       opts[:scale], opts[:offset], opts[:fill_color],
                       opts[:reflect_offset], opts[:reflect_percent], opts[:reflect_strength],
@@ -90,14 +89,13 @@ module Squib
     # @return [nil] Returns nothing.
     # @api public
     def hand(opts = {})
-      opts = {file: 'hand.png', fill_color: :white, radius: :auto, trim_radius: 0}
+      opts = { file: 'hand.png', fill_color: :white, radius: :auto, trim_radius: 0 }
              .merge(opts)
-      opts = needs(opts,[:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save])
+      opts = needs(opts, [:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save])
       opts[:radius] = 0.3 * height if opts[:radius] == :auto
       render_hand(opts[:range], opts[:radius], opts[:angle_range],
                   opts[:trim], opts[:trim_radius], opts[:margin],
                   opts[:fill_color], opts[:dir], opts[:file])
     end
-
   end
 end

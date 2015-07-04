@@ -1,8 +1,8 @@
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
-        'type' => ['Thug', 'Thinker', 'Thinker'],
-        'level' => [1,2,3]}
+data = { 'name' => %w(Thief Grifter Mastermind),
+         'type' => %w(Thug Thinker Thinker),
+         'level' => [1, 2, 3] }
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   # Default range is :all
@@ -16,7 +16,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        width: 100, align: :center
 
   # Ranges are inclusive, zero-based
-  text range: 0..1, str: 'Thief and Grifter only!!', x: 25, y:200
+  text range: 0..1, str: 'Thief and Grifter only!!', x: 25, y: 200
 
   # Integers are also allowed
   text range: 0, str: 'Thief only!', x: 25, y: 250
@@ -26,7 +26,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text range: -2..-1, str: 'Grifter and Mastermind only!', x: 25, y: 650
 
   # We can use Arrays too!
-  text range: [0,2], str: 'Thief and Mastermind only!!', x: 25, y:300
+  text range: [0, 2], str: 'Thief and Mastermind only!!', x: 25, y: 300
 
   # Just about everything in Squib can be given an array that
   # corresponds to the deck's cards. This allows for each card to be styled differently
@@ -38,16 +38,16 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
 
   # Useful idiom: construct a hash from card names back to its index (ID),
   # then use a range. No need to memorize IDs, and you can add cards easily
-  id = {} ; data['name'].each_with_index{ |name,i| id[name] = i}
+  id = {}; data['name'].each_with_index { |name, i| id[name] = i }
   text range: id['Thief']..id['Grifter'],
        str: 'Thief through Grifter with id lookup!!',
-       x:25, y: 400
+       x: 25, y: 400
 
   # Useful idiom: generate arrays from a column called 'type'
-  type = {}; data['type'].each_with_index{ |t,i| (type[t] ||= []) << i}
+  type = {}; data['type'].each_with_index { |t, i| (type[t] ||= []) << i }
   text range: type['Thinker'],
        str: 'Only for Thinkers!',
-       x:25, y: 500
+       x: 25, y: 500
 
   save prefix: 'ranges_', format: :png
 end

@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'squib'
 
 describe Squib::Card do
-
   let(:deck) { double(Squib::Deck) }
   let(:cxt)  { double(Cairo::Context) }
 

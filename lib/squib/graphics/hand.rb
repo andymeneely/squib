@@ -2,7 +2,6 @@ require 'squib/graphics/cairo_context_wrapper'
 
 module Squib
   class Deck
-
     # Draw cards in a fan.
     # @api private
     def render_hand(range, radius, angle_range, trim, trim_radius, margin,
@@ -16,7 +15,7 @@ module Squib
       cxt.translate(out_size / 2.0, out_size / 2.0)
       cxt.rotate(angle_range.first)
       cxt.translate(-width, -width)
-      cards.each_with_index do |card, i|
+      cards.each_with_index do |card, _i|
         cxt.translate(center_x, center_y)
         cxt.rotate(angle_delta)
         cxt.translate(-center_x, -center_y)
@@ -31,7 +30,7 @@ module Squib
         end
       end
       x, y, w, h = cxt.target.ink_extents # I love Ruby assignment ;)
-      png_cxt = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(Cairo::ImageSurface.new(w + 2*margin, h + 2*margin)))
+      png_cxt = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(Cairo::ImageSurface.new(w + 2 * margin, h + 2 * margin)))
       png_cxt.set_source_squibcolor(fill_color)
       png_cxt.paint
       png_cxt.translate(-x + margin, -y + margin)

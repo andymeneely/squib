@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'squib'
 require 'pp'
 
-describe "Squib samples" do
+describe 'Squib samples' do
   @SAMPLES_DIR      = "#{File.expand_path(File.dirname(__FILE__))}/../../samples/"
   let(:samples_dir) { "#{File.expand_path(File.dirname(__FILE__))}/../../samples/" }
 
@@ -44,10 +44,10 @@ describe "Squib samples" do
   # you made to the samples or Squib.
   # FOR NOW!! These two I can't get working on Travis, so I'm disabling
   # Has to do with UTF-8 encoding of a special characters
-      # layouts.rb
+  # layouts.rb
   # These are samples that don't really need a regression log
-      # colors.rb
-      # unicode.rb
+  # colors.rb
+  # unicode.rb
   %w( autoscale_font.rb
       basic.rb
       cairo_access.rb
@@ -78,5 +78,4 @@ describe "Squib samples" do
       expect(log.string).to eq(test_file_str)
     end
   end
-
 end

@@ -5,7 +5,7 @@ describe Squib.logger do
     Squib.logger = nil
     oldstdout = $stdout
     $stdout = StringIO.new
-    Squib::logger.warn "Test warn"
+    Squib.logger.warn 'Test warn'
     expect($stdout.string).to match /WARN: Test warn/
     $stdout = oldstdout
   end

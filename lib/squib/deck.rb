@@ -16,7 +16,6 @@ require 'squib/graphics/hand'
 #
 # @api public
 module Squib
-
   # The main interface to Squib. Provides a front-end porcelain whereas the Card class interacts with the graphics plumbing.
   #
   # @api public
@@ -32,7 +31,7 @@ module Squib
 
     # Delegate these configuration options to the Squib::Conf object
     def_delegators :conf, :antialias, :backend, :count_format, :custom_colors, :dir,
-                          :img_dir, :prefix, :text_hint, :typographer
+                   :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
     attr_reader :layout, :conf
@@ -61,11 +60,11 @@ module Squib
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
       @conf          = Conf.load(config)
-      @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
+      @progress_bar  = Progress.new(@conf.progress_bars) # FIXME: this is evil. Using something different with @ and non-@
       show_info(config, layout)
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
-      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
+      cards.times { |i| @cards << Squib::Card.new(self, @width, @height, i) }
       @layout        = LayoutParser.load_layout(layout)
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
@@ -89,10 +88,10 @@ module Squib
     # Use Logger to show more detail on the run
     # :nodoc:
     # @api private
-    def show_info(config, layout)
-      Squib::logger.info "Squib v#{Squib::VERSION}"
-      Squib::logger.info "  building #{@cards.size} #{@width}x#{@height} cards"
-      Squib::logger.info "  using #{@backend}"
+    def show_info(_config, _layout)
+      Squib.logger.info "Squib v#{Squib::VERSION}"
+      Squib.logger.info "  building #{@cards.size} #{@width}x#{@height} cards"
+      Squib.logger.info "  using #{@backend}"
     end
 
     ##################
@@ -106,6 +105,5 @@ module Squib
     require 'squib/api/shapes'
     require 'squib/api/text'
     require 'squib/api/units'
-
   end
 end
