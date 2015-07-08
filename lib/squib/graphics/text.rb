@@ -22,47 +22,6 @@ module Squib
 
     # :nodoc:
     # @api private
-    def set_ellipsize!(layout, ellipsize)
-      case ellipsize.to_s.downcase
-      when 'none', 'false'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_NONE
-      when 'start'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_START
-      when 'middle'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_MIDDLE
-      when 'end', 'true'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_END
-      end
-    end
-
-    # :nodoc:
-    # @api private
-    def set_wrap!(layout, wrap)
-      case wrap.to_s.downcase
-      when 'word'
-        layout.wrap = Pango::Layout::WRAP_WORD
-      when 'char'
-        layout.wrap = Pango::Layout::WRAP_CHAR
-      when 'word_char', 'true'
-        layout.wrap = Pango::Layout::WRAP_WORD_CHAR
-      end
-    end
-
-    # :nodoc:
-    # @api private
-    def set_align!(layout, align)
-      case align.to_s.downcase
-      when 'left'
-        layout.alignment = Pango::ALIGN_LEFT
-      when 'right'
-        layout.alignment = Pango::ALIGN_RIGHT
-      when 'center'
-        layout.alignment = Pango::ALIGN_CENTER
-      end
-    end
-
-    # :nodoc:
-    # @api private
     def compute_valign(layout, valign)
       return 0 unless layout.height > 0
       ink_extents = layout.extents[1]
@@ -173,9 +132,9 @@ module Squib
 
         set_font_rendering_opts!(layout)
         set_wh!(layout, box.width, box.height)
-        set_wrap!(layout, para.wrap)
-        set_ellipsize!(layout, para.ellipsize)
-        set_align!(layout, para.align)
+        layout.wrap      = para.wrap
+        layout.ellipsize = para.ellipsize
+        layout.alignment = para.align
 
         layout.justify = para.justify unless para.justify.nil?
         layout.spacing = para.spacing * Pango::SCALE unless para.spacing.nil?

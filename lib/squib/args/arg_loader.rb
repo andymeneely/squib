@@ -13,38 +13,51 @@ module Squib
       # Main class invoked by the client (i.e. api/ methods)
       def load!(args, expand_by: 1, layout: {}, dpi: 300)
         @dpi = dpi
-        set_attributes(args: args)
-        expand(by: expand_by)
-        layout_args = prep_layout_args(args[:layout], expand_by: expand_by)
-        defaultify(layout_args: layout_args || [], layout: layout)
+        args[:layout] = prep_layout_args(args[:layout], expand_by: expand_by)
+        expand_and_set_and_defaultify(args: args, by: expand_by, layout: layout)
         validate
         convert_units
         self
       end
 
-      # Iterate over the args hash and create instance-level attributes for
-      # each parameter
-      # Assumes we have a hash of parameters to their default keys in the class
-      def set_attributes(args: args)
+      def expand_and_set_and_defaultify(args: {}, by: 1, layout: {})
         attributes = self.class.parameters.keys
         attributes.each do |p|
-          instance_variable_set "@#{p}", args[p] # often nil, but ok
+          args[p] = defaultify(p, args, layout)
+          val = if expandable_singleton?(p, args[p])
+                  [args[p]] * by
+                else
+                  args[p] # not an expanding parameter
+                end
+          instance_variable_set "@#{p}", val
         end
         self.class.class_eval { attr_reader *(attributes) }
       end
 
-       # Conduct singleton expansion
-       # If expanding-parameter is not already responding to
-       # :each then copy it into an array
-       #
-       # Assumes we have an self.expanding_parameters
-      def expand(by: 1)
-        exp_params = self.class.expanding_parameters
-        exp_params.each do |p|
-          attribute = "@#{p}"
-          arg = instance_variable_get(attribute)
-          unless arg.respond_to? :each
-            instance_variable_set attribute, [arg] * by #expand singleton
+      # Must be:
+      #  (a) an expanding parameter, and
+      #  (b) a singleton already (i.e. doesn't respond to :each)
+      def expandable_singleton?(p, arg)
+        self.class.expanding_parameters.include?(p) && !arg.respond_to?(:each)
+      end
+
+      # Incorporate defaults and layouts
+      #  (1) Use whatever is specified if it is
+      #  (2) Go over all layout specifications (if any) and look them up
+      #     - Use layout when it's specified for that card
+      #     - Use default if no layout was specified,
+      #                      or the layout itself did not specify
+      def defaultify(p, args, layout)
+        return args[p] if args.key? p # arg was specified, no defaults used
+        args[:layout].map do |layout_arg|
+          if layout_arg.nil?
+            self.class.parameters[p]  # no layout specified, use default
+          else
+            if layout[layout_arg.to_s].key? p.to_s
+              layout[layout_arg.to_s][p.to_s] # param specified in layout
+            else
+              self.class.parameters[p]  # layout specified, but not this param
+            end
           end
         end
       end
@@ -56,23 +69,6 @@ module Squib
           layout_args = [layout_args] * expand_by
         end
         layout_args || []
-      end
-
-      # Go over each argument and fill it in with layout and defaults wherever nil
-      def defaultify(layout_args: [], layout: {})
-        self.class.parameters.each do |param, default|
-          attribute = "@#{param}"
-          val = instance_variable_get(attribute)
-          if val.respond_to? :each
-            new_val = val.map.with_index do |v, i|
-              v ||= layout[layout_args[i].to_s][param.to_s] unless layout_args[i].nil?
-              v ||= default
-            end
-            instance_variable_set(attribute, new_val)
-          else # a non-expanded singleton
-            # TODO handle this case
-          end
-        end
       end
 
       # For each parameter/attribute foo we try to invoke a validate_foo

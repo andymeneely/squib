@@ -20,6 +20,8 @@
      {"name": "rake spec_fastonly",           "shell_cmd": "rake spec_fastonly",},
      {"name": "rake run[text_options]",       "shell_cmd": "rake run[text_options]",},
      {"name": "rake run[hand]",               "shell_cmd": "rake run[hand]",},
+     {"name": "rspec spec/args/paragraph_spec.rb", "shell_cmd": "rspec spec/args/paragraph_spec.rb", "working_dir": "${project_path:${folder}}"},
+     {"name": "rspec spec/args/*_spec.rb", "shell_cmd": "rspec spec/args/*_spec.rb", "working_dir": "${project_path:${folder}}"},
      // {"name": "rake run[config_text_markup]", "shell_cmd": "rake run[config_text_markup]",},
      // {"name": "rake run[csv_import]",         "shell_cmd": "rake run[csv_import]",},
      // {"name": "rake run[custom_config]",      "shell_cmd": "rake run[custom_config]",},
