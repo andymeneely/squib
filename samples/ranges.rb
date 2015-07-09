@@ -49,5 +49,16 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        str: 'Only for Thinkers!',
        x:25, y: 500
 
-  save prefix: 'ranges_', format: :png
+  # Useful idiom: draw a different number of images for different cards
+  hearts = [nil, 1, 2] #i.e. card 0 has no hearts, card 2 has 2 hearts drawn
+  1.upto(2).each do |n|
+    range = hearts.each_index.select { |i| hearts[i] == n}
+    n.times do |i|
+      svg file: 'glass-heart.svg', range: range,
+          x: 150, y: 55 + i*42, width: 40, height: 40
+    end
+  end
+
+  rect color: 'black' # just a border
+  save_sheet prefix: 'ranges_', columns: 3
 end

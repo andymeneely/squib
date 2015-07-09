@@ -221,7 +221,11 @@ module Squib
     def rowify(opts)
       unless opts[:rows].respond_to? :to_i
         raise "Columns must be an integer" unless opts[:columns].respond_to? :to_i
-        opts[:rows] = (@cards.size / opts[:columns].to_i).ceil
+        if @cards.size < opts[:columns].to_i
+          opts[:rows] = 1
+        else
+          opts[:rows] = (@cards.size / opts[:columns].to_i).ceil
+        end
       end
       opts
     end

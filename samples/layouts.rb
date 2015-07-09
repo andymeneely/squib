@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'squib'
+require 'pp'
 
 Squib::Deck.new(layout: 'custom-layout.yml') do
   background color: :white
@@ -28,8 +29,8 @@ Squib::Deck.new(layout: 'custom-layout.yml') do
   text str: 'subtitle', layout: 'subtitle'
 
   # For debugging purposes, you can always print out the loaded layout
-  #require 'pp'
-  #pp @layout
+  # require 'pp'
+  # pp layout
 
   save_png prefix: 'layout_'
 end

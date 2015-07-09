@@ -474,6 +474,10 @@ Squib::logger.level = Logger::INFO
 
 If you REALLY want to see tons of output, you can also set DEBUG, but that's not intended for general consumption.
 
+# "Best" Practices
+
+Here's a collection of workflow tips and code snippets that will hopefully improve your Squibbing. Contributions are welcome!
+
 ## Staying DRY
 
 Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
@@ -482,6 +486,18 @@ Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
 * Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into `config.yml` file.
 * Plus, you know, Ruby.
+
+## Get to know Ruby's Array and Enumerable
+
+If you don't know Ruby, welcome! We are so happy that Squib is your excuse to learn programming.
+
+Ruby has a *very* rich library for all of its built-in data types, especially [Array](http://ruby-doc.org/core-2.2.0/Array.html), and it's broader module [Enumerable](http://ruby-doc.org/core-2.2.0/Enumerable.html). Since Squib primarily takes in arrays into most of its fields, getting to know these methods will help you out enormously:
+
+  * [Array#each](http://ruby-doc.org/core-2.2.0/Array.html#method-i-each) - do something on each element of the array (Ruby folks seldom use for-loops)
+  * [Array#map](http://ruby-doc.org/core-2.2.0/Array.html#method-i-map) - do something on each element of an array and put it into a new array
+  * [Array#select](http://ruby-doc.org/core-2.2.0/Array.html#method-i-select) - select a subset of an array
+  * [Enumerable#each_with_index](http://ruby-doc.org/core-2.2.0/Enumerable.html#method-i-each_with_index) - do something to each element, also being aware of the index
+  * [Array#zip](http://ruby-doc.org/core-2.2.0/Enumerable.html#method-i-zip) - combine two arrays, element by element
 
 ## Source control
 
@@ -512,6 +528,22 @@ When you run `squib new`, you are given a basic Rakefile. At this stage of Squib
 ## Using Google Sheets
 
 We don't officially support Google Sheets ([yet](https://github.com/andymeneely/squib/issues/49)), but [this Gist](https://gist.github.com/pickfifteen/aeee73ec2ce162b0aee8) might be helpful in automatically exporting the CSV.
+
+## Combining Multiple Columns
+
+Say you have multiple columns in your Excel sheet that need to be combined into one icon on your card. Consider using `zip` in conjunction with `map`. 
+
+```ruby
+data['BuyText'] = data['BuyAmount'].zip(data['BuyType']).map do |amt, type|
+  "You may purchase #{amt} #{type}" #e.g. You may purchase 1 Wood.
+end
+
+data['Cost'] = data['Action Cost'].zip(data['Card Cost']).map do |ac, cc|
+  ':action:' * ac.to_i + ":card#{cc}:"
+end
+```
+
+Second example adapted from [this conversation](https://github.com/andymeneely/squib/issues/90)
 
 # Get Involved
 

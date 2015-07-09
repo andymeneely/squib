@@ -3,6 +3,21 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.7.0 / Unreleased
 
+Features
+* Added `cap` option to `line` and `curve` to define how those ends are drawn (#42)
+* Added `join` option to all drawing operations (e.g. `rect`, `star`, even outlines for `text`) to define how corners are drawn. (#42)
+* Added `dash` option to all drawing operations (e.g. `rect`, `star`, even outlines for `text`) so you can specify your own dash pattern. Just specify a string with space-separated numbers to specify the on-and-off alternating pattern (e.g. `dash: '2 2'` with a stroke width of 2 is evenly spaced dots). Supports unit conversion (e.g. `dash: '0.02in 0.02in'`) (#42)
+* Added an idiom to the `ranges.rb` sample for drawing a different number of images based on the column in a table (e.g. 2 arrows to indicate 2 actions). Based on question #90. There are probably even cleaner, Ruby-ish ways to do this too - pull requests are welcome.
+* The `text` method and several other methods will throw errors on invalid input. This means your scripts will be more likely to break if you provide bad input
+
+Compatibility:
+* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This might mean that your `stroke_width` will render wider than before.
+* The `width` and `height` options for `text` have changed their defaults away from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere.
+
+Chores:
+* Refactoring to make internal drawing code more DRY (#75, and much more). This is a big re-design that will help ease future features that involve manipulating arguments. Trust me. This was worth the wait and all the hard work.
+* Better testing and general flexibility around the `range` option.
+
 ## v0.6.0 / 2015-05-26
 
 Features:

@@ -24,7 +24,8 @@ module Squib
         :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
         :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
         :antialias=, :curve_to, :matrix, :matrix=, :identity_matrix, :pango_layout_path,
-        :stroke_preserve, :target, :new_path, :fill_preserve, :close_path
+        :stroke_preserve, :target, :new_path, :fill_preserve, :close_path,
+        :set_line_join, :set_line_cap, :set_dash
 
       # :nodoc:
       # @api private
@@ -48,6 +49,37 @@ module Squib
           @cairo_cxt.set_source_color(arg)
         end
       end
+
+      # Convenience method for a common task
+      # @api private
+      def fill_n_stroke(draw)
+        set_source_squibcolor draw.fill_color
+        fill_preserve
+        set_source_squibcolor draw.stroke_color
+        set_line_width draw.stroke_width
+        set_line_join draw.join
+        set_line_cap draw.cap
+        set_dash draw.dash
+        stroke
+      end
+
+      # Convenience method for a common task
+      # @api private
+      def fancy_stroke(draw)
+        set_source_squibcolor draw.stroke_color
+        set_line_width draw.stroke_width
+        set_line_join draw.join
+        set_line_cap draw.cap
+        set_dash draw.dash
+        stroke
+      end
+
+      def rotate_about(x, y, angle)
+        translate(x, y)
+        rotate(angle)
+        translate(-x, -y)
+      end
+
     end
   end
 end
