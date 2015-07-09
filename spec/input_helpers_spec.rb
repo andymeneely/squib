@@ -182,17 +182,28 @@ describe Squib::InputHelpers do
   end
 
   context '#rowify' do
+    before(:each) do
+      @default_opts = { rows: :infinite, columns: 5 }
+    end
+    
     it 'does nothing on an integer' do
-      opts = @deck.send(:rowify, {columns: 2, rows: 2})
+      opts = @deck.send(:rowify, @default_opts.merge({columns: 2, rows: 2}))
       expect(opts).to eq({ columns: 2,
                            rows: 2
                         })
     end
 
     it 'computes properly on non-integer' do
-      opts = @deck.send(:rowify, {columns: 1, rows: :infinite})
+      opts = @deck.send(:rowify, @default_opts.merge({columns: 1, rows: :infinite}))
       expect(opts).to eq({ columns: 1,
                            rows: 2
+                        })
+    end
+    
+    it 'computes properly on unspecified rows' do
+      opts = @deck.send(:rowify, @default_opts.merge({columns: 3}))
+      expect(opts).to eq({ columns: 3,
+                           rows: 1
                         })
     end
   end
