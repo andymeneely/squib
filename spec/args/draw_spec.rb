@@ -22,7 +22,7 @@ describe Squib::Args::Draw do
       draw.load!(args)
       expect(draw).to have_attributes(
         join: [Cairo::LINE_JOIN_BEVEL],
-        cap: [Cairo::LINE_CAP_ROUND]
+        cap: [Cairo::LINE_JOIN_ROUND]
         )
     end
 
@@ -42,6 +42,12 @@ describe Squib::Args::Draw do
       args = {dash: '3in  4in 5in'}
       draw.load!(args)
       expect(draw).to have_attributes(dash: [[900, 1200, 1500]])
+    end
+
+    it 'converts line caps to Cairo constants' do
+      args = {cap: :SQUARE}
+      draw.load! args
+      expect(draw).to have_attributes( cap: [Cairo::LINE_CAP_SQUARE] )
     end
 
     context 'custom colors' do
