@@ -11,8 +11,9 @@ Features
 * The `text` method and several other methods will throw errors on invalid input. This means your scripts will be more likely to break if you provide bad input
 
 Compatibility:
-* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This might mean that your `stroke_width` will render wider than before.
-* The `width` and `height` options for `text` have changed their defaults away from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere.
+* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before, but now it's accurate.
+* The `width` and `height` options for `text` have changed their defaults away from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere. The behavior is the same, just new names.
+* Removed `img_dir` from the `set` method. You can still set `img_dir` in the configuration file (e.g. `config.yml`). Added a deprecation error.
 
 Bugs:
 * Fixed a `Cairo::WriteError` on `save_sheet` (#56, PR #96 thank you @meltheadorable!)
