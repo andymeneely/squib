@@ -531,7 +531,7 @@ We don't officially support Google Sheets ([yet](https://github.com/andymeneely/
 
 ## Combining Multiple Columns
 
-Say you have multiple columns in your Excel sheet that need to be combined into one icon on your card. Consider using `zip` in conjunction with `map`. 
+Say you have multiple columns in your Excel sheet that need to be combined into one text field on your card. Consider using `zip` in conjunction with `map`. 
 
 ```ruby
 data['BuyText'] = data['BuyAmount'].zip(data['BuyType']).map do |amt, type|
