@@ -44,12 +44,12 @@ task benchmark: [:install] do
   end
 end
 
-task :sanity do
+task :sanity_only do
   require_relative 'spec/samples/sanity.rb'
   Sanity.new.run
 end
 
-task sanity_clean: [:install, :spec, :sanity]
+task sanity: [:install, :spec, :sanity_only]
 
 task :apply_google_analytics do
   # The string to replace in the html document. This is chosen to be the end
