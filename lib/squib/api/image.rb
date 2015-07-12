@@ -1,3 +1,5 @@
+require 'squib/args/paint'
+require 'squib/args/card_range'
 module Squib
   class Deck
 
@@ -21,7 +23,14 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
-      opts = needs(opts, [:range, :files, :x, :y, :width, :height, :alpha, :layout, :blend, :angle, :mask])
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
+      opts = needs(opts, [:range,
+                          :files,
+                          :x, :y, :width, :height,
+                          :angle,
+                          :alpha, :blend, :mask,
+                          :layout])
       Dir.chdir(img_dir) do
         @progress_bar.start('Loading PNG(s)', opts[:range].size) do |bar|
           opts[:range].each do |i|

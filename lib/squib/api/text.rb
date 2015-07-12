@@ -53,7 +53,7 @@ module Squib
       para  = Args::Paragraph.new(font).load!(opts, expand_by: size, layout: layout)
       box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      draw  = Args::Draw.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       embed = TextEmbed.new
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)
