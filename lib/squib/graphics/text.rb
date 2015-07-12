@@ -112,7 +112,7 @@ module Squib
     # :nodoc:
     # @api private
     def text(embed, para, box, trans, draw)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{box.x}, #{box.y}, color: #{draw.color}, angle: #{angle} etc."}
+      Squib.logger.debug {"Rendering text with: \n#{para} \nat:\n #{box} \ndraw:\n #{draw} \ntransform: #{trans}"}
       extents = nil
       use_cairo do |cc|
         cc.set_source_squibcolor(draw.color)
