@@ -7,8 +7,9 @@ module Squib
     class Box
       include ArgLoader
 
-      def initialize(deck = nil)
+      def initialize(deck = nil, dsl_method_defaults = {})
         @deck = deck
+        @dsl_method_defaults = dsl_method_defaults
       end
 
       def self.parameters

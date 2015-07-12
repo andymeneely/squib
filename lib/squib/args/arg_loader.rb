@@ -45,18 +45,21 @@ module Squib
       #  (1) Use whatever is specified if it is
       #  (2) Go over all layout specifications (if any) and look them up
       #     - Use layout when it's specified for that card
-      #     - Use default if no layout was specified,
-      #                      or the layout itself did not specify
+      #     - Use "default" if no layout was specified, or the layout itself did not specify
+      #           Defaut can be overriden for a given dsl method (@dsl_method_defaults)
+      #           (e.g stroke width is 0.0 for text, non-zero everywhere else)
+      #
       def defaultify(p, args, layout)
         return args[p] if args.key? p # arg was specified, no defaults used
+        dsl_method_defaults = @dsl_method_defaults || {}
         args[:layout].map do |layout_arg|
           if layout_arg.nil?
-            self.class.parameters[p]  # no layout specified, use default
+            self.class.parameters.merge(dsl_method_defaults)[p]  # no layout specified, use default
           else
             if layout[layout_arg.to_s].key? p.to_s
               layout[layout_arg.to_s][p.to_s] # param specified in layout
             else
-              self.class.parameters[p]  # layout specified, but not this param
+              self.class.parameters.merge(dsl_method_defaults)[p]  # layout specified, but not this param
             end
           end
         end

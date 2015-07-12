@@ -48,12 +48,11 @@ module Squib
     # @return [Array] Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.
     # @api public
     def text(opts = {})
-      opts  = { stroke_width: 0, width: :auto, height: :auto }.merge(opts)
       range = Args::CardRange.new(opts[:range], deck_size: size)
       para  = Args::Paragraph.new(font).load!(opts, expand_by: size, layout: layout)
-      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self, {width: :auto, height: :auto}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw  = Args::Draw.new(custom_colors, {stroke_width: 0.0}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       embed = TextEmbed.new
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)

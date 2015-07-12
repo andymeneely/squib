@@ -10,9 +10,10 @@ module Squib
       include ArgLoader
       include ColorValidator
 
-      def initialize(custom_colors)
+      def initialize(custom_colors, dsl_method_defaults = {})
         @custom_colors = custom_colors
-      end 
+        @dsl_method_defaults = dsl_method_defaults
+      end
 
       def self.parameters
         { color: :black,
