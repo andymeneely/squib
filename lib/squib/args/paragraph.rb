@@ -46,7 +46,7 @@ module Squib
       end
 
       def validate_align(arg, _i)
-        case arg.to_s.downcase
+        case arg.to_s.downcase.strip
         when 'left'
           Pango::ALIGN_LEFT
         when 'right'
@@ -59,7 +59,7 @@ module Squib
       end
 
       def validate_wrap(arg, _i)
-        case arg.to_s.downcase
+        case arg.to_s.downcase.strip
         when 'word'
           Pango::Layout::WRAP_WORD
         when 'char', 'false'
@@ -72,7 +72,7 @@ module Squib
       end
 
       def validate_ellipsize(arg, _i)
-        case arg.to_s.downcase
+        case arg.to_s.downcase.strip
         when 'none', 'false'
           Pango::Layout::ELLIPSIZE_NONE
         when 'start'
