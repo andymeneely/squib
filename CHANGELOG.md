@@ -17,6 +17,7 @@ Compatibility:
 
 Bugs:
 * Fixed a `Cairo::WriteError` on `save_sheet` (#56, PR #96 thank you @meltheadorable!)
+* Investigated a NoMemoryError on Macs. Solution: upgrade to Ruby 2.2. (#88)
 
 Chores:
 * Refactoring to make internal drawing code more DRY (#75, and much more). This is a big re-design that will help ease future features that involve manipulating arguments. Trust me. This was worth the wait and all the hard work.
