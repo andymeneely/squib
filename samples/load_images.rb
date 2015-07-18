@@ -60,5 +60,13 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png mask: :magenta, file: 'shiny-purse.png',
       x: 650, y: 950
 
+  # Note that this method does nothing, even though it would normally fill up
+  # the card. force_id: true looks to the id field to be non-empty to render.
+  # This is useful if you have multiple different icons in one SVG file,
+  # but sometimes want to use none.
+  # e.g. id: [:attack, :defend, nil]
+  svg file: 'spanner.svg', width: :deck, height: :deck,
+      force_id: true, id: '' # <-- the important part
+
   save prefix: 'load_images_', format: :png
 end
