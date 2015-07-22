@@ -8,7 +8,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    attr_reader :width, :height, :backend, :svgfile
+    attr_reader :width, :height, :backend, :svgfile, :index
 
     # :nodoc:
     # @api private
@@ -21,6 +21,7 @@ module Squib
       @width         = width
       @height        = height
       @backend       = deck.backend
+      @index         = index
       @svgfile       = "#{deck.dir}/#{deck.prefix}#{deck.count_format % index}.svg"
       @cairo_surface = make_surface(@svgfile, @backend)
       @cairo_context = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(@cairo_surface))

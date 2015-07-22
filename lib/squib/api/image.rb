@@ -1,5 +1,10 @@
-require 'squib/args/paint'
 require 'squib/args/card_range'
+require 'squib/args/paint'
+require 'squib/args/box'
+require 'squib/args/transform'
+require 'squib/args/input_file'
+require 'squib/args/svg_special'
+
 module Squib
   class Deck
 
@@ -25,18 +30,13 @@ module Squib
     def png(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
-      opts = needs(opts, [:range,
-                          :files,
-                          :x, :y, :width, :height,
-                          :angle,
-                          :alpha, :blend, :mask,
-                          :layout])
+      box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       Dir.chdir(img_dir) do
-        @progress_bar.start('Loading PNG(s)', opts[:range].size) do |bar|
-          opts[:range].each do |i|
-            @cards[i].png(opts[:file][i],
-                          opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
-                          opts[:alpha][i], opts[:blend][i], opts[:angle][i], opts[:mask][i])
+        @progress_bar.start('Loading PNG(s)', range.size) do |bar|
+          range.each do |i|
+            @cards[i].png(ifile[i].file, box[i], paint[i], trans[i])
             bar.increment
           end
         end
@@ -66,14 +66,17 @@ module Squib
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
-      p = needs(opts,[:range, :files, :svgdata, :svgid, :force_svgid, :x, :y, :width, :height, 
-                      :layout, :alpha, :blend, :angle, :mask])
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
+      box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      svg_args = Args::SvgSpecial.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       Dir.chdir(img_dir) do
-        @progress_bar.start('Loading SVG(s)', p[:range].size) do |bar|
-          p[:range].each do |i|
-            unless p[:force_id][i] && p[:id][i].to_s.empty?
-              @cards[i].svg(p[:file][i], p[:data][i], p[:id][i], p[:x][i], p[:y][i],
-                            p[:width][i], p[:height][i], p[:alpha][i], p[:blend][i], p[:angle][i],p[:mask][i])
+        @progress_bar.start('Loading SVG(s)', range.size) do |bar|
+          range.each do |i|
+            if svg_args.render?(i)
+              @cards[i].svg(ifile[i].file, svg_args[i], box[i], paint[i], trans[i])
             end
             bar.increment
           end

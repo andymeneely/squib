@@ -3,7 +3,7 @@ require 'squib/args/box'
 
 describe Squib::Args::Box do
   subject(:box) { Squib::Args::Box.new }
-  let(:expected_defaults) { {x: [0], y: [0], width: [:native], height: [:native] } }
+  let(:expected_defaults) { {x: [0], y: [0], width: [:deck], height: [:deck] } }
 
   it 'intitially has no params set' do
     expect(box).not_to respond_to(:x, :y, :width, :height)
@@ -16,7 +16,7 @@ describe Squib::Args::Box do
 
   it 'extracts what is specified and fills in defaults from Box' do
     box.load!(x: 4, width: 40)
-    expect(box).to have_attributes(x: [4], width: [40], y: [0], height: [:native])
+    expect(box).to have_attributes(x: [4], width: [40], y: [0], height: [:deck])
   end
 
   it 'extracts the defaults from Box on an empty hash' do
@@ -32,8 +32,8 @@ describe Squib::Args::Box do
       expect(box).to have_attributes({
           x: [1, 2],
           y: [3, 3],
-          height: [:native, :native],
-          width: [:native, :native]
+          height: [:deck, :deck],
+          width: [:deck, :deck]
       })
     end
 
@@ -41,8 +41,8 @@ describe Squib::Args::Box do
       expect(box[0]).to have_attributes({
         x: 1,
         y: 3,
-        height: :native,
-        width: :native
+        height: :deck,
+        width: :deck
         })
     end
   end
@@ -98,7 +98,7 @@ describe Squib::Args::Box do
 
   context 'validation' do
     it 'replaces with deck width and height' do
-      args = {width: :native, height: :native}
+      args = {width: :deck, height: :deck}
       deck = OpenStruct.new(width: 123, height: 456)
       box = Squib::Args::Box.new(deck)
       box.load!(args, expand_by: 1)

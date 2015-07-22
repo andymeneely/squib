@@ -14,7 +14,7 @@ module Squib
 
       def self.parameters
         { x: 0, y: 0,
-          width: :native, height: :native,
+          width: :deck, height: :deck,
           radius: nil, x_radius: 0, y_radius: 0
         }
       end
@@ -29,13 +29,13 @@ module Squib
 
       def validate_width(arg, _i)
         return arg if @deck.nil?
-        return @deck.width if arg == :native
+        return @deck.width if arg == :deck
         arg
       end
 
       def validate_height(arg, _i)
         return arg if @deck.nil?
-        return @deck.height if arg == :native
+        return @deck.height if arg == :deck
         arg
       end
 

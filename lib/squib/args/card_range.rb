@@ -13,6 +13,10 @@ module Squib
         @range.each { |i| block.call(i) }
       end
 
+      def size
+        @range.size
+      end
+
       private
       def validate(input, deck_size)
         input ||= :all # default

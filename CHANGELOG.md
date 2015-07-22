@@ -8,12 +8,14 @@ Features
 * Added `join` option to all drawing operations (e.g. `rect`, `star`, even outlines for `text`) to define how corners are drawn. (#42)
 * Added `dash` option to all drawing operations (e.g. `rect`, `star`, even outlines for `text`) so you can specify your own dash pattern. Just specify a string with space-separated numbers to specify the on-and-off alternating pattern (e.g. `dash: '2 2'` with a stroke width of 2 is evenly spaced dots). Supports unit conversion (e.g. `dash: '0.02in 0.02in'`) (#42)
 * Added an idiom to the `ranges.rb` sample for drawing a different number of images based on the column in a table (e.g. 2 arrows to indicate 2 actions). Based on question #90. There are probably even cleaner, Ruby-ish ways to do this too - pull requests are welcome.
-* The `text` method and several other methods will throw errors on invalid input. This means your scripts will be more likely to break if you provide bad input
+* The `text` method and several other methods will throw errors on invalid input. This means your scripts will be more likely to break if you provided bad input in the past.
+* The `text` embedding icon now allows singleton expansion, which means that you can have icons have different sizes on different cards. The sample `embed_text.rb` demonstrates this. (#54)
 
 Compatibility:
 * All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before, but now it's accurate.
-* The `width` and `height` options for `text` have changed their defaults away from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere. The behavior is the same, just new names.
+* The `width` and `height` options for `text` have changed their defaults from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere.  Additionally, `width` and `height` for shapes now default to `:deck`, and get interpreted as the deck width and height. The `:native` options are interpreted for SVG and PNG images as their original values. The behavior is all the same, just with more specific names.
 * Removed `img_dir` from the `set` method. You can still set `img_dir` in the configuration file (e.g. `config.yml`). Added a deprecation error.
+* Default `width` and `height` for text embedding `png` and `svg` have changed from 32 to `:native` to be more consistent with the rest of the system
 
 Bugs:
 * Fixed a `Cairo::WriteError` on `save_sheet` (#56, PR #96 thank you @meltheadorable!)

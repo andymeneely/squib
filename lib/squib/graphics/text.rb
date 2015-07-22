@@ -79,24 +79,24 @@ module Squib
     # @api private
     def process_embeds(embed, str, layout)
       return [] unless embed.rules.any?
-      layout.markup   = str
-      clean_str       = layout.text
-      draw_calls      = []
-      searches        = []
+      layout.markup = str
+      clean_str     = layout.text
+      draw_calls    = []
+      searches      = []
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
-        rule          = embed.rules[key]
-        spacing       = rule[:width] * Pango::SCALE
-        index         = clean_str.index(key)
-        index         = clean_str[0..index].bytesize #convert to byte index (bug #57)
+        rule    = embed.rules[key]
+        spacing = rule[:box].width[@index] * Pango::SCALE
+        kindex   = clean_str.index(key)
+        kindex   = clean_str[0..kindex].bytesize #convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
-        searches << { index: index, rule: rule }
+        searches << { index: kindex, rule: rule }
       end
       searches.each do |search|
-        rect          = layout.index_to_pos(search[:index])
-        x             = Pango.pixels(rect.x) + search[:rule][:dx]
-        y             = Pango.pixels(rect.y) + search[:rule][:dy]
+        rect = layout.index_to_pos(search[:index])
+        x    = Pango.pixels(rect.x) + search[:rule][:adjust].dx[@index]
+        y    = Pango.pixels(rect.y) + search[:rule][:adjust].dy[@index]
         draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
       end
       return draw_calls
