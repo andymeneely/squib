@@ -30,6 +30,7 @@ module Squib
       # :nodoc:
       # @api private
       def set_source_squibcolor(arg)
+        raise 'nil is not a valid color' if arg.nil?
         if match = arg.match(LINEAR_GRADIENT)
           x1, y1, x2, y2 = match.captures
           linear = Cairo::LinearPattern.new(x1.to_f, y1.to_f, x2.to_f, y2.to_f)
