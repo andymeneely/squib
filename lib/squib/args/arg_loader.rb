@@ -12,6 +12,7 @@ module Squib
 
       # Main class invoked by the client (i.e. api/ methods)
       def load!(args, expand_by: 1, layout: {}, dpi: 300)
+        Squib.logger.debug { "ARG LOADER: load! for #{self.class}, args: #{args}" }
         @dpi = dpi
         args[:layout] = prep_layout_args(args[:layout], expand_by: expand_by)
         expand_and_set_and_defaultify(args: args, by: expand_by, layout: layout)
