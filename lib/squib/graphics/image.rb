@@ -56,7 +56,6 @@ module Squib
         cc.rotate(trans.angle)
         cc.scale(scale_width, scale_height)
         cc.operator = paint.blend unless paint.blend == :none
-        #FIXME Alpha is no longer used since we are not using cc.paint anymore
         if paint.mask.to_s.empty?
           cc.render_rsvg_handle(svg, svg_args.id)
         else
