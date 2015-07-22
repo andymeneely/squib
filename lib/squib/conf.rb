@@ -24,6 +24,7 @@ module Squib
       'ellipsis'      => "\u2026",
       'smart_quotes'  => true,
       'text_hint'     => 'off',
+      'warn_ellipsize'=> true,
     }
 
     #Translate the hints to the methods.
@@ -99,6 +100,10 @@ module Squib
 
     def custom_colors
       @config_hash['custom_colors']
+    end
+
+    def warn_ellipsize?
+      @config_hash['warn_ellipsize']
     end
 
     private

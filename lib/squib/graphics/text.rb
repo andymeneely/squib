@@ -109,6 +109,12 @@ module Squib
       end
     end
 
+    def warn_if_ellipsized(layout)
+       if @deck.conf.warn_ellipsize? && layout.ellipsized?
+         Squib.logger.warn { "Ellipsized (too much text). Card \##{@index}. Text:  \"#{layout.text}\". \n (To disable this warning, set warn_ellipsize: false in config.yml)" }
+       end
+    end
+
     # :nodoc:
     # @api private
     def text(embed, para, box, trans, draw)
@@ -160,6 +166,7 @@ module Squib
         draw_text_hint(cc, box.x, box.y, layout, para.hint)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
+        warn_if_ellipsized layout
       end
       return extents
     end

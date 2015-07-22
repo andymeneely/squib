@@ -109,7 +109,7 @@ def mock_cairo(strio)
   end
 
   %w(font_description= text= width= height= wrap= ellipsize= alignment=
-    justify= spacing= markup=).each do |m|
+    justify= spacing= markup= ellipsized?).each do |m|
     allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args})\n") }
   end
 
