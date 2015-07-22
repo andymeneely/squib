@@ -46,5 +46,12 @@ describe Squib::Deck do
         })
     end
 
+    it 'loads xlsm files with macros' do
+      expect(Squib.xlsx(file: xlsx_file('with_macros.xlsm'))).to eq({
+        'foo' => %w(8 10),
+        'bar' => %w(9 11),
+        })
+    end
+
   end
 end
