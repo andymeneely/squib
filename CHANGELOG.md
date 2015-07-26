@@ -11,7 +11,8 @@ Features
 * The `text` method and several other methods will throw errors on invalid input. This means your scripts will be more likely to break if you provide bad input. Please report bugs if you thinkg this unfairly breaks your code.
 * The `text` embedding icon now allows singleton expansion, which means that you can have icons have different sizes on different cards. The sample `embed_text.rb` demonstrates this. (#54)
 * The `text` method will throw a warning when it needs to ellipsize text (i.e. too much text for a fixed-size text box). Can be turned off in `config.yml`. (#80)
-* Upgraded roo (Excel parsing) to 2.1.0. Macro-enabled Excel files can be parsed now (i.e. `xlsm`), although I've only mildly tested this.
+* Upgraded roo (Excel parsing) to 2.1.0. Macro-enabled Excel files can be parsed now (i.e. `xlsm`), although I've only mildly tested this. (cddea47ba56add286639e493d5cc0146245eca68)
+* New built-in layouts: `fantasy.yml` and `economy.yml`. Demonstrated in new sample `layouts_builtin.rb` (#97)
 
 Compatibility:
 * All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before, but now it's accurate.

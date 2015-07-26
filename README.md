@@ -411,7 +411,11 @@ YAML merge keys are NOT supported across multiple files - use `extends` instead.
 
 ### Built-in Layout Files
 
-If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
+Why mess with x-y coordinates when you're first prototyping your game?!?!? Just use a built-in layout to get your game to the table as quickly as possible.
+
+If your layout file is not found in the current directory, Squib will search for its own set of layout files.  The latest the development version of these can be found [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). The `layouts_builtin.rb` sample (found [here](https://github.com/andymeneely/squib/tree/master/samples/)) demonstrate built-in layouts based on popular games (e.g. `fantasy.yml` and `economy.yml`)
+
+Contributions in this area are particularly welcome!
 
 ### Layout Sample
 This sample demonstrates many different ways of using and combining layouts. This is the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
@@ -531,7 +535,7 @@ We don't officially support Google Sheets ([yet](https://github.com/andymeneely/
 
 ## Combining Multiple Columns
 
-Say you have multiple columns in your Excel sheet that need to be combined into one text field on your card. Consider using `zip` in conjunction with `map`. 
+Say you have multiple columns in your Excel sheet that need to be combined into one text field on your card. Consider using `zip` in conjunction with `map`.
 
 ```ruby
 data['BuyText'] = data['BuyAmount'].zip(data['BuyType']).map do |amt, type|
