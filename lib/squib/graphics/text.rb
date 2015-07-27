@@ -144,14 +144,12 @@ module Squib
 
         layout.justify = para.justify unless para.justify.nil?
         layout.spacing = para.spacing unless para.spacing.nil?
-        cc.update_pango_layout(layout)
 
         embed_draws    = process_embeds(embed, para.str, layout)
 
         vertical_start = compute_valign(layout, para.valign)
         cc.move_to(0, vertical_start)
 
-        cc.update_pango_layout(layout)
         cc.show_pango_layout(layout)
         stroke_outline!(cc, layout, draw)
         begin
