@@ -79,6 +79,16 @@ describe Squib::Args::Box do
          y: [0, 0],    # Box default
         )
     end
+
+    it 'warns on non-existent layouts' do
+      args = { layout: :heal}
+      expect(Squib.logger).to receive(:warn).with('Layout "heal" does not exist in layout file - using default instead').at_least(:once)
+      box.load!(args, expand_by: 2, layout: layout)
+      expect(box).to have_attributes(
+         x: [0, 0], # Box default
+         y: [0, 0], # Box default
+        )
+    end
   end
 
   context 'unit conversion' do

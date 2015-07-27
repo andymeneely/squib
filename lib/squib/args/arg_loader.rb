@@ -52,16 +52,17 @@ module Squib
       #
       def defaultify(p, args, layout)
         return args[p] if args.key? p # arg was specified, no defaults used
-        dsl_method_defaults = @dsl_method_defaults || {}
+        defaults = self.class.parameters.merge(@dsl_method_defaults || {})
         args[:layout].map do |layout_arg|
-          if layout_arg.nil?
-            self.class.parameters.merge(dsl_method_defaults)[p]  # no layout specified, use default
+          return defaults[p] if layout_arg.nil?  # no layout specified, use default
+          unless layout.key? layout_arg.to_s     # specified a layout, but it doesn't exist in layout. Oops!
+            Squib.logger.warn("Layout \"#{layout_arg.to_s}\" does not exist in layout file - using default instead")
+            return defaults[p]
+          end
+          if layout[layout_arg.to_s].key?(p.to_s)
+            layout[layout_arg.to_s][p.to_s]     # param specified in layout
           else
-            if layout[layout_arg.to_s].key? p.to_s
-              layout[layout_arg.to_s][p.to_s] # param specified in layout
-            else
-              self.class.parameters.merge(dsl_method_defaults)[p]  # layout specified, but not this param
-            end
+            defaults[p]                         # layout specified, but not this param
           end
         end
       end
