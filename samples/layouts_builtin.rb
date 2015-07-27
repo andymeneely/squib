@@ -44,7 +44,6 @@ end
 
 # Stitch together a deck of all the above examples
 Squib::Deck.new(cards: 2) do
-  puts Dir.glob('_output/layouts_builtin_*.png')
   Dir.glob('_output/layouts_builtin_*.png').each.with_index do |file, i|
     png file: file, range: i
   end
