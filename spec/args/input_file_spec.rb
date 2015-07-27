@@ -14,7 +14,7 @@ describe Squib::Args::InputFile do
 
     it 'raises on non-existent file' do
       args = {file: 'foo.rb'}
-      expect { ifile.load!(args, expand_by: 1) }.to raise_error
+      expect { ifile.load!(args, expand_by: 1) }.to raise_error("File #{File.expand_path('foo.rb')} does not exist!")
     end
 
   end
