@@ -66,7 +66,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   text str: longtext, font: 'Arial 16',
        x: 65, y: 700,
        width: '1.5in', height: inches(1),
-       justify: true
+       justify: true, spacing: -6
 
   # Here's how you embed images into text.
   # Pass a block to the method call and use the given context

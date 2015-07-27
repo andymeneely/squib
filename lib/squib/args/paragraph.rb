@@ -17,7 +17,7 @@ module Squib
           justify:   false,
           wrap:      true,
           ellipsize: :end,
-          spacing:   0,
+          spacing:   nil,
           valign:    :top,
           hint:      :off
         }
@@ -98,7 +98,7 @@ module Squib
       def validate_spacing(arg, _i)
         return nil if arg.nil?
         raise ArgumentError, 'spacing must be a number or nil' unless arg.respond_to? :to_f
-        Pango::SCALE * arg.to_f
+        arg.to_f * Pango::SCALE
       end
 
       def validate_valign(arg, _i)

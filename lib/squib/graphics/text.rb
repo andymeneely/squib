@@ -143,7 +143,7 @@ module Squib
         layout.alignment = para.align
 
         layout.justify = para.justify unless para.justify.nil?
-        layout.spacing = para.spacing * Pango::SCALE unless para.spacing.nil?
+        layout.spacing = para.spacing unless para.spacing.nil?
         cc.update_pango_layout(layout)
 
         embed_draws    = process_embeds(embed, para.str, layout)
