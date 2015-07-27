@@ -1,6 +1,6 @@
 require 'squib/args/card_range'
 require 'squib/args/paint'
-require 'squib/args/box'
+require 'squib/args/scale_box'
 require 'squib/args/transform'
 require 'squib/args/input_file'
 require 'squib/args/svg_special'
@@ -18,8 +18,8 @@ module Squib
     # @option opts file [String] ((empty)) file(s) to read in. If it's a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done. See {file:README.md#Specifying_Files Specifying Files}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Arrays, see {file:README#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Arrays, see {file:README#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts width [Integer] (:native) the pixel width that the image should scale to. Scaling PNGs is not recommended for professional-looking cards. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts height [Integer] (:native) the pixel width that the image should scale to. Scaling PNGs is not recommended for professional-looking cards. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts width [Integer, :native, :scale, :deck] (:native) the pixel width that the image should scale to. :deck will scale to the deck width. :scale will use the height to scale and keep native the aspect ratio. Scaling PNGs is not recommended for professional-looking cards. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts height [Integer, :native, :scale, :deck] (:native) the pixel width that the image should scale to. :deck will scale to the deck height. :scale will use the width to scale and keep native the aspect ratio. Scaling PNGs is not recommended for professional-looking cards. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts alpha [Decimal] (1.0) the alpha-transparency percentage used to blend this image. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
@@ -31,7 +31,7 @@ module Squib
       Dir.chdir(img_dir) do
         range = Args::CardRange.new(opts[:range], deck_size: size)
         paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
-        box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+        box   = Args::ScaleBox.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
         trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         @progress_bar.start('Loading PNG(s)', range.size) do |bar|
@@ -59,8 +59,8 @@ module Squib
     # @option opts force_id [Boolean] (false) if set, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts width [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts height [Integer] (:native) the pixel width that the image should scale to. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts width [Integer] (:native) the pixel width that the image should scale to. :deck will scale to the deck height. :scale will use the width to scale and keep native the aspect ratio. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts height [Integer] (:native) the pixel width that the image should scale to. :deck will scale to the deck height. :scale will use the width to scale and keep native the aspect ratio. SVG scaling is done with vectors, so the scaling should be smooth. When set to `:native`, uses the DPI and units of the loaded SVG document. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
@@ -71,7 +71,7 @@ module Squib
       Dir.chdir(img_dir) do
         range = Args::CardRange.new(opts[:range], deck_size: size)
         paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
-        box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+        box   = Args::ScaleBox.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
         trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         svg_args = Args::SvgSpecial.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)

@@ -21,9 +21,11 @@ module Squib
       use_cairo do |cc|
         cc.translate(box.x, box.y)
         if box.width != :native || box.height != :native
-          box.width  == :native && box.width  = png.width.to_f
-          box.height == :native && box.height = png.height.to_f
-          Squib.logger.warn "PNG scaling results in antialiasing."
+          box.width  = png.width.to_f  if box.width  == :native
+          box.height = png.height.to_f if box.height == :native
+          box.width  = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
+          box.height = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
+          Squib.logger.warn "PNG scaling results in aliasing."
           cc.scale(box.width.to_f / png.width.to_f, box.height.to_f / png.height.to_f)
         end
         cc.rotate(trans.angle)
@@ -49,6 +51,8 @@ module Squib
       svg          = RSVG::Handle.new_from_data(svg_args.data)
       box.width    = svg.width  if box.width == :native
       box.height   = svg.height if box.height == :native
+      box.width  = svg.width.to_f * box.height.to_f / svg.height.to_f if box.width == :scale
+      box.height = svg.height.to_f * box.width.to_f / svg.width.to_f  if box.height == :scale
       scale_width  = box.width.to_f / svg.width.to_f
       scale_height = box.height.to_f / svg.height.to_f
       use_cairo do |cc|

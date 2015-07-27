@@ -12,6 +12,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png file: 'shiny-purse.png', x: 305, y: 50, width: 250, height: 250
   #...but PNGs will warn if it's an upscale
 
+  # Can be scaled using just width or height, if one of them is set to :scale
+  svg file: 'spanner.svg', x: 200, y: 350, width: 35,     height: :scale
+  svg file: 'spanner.svg', x: 200, y: 390, width: :scale, height: 35
+  png file: 'shiny-purse.png', x: 240, y: 350, width: 35,     height: :scale
+  png file: 'shiny-purse.png', x: 240, y: 390, width: :scale, height: 35
+
   # We can also limit our rendering to a single object, if the SVG ID is set
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
   # Squib prepends a #-sign if one is not specified
