@@ -41,9 +41,9 @@ And then execute:
     $ bundle
 
 Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups.
-  * Windows: I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit.
-  * Mac: I recommend using [rvm](https://rvm.io).
-  * Cywgin is not 100% supported, but could potentially work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113)
+  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit.
+  * Mac: I recommend using [rvm](https://rvm.io). Some users have reported that Ruby 2.1 will not work with Mac OSX 10.10.4 (#88) - Ruby 2.0 and 2.2 are confirmed to work however (this is an rcairo issue, not a Squib issue).
+  * Cywgin is not supported, but could theoretically work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113). Contributions in this area are welcome.
 
 Squib requires Ruby 2.0 or later.
 
