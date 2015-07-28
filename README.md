@@ -552,9 +552,20 @@ Second example adapted from [this conversation](https://github.com/andymeneely/s
 
 # Get Involved
 
-Squib is an open source tool, and I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can. I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler).
+Squib is an open source tool, so I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can.
 
-Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). For bugs, a minimal code example along with your OS and Ruby details would be ideal.
+I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler). You can watch for new upgrades by following the RubyGems [RSS](https://rubygems.org/gems/squib/versions.atom), or by watching the project on GitHub.
+
+For bugs and feature requests, feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). A minimal code example along with your OS and Ruby details would be ideal.
+
+## Get Help
+
+There are lots of people using Squib already. If you've gone through the [samples](https://github.com/andymeneely/squib/tree/master/samples) and still have questions, here are some other places to get help.
+
+* Our [thread on BoardGameGeek](http://boardgamegeek.com/thread/1293453) is quite active and informal (if a bit unstructured).
+* [StackOverflow](http://stackoverflow.com/questions/ask?tags=ruby) with the tag "ruby" will get you answers quickly and a great way to document questions for future Squibbers.
+
+Please use GitHub issues for bugs and feature requests.
 
 ## Testing Pre-Builds
 
