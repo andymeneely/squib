@@ -28,6 +28,8 @@ We just created a 2-card deck with "Hello" on the first card, and "World" on the
 
 ## Installation
 
+Squib requires Ruby 2.0 or later.
+
 Install it yourself with:
 
     $ gem install squib
@@ -40,12 +42,11 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups.
-  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit.
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, and is automated through Bundler/RubyGems, but can cause headaches on some setups.
+  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib's dependencies called Nokogiri (read the WTF-y issue here: https://github.com/sparklemotion/nokogiri/issues/1256), so I recommend 2.1 or 2.0 for Windows users.
   * Mac: I recommend using [rvm](https://rvm.io). Some users have reported that Ruby 2.1 will not work with Mac OSX 10.10.4 (#88) - Ruby 2.0 and 2.2 are confirmed to work however (this is an rcairo issue, not a Squib issue).
   * Cywgin is not supported, but could theoretically work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113). Contributions in this area are welcome.
-
-Squib requires Ruby 2.0 or later.
+  * Linux. No known installation issues. Happy installing!
 
 ## Getting Started
 
