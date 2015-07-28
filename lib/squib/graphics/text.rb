@@ -149,9 +149,10 @@ module Squib
         embed_draws    = process_embeds(embed, para.str, layout)
 
         vertical_start = compute_valign(layout, para.valign)
-        cc.move_to(0, vertical_start)
+        cc.move_to(0, vertical_start) #TODO clean this up a bit
 
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
+        cc.move_to(0, vertical_start)
         cc.show_pango_layout(layout)
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :fill_first
         begin
