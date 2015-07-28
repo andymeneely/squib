@@ -494,7 +494,7 @@ Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 
 ## Get to know Ruby's Array and Enumerable
 
-If you don't know Ruby, welcome! We are so happy that Squib is your excuse to learn programming.
+Don't know Ruby? Welcome! We are so happy that Squib is your excuse to learn Ruby.
 
 Ruby has a *very* rich library for all of its built-in data types, especially [Array](http://ruby-doc.org/core-2.2.0/Array.html), and it's broader module [Enumerable](http://ruby-doc.org/core-2.2.0/Enumerable.html). Since Squib primarily takes in arrays into most of its fields, getting to know these methods will help you out enormously:
 
@@ -557,6 +557,23 @@ Squib is an open source tool, so I welcome participation. Squib is currently in 
 I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler). You can watch for new upgrades by following the RubyGems [RSS](https://rubygems.org/gems/squib/versions.atom), or by watching the project on GitHub.
 
 For bugs and feature requests, feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). A minimal code example along with your OS and Ruby details would be ideal.
+
+## New to Programming?
+
+I often hear statements like "I'm not a programmer, but I want to use Squib." If you want to use Squib, then maybe you really were a programmer all along :)
+
+Squib is a Ruby library. To learn Squib, you will need to learn Ruby. There is no getting around that fact. Don't fight it, embrace it.
+
+Fortunately, Ruby is wonderfully rich in features and very expressive in its syntax. Ruby has a vibrant, friendly community (much like tabletop game designers!). Ruby is the language of choice for many new programmers, including many universities. Plus, learning how to code is ubiquitous on the Internet.
+
+Doubly fortunately, Squib doesn't require tons of Ruby-fu to get going either. The main things you'll need to know are:
+  * Working on the command line
+  * Ruby Arrays, so that the `range` parameter makes more sense
+  * Strings, variables, and symbols
+  * If you are using Excel or CSV, then Ruby hashes are worth a glance.
+  * Working iteratively: making small edits and run your code frequently (every few minutes)
+
+Anything related to Ruby on Rails is not necessary to learn for Squib. Rails is a heavyweight framework for web development (awesome in its own way, but not relevant to learning Ruby). Squib is about scripting.
 
 ## Get Help
 
