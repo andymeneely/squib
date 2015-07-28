@@ -78,14 +78,18 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
   end
 
-  text str: "Stroke n <span fgcolor=\"\#ff0000\">fill</span>",
+  text str: "Fill n <span fgcolor=\"\#ff0000\">stroke</span>",
        color: :green, stroke_width: 2.0, stroke_color: :blue,
-       x: '1.8in', y: '3in', width: '0.85in', font: 'Sans Bold 26', markup: true
+       x: '1.8in', y: '2.9in', width: '0.85in', font: 'Sans Bold 26', markup: true
+
+  text str: "Stroke n <span fgcolor=\"\#ff0000\">fill</span>",
+       color: :green, stroke_width: 2.0, stroke_color: :blue, stroke_strategy: :stroke_first,
+       x: '1.8in', y: '3.0in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
   text str: "Dotted",
        color: :white, stroke_width: 2.0, dash: '4 2', stroke_color: :black,
-       x: '1.8in', y: '3.1in', width: '0.85in', font: 'Sans Bold 28', markup: true
-
+       x: '1.8in', y: '3.1in', width: '0.85in', font: 'Sans Bold 26', markup: true
+  #
   text str: "<b>Markup</b> is <i>quite</i> <s>'easy'</s> <span fgcolor=\"\#ff0000\">awesome</span>. Can't beat those \"smart\" 'quotes', now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...",
        markup: true,
        x: 50, y: 1000,

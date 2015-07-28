@@ -54,6 +54,7 @@ module Squib
       # Convenience method for a common task
       # @api private
       def fill_n_stroke(draw)
+        return stroke_n_fill(draw) if draw.stroke_strategy == :stroke_first
         set_source_squibcolor draw.fill_color
         fill_preserve
         set_source_squibcolor draw.stroke_color
@@ -62,6 +63,18 @@ module Squib
         set_line_cap draw.cap
         set_dash draw.dash
         stroke
+      end
+
+      def stroke_n_fill(draw)
+        return fill_n_stroke(draw) if draw.stroke_strategy == :fill_first
+        set_source_squibcolor draw.stroke_color
+        set_line_width draw.stroke_width
+        set_line_join draw.join
+        set_line_cap draw.cap
+        set_dash draw.dash
+        stroke_preserve
+        set_source_squibcolor draw.fill_color
+        fill
       end
 
       # Convenience method for a common task

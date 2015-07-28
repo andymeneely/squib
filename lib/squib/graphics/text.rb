@@ -106,6 +106,7 @@ module Squib
       if draw.stroke_width > 0
         cc.pango_layout_path(layout)
         cc.fancy_stroke draw
+        cc.set_source_squibcolor(draw.color)
       end
     end
 
@@ -150,8 +151,9 @@ module Squib
         vertical_start = compute_valign(layout, para.valign)
         cc.move_to(0, vertical_start)
 
+        stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
         cc.show_pango_layout(layout)
-        stroke_outline!(cc, layout, draw)
+        stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :fill_first
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e

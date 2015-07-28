@@ -16,7 +16,7 @@ Features
 * Added `:scale` shortcut to `width` and `height` options for `png` and `svg`. Allows you to set the width and the image will scale while keeping its aspect ratio. (e.g. `svg width: 500, height: :scale`) (#91)
 
 Compatibility:
-* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before, but now it's accurate.
+* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before. If you want the other behavior, specify `stroke_strategy: :stroke_first`. Also applies to `text` when `stroke_width` is specified.
 * The `width` and `height` options for `text` have changed their defaults from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere.  Additionally, `width` and `height` for shapes now default to `:deck`, and get interpreted as the deck width and height. The `:native` options are interpreted for SVG and PNG images as their original values. The behavior is all the same, just with more specific names.
 * Removed `img_dir` from the `set` method. You can still set `img_dir` in the configuration file (e.g. `config.yml`). Added a deprecation error.
 * Default `width` and `height` for text embedding `png` and `svg` have changed from 32 to `:native` to be more consistent with the rest of the system

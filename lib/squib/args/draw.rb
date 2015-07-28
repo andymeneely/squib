@@ -20,6 +20,7 @@ module Squib
           fill_color: '#0000',
           stroke_color: :black,
           stroke_width: 2.0,
+          stroke_strategy: :fill_first,
           join: :miter,
           cap: 'butt',
           dash: ''
@@ -72,6 +73,17 @@ module Squib
 
       def validate_color(arg, _i)
         colorify(arg, @custom_colors)
+      end
+
+      def validate_stroke_strategy(arg, _i)
+        case arg.to_s.downcase.strip
+        when 'fill_first'
+          :fill_first
+        when 'stroke_first'
+          :stroke_first
+        else
+          raise "Only 'stroke_first' or 'fill_first' allowed"
+        end
       end
 
     end

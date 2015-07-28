@@ -60,6 +60,23 @@ describe Squib::Args::Draw do
       expect(draw).to have_attributes( cap: [Cairo::LINE_CAP_SQUARE] )
     end
 
+    it 'allows fill_first stroke_strategy' do
+      args = {stroke_strategy: :FILL_first}
+      draw.load! args
+      expect(draw).to have_attributes( stroke_strategy: [:fill_first] )
+    end
+
+    it 'allows stroke_first stroke_strategy' do
+      args = {stroke_strategy: '  stroke_FIRST '}
+      draw.load! args
+      expect(draw).to have_attributes( stroke_strategy: [:stroke_first] )
+    end
+
+    it 'disallows anything not stroke_first and fill_first' do
+      args = {stroke_strategy: 'foo'}
+      expect { draw.load! args }.to raise_error("Only 'stroke_first' or 'fill_first' allowed")
+    end
+
     context 'custom colors' do
 
       it 'looks up custom colors in the config' do

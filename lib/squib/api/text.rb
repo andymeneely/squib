@@ -43,6 +43,7 @@ module Squib
     # @option opts angle [FixNum] (0) Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.
     # @option opts stroke_width [Decimal] (0.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape. 
     # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts hint [String] (:nil) draw a rectangle around the text with the given color. Overrides global hints (see {Deck#hint}).
     # @return [Array] Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.
