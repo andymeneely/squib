@@ -50,14 +50,15 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
 
   # Text hints are guides for showing you how your text boxes are laid out exactly
   hint text: :cyan
-  text str: 'Text hints are also globally togglable!',
-        x: 65, y: 625,
-        font: 'Arial 22'
+  set font: 'Serif 20' # Impacts all future text calls (unless they specify differently)
+  text str: 'Text hints & fonts are globally togglable!', x: 65, y: 625
+  set font: :default # back to Squib-wide default
   hint text: :off
   text str: 'See? No hint here.',
         x: 565, y: 625,
         font: 'Arial 22'
 
+  # Text can be rotated, in radians, about the upper-left corner of the text box.
   text str: 'Rotated',
         x: 565, y: 675, angle: 0.2,
         font: 'Arial 18', hint: :red

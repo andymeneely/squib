@@ -192,21 +192,36 @@ All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened r
 If you find that you `cd` a lot while working on the command line, your `_output` folder might get generated in multiple places. An easy way to fix this is to use a `Rakefile`, [see below](#Rakefile)
 
 ## Working with Text
-The `text` method is a particularly powerful method with a ton of options. Be sure to check the [API docs](docs/Squib/Deck#text-instance_method) on an option-by-option discussion, but here are the highlights.
+The `text` method is a particularly powerful method with a ton of options. Be sure to check the [API docs](/squib/doc/Squib/Deck#text-instance_method) on an option-by-option discussion, but here are the highlights.
 
-**Fonts**. The font is specified in a given Pango "font string", which can involve a ton of options embedded there in the string. In addition to the typical bold and italic variations, you can also specify all-caps, the specific boldness weight (e.g. 900), or go with oblique. These options are only available if the underlying font supports them, however. Here's are some example Pango font strings:
+###Fonts.
+
+To set the font, your `text` method call will look something like this:
+
+```ruby
+text str: "Hello", font: 'MyFont Bold 32'
+```
+
+The `'MyFont Bold 32'` is specified as a "Pango font string", which can involve [a lot of options](http://ruby-gnome2.osdn.jp/hiki.cgi?Pango%3A%3AFontDescription#Pango%3A%3AFontDescription.new) including backup font families, size, all-caps, stretch, oblique, italic, and degree of boldness. (These options are only available if the underlying font supports them, however.) Here's are some `text` calls with different Pango font strings:
 
 ```
-Sans 18
-Arial,Verdana weight=900 style=oblique 36
-Times New Roman,Sans 25
+text str: "Hello", font: 'Sans 18'
+text str: "Hello", font: 'Arial,Verdana weight=900 style=oblique 36'
+text str: "Hello", font: 'Times New Roman,Sans 25'
 ```
 
-Note: When the font has a space it, you'll need to put a backup to get Pango's parsing to work.
+Note: When the font has a space in the name (e.g. Times New Roman), you'll need to put a backup to get Pango's parsing to work.
 
 It's also important to note that most of the font rendering is done by a combination of your installed fonts, your OS, and your graphics card. Thus, different systems will render text slightly differently.
 
-Furthermore, options like `font_size` allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and `extends` too.
+Fonts can also be set globally using the `set` method. For example:
+
+```
+set font: 'Arial 26'
+text str: 'blah' # in Arial 26
+```
+
+Furthermore, Squib's `text` method has options such as `font_size` that allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and `extends` too.
 
 ### Width and Height
 
