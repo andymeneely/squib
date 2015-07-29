@@ -580,7 +580,7 @@ Anything related to Ruby on Rails is not necessary to learn for Squib. Rails is 
 There are lots of people using Squib already. If you've gone through the [samples](https://github.com/andymeneely/squib/tree/master/samples) and still have questions, here are some other places to get help.
 
 * Our [thread on BoardGameGeek](http://boardgamegeek.com/thread/1293453) is quite active and informal (if a bit unstructured).
-* [StackOverflow](http://stackoverflow.com/questions/ask?tags=ruby) with the tag "ruby" will get you answers quickly and a great way to document questions for future Squibbers.
+* [StackOverflow](http://stackoverflow.com/questions/ask?tags=ruby squib) with the tag "ruby" and "squib" will get you answers quickly and a great way to document questions for future Squibbers.
 
 Please use GitHub issues for bugs and feature requests.
 
