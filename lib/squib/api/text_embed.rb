@@ -37,7 +37,7 @@ module Squib
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @api public
     def svg(opts = {})
-      # TODO: add input validation for key here
+      key   = Args::EmbedKey.new.validate_key(opts[:key])
       range = Args::CardRange.new(opts[:range], deck_size: @deck_size)
       paint = Args::Paint.new(@custom_colors).load!(opts, expand_by: @deck_size, layout: @layout)
       box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
@@ -52,7 +52,7 @@ module Squib
         b.x, b.y = x, y
         card.svg(ifile[i].file, svg_args[i], b, paint[i], trans[i])
       end
-      @rules[opts[:key]] = rule
+      @rules[key] = rule
     end
 
     # Context object for embedding a png within text
@@ -69,7 +69,7 @@ module Squib
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @api public
     def png(opts = {})
-      # TODO: add input validation for key here
+      key   = Args::EmbedKey.new.validate_key(opts[:key])
       range = Args::CardRange.new(opts[:range], deck_size: @deck_size)
       paint = Args::Paint.new(@custom_colors).load!(opts, expand_by: @deck_size, layout: @layout)
       box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
@@ -83,7 +83,7 @@ module Squib
         b.x, b.y = x, y
         card.png(ifile[i].file, b, paint[i], trans[i])
       end
-      @rules[opts[:key]] = rule
+      @rules[key] = rule
     end
 
   end
