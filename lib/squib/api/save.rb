@@ -1,3 +1,6 @@
+require 'squib/args/save_batch'
+require 'squib/args/card_range'
+
 module Squib
   class Deck
 
@@ -11,7 +14,6 @@ module Squib
     # @return self
     # @api public
     def save(opts = {})
-      # opts = needs(opts, [:range, :creatable_dir, :formats, :prefix, :rotate])
       save_png(opts) if Array(opts[:format]).include? :png
       save_pdf(opts) if Array(opts[:format]).include? :pdf
       self
@@ -30,9 +32,11 @@ module Squib
     # @return [nil] Returns nothing
     # @api public
     def save_png(opts = {})
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       opts = needs(opts,[:range, :creatable_dir, :prefix, :count_format, :rotate])
       @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*", @cards.size) do |bar|
-        opts[:range].each do |i|
+        range.each do |i|
           @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:count_format], opts[:rotate], opts[:angle])
           bar.increment
         end
