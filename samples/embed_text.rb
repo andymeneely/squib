@@ -77,14 +77,12 @@ Squib::Deck.new do
 end
 
 Squib::Deck.new(cards: 3) do
-
-  embed_text = 'Take 1 :tool: and gain 2 :health:.'
-  text(str: embed_text, font: 'Sans', font_size: [18, 32, 45],
+  str = 'Take 1 :tool: and gain 2 :health:.'
+  text(str: str, font: 'Sans', font_size: [18, 26, 35],
        x: 0, y: 0, width: 180, height: 300, valign: :bottom,
        align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
-    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
-    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+    embed.svg key: ':tool:',   width: [28, 42, 56], height: [28, 42, 56], file: 'spanner.svg'
+    embed.svg key: ':health:', width: [28, 42, 56], height: [28, 42, 56], file: 'glass-heart.svg'
   end
-  save_png prefix: 'embed_multi_'
   save_sheet prefix: 'embed_multisheet_', columns: 3
 end

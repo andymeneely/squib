@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'squib'
+require 'ostruct'
 
 describe Squib::Card do
 
@@ -7,6 +8,9 @@ describe Squib::Card do
   let(:context) { double(Cairo::Context) }
   let(:svg)     { double(RSVG::Handle) }
   let(:png)     { double(Cairo::ImageSurface) }
+  let(:box)     { OpenStruct.new({x: 37, y: 38, width: :native, height: :native})}
+  let(:paint)   { OpenStruct.new({alpha: 0.9, blend: :none, mask: '' })}
+  let(:trans)   { OpenStruct.new({angle: 0.0})}
 
   before(:each) do
       allow(Cairo::Context).to receive(:new).and_return(context)
@@ -33,7 +37,7 @@ describe Squib::Card do
 
       card = Squib::Card.new(deck, 100, 150)
       # png(file, x, y, alpha, blend, angle)
-      card.png('foo.png', 37, 38, :native, :native, 0.9, :none, 0.0, nil)
+      card.png('foo.png', box, paint, trans)
     end
 
     it 'sets blend when needed' do
@@ -41,11 +45,14 @@ describe Squib::Card do
       expect(context).to receive(:operator=).with(:overlay).once
 
       card = Squib::Card.new(deck, 100, 150)
-      card.png('foo.png', 37, 38, :native, :native, 0.9, :overlay, 0.0, nil)
+      paint.blend = :overlay
+      card.png('foo.png', box, paint, trans)
     end
   end
 
   context '#svg' do
+    let(:svg_args) { OpenStruct.new({data: '<svg></svg>', id: 'id'}) }
+
     it 'makes all the expected calls on a smoke test' do
       expect(svg).to receive(:width).and_return(100).twice
       expect(svg).to receive(:height).and_return(100).twice
@@ -58,8 +65,7 @@ describe Squib::Card do
       expect(context).to receive(:restore).once
 
       card = Squib::Card.new(deck, 100, 150)
-      # svg(file, data, id, x, y, width, height, alpha, blend, angle)
-      card.svg(nil, '<svg></svg>', 'id', 37, 38, :native, :native, 0.9, :none, 0.0, nil)
+      card.svg(nil, svg_args, box, paint, trans)
     end
 
     it 'sets blend when needed' do
@@ -68,7 +74,8 @@ describe Squib::Card do
       expect(context).to receive(:operator=).with(:overlay).once
 
       card = Squib::Card.new(deck, 100, 150)
-      card.svg(nil, '<svg></svg>', nil, 37, 38, :native, :native, 0.9, :overlay, 0.0, nil)
+      paint.blend = :overlay
+      card.svg(nil, svg_args, box, paint, trans)
     end
 
     it 'sets width & height when needed' do
@@ -78,7 +85,9 @@ describe Squib::Card do
       expect(context).to receive(:scale).with(2.0, 3.0).once
 
       card = Squib::Card.new(deck, 100, 150)
-      card.svg(nil, '<svg></svg>', nil, 37, 38, 200, 300, 0.9, :none, 0.0, nil)
+      box.width = 200
+      box.height = 300
+      card.svg(nil, svg_args, box, paint, trans)
     end
   end
 

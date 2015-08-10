@@ -35,7 +35,11 @@ module Squib
                           :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
-    attr_reader :layout, :conf
+    attr_reader :layout, :conf, :dpi, :font
+
+    #
+    # deck.size is really just @cards.size
+    def_delegators :cards, :size
 
     # Squib's constructor that sets the immutable properties.
     #

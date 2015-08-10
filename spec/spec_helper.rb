@@ -61,6 +61,7 @@ def scrub_hex(str)
      .gsub(/#<Cairo::Matrix:.*>/,'Matrix')
      .gsub(/#<RSVG::Handle.*>/,'RSVG::Handle')
      .gsub(/#<RSpec::Mocks::Double:.*>/,'MockDouble')
+     .gsub(/#<Double .*>/,'MockDouble')
      .gsub(/RGB:\w{1,8}/,'RGB:')
 end
 
@@ -104,12 +105,12 @@ def mock_cairo(strio)
     set_line_width stroke fill set_source scale render_rsvg_handle circle
     triangle line_to operator= show_page clip transform mask rectangle
     reset_clip antialias= curve_to matrix= pango_layout_path stroke_preserve
-    fill_preserve close_path).each do |m|
+    fill_preserve close_path set_dash set_line_cap set_line_join).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 
   %w(font_description= text= width= height= wrap= ellipsize= alignment=
-    justify= spacing= markup=).each do |m|
+    justify= spacing= markup= ellipsized?).each do |m|
     allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args})\n") }
   end
 

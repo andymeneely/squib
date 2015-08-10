@@ -6,21 +6,30 @@ describe Squib::Graphics::CairoContextWrapper do
   let(:cairo) { double(Cairo::Context) }
   subject     { Squib::Graphics::CairoContextWrapper.new(cairo) }
 
-  it 'passes on colors as normal' do
-    expect(cairo).to receive(:set_source_color).with('blue')
-    subject.set_source_squibcolor('blue')
+  context '#set_source_squibcolor' do
+
+    it 'passes on colors as normal' do
+      expect(cairo).to receive(:set_source_color).with('blue')
+      subject.set_source_squibcolor('blue')
+    end
+
+    it 'passes on color symbols as normal' do
+      expect(cairo).to receive(:set_source_color).with(:blue)
+      subject.set_source_squibcolor(:blue)
+    end
+
+    it 'passes on color hashes' do
+      expect(cairo).to receive(:set_source_color)
+        .with('#aabbccdd')
+      subject.set_source_squibcolor('#aabbccdd')
+    end
+
+    it 'raises on nil' do
+      expect { subject.set_source_squibcolor(nil) }.to raise_error('nil is not a valid color')
+    end
+
   end
 
-  it 'passes on color symbols as normal' do
-    expect(cairo).to receive(:set_source_color).with(:blue)
-    subject.set_source_squibcolor(:blue)
-  end
-
-  it 'passes on color hashes' do
-    expect(cairo).to receive(:set_source_color)
-      .with('#aabbccdd')
-    subject.set_source_squibcolor('#aabbccdd')
-  end
 
   context 'regex variations for linear gradients' do
     before(:each) do

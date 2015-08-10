@@ -22,47 +22,6 @@ module Squib
 
     # :nodoc:
     # @api private
-    def set_ellipsize!(layout, ellipsize)
-      case ellipsize.to_s.downcase
-      when 'none', 'false'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_NONE
-      when 'start'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_START
-      when 'middle'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_MIDDLE
-      when 'end', 'true'
-        layout.ellipsize = Pango::Layout::ELLIPSIZE_END
-      end
-    end
-
-    # :nodoc:
-    # @api private
-    def set_wrap!(layout, wrap)
-      case wrap.to_s.downcase
-      when 'word'
-        layout.wrap = Pango::Layout::WRAP_WORD
-      when 'char'
-        layout.wrap = Pango::Layout::WRAP_CHAR
-      when 'word_char', 'true'
-        layout.wrap = Pango::Layout::WRAP_WORD_CHAR
-      end
-    end
-
-    # :nodoc:
-    # @api private
-    def set_align!(layout, align)
-      case align.to_s.downcase
-      when 'left'
-        layout.alignment = Pango::ALIGN_LEFT
-      when 'right'
-        layout.alignment = Pango::ALIGN_RIGHT
-      when 'center'
-        layout.alignment = Pango::ALIGN_CENTER
-      end
-    end
-
-    # :nodoc:
-    # @api private
     def compute_valign(layout, valign)
       return 0 unless layout.height > 0
       ink_extents = layout.extents[1]
@@ -87,8 +46,8 @@ module Squib
     # :nodoc:
     # @api private
     def set_wh!(layout, width, height)
-      layout.width  = width * Pango::SCALE unless width.nil? || width == :native
-      layout.height = height * Pango::SCALE unless height.nil? || height == :native
+      layout.width  = width * Pango::SCALE unless width.nil? || width == :auto
+      layout.height = height * Pango::SCALE unless height.nil? || height == :auto
     end
 
     # :nodoc:
@@ -120,82 +79,82 @@ module Squib
     # @api private
     def process_embeds(embed, str, layout)
       return [] unless embed.rules.any?
-      layout.markup   = str
-      clean_str       = layout.text
-      draw_calls      = []
-      searches        = []
+      layout.markup = str
+      clean_str     = layout.text
+      draw_calls    = []
+      searches      = []
       while (key = next_embed(embed.rules.keys, clean_str)) != nil
-        rule          = embed.rules[key]
-        spacing       = rule[:width] * Pango::SCALE
-        index         = clean_str.index(key)
-        index         = clean_str[0..index].bytesize #convert to byte index (bug #57)
+        rule    = embed.rules[key]
+        spacing = rule[:box].width[@index] * Pango::SCALE
+        kindex   = clean_str.index(key)
+        kindex   = clean_str[0..kindex].bytesize #convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
-        searches << { index: index, rule: rule }
+        searches << { index: kindex, rule: rule }
       end
       searches.each do |search|
-        rect          = layout.index_to_pos(search[:index])
-        x             = Pango.pixels(rect.x) + search[:rule][:dx]
-        y             = Pango.pixels(rect.y) + search[:rule][:dy]
+        rect = layout.index_to_pos(search[:index])
+        x    = Pango.pixels(rect.x) + search[:rule][:adjust].dx[@index]
+        y    = Pango.pixels(rect.y) + search[:rule][:adjust].dy[@index]
         draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
       end
       return draw_calls
     end
 
-    def stroke_outline!(cc, layout, stroke_width, stroke_color)
-      if stroke_width > 0
-        cc.set_source_squibcolor(stroke_color)
-        cc.set_line_width(stroke_width)
+    def stroke_outline!(cc, layout, draw)
+      if draw.stroke_width > 0
         cc.pango_layout_path(layout)
-        cc.stroke
+        cc.fancy_stroke draw
+        cc.set_source_squibcolor(draw.color)
       end
+    end
+
+    def warn_if_ellipsized(layout)
+       if @deck.conf.warn_ellipsize? && layout.ellipsized?
+         Squib.logger.warn { "Ellipsized (too much text). Card \##{@index}. Text:  \"#{layout.text}\". \n (To disable this warning, set warn_ellipsize: false in config.yml)" }
+       end
     end
 
     # :nodoc:
     # @api private
-    def text(embed,str, font, font_size, color,
-             x, y, width, height,
-             markup, justify, wrap, ellipsize,
-             spacing, align, valign, hint, angle,
-             stroke_color, stroke_width)
-      Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
+    def text(embed, para, box, trans, draw)
+      Squib.logger.debug {"Rendering text with: \n#{para} \nat:\n #{box} \ndraw:\n #{draw} \ntransform: #{trans}"}
       extents = nil
-      str = str.to_s
       use_cairo do |cc|
-        cc.set_source_squibcolor(color)
-        cc.translate(x,y)
-        cc.rotate(angle)
+        cc.set_source_squibcolor(draw.color)
+        cc.translate(box.x, box.y)
+        cc.rotate(trans.angle)
         cc.move_to(0, 0)
 
-        font_desc      = Pango::FontDescription.new(font)
-        font_desc.size = font_size * Pango::SCALE unless font_size.nil?
+        font_desc      = Pango::FontDescription.new(para.font)
+        font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
-        layout.text    = str
-        if markup
-          str = @deck.typographer.process(layout.text)
-          layout.markup = str
+        layout.text    = para.str
+        if para.markup
+          para.str = @deck.typographer.process(layout.text)
+          layout.markup = para.str
         end
 
         set_font_rendering_opts!(layout)
-        set_wh!(layout, width, height)
-        set_wrap!(layout, wrap)
-        set_ellipsize!(layout, ellipsize)
-        set_align!(layout, align)
+        set_wh!(layout, box.width, box.height)
+        layout.wrap      = para.wrap
+        layout.ellipsize = para.ellipsize
+        layout.alignment = para.align
 
-        layout.justify = justify unless justify.nil?
-        layout.spacing = spacing * Pango::SCALE unless spacing.nil?
-        cc.update_pango_layout(layout)
+        layout.justify = para.justify unless para.justify.nil?
+        layout.spacing = para.spacing unless para.spacing.nil?
 
-        embed_draws    = process_embeds(embed, str, layout)
+        embed_draws    = process_embeds(embed, para.str, layout)
 
-        vertical_start = compute_valign(layout, valign)
+        vertical_start = compute_valign(layout, para.valign)
+        cc.move_to(0, vertical_start) #TODO clean this up a bit
+
+        stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
         cc.move_to(0, vertical_start)
-
-        cc.update_pango_layout(layout)
         cc.show_pango_layout(layout)
-        stroke_outline!(cc, layout, stroke_width, stroke_color)
+        stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :fill_first
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
@@ -205,9 +164,10 @@ module Squib
           puts "=================="
           raise e
         end
-        draw_text_hint(cc, x, y, layout, hint)
+        draw_text_hint(cc, box.x, box.y, layout, para.hint)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
+        warn_if_ellipsized layout
       end
       return extents
     end

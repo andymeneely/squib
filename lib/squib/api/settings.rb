@@ -24,13 +24,12 @@ module Squib
     #   set font: :default              # Back to Squib-wide default
     #
     # @option opts font: the font string to set as default. Can also be set to `:default` to use the Squib-wide default.
-    # @option opts img_dir: the default directory to READ images from. Default is `.`. Useful for switching from bw to color images.
     # @return [nil] Returns nothing
     # @api public
     def set(opts = {})
-      opts = needs(opts, [:font, :img_dir])
+      raise 'DEPRECATED: As of v0.7 img_dir is no longer supported in "set". Use config.yml instead.' if opts.key? :img_dir
+      opts = needs(opts, [:font])
       @font = opts[:font][0] #was expanded - just need the first
-      @img_dir = opts[:img_dir]
     end
 
   end

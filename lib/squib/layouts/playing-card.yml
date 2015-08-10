@@ -1,4 +1,5 @@
-# A basic playing card layout with bonuses in the upper-left and lower-right. The lower-right angle is rotated for text.
+# A basic playing card layout with bonuses in the upper-left and lower-right.
+# The lower-right angle is rotated for text.
 bonus_ul:
   x: 75
   y: 75
@@ -16,3 +17,19 @@ art:
   height: 575
   valign: middle
   align: center
+
+# The "cut line", without rounded corners
+cut:
+  x: 37.5
+  y: 37.5
+  width: 750
+  height: 1050
+
+# The "safe zone" as defined by TheGameCrafter poker cards
+safe:
+  x: 75
+  y: 75
+  width: 675
+  height: 975
+  radius: 16
+  dash: 3 3

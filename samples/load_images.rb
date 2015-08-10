@@ -12,6 +12,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png file: 'shiny-purse.png', x: 305, y: 50, width: 250, height: 250
   #...but PNGs will warn if it's an upscale
 
+  # Can be scaled using just width or height, if one of them is set to :scale
+  svg file: 'spanner.svg', x: 200, y: 350, width: 35,     height: :scale
+  svg file: 'spanner.svg', x: 200, y: 390, width: :scale, height: 35
+  png file: 'shiny-purse.png', x: 240, y: 350, width: 35,     height: :scale
+  png file: 'shiny-purse.png', x: 240, y: 390, width: :scale, height: 35
+
   # We can also limit our rendering to a single object, if the SVG ID is set
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
   # Squib prepends a #-sign if one is not specified
@@ -59,6 +65,14 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   # Masks are based on the alpha channel, so this is just a magenta square
   png mask: :magenta, file: 'shiny-purse.png',
       x: 650, y: 950
+
+  # Note that this method does nothing, even though it would normally fill up
+  # the card. force_id: true looks to the id field to be non-empty to render.
+  # This is useful if you have multiple different icons in one SVG file,
+  # but sometimes want to use none.
+  # e.g. id: [:attack, :defend, nil]
+  svg file: 'spanner.svg', width: :deck, height: :deck,
+      force_id: true, id: '' # <-- the important part
 
   save prefix: 'load_images_', format: :png
 end

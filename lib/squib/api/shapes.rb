@@ -1,3 +1,9 @@
+require 'squib/args/box'
+require 'squib/args/draw'
+require 'squib/args/card_range'
+require 'squib/args/transform'
+require 'squib/args/coords'
+
 module Squib
   class Deck
 
@@ -19,18 +25,17 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
+    # @option opts join [String] ('miter') how corners will be drawn on stroke. Options are 'miter', 'bevel', or 'round'. Note that this is separate from the x_radius and y_radius of the rounded rectangle. Becomes more obvious with wider strokes.
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def rect(opts = {})
-      opts = needs(opts, [:range, :x, :y, :width, :height, :rect_radius, :x_radius, :y_radius,
-                          :fill_color, :stroke_color, :stroke_width, :layout])
-      opts[:range].each do |i|
-        @cards[i].rect(opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
-                       opts[:x_radius][i], opts[:y_radius][i],
-                       opts[:fill_color][i], opts[:stroke_color][i],
-                       opts[:stroke_width][i])
-      end
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].rect(box[i], draw[i]) }
     end
 
     # Draw a circle centered at the given coordinates
@@ -47,17 +52,16 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def circle(opts = {})
-      opts = {radius: 100}.merge(opts) # overriding the non-system default
-      opts = needs(opts, [:range, :x, :y, :circle_radius, :layout,
-                          :fill_color, :stroke_color, :stroke_width])
-      opts[:range].each do |i|
-        @cards[i].circle(opts[:x][i], opts[:y][i], opts[:radius][i],
-          opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
-      end
+      range  = Args::CardRange.new(opts[:range], deck_size: size)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw   = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].circle(coords[i], draw[i]) }
     end
 
     # Draw an ellipse
@@ -75,17 +79,16 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def ellipse(opts = {})
-      opts = needs(opts, [:range, :x, :y, :width, :height,
-                          :fill_color, :stroke_color, :stroke_width, :layout])
-      opts[:range].each do |i|
-        @cards[i].ellipse(opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
-                          opts[:fill_color][i], opts[:stroke_color][i],
-                          opts[:stroke_width][i])
-      end
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].ellipse(box[i], draw[i]) }
     end
 
     # Draw a triangle using the given coordinates
@@ -105,19 +108,16 @@ module Squib
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def triangle(opts = {})
-      opts = needs(opts, [:range, :x1, :y1, :x2, :y2, :x3, :y3, :layout,
-                          :fill_color, :stroke_color, :stroke_width])
-      opts[:range].each do |i|
-        @cards[i].triangle(opts[:x1][i], opts[:y1][i],
-                           opts[:x2][i], opts[:y2][i],
-                           opts[:x3][i], opts[:y3][i],
-                           opts[:fill_color][i], opts[:stroke_color][i],
-                           opts[:stroke_width][i])
-      end
+      range  = Args::CardRange.new(opts[:range], deck_size: size)
+      draw   = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].triangle(coords[i], draw[i]) }
     end
 
     # Draw a line using the given coordinates
@@ -132,16 +132,17 @@ module Squib
     # @option opts y2 [Integer] (50) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
+    # @option opts cap [String] ('butt') how the end of the line is drawn. Options are "square", "butt", and "round"
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def line(opts = {})
-      opts = needs(opts, [:range, :x1, :y1, :x2, :y2, :layout,
-                          :stroke_color, :stroke_width])
-      opts[:range].each do |i|
-        @cards[i].line(opts[:x1][i], opts[:y1][i], opts[:x2][i], opts[:y2][i],
-                       opts[:stroke_color][i], opts[:stroke_width][i])
-      end
+      range   = Args::CardRange.new(opts[:range], deck_size: size)
+      draw    = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords  = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].line(coords[i], draw[i]) }
     end
 
     # Draw a curve using the given coordinates
@@ -157,18 +158,18 @@ module Squib
     # @option opts cy2 [Integer] (50) the y-coordinate of the second control point. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts cap [String] ('butt') how the end of the line is drawn. Options are "square", "butt", and "round"
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def curve(opts = {})
-      opts = needs(opts, [:range, :x1, :y1, :cx1, :cy1, :x2, :y2, :cx2, :cy2,
-                          :layout, :fill_color, :stroke_color, :stroke_width])
-      opts[:range].each do |i|
-        @cards[i].curve(opts[:x1][i], opts[:y1][i], opts[:cx1][i], opts[:cy1][i],
-                        opts[:x2][i], opts[:y2][i], opts[:cx2][i], opts[:cy2][i],
-                        opts[:fill_color][i], opts[:stroke_color][i], opts[:stroke_width][i])
-      end
+      range  = Args::CardRange.new(opts[:range], deck_size: size)
+      draw   = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].curve(coords[i], draw[i]) }
     end
 
     # Draw a star at the given x,y
@@ -184,19 +185,18 @@ module Squib
     # @option opts inner_radius [Fixnum] (0) the inner radius. Supports Unit conversion.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def star(opts = {})
-      opts = needs(opts, [:range, :x, :y, :n, :angle, :inner_radius, :outer_radius,
-                          :layout, :fill_color, :stroke_color, :stroke_width])
-      opts[:range].each do |i|
-        @cards[i].star(opts[:x][i], opts[:y][i], opts[:n][i], opts[:angle][i],
-                        opts[:inner_radius][i], opts[:outer_radius][i],
-                        opts[:fill_color][i], opts[:stroke_color][i],
-                        opts[:stroke_width][i])
-      end
+      range  = Args::CardRange.new(opts[:range], deck_size: size)
+      draw   = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      trans  = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].star(coords[i], trans[i], draw[i]) }
     end
 
     # Draw a regular polygon at the given x,y
@@ -209,19 +209,21 @@ module Squib
     # @option opts y [Fixnum] (0) the y-coordinate of the center. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts n [Integer] (5) the number of points on the star
     # @option opts angle [Fixnum] (0) the angle at which to rotate
+    # @option opts radius [Fixnum] (0) the radius from center to corner. Supports Unit conversion.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape. 
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
     # @return [nil] intended to be void
     # @api public
     def polygon(opts = {})
-      opts = needs(opts, [:range, :x, :y, :n, :circle_radius, :angle, :layout, :fill_color, :stroke_color, :stroke_width])
-      opts[:range].each do |i|
-        @cards[i].polygon(opts[:x][i], opts[:y][i], opts[:n][i], opts[:angle][i], opts[:radius][i],
-                        opts[:fill_color][i], opts[:stroke_color][i],
-                        opts[:stroke_width][i])
-      end
+      range  = Args::CardRange.new(opts[:range], deck_size: size)
+      draw   = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      coords = Args::Coords.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      trans  = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].polygon(coords[i], trans[i], draw[i]) }
     end
 
   end

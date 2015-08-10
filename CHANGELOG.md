@@ -3,6 +3,32 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.7.0 / Unreleased
 
+Features
+* Added `cap` option to `line` and `curve` to define how ends of lines are drawn (#42)
+* Added `join` option to all drawing operations (e.g. `rect`, `star`, even outlines for `text`) to define how corners are drawn. (#42)
+* Added `dash` option to all drawing operations (e.g. `rect`, `star`, even outlines for `text`) so you can specify your own dash pattern. Just specify a string with space-separated numbers to specify the on-and-off alternating pattern (e.g. `dash: '2 2'` with a stroke width of `2` is evenly spaced dots). Supports unit conversion (e.g. `dash: '0.02in 0.02in'`) (#42)
+* Added an idiom to the `ranges.rb` sample for drawing a different number of images based on the column in a table (e.g. 2 arrows to indicate 2 actions). Based on question #90. There are probably even cleaner, Ruby-ish ways to do this too - pull requests are welcome.
+* The `text` method and several other methods will throw errors on invalid input. This means your scripts will be more likely to break if you provide bad input. Please report bugs if you thinkg this unfairly breaks your code.
+* The `text` embedding icon now allows singleton expansion, which means that you can have icons have different sizes on different cards. The sample `embed_text.rb` demonstrates this. (#54)
+* The `text` method will throw a warning when it needs to ellipsize text (i.e. too much text for a fixed-size text box). Can be turned off in `config.yml`. (#80)
+* Upgraded roo (Excel parsing) to 2.1.0. Macro-enabled Excel files can be parsed now (i.e. `xlsm`), although I've only mildly tested this. (cddea47ba56add286639e493d5cc0146245eca68)
+* New built-in layouts: `fantasy.yml` and `economy.yml`. Demonstrated in new sample `layouts_builtin.rb` (#97)
+* Added `:scale` shortcut to `width` and `height` options for `png` and `svg`. Allows you to set the width and the image will scale while keeping its aspect ratio. (e.g. `svg width: 500, height: :scale`) (#91)
+
+Compatibility:
+* All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before. If you want the other behavior, specify `stroke_strategy: :stroke_first`. Also applies to `text` when `stroke_width` is specified.
+* The `width` and `height` options for `text` have changed their defaults from `:native` to `:auto`. This is to differentiate them from `:native` widths that default elsewhere.  Additionally, `width` and `height` for shapes now default to `:deck`, and get interpreted as the deck width and height. The `:native` options are interpreted for SVG and PNG images as their original values. The behavior is all the same, just with more specific names.
+* Removed `img_dir` from the `set` method. You can still set `img_dir` in the configuration file (e.g. `config.yml`). Added a deprecation error.
+* Default `width` and `height` for text embedding `png` and `svg` have changed from 32 to `:native` to be more consistent with the rest of the system
+
+Bugs:
+* Fixed a `Cairo::WriteError` on `save_sheet` (#56, PR #96 thank you @meltheadorable!)
+* Investigated a NoMemoryError on Macs. Solution: upgrade to Ruby 2.2. (#88)
+
+Chores:
+* Refactoring to make internal drawing code more DRY (#75, and much more). This is a big re-design that will help ease future features that involve manipulating arguments. Trust me. This was worth the wait and all the hard work.
+* Better testing and general flexibility around the `range` option.
+
 ## v0.6.0 / 2015-05-26
 
 Features:

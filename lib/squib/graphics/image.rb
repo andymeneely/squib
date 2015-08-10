@@ -14,56 +14,59 @@ module Squib
 
     # :nodoc:
     # @api private
-    def png(file, x, y, width, height, alpha, blend, angle, mask)
-      Squib.logger.debug {"Rendering: #{file} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
+    def png(file, box, paint, trans)
+      Squib.logger.debug {"RENDERING PNG: \n  file: #{file}\n  box: #{box}\n  paint: #{paint}\n  trans: #{trans}"}
       return if file.nil? or file.eql? ''
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
-        cc.translate(x, y)
-        if width != :native || height != :native
-          width  == :native && width  = png.width.to_f
-          height == :native && height = png.height.to_f
-          Squib.logger.warn "PNG scaling results in antialiasing."
-          cc.scale(width.to_f / png.width.to_f, height.to_f / png.height.to_f)
+        cc.translate(box.x, box.y)
+        if box.width != :native || box.height != :native
+          box.width  = png.width.to_f  if box.width  == :native
+          box.height = png.height.to_f if box.height == :native
+          box.width  = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
+          box.height = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
+          Squib.logger.warn "PNG scaling results in aliasing."
+          cc.scale(box.width.to_f / png.width.to_f, box.height.to_f / png.height.to_f)
         end
-        cc.rotate(angle)
-        cc.translate(-x, -y)
-        cc.set_source(png, x, y)
-        cc.operator = blend unless blend == :none
-        if mask.nil?
-          cc.paint(alpha)
+        cc.rotate(trans.angle)
+        cc.translate(-box.x, -box.y)
+        cc.set_source(png, box.x, box.y)
+        cc.operator = paint.blend unless paint.blend == :none
+        if paint.mask.empty?
+          cc.paint(paint.alpha)
         else
-          cc.set_source_squibcolor(mask)
-          cc.mask(png, x, y)
+          cc.set_source_squibcolor(paint.mask)
+          cc.mask(png, box.x, box.y)
         end
       end
     end
 
     # :nodoc:
     # @api private
-    def svg(file, data, id, x, y, width, height, alpha, blend, angle, mask)
+    def svg(file, svg_args, box, paint, trans)
       Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
-      Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? or data.to_s.empty?
-      return if (file.nil? or file.eql? '') and data.nil? # nothing specified
-      data = File.read(file) if data.to_s.empty?
-      svg          = RSVG::Handle.new_from_data(data)
-      width        = svg.width  if width == :native
-      height       = svg.height if height == :native
-      scale_width  = width.to_f / svg.width.to_f
-      scale_height = height.to_f / svg.height.to_f
+      Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? || svg_args.data.to_s.empty?
+      return if (file.nil? or file.eql? '') and svg_args.data.nil? # nothing specified TODO Move this out to arg validator
+      svg_args.data = File.read(file) if svg_args.data.to_s.empty?
+      svg          = RSVG::Handle.new_from_data(svg_args.data)
+      box.width    = svg.width  if box.width == :native
+      box.height   = svg.height if box.height == :native
+      box.width  = svg.width.to_f * box.height.to_f / svg.height.to_f if box.width == :scale
+      box.height = svg.height.to_f * box.width.to_f / svg.width.to_f  if box.height == :scale
+      scale_width  = box.width.to_f / svg.width.to_f
+      scale_height = box.height.to_f / svg.height.to_f
       use_cairo do |cc|
-        cc.translate(x, y)
-        cc.rotate(angle)
+        cc.translate(box.x, box.y)
+        cc.rotate(trans.angle)
         cc.scale(scale_width, scale_height)
-        cc.operator = blend unless blend == :none
-        #FIXME Alpha is no longer used since we are not using cc.paint anymore
-        if mask.nil?
-          cc.render_rsvg_handle(svg, id)
+        cc.operator = paint.blend unless paint.blend == :none
+        if paint.mask.to_s.empty?
+          cc.render_rsvg_handle(svg, svg_args.id)
         else
-          tmp = Cairo::ImageSurface.new(width / scale_width, height / scale_height)
+          tmp = Cairo::ImageSurface.new(box.width / scale_width, box.height / scale_height)
           tmp_cc = Cairo::Context.new(tmp)
-          tmp_cc.render_rsvg_handle(svg, id)
-          cc.set_source_squibcolor(mask)
+          tmp_cc.render_rsvg_handle(svg, svg_args.id)
+          cc.set_source_squibcolor(paint.mask)
           cc.mask(tmp, 0, 0)
         end
       end

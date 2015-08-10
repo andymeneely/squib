@@ -38,3 +38,8 @@
 
 # We can also disallow smart quotes and only allow explicit replacements with ``LaTeX-style'' quotes.
 # smart_quotes: false
+
+# By default, Squib warns when a text box is ellipsized. This can get verbose
+# and can be turned off here
+# warn_ellipsize: true # default
+# warn_ellipsize: false # default

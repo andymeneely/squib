@@ -28,6 +28,8 @@ We just created a 2-card deck with "Hello" on the first card, and "World" on the
 
 ## Installation
 
+Squib requires Ruby 2.0 or later.
+
 Install it yourself with:
 
     $ gem install squib
@@ -40,12 +42,11 @@ And then execute:
 
     $ bundle
 
-Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups.
-  * Windows: I *strongly* recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org along with installing DevKit.
-  * Mac: I recommend using [rvm](https://rvm.io).
-  * Cywgin is not 100% supported, but could potentially work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113)
-
-Squib requires Ruby 2.0 or later.
+Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, and is automated through Bundler/RubyGems, but can cause headaches on some setups.
+  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib's dependencies called Nokogiri (read the WTF-y issue here: https://github.com/sparklemotion/nokogiri/issues/1256), so I recommend 2.1 or 2.0 for Windows users.
+  * Mac: I recommend using [rvm](https://rvm.io). Some users have reported that Ruby 2.1 will not work with Mac OSX 10.10.4 (#88) - Ruby 2.0 and 2.2 are confirmed to work however (this is an rcairo issue, not a Squib issue).
+  * Cywgin is not supported, but could theoretically work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113). Contributions in this area are welcome.
+  * Linux. No known installation issues. Happy installing!
 
 ## Getting Started
 
@@ -191,21 +192,36 @@ All files opened for reading or writing (e.g. for `png` and `xlsx`) are opened r
 If you find that you `cd` a lot while working on the command line, your `_output` folder might get generated in multiple places. An easy way to fix this is to use a `Rakefile`, [see below](#Rakefile)
 
 ## Working with Text
-The `text` method is a particularly powerful method with a ton of options. Be sure to check the [API docs](docs/Squib/Deck#text-instance_method) on an option-by-option discussion, but here are the highlights.
+The `text` method is a particularly powerful method with a ton of options. Be sure to check the [API docs](/squib/doc/Squib/Deck#text-instance_method) on an option-by-option discussion, but here are the highlights.
 
-**Fonts**. The font is specified in a given Pango "font string", which can involve a ton of options embedded there in the string. In addition to the typical bold and italic variations, you can also specify all-caps, the specific boldness weight (e.g. 900), or go with oblique. These options are only available if the underlying font supports them, however. Here's are some example Pango font strings:
+###Fonts.
+
+To set the font, your `text` method call will look something like this:
+
+```ruby
+text str: "Hello", font: 'MyFont Bold 32'
+```
+
+The `'MyFont Bold 32'` is specified as a "Pango font string", which can involve [a lot of options](http://ruby-gnome2.osdn.jp/hiki.cgi?Pango%3A%3AFontDescription#Pango%3A%3AFontDescription.new) including backup font families, size, all-caps, stretch, oblique, italic, and degree of boldness. (These options are only available if the underlying font supports them, however.) Here's are some `text` calls with different Pango font strings:
 
 ```
-Sans 18
-Arial,Verdana weight=900 style=oblique 36
-Times New Roman,Sans 25
+text str: "Hello", font: 'Sans 18'
+text str: "Hello", font: 'Arial,Verdana weight=900 style=oblique 36'
+text str: "Hello", font: 'Times New Roman,Sans 25'
 ```
 
-Note: When the font has a space it, you'll need to put a backup to get Pango's parsing to work.
+Note: When the font has a space in the name (e.g. Times New Roman), you'll need to put a backup to get Pango's parsing to work.
 
 It's also important to note that most of the font rendering is done by a combination of your installed fonts, your OS, and your graphics card. Thus, different systems will render text slightly differently.
 
-Furthermore, options like `font_size` allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and `extends` too.
+Fonts can also be set globally using the `set` method. For example:
+
+```
+set font: 'Arial 26'
+text str: 'blah' # in Arial 26
+```
+
+Furthermore, Squib's `text` method has options such as `font_size` that allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and `extends` too.
 
 ### Width and Height
 
@@ -411,7 +427,11 @@ YAML merge keys are NOT supported across multiple files - use `extends` instead.
 
 ### Built-in Layout Files
 
-If your layout file is not found in the current directory, Squib will search for its own set of layout files (here's the latest the development version [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). See the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/) for some demonstrative examples.
+Why mess with x-y coordinates when you're first prototyping your game?!?!? Just use a built-in layout to get your game to the table as quickly as possible.
+
+If your layout file is not found in the current directory, Squib will search for its own set of layout files.  The latest the development version of these can be found [on GitHub](https://github.com/andymeneely/squib/tree/master/lib/squib/layouts). The `layouts_builtin.rb` sample (found [here](https://github.com/andymeneely/squib/tree/master/samples/)) demonstrate built-in layouts based on popular games (e.g. `fantasy.yml` and `economy.yml`)
+
+Contributions in this area are particularly welcome!
 
 ### Layout Sample
 This sample demonstrates many different ways of using and combining layouts. This is the `layouts.rb` sample found [here](https://github.com/andymeneely/squib/tree/master/samples/)
@@ -474,6 +494,10 @@ Squib::logger.level = Logger::INFO
 
 If you REALLY want to see tons of output, you can also set DEBUG, but that's not intended for general consumption.
 
+# "Best" Practices
+
+Here's a collection of workflow tips and code snippets that will hopefully improve your Squibbing. Contributions are welcome!
+
 ## Staying DRY
 
 Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
@@ -482,6 +506,18 @@ Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 * Flexible ranges and array handling: the `range` parameter in Squib is very flexible, meaning that one `text` command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple `text` command for the same field across different ranges of cards, there's probably a better way to condense.
 * Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into `config.yml` file.
 * Plus, you know, Ruby.
+
+## Get to know Ruby's Array and Enumerable
+
+Don't know Ruby? Welcome! We are so happy that Squib is your excuse to learn Ruby.
+
+Ruby has a *very* rich library for all of its built-in data types, especially [Array](http://ruby-doc.org/core-2.2.0/Array.html), and it's broader module [Enumerable](http://ruby-doc.org/core-2.2.0/Enumerable.html). Since Squib primarily takes in arrays into most of its fields, getting to know these methods will help you out enormously:
+
+  * [Array#each](http://ruby-doc.org/core-2.2.0/Array.html#method-i-each) - do something on each element of the array (Ruby folks seldom use for-loops)
+  * [Array#map](http://ruby-doc.org/core-2.2.0/Array.html#method-i-map) - do something on each element of an array and put it into a new array
+  * [Array#select](http://ruby-doc.org/core-2.2.0/Array.html#method-i-select) - select a subset of an array
+  * [Enumerable#each_with_index](http://ruby-doc.org/core-2.2.0/Enumerable.html#method-i-each_with_index) - do something to each element, also being aware of the index
+  * [Array#zip](http://ruby-doc.org/core-2.2.0/Enumerable.html#method-i-zip) - combine two arrays, element by element
 
 ## Source control
 
@@ -513,11 +549,55 @@ When you run `squib new`, you are given a basic Rakefile. At this stage of Squib
 
 We don't officially support Google Sheets ([yet](https://github.com/andymeneely/squib/issues/49)), but [this Gist](https://gist.github.com/pickfifteen/aeee73ec2ce162b0aee8) might be helpful in automatically exporting the CSV.
 
+## Combining Multiple Columns
+
+Say you have multiple columns in your Excel sheet that need to be combined into one text field on your card. Consider using `zip` in conjunction with `map`.
+
+```ruby
+data['BuyText'] = data['BuyAmount'].zip(data['BuyType']).map do |amt, type|
+  "You may purchase #{amt} #{type}" #e.g. You may purchase 1 Wood.
+end
+
+data['Cost'] = data['Action Cost'].zip(data['Card Cost']).map do |ac, cc|
+  ':action:' * ac.to_i + ":card#{cc}:"
+end
+```
+
+Second example adapted from [this conversation](https://github.com/andymeneely/squib/issues/90)
+
 # Get Involved
 
-Squib is an open source tool, and I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can. I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler).
+Squib is an open source tool, so I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can.
 
-Feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). For bugs, a minimal code example along with your OS and Ruby details would be ideal.
+I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler). You can watch for new upgrades by following the RubyGems [RSS](https://rubygems.org/gems/squib/versions.atom), or by watching the project on GitHub.
+
+For bugs and feature requests, feel free to [file a bug or feature request](https://github.com/andymeneely/squib/issues). A minimal code example along with your OS and Ruby details would be ideal.
+
+## New to Programming?
+
+I often hear statements like "I'm not a programmer, but I want to use Squib." If you want to use Squib, then maybe you really were a programmer all along :)
+
+Squib is a Ruby library. To learn Squib, you will need to learn Ruby. There is no getting around that fact. Don't fight it, embrace it.
+
+Fortunately, Ruby is wonderfully rich in features and very expressive in its syntax. Ruby has a vibrant, friendly community (much like tabletop game designers!). Ruby is the language of choice for many new programmers, including many universities. Plus, learning how to code is ubiquitous on the Internet.
+
+Doubly fortunately, Squib doesn't require tons of Ruby-fu to get going either. The main things you'll need to know are:
+  * Working on the command line
+  * Ruby Arrays, so that the `range` parameter makes more sense
+  * Strings, variables, and symbols
+  * If you are using Excel or CSV, then Ruby hashes are worth a glance.
+  * Working iteratively: making small edits and run your code frequently (every few minutes)
+
+Anything related to Ruby on Rails is not necessary to learn for Squib. Rails is a heavyweight framework for web development (awesome in its own way, but not relevant to learning Ruby). Squib is about scripting.
+
+## Get Help
+
+There are lots of people using Squib already. If you've gone through the [samples](https://github.com/andymeneely/squib/tree/master/samples) and still have questions, here are some other places to get help.
+
+* Our [thread on BoardGameGeek](http://boardgamegeek.com/thread/1293453) is quite active and informal (if a bit unstructured).
+* [StackOverflow](http://stackoverflow.com/questions/ask?tags=ruby squib) with the tag "ruby" and "squib" will get you answers quickly and a great way to document questions for future Squibbers.
+
+Please use GitHub issues for bugs and feature requests.
 
 ## Testing Pre-Builds
 
