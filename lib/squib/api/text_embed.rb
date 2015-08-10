@@ -1,6 +1,7 @@
 require 'squib/args/box'
 require 'squib/args/card_range'
 require 'squib/args/embed_adjust'
+require 'squib/args/embed_key'
 require 'squib/args/input_file'
 require 'squib/args/paint'
 require 'squib/args/transform'
