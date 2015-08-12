@@ -25,6 +25,14 @@ module Squib
         [] # none of them
       end
 
+      def validate_dir(arg)
+        unless Dir.exists?(arg)
+          Squib.logger.warn("Dir '#{arg}' does not exist, creating it.")
+          Dir.mkdir arg
+        end
+        return arg
+      end
+
     end
   end
 end
