@@ -6,6 +6,7 @@ module Squib
 
     # Saves the given range of cards to either PNG or PDF
     #
+    #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [Symbol] format (:png)  the format that this will be rendered too. Options `:pdf, :png`. Array of both is allowed: `[:pdf, :png]`
@@ -24,6 +25,8 @@ module Squib
     # @example
     #   save range: 1..8, dir: '_pnp', prefix: 'bw_'
     #
+    # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
@@ -34,10 +37,9 @@ module Squib
     def save_png(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      opts = needs(opts,[:range, :creatable_dir, :prefix, :count_format, :rotate])
-      @progress_bar.start("Saving PNGs to #{opts[:dir]}/#{opts[:prefix]}*", @cards.size) do |bar|
+      @progress_bar.start("Saving PNGs to #{batch.dir}/#{batch.count_format}*", size) do |bar|
         range.each do |i|
-          @cards[i].save_png(i, opts[:dir], opts[:prefix], opts[:count_format], opts[:rotate], opts[:angle])
+          @cards[i].save_png(batch[i])
           bar.increment
         end
       end
