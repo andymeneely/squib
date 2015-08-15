@@ -47,6 +47,14 @@ module Squib
         end
       end
 
+      def full_filename(i)
+        "#{dir[i]}/#{prefix[i]}#{count_format[i] % i}.png"
+      end
+
+      def summary
+        "#{dir[0]}/#{prefix[0]}_*"
+      end
+
     end
   end
 end
