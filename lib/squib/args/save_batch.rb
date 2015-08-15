@@ -1,10 +1,12 @@
 require 'squib/args/arg_loader'
+require 'squib/args/dir_validator'
 
 module Squib
   # @api private
   module Args
     class SaveBatch
       include ArgLoader
+      include DirValidator
 
       def initialize
       end
@@ -27,11 +29,7 @@ module Squib
       end
 
       def validate_dir(arg, _i)
-        unless Dir.exists?(arg)
-          Squib.logger.warn("Dir '#{arg}' does not exist, creating it.")
-          Dir.mkdir arg
-        end
-        return arg
+        ensure_dir_created(arg)
       end
 
       def validate_rotate(arg, i)

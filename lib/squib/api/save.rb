@@ -1,5 +1,7 @@
-require 'squib/args/save_batch'
 require 'squib/args/card_range'
+require 'squib/args/save_batch'
+require 'squib/args/sheet'
+require 'squib/args/showcase_special'
 
 module Squib
   class Deck
@@ -58,7 +60,7 @@ module Squib
     # @option opts [Fixnum] scale (0.8) percentage of original width of each (trimmed) card to scale to. Must be between 0.0 and 1.0, but starts looking bad around 0.6.
     # @option opts [Fixnum] offset (1.1) percentage of the scaled width of each card to shift each offset. e.g. 1.1 is a 10% shift, and 0.95 is overlapping by 5%
     # @option opts [String, Color] fill_color (:white) backdrop color. Usually black or white. Supports gradients.
-    # @option opts [Fixnum] reflect_offset (15) the number of pixels between the bottom of the card and the reflection
+    # @option opts [Fixnum] reflect_offset (15) the number of pixels between the bottom of the card and the reflection. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts [Fixnum] reflect_strength (0.2) the starting alpha transparency of the reflection (at the top of the card). Percentage between 0 and 1. Looks more realistic at low values since even shiny surfaces lose a lot of light.
     # @option opts [Fixnum] reflect_percent (0.25) the length of the reflection in percentage of the card. Larger values tend to make the reflection draw just as much attention as the card, which is not good.
     # @option opts [:left, :right] face (:left) which direction the cards face. Anything but `:right` will face left
@@ -67,13 +69,10 @@ module Squib
     # @return [nil] Returns nothing.
     # @api public
     def showcase(opts = {})
-      opts = {file: 'showcase.png', fill_color: :white}.merge(opts)
-      opts = needs(opts,[:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save, :face])
-      render_showcase(opts[:range], opts[:trim], opts[:trim_radius],
-                      opts[:scale], opts[:offset], opts[:fill_color],
-                      opts[:reflect_offset], opts[:reflect_percent], opts[:reflect_strength],
-                      opts[:margin], opts[:face],
-                      opts[:dir], opts[:file])
+      range    = Args::CardRange.new(opts[:range], deck_size: size)
+      showcase = Args::ShowcaseSpecial.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      sheet    = Args::Sheet.new(custom_colors, {file: 'showcase.png'}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      render_showcase(range, sheet, showcase)
     end
 
     # Renders a range of cards fanned out as if in a hand. Saves as PNG.
