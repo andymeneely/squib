@@ -1,5 +1,6 @@
 require 'cairo'
 require 'squib/args/arg_loader'
+require 'squib/args/dir_validator'
 
 module Squib
   # @api private

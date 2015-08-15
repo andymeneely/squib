@@ -62,6 +62,10 @@ module Squib
         (@deck_size.to_i / columns.to_i).ceil
       end
 
+      def full_filename
+        "#{dir}/#{file}"
+      end
+
     end
 
   end

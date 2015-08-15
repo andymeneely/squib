@@ -1,4 +1,5 @@
 require 'squib/args/card_range'
+require 'squib/args/hand_special'
 require 'squib/args/save_batch'
 require 'squib/args/sheet'
 require 'squib/args/showcase_special'
@@ -138,13 +139,15 @@ module Squib
     # @return [nil] Returns nothing.
     # @api public
     def hand(opts = {})
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      hand  = Args::HandSpecial.new(height).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      sheet = Args::Sheet.new(custom_colors, {file: 'hand.png', trim_radius: 0}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+
       opts = {file: 'hand.png', fill_color: :white, radius: :auto, trim_radius: 0}
              .merge(opts)
       opts = needs(opts,[:range, :margin, :trim, :trim_radius, :creatable_dir, :file_to_save])
       opts[:radius] = 0.3 * height if opts[:radius] == :auto
-      render_hand(opts[:range], opts[:radius], opts[:angle_range],
-                  opts[:trim], opts[:trim_radius], opts[:margin],
-                  opts[:fill_color], opts[:dir], opts[:file])
+      render_hand(range, sheet, hand)
     end
 
   end
