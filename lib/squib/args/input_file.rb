@@ -7,11 +7,14 @@ module Squib
     class InputFile
       include ArgLoader
 
-      def initialize
+      def initialize(dsl_method_default = {})
+        @dsl_method_default = dsl_method_default
       end
 
       def self.parameters
-        { file: nil }
+        { file: nil,
+          sheet: 0,
+        }
       end
 
       def self.expanding_parameters

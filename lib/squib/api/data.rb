@@ -1,5 +1,6 @@
 require 'roo'
 require 'csv'
+require 'squib/args/input_file'
 
 module Squib
 
@@ -22,10 +23,9 @@ module Squib
   # @return [Hash] a hash of arrays based on columns in the spreadsheet
   # @api public
   def xlsx(opts = {})
-    opts = Squib::SYSTEM_DEFAULTS.merge(opts)
-    opts = Squib::InputHelpers.fileify(opts)
-    s    = Roo::Excelx.new(opts[:file])
-    s.default_sheet = s.sheets[opts[:sheet]]
+    input = Args::InputFile.new(file: 'deck.xlsx').load!(opts)
+    s = Roo::Excelx.new(input.file[0])
+    s.default_sheet = s.sheets[input.sheet[0]]
     data = {}
     s.first_column.upto(s.last_column) do |col|
       header = s.cell(s.first_row,col).to_s
@@ -61,9 +61,10 @@ module Squib
   # @return [Hash] a hash of arrays based on columns in the table
   # @api public
   def csv(opts = {})
+    file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
     opts = Squib::SYSTEM_DEFAULTS.merge(opts)
-    opts = Squib::InputHelpers.fileify(opts)
-    table = CSV.read(opts[:file], headers: true, converters: :numeric)
+    # opts = Squib::InputHelpers.fileify(opts)
+    table = CSV.read(file, headers: true, converters: :numeric)
     check_duplicate_csv_headers(table)
     hash = Hash.new
     table.headers.each do |header|
