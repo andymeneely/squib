@@ -87,11 +87,7 @@ module Squib
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       sheet = Args::Sheet.new(custom_colors, {margin: 0}, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      opts = {margin: 0}.merge(opts) # overriding the non-system default
-      p = needs(opts, [:range,
-                       :prefix, :count_format, :creatable_dir,
-                       :margin, :gap, :trim, :rows, :columns])
-      render_sheet(range, batch, sheet, p)
+      render_sheet(range, batch, sheet)
     end
 
     # Renders a range of cards in a showcase as if they are sitting in 3D on a reflective surface

@@ -47,7 +47,7 @@ module Squib
 
     # :nodoc:
     # @api private
-    def render_sheet(range, batch, sheet, p = {})
+    def render_sheet(range, batch, sheet)
       sheet_width = (sheet.columns * (@width + 2 * sheet.gap - 2 * sheet.trim)) + (2 * sheet.margin)
       sheet_height = (sheet.rows * (@height + 2 * sheet.gap - 2 * sheet.trim)) + (2 * sheet.margin)
       cc = Cairo::Context.new(Cairo::ImageSurface.new(sheet_width, sheet_height))
