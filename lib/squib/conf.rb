@@ -1,6 +1,7 @@
-require 'squib'
 require 'forwardable'
+require 'squib'
 require 'squib/args/typographer'
+require 'yaml'
 
 module Squib
   # @api private
