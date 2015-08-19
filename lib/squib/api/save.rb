@@ -60,7 +60,7 @@ module Squib
     def save_png(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      @progress_bar.start("Saving PNGs to #{batch.dir}/#{batch.count_format}*", size) do |bar|
+      @progress_bar.start("Saving PNGs to #{batch.summary}", size) do |bar|
         range.each do |i|
           @cards[i].save_png(batch[i])
           bar.increment
