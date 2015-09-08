@@ -14,11 +14,12 @@ module Squib
 
     # :nodoc:
     # @api private
-    def initialize(deck_size, custom_colors, layout, dpi)
+    def initialize(deck_size, custom_colors, layout, dpi, img_dir)
       @deck_size     = deck_size
       @custom_colors = custom_colors
       @layout        = layout
       @dpi           = dpi
+      @img_dir       = img_dir
       @rules = {} # store an array of options for later usage
     end
 
@@ -51,7 +52,9 @@ module Squib
         i = card.index
         b = box[i]
         b.x, b.y = x, y
-        card.svg(ifile[i].file, svg_args[i], b, paint[i], trans[i])
+        Dir.chdir(@img_dir) do
+          card.svg(ifile[i].file, svg_args[i], b, paint[i], trans[i])
+        end
       end
       @rules[key] = rule
     end
@@ -82,7 +85,9 @@ module Squib
         i = card.index
         b = box[i]
         b.x, b.y = x, y
-        card.png(ifile[i].file, b, paint[i], trans[i])
+        Dir.chdir(@img_dir) do
+          card.png(ifile[i].file, b, paint[i], trans[i])
+        end
       end
       @rules[key] = rule
     end
