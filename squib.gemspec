@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cairo', '~> 1.14.0'
+  spec.add_runtime_dependency 'cairo', '~> 1.14.2'
   spec.add_runtime_dependency 'pango', '~> 2.2.0'
   spec.add_runtime_dependency 'roo', '~> 2.1.0'
   spec.add_runtime_dependency 'rsvg2', '~> 2.2.0'

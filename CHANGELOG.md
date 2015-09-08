@@ -14,6 +14,7 @@ Features
 * Upgraded roo (Excel parsing) to 2.1.0. Macro-enabled Excel files can be parsed now (i.e. `xlsm`), although I've only mildly tested this. (cddea47ba56add286639e493d5cc0146245eca68)
 * New built-in layouts: `fantasy.yml` and `economy.yml`. Demonstrated in new sample `layouts_builtin.rb` (#97)
 * Added `:scale` shortcut to `width` and `height` options for `png` and `svg`. Allows you to set the width and the image will scale while keeping its aspect ratio. (e.g. `svg width: 500, height: :scale`) (#91)
+* Upgraded cairo gem to 1.14.2, which silences some warnings on Macs and upgrades a lot of Windows dependencies
 
 Compatibility:
 * All drawn shapes (e.g. circle, triangle, star) will now draw their stroke on top of the fill. This was not consistent before, and now it is (because Squib is more DRY about it!). This means that your `stroke_width` might render wider than before. If you want the other behavior, specify `stroke_strategy: :stroke_first`. Also applies to `text` when `stroke_width` is specified.
