@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.7.0 / Unreleased
+## v0.7.0 / 2015-09-11
 
 Features
 * Added `cap` option to `line` and `curve` to define how ends of lines are drawn (#42)
