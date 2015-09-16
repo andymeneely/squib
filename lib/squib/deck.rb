@@ -1,16 +1,15 @@
-require 'yaml'
-require 'pp'
 require 'forwardable'
+require 'pp'
 require 'squib'
-require 'squib/card'
-require 'squib/progress'
-require 'squib/input_helpers'
-require 'squib/constants'
-require 'squib/layout_parser'
 require 'squib/args/unit_conversion'
+require 'squib/card'
 require 'squib/conf'
-require 'squib/graphics/showcase'
+require 'squib/constants'
 require 'squib/graphics/hand'
+require 'squib/graphics/showcase'
+require 'squib/layout_parser'
+require 'squib/progress'
+
 
 # The project module
 #
@@ -22,7 +21,6 @@ module Squib
   # @api public
   class Deck
     include Enumerable
-    include Squib::InputHelpers
     extend Forwardable
 
     # Attributes for the width, height (in pixels) and number of cards

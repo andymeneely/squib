@@ -43,7 +43,7 @@ And then execute:
     $ bundle
 
 Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, and is automated through Bundler/RubyGems, but can cause headaches on some setups.
-  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib's dependencies called Nokogiri (read the WTF-y issue here: https://github.com/sparklemotion/nokogiri/issues/1256), so I recommend 2.1 or 2.0 for Windows users.
+  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib's dependencies called Nokogiri (read the WTF-y issue here: https://github.com/sparklemotion/nokogiri/issues/1256) UPDATE: their pre-releases have fixed this exact issue - just install nokogiri-1.6.7.rc3-x64-mingw32 (or higher). Or, as a last resort, use 2.1 or 2.0 for Windows users.
   * Mac: I recommend using [rvm](https://rvm.io). Some users have reported that Ruby 2.1 will not work with Mac OSX 10.10.4 (#88) - Ruby 2.0 and 2.2 are confirmed to work however (this is an rcairo issue, not a Squib issue).
   * Cywgin is not supported, but could theoretically work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113). Contributions in this area are welcome.
   * Linux. No known installation issues. Happy installing!
@@ -597,11 +597,22 @@ There are lots of people using Squib already. If you've gone through the [sample
 * Our [thread on BoardGameGeek](http://boardgamegeek.com/thread/1293453) is quite active and informal (if a bit unstructured).
 * [StackOverflow](http://stackoverflow.com/questions/ask?tags=ruby squib) with the tag "ruby" and "squib" will get you answers quickly and a great way to document questions for future Squibbers.
 
+If you email me directly I'll probably ask you to post your question publicly so we can document answers for future Googling Squibbers.
+
 Please use GitHub issues for bugs and feature requests.
+
+## Give Help
+
+Let's help each other out! Even if you're relatively new, there's probably some question out there that you can help answer. Here's how to help:
+
+* Subscribe to our thread on BoardGameGeek (see above for link)
+* Subscribe to alerts from Stackoverflow for the tags "squib" and "ruby"
+* Post snippets of your code using GitHub gists
+* Write a how-to tutorial and post it on [our wiki](https://github.com/andymeneely/squib/wiki)
 
 ## Testing Pre-Builds
 
-If you want to test new features as I develop them, you can always point your Gemfile to the repository. Your Gemfile specification looks like this:
+Testers needed!! If you want to test new features as I develop them, or make sure I didn't break your code, you can always point your Gemfile to the repository and follow what I'm doing there. Your Gemfile specification looks like this:
 
 ```ruby
 gem 'squib', git: 'git://github.com/andymeneely/squib', branch: 'dev'

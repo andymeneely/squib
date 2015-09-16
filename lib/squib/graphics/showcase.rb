@@ -11,26 +11,23 @@ module Squib
     #  http://zetcode.com/gui/pygtk/drawingII/
     # :nodoc:
     # @api private
-    def render_showcase(range,
-                        trim, trim_radius, scale, offset, fill_color,
-                        reflect_offset, reflect_percent, reflect_strength, margin, face_right,
-                        dir, file_to_save)
-      out_width = range.size * ((@width - 2*trim) * scale * offset) + 2*margin
-      out_height = reflect_offset + (1.0 + reflect_percent) * (@height - 2*trim) + 2*margin
+    def render_showcase(range, sheet, showcase)
+      out_width = range.size * ((@width - 2*sheet.trim) * showcase.scale * showcase.offset) + 2*sheet.margin
+      out_height = showcase.reflect_offset + (1.0 + showcase.reflect_percent) * (@height - 2*sheet.trim) + 2*sheet.margin
       out_cc = Cairo::Context.new(Cairo::ImageSurface.new(out_width, out_height))
       wrapper = Squib::Graphics::CairoContextWrapper.new(out_cc)
-      wrapper.set_source_squibcolor(fill_color)
+      wrapper.set_source_squibcolor(sheet.fill_color)
       wrapper.paint
 
       cards = range.collect { |i| @cards[i] }
       cards.each_with_index do |card, i|
-        trimmed = trim_rounded(card.cairo_surface, trim, trim_radius)
-        reflected = reflect(trimmed, reflect_offset, reflect_percent, reflect_strength)
-        perspectived = perspective(reflected, scale, face_right)
-        out_cc.set_source(perspectived, margin + i * perspectived.width * offset, margin)
+        trimmed = trim_rounded(card.cairo_surface, sheet.trim, sheet.trim_radius)
+        reflected = reflect(trimmed, showcase.reflect_offset, showcase.reflect_percent, showcase.reflect_strength)
+        perspectived = perspective(reflected, showcase.scale, showcase.face_right?)
+        out_cc.set_source(perspectived, sheet.margin + i * perspectived.width * showcase.offset, sheet.margin)
         out_cc.paint
       end
-      out_cc.target.write_to_png("#{dir}/#{file_to_save}")
+      out_cc.target.write_to_png("#{sheet.dir}/#{sheet.file}")
     end
 
     # :nodoc:

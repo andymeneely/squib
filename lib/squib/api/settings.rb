@@ -28,8 +28,7 @@ module Squib
     # @api public
     def set(opts = {})
       raise 'DEPRECATED: As of v0.7 img_dir is no longer supported in "set". Use config.yml instead.' if opts.key? :img_dir
-      opts = needs(opts, [:font])
-      @font = opts[:font][0] #was expanded - just need the first
+      @font = (opts[:font] == :default) ? Squib::SYSTEM_DEFAULTS[:default_font] : opts[:font]
     end
 
   end

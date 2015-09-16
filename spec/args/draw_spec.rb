@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'squib/args/box'
+require 'squib/args/draw'
 
 describe Squib::Args::Draw do
   let(:custom_colors) { {'foo' => 'abc'} }

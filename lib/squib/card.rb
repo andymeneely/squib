@@ -1,5 +1,4 @@
 require 'cairo'
-require 'squib/input_helpers'
 require 'squib/graphics/cairo_context_wrapper'
 
 module Squib

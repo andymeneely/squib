@@ -19,8 +19,8 @@ module Squib
   # @api public
   def logger
     if @logger.nil?
-      @logger = Logger.new($stdout);
-      @logger.level = Logger::WARN;
+      @logger = Logger.new($stdout)
+      @logger.level = Logger::WARN
       @logger.formatter = proc do |severity, datetime, m_progname, msg|
         "#{datetime} #{severity}: #{msg}\n"
       end

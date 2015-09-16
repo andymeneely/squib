@@ -3,13 +3,13 @@ module Squib
 
     # :nodoc:
     # @api private
-    def save_png(i, dir, prefix, count_format, do_rotate, angle)
-      if [true, :clockwise, :counterclockwise].include?(do_rotate)
-        surface = rotated_image(angle)
-      else
-        surface = @cairo_surface
-      end
-      write_png(surface, i, dir, prefix, count_format)
+    def save_png(batch)
+      surface = if batch.rotate
+                  rotated_image(batch.angle)
+                else
+                  surface = @cairo_surface
+                end
+      write_png(surface, index, batch.dir, batch.prefix, batch.count_format)
     end
 
     # :nodoc:

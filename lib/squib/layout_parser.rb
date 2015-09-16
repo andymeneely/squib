@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Squib
   # Internal class for handling layouts
   #@api private

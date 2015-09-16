@@ -212,7 +212,7 @@ module Squib
     # @option opts radius [Fixnum] (0) the radius from center to corner. Supports Unit conversion.
     # @option opts stroke_color [String] (:black) the color with which to stroke the line. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape. 
+    # @option opts stroke_strategy [:fill_first, :stroke_first] (:fill_first) specify whether the stroke is done before (thinner) or after (thicker) filling the shape.
     # @option opts fill_color [String] ('#0000') the color with which to fill the triangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
     # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
