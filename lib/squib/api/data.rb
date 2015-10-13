@@ -77,7 +77,7 @@ module Squib
     hash = Hash.new
     table.headers.each do |header|
       new_header = header.to_s
-      new_header.strip! if import.strip?
+      new_header = new_header.strip if import.strip?
       hash[new_header] ||= table[header]
     end
     if import.strip?
