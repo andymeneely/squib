@@ -81,9 +81,11 @@ module Squib
       hash[new_header] ||= table[header]
     end
     if import.strip?
+      new_hash = Hash.new
       hash.each do |header, col|
-        col.map! { |str| str.strip! if str.respond_to?(:strip); str }
+        new_hash[header] = col.map { |str| str = str.strip if str.respond_to?(:strip); str }
       end
+      hash = new_hash
     end
     return hash
   end
