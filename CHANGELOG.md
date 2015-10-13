@@ -9,6 +9,9 @@ Features
 Compatibility change:
 * Stripping leading and trailing whitespace of xlsx and csv values by default might change how your data gets parsed.
 
+Bugs fixes:
+* The `range` option everywhere doesn't fail on `[]` (#107)
+
 ## v0.7.0 / 2015-09-11
 
 Features

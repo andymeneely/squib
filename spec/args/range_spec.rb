@@ -33,4 +33,9 @@ describe Squib::Args::CardRange do
     expect(range.to_a).to eq([0])
   end
 
+  it 'allows [] as an empty range' do
+    range = Squib::Args::CardRange.new([], deck_size: 5)
+    expect(range.to_a).to eq([])
+  end
+
 end
