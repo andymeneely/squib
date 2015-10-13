@@ -1,6 +1,14 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.8.0 / Unreleased
+Features
+* The `xlsx` and `csv` methods will now strip leading and trailing whitespace by default where applicable. This is now turned on by default, but can be turned off with `strip: false`.
+* The `xlsx` and `csv` methods will now yield to a block (if given) for each cell so you can do some extra processing if you like. See samples/excel.rb for an example.
+
+Compatibility change:
+* Stripping leading and trailing whitespace of xlsx and csv values by default might change how your data gets parsed.
+
 ## v0.7.0 / 2015-09-11
 
 Features
