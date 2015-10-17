@@ -1,0 +1,46 @@
+## Rectangles correspond to the "safe zones" as defined by TheGameCrafter for tuck boxes 2325x1950 pixels
+top_rect:
+  x: 313
+  y: 198
+  width: 688
+  height: 167
+
+bottom_rect:
+  x: 313
+  y: 1526
+  width: 688
+  height: 167
+
+right_rect:
+  x: 77
+  y: 466
+  width: 164
+  height: 988
+
+left_rect:
+  x: 1080
+  y: 466
+  width: 164
+  height: 988
+
+back_rect:
+  x: 313
+  y: 466
+  width: 688
+  height: 989
+
+front_rect:
+  x: 1322
+  y: 466
+  width: 688
+  height: 989
+
+front_curve:
+  x1: 1550
+  y1: 466
+  x2: 1765
+  y2: 466
+  cx1: 1575
+  cy1: 565
+  cx2: 1740
+  cy2: 565
