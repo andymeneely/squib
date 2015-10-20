@@ -14,6 +14,18 @@ Squib::Deck.new(cards: 3) do
   save format: :png, prefix: 'sample_excel_' #save to individual pngs
 end
 
+# xlsx is also a Squib-module-level function, so this also works:
+data      = Squib.xlsx file: 'explode_quantities.xlsx' # 2 rows...
+num_cards = data['Name'].size                          #          ...but 4 cards!
+
+Squib::Deck.new(cards: num_cards) do
+  background color: :white
+  rect # card border
+  text str: data['Name'], font: 'Arial 54'
+  save_sheet  prefix: 'sample_xlsx_qty_', columns: 4
+end
+
+
 # Here's another example, a bit more realistic. Here's what's going on:
 #   * We call xlsx from Squib directly - BEFORE Squib::Deck creation. This
 #     allows us to infer the number of cards based on the size of the "Name"

@@ -8,7 +8,9 @@ module Squib
       include ArgLoader
 
       def self.parameters
-        { strip: true }
+        { strip: true,
+          explode: 'Qty'
+        }
       end
 
       def self.expanding_parameters
@@ -21,6 +23,10 @@ module Squib
 
       def validate_strip(arg)
         raise 'Strip must be true or false' unless arg == true || arg == false
+        arg
+      end
+
+      def validate_explode(arg)
         arg
       end
 

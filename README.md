@@ -484,6 +484,10 @@ Squib supports importing data from `xlsx` files and `csv` files. These methods a
 
 Of course, you can always import your game data other ways using just Ruby. There's nothing special about Squib's methods other than their convenience.
 
+###Quantity Explosion
+
+If you want more than one copy of a card, then have a column called `Qty` and fill it with counts. Squib's `xlsx` and `csv` methods will automatically expand those rows according to those counts. You can also customize that "Qty" to anything you like by setting the `explode` option (e.g. `explode: 'Quantity'`). See the `excel.rb` and the `csv_import.rb` samples found [here](https://github.com/andymeneely/squib/tree/master/samples/) for an example.
+
 ## Making Squib Verbose
 
 By default, Squib's logger is set to WARN, but more fine-grained logging is embedded in the code. To set the logger, just put this at the top of your script:

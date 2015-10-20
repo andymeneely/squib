@@ -36,6 +36,20 @@ describe Squib::Deck do
         })
     end
 
+    it 'explodes quantities' do
+      expect(Squib.csv(file: csv_file('qty.csv'))).to eq({
+        'Name'  => %w(Ha Ha Ha Ho),
+        'Qty' => [3, 3, 3, 1],
+        })
+    end
+
+    it 'explodes quantities on specified header' do
+      expect(Squib.csv(explode: 'Quantity', file: csv_file('qty_named.csv'))).to eq({
+        'Name'  => %w(Ha Ha Ha Ho),
+        'Quantity' => [3, 3, 3, 1],
+        })
+    end
+
   end
 
   context '#xlsx' do
