@@ -106,5 +106,12 @@ describe Squib::Deck do
         })
     end
 
+    it 'explodes quantities' do
+       expect(Squib.xlsx(explode: 'Qty', file: xlsx_file('explode_quantities.xlsx'))).to eq({
+        'Name' => ['Zergling', 'Zergling', 'Zergling', 'High Templar'],
+        'Qty'  => %w(3 3 3 1),
+        })
+    end
+
   end
 end
