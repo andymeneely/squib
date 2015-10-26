@@ -1,11 +1,12 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.8.0 / Unreleased
+## v0.8.0 / 2015-10-26
 Features
 * The `xlsx` and `csv` support quantity explosion! Just use the column name 'Qty' and put integers in your sheet and you'll produce copies of the entire row. See README and the csv sample for more info. (#78)
 * The `xlsx` and `csv` methods will now strip leading and trailing whitespace by default where applicable. This is now turned on by default, but can be turned off with `strip: false`. (#79)
 * The `xlsx` and `csv` methods will now yield to a block (if given) for each cell so you can do some extra processing if you like. See samples/excel.rb for an example. (#108)
+* Layout file for TheGameCrafter tuck boxes (#113). Thanks @alexgorski!
 
 Compatibility change:
 * Stripping leading and trailing whitespace of xlsx and csv values by default might change how your data gets parsed.
