@@ -10,9 +10,9 @@ module Squib
     DEFAULTS = {
       'antialias'     => 'best',
       'backend'       => 'memory',
-      'count_format'  => SYSTEM_DEFAULTS[:count_format],
+      'count_format'  => '%02d',
       'custom_colors' => {},
-      'dir'           => SYSTEM_DEFAULTS[:dir],
+      'dir'           => '_output',
       'hint'          => :none,
       'img_dir'       => '.',
       'progress_bars' => false,

@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.9.0 / Unreleased
+
+Chores:
+* Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
+
 ## v0.8.0 / 2015-10-26
 Features
 * The `xlsx` and `csv` support quantity explosion! Just use the column name 'Qty' and put integers in your sheet and you'll produce copies of the entire row. See README and the csv sample for more info. (#78)

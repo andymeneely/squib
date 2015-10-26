@@ -60,7 +60,7 @@ module Squib
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
       @dpi           = dpi
-      @font          = SYSTEM_DEFAULTS[:default_font]
+      @font          = DEFAULT_FONT
       @cards         = []
       @conf          = Conf.load(config)
       @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
