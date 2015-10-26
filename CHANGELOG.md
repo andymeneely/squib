@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
+* Emit a warning when a `config.yml` option is not recognized
 
 ## v0.8.0 / 2015-10-26
 Features

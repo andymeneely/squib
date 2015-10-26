@@ -1,0 +1,4 @@
+# This is recognized, so it should be fine.
+backend: svg
+# This is not recognized.
+unicorns: true
