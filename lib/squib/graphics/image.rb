@@ -31,7 +31,6 @@ module Squib
         cc.rotate(trans.angle)
         cc.translate(-box.x, -box.y)
 
-        # cc.translate(trans.crop_x, trans.crop_y)
         trans.crop_width  = png.width.to_f  if trans.crop_width  == :native
         trans.crop_height = png.height.to_f if trans.crop_height == :native
         cc.rounded_rectangle(box.x, box.y, trans.crop_width, trans.crop_height, trans.crop_corner_x_radius, trans.crop_corner_y_radius)
@@ -67,6 +66,13 @@ module Squib
         cc.translate(box.x, box.y)
         cc.rotate(trans.angle)
         cc.scale(scale_width, scale_height)
+
+        trans.crop_width  = box.width  if trans.crop_width  == :native
+        trans.crop_height = box.height if trans.crop_height == :native
+        cc.rounded_rectangle(0, 0, trans.crop_width / scale_width, trans.crop_height / scale_height, trans.crop_corner_x_radius, trans.crop_corner_y_radius)
+        cc.clip
+        cc.translate(-trans.crop_x, -trans.crop_y)
+
         cc.operator = paint.blend unless paint.blend == :none
         if paint.mask.to_s.empty?
           cc.render_rsvg_handle(svg, svg_args.id)

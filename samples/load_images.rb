@@ -30,6 +30,10 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
       crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
       crop_width: 64, crop_height: 64, angle: Math::PI / 6
 
+  # Cropping also works on SVGs too
+  svg file: 'spanner.svg', x: 300, y: 500, width: 64, height: 64,
+      crop_x: 32, crop_y: 32, crop_width: 32, crop_height:32
+
   # We can also limit our rendering to a single object, if the SVG ID is set
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
   # Squib prepends a #-sign if one is not specified

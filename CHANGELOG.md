@@ -4,7 +4,7 @@ Squib follows [semantic versioning](http://semver.org).
 ## v0.9.0 / Unreleased
 
 Features:
-* Crop your PNGs! This means you can work from spritesheets if you want. New options to `png` are documented in the API docs and in the `load_images.rb` sample. (#11)
+* Crop your PNGs and SVGs! This means you can work from spritesheets if you want. New options to `png` and `svg` are documented in the API docs and demonstrated in the `load_images.rb` sample. (#11)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
