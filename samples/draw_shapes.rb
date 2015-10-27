@@ -3,7 +3,10 @@ require 'squib'
 Squib::Deck.new do
   background color: :white
 
-  rect x: 300, y: 100, width: 200, height: 50, dash: '4 2'
+  grid x: 10, y: 10, width: 50,  height: 50,  stroke_color: '#0066FF', stroke_width: 1.5
+  grid x: 10, y: 10, width: 200, height: 200, stroke_color: '#0066FF', stroke_width: 3
+
+  rect x: 305, y: 105, width: 200, height: 50, dash: '4 2'
 
   rect x: 300, y: 300, width: 400, height: 400,
        fill_color: :blue, stroke_color: :red, stroke_width: 50.0,
