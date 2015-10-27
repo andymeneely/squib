@@ -81,4 +81,13 @@ describe Squib::Graphics::CairoContextWrapper do
     end
   end
 
+  context 'flips' do
+    it 'in the basic case' do
+      dbl = double(Cairo::Matrix)
+      expect(Cairo::Matrix).to receive(:new).with(-1.0, 0.0, 0.0, -1.0, 6.0, 8.0).and_return(dbl)
+      expect(cairo).to         receive(:transform).with(dbl)
+      subject.flip(true, true, 3.0, 4.0)
+    end
+  end
+
 end

@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * Crop your PNGs and SVGs! This means you can work from spritesheets if you want. New options to `png` and `svg` are documented in the API docs and demonstrated in the `load_images.rb` sample. (#11)
+* Flip your PNGs and SVGs! Set `flip_horizontal: true` or `flip_vertical: true` (or both!) to flip the image about it's center. (#11)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!

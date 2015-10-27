@@ -94,6 +94,18 @@ module Squib
         translate(-x, -y)
       end
 
+      # Flip either vertical or horizontal depending
+      # From the cairo website: http://cairographics.org/matrix_transform/
+      # cairo.Matrix(fx, 0,         0,
+      #              fy, cx*(1-fx), cy*(fy-1))
+      # fx/fy = 1 means 'no flip', fx/fy = -1 are used for horizontal/vertical flip
+      def flip(vertical, horizontal, x, y)
+        v = vertical   ? -1.0 : 1.0
+        h = horizontal ? -1.0 : 1.0
+        transform Cairo::Matrix.new(v, 0.0,     0.0,
+                                    h, x*(1-v), y*(1-h))
+      end
+
     end
   end
 end

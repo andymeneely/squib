@@ -32,6 +32,8 @@ module Squib
     # @option opts crop_corner_y_radius [Integer] (0): y radius for rounded corners of cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts crop_width [Integer] (:native): Width of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts crop_height [Integer] (:native): Height of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts flip_horiztonal [Boolean] (false): Flip this image about its center horizontally (i.e. left becomes right and vice versa).
+    # @option opts flip_vertical [Boolean] (false): Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
@@ -79,6 +81,8 @@ module Squib
     # @option opts crop_corner_y_radius [Integer] (0): y radius for rounded corners of cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts crop_width [Integer] (:native): Width of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts crop_height [Integer] (:native): Height of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts flip_horiztonal [Boolean] (false): Flip this image about its center horizontally (i.e. left becomes right and vice versa).
+    # @option opts flip_vertical [Boolean] (false): Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})

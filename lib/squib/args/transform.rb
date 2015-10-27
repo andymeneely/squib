@@ -20,6 +20,8 @@ module Squib
           crop_corner_radius: nil,
           crop_corner_x_radius: 0,
           crop_corner_y_radius: 0,
+          flip_vertical: false,
+          flip_horizontal: false,
         }
       end
 
@@ -28,7 +30,7 @@ module Squib
       end
 
       def self.params_with_units
-        parameters.keys # all of them
+        parameters.keys - [:flip_vertical, :flip_horizontal]
       end
 
       def validate_crop_width(arg, _i)

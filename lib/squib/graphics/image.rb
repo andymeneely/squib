@@ -20,15 +20,15 @@ module Squib
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
         cc.translate(box.x, box.y)
-        if box.width != :native || box.height != :native
-          box.width  = png.width.to_f  if box.width  == :native
-          box.height = png.height.to_f if box.height == :native
-          box.width  = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
-          box.height = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
-          Squib.logger.warn "PNG scaling results in aliasing."
-          cc.scale(box.width.to_f / png.width.to_f, box.height.to_f / png.height.to_f)
-        end
+        Squib.logger.warn "PNG scaling results in aliasing." if box.width != :native || box.height != :native
+        box.width  = png.width.to_f  if box.width  == :native
+        box.height = png.height.to_f if box.height == :native
+        box.width  = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
+        box.height = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
+        cc.scale(box.width.to_f / png.width.to_f, box.height.to_f / png.height.to_f)
+
         cc.rotate(trans.angle)
+        cc.flip(trans.flip_vertical, trans.flip_horizontal, box.width / 2, box.height / 2)
         cc.translate(-box.x, -box.y)
 
         trans.crop_width  = png.width.to_f  if trans.crop_width  == :native
@@ -36,6 +36,7 @@ module Squib
         cc.rounded_rectangle(box.x, box.y, trans.crop_width, trans.crop_height, trans.crop_corner_x_radius, trans.crop_corner_y_radius)
         cc.clip
         cc.translate(-trans.crop_x, -trans.crop_y)
+
 
         cc.set_source(png, box.x, box.y)
         cc.operator = paint.blend unless paint.blend == :none
@@ -64,6 +65,7 @@ module Squib
       scale_height = box.height.to_f / svg.height.to_f
       use_cairo do |cc|
         cc.translate(box.x, box.y)
+        cc.flip(trans.flip_vertical, trans.flip_horizontal, box.width / 2, box.height / 2)
         cc.rotate(trans.angle)
         cc.scale(scale_width, scale_height)
 

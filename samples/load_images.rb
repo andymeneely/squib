@@ -34,6 +34,11 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   svg file: 'spanner.svg', x: 300, y: 500, width: 64, height: 64,
       crop_x: 32, crop_y: 32, crop_width: 32, crop_height:32
 
+  # We can flip our images too
+  png file: 'sprites.png', x: 300, y: 535, flip_vertical: true, flip_horizontal: true
+  svg file: 'spanner.svg', x: 300, y: 615, width: 64, height: 64,
+      flip_vertical: true, flip_horizontal: true
+
   # We can also limit our rendering to a single object, if the SVG ID is set
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
   # Squib prepends a #-sign if one is not specified
