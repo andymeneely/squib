@@ -74,8 +74,8 @@ module Squib
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts width [Integer] the width of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts height [Integer] the height of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts width [Integer] (0.25in) the width of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts height [Integer] (0.25in) the height of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
@@ -87,7 +87,7 @@ module Squib
     def ellipse(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self, {width: '0.25in', height: '0.25in'}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       range.each { |i| @cards[i].ellipse(box[i], draw[i]) }
     end
 
