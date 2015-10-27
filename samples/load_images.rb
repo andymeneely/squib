@@ -18,6 +18,18 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
   png file: 'shiny-purse.png', x: 240, y: 350, width: 35,     height: :scale
   png file: 'shiny-purse.png', x: 240, y: 390, width: :scale, height: 35
 
+  # You can also crop the loaded images, so you can work from a sprite sheet
+  png file: 'sprites.png', x: 300, y: 350  # entire sprite sheet
+  png file: 'sprites.png', x: 300, y: 425, # just the robot golem image
+      crop_x: 0, crop_y: 0, crop_corner_radius: 10,
+      crop_width: 64, crop_height: 64
+  png file: 'sprites.png', x: 400, y: 425, # just the drakkar ship image
+      crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
+      crop_width: 64, crop_height: 64
+  png file: 'sprites.png', x: 500, y: 415, # just the drakkar ship image, rotated
+      crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
+      crop_width: 64, crop_height: 64, angle: Math::PI / 6
+
   # We can also limit our rendering to a single object, if the SVG ID is set
   svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
   # Squib prepends a #-sign if one is not specified

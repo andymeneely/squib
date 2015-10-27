@@ -3,6 +3,9 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.9.0 / Unreleased
 
+Features:
+* Crop your PNGs! This means you can work from spritesheets if you want. New options to `png` are documented in the API docs and in the `load_images.rb` sample. (#11)
+
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
 * Emit a warning when a `config.yml` option is not recognized
