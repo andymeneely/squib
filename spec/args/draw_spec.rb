@@ -60,6 +60,12 @@ describe Squib::Args::Draw do
       expect(draw).to have_attributes( cap: [Cairo::LINE_CAP_SQUARE] )
     end
 
+    it 'converts line join' do
+      args = {join: 'round'}
+      draw.load! args
+      expect(draw).to have_attributes( join: [Cairo::LINE_JOIN_ROUND] )
+    end
+
     it 'allows fill_first stroke_strategy' do
       args = {stroke_strategy: :FILL_first}
       draw.load! args

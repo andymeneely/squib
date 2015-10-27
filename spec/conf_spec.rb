@@ -31,4 +31,9 @@ describe Squib::Conf do
     Squib::Conf.load conf('unrecognized.yml')
   end
 
+  it 'helps Andy get full coverage with a test on to_s' do
+    conf = Squib::Conf.load conf('empty.yml')
+    expect(conf.to_s).to start_with 'Conf: '
+  end
+
 end
