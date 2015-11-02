@@ -11,6 +11,7 @@ Features:
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
 * Emit a warning when a `config.yml` option is not recognized
+* Upgrade roo (xlsx parser) to latest 2.2 version. Nothing exciting for us in this release.
 
 ## v0.8.0 / 2015-10-26
 Features
