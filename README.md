@@ -463,6 +463,8 @@ Squib supports various configuration properties that can be specified in an exte
 * `antialias` (`fast, good, best, none, gray, subpixel`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only ~10% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
 * `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
 * `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
+* `warn_ellipsize` (default: true). Warn when text is ellipsized
+* `warn_png_scale` (default: true). Warn when a PNG file is upscaled
 
 For debugging/sanity purposes, if you want to make sure your configuration options are parsed correclty, the above options are also available as methods within Squib::Deck, for example:
 

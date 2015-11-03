@@ -20,12 +20,15 @@ module Squib
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
         cc.translate(box.x, box.y)
-        Squib.logger.warn "PNG scaling results in aliasing." if box.width != :native || box.height != :native
-        box.width  = png.width.to_f  if box.width  == :native
-        box.height = png.height.to_f if box.height == :native
-        box.width  = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
-        box.height = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
-        cc.scale(box.width.to_f / png.width.to_f, box.height.to_f / png.height.to_f)
+        box.width    = png.width.to_f  if box.width  == :native
+        box.height   = png.height.to_f if box.height == :native
+        box.width    = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
+        box.height   = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
+
+        scale_width  = box.width.to_f / png.width.to_f
+        scale_height = box.height.to_f / png.height.to_f
+        warn_png_scale(file, scale_width, scale_height)
+        cc.scale(scale_width, scale_height)
 
         cc.rotate(trans.angle)
         cc.flip(trans.flip_vertical, trans.flip_horizontal, box.width / 2, box.height / 2)
@@ -46,6 +49,14 @@ module Squib
           cc.set_source_squibcolor(paint.mask)
           cc.mask(png, box.x, box.y)
         end
+      end
+    end
+
+    # :nodoc:
+    # @api private
+    def warn_png_scale(file, scale_width, scale_height)
+      if @deck.conf.warn_png_scale? && (scale_width > 1.0 || scale_height > 1.0)
+        Squib.logger.warn "PNG is being upscaled - antialiasing could result: #{file}"
       end
     end
 

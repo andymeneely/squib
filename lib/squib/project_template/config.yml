@@ -42,4 +42,8 @@
 # By default, Squib warns when a text box is ellipsized. This can get verbose
 # and can be turned off here
 # warn_ellipsize: true # default
-# warn_ellipsize: false # default
+# warn_ellipsize: false # turn off entirely
+
+# By default, Squib will warn if a PNG is being up-scaled.
+# warn_png_scale: true # default
+# warn_png_scale: false # turn off entirely
