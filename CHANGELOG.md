@@ -14,6 +14,9 @@ Chores:
 * Emit a warning when a `config.yml` option is not recognized
 * Upgrade roo (xlsx parser) to latest 2.2 version. Nothing exciting for us in this release.
 
+Docs:
+* [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation. Go check out and feel free to contribute.
+
 ## v0.8.0 / 2015-10-26
 Features
 * The `xlsx` and `csv` support quantity explosion! Just use the column name 'Qty' and put integers in your sheet and you'll produce copies of the entire row. See README and the csv sample for more info. (#78)
