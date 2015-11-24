@@ -1,7 +1,7 @@
 [submodule "intro"]
     path = samples/intro
-    url = git@gist.github.com:5026392a419124312cb7.git
+    url = https://gist.github.com/5026392a419124312cb7.git
 
 [submodule "samples/images"]
 	path = samples/images
-	url = git@gist.github.com:00ba7eb0aa1d82140503.git
+	url = https://gist.github.com/00ba7eb0aa1d82140503.git
