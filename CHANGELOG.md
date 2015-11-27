@@ -16,6 +16,7 @@ Chores:
 
 Docs:
 * [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation. Go check out and feel free to contribute.
+* Added new files to the project template for `squib new`: `IDEAS.md`, `RULES.md`, and `PLAYTESTING.md`
 
 ## v0.8.0 / 2015-10-26
 Features
