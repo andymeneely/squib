@@ -8,8 +8,8 @@ module Squib
     # Draw graph paper for samples
     def draw_graph_paper(width, height)
       background color: 'white'
-      grid width: 50,  height: 50,  stroke_color: '#0066FF', stroke_width: 1.5
-      grid width: 200, height: 200, stroke_color: '#0066FF', stroke_width: 3, x: 50, y: 50
+      grid width: 50,  height: 50,  stroke_color: '#659ae9', stroke_width: 1.5
+      grid width: 200, height: 200, stroke_color: '#659ae9', stroke_width: 3, x: 50, y: 50
       (50..height).step(200) do |y|
         text str: "y=#{y}", x: 3, y: y - 18, font: 'Open Sans, Sans 10'
       end
