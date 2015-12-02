@@ -49,6 +49,16 @@ module Squib
 
     # :nodoc:
     # @api private
+    def grid(box, draw)
+      x, y, w, h = box.x, box.y, box.width, box.height
+      use_cairo do |cc|
+        (x..@width + w).step(w)  { |ix| line_xy( ix, y - @height, ix, @height + y, draw) }
+        (y..@height + h).step(h) { |iy| line_xy( x - @width, iy, @width + x, iy, draw) }
+      end
+    end
+
+    # :nodoc:
+    # @api private
     def triangle(tri, draw)
       use_cairo do |cc|
         cc.triangle(tri.x1, tri.y1, tri.x2, tri.y2, tri.x3, tri.y3)
@@ -59,10 +69,16 @@ module Squib
     # :nodoc:
     # @api private
     def line(coord, draw)
+      line_xy(coord.x1, coord.y1, coord.x2, coord.y2, draw)
+    end
+
+    # :nodoc:
+    # @api private
+    def line_xy(x1, y1, x2, y2, draw)
       use_cairo do |cc|
-        cc.move_to(coord.x1, coord.y1)
-        cc.line_to(coord.x2, coord.y2)
-        cc.fill_n_stroke(draw)
+        cc.move_to(x1, y1)
+        cc.line_to(x2, y2)
+        cc.fancy_stroke(draw)
       end
     end
 

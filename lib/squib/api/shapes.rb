@@ -74,8 +74,8 @@ module Squib
     # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts width [Integer] the width of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
-    # @option opts height [Integer] the height of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts width [Integer] (0.25in) the width of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts height [Integer] (0.25in) the height of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
     # @option opts fill_color [String] ('#0000') the color with which to fill the rectangle. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
     # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
@@ -87,8 +87,33 @@ module Squib
     def ellipse(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self, {width: '0.25in', height: '0.25in'}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       range.each { |i| @cards[i].ellipse(box[i], draw[i]) }
+    end
+
+    # Draw an unlimited grid
+    #
+    # @example
+    #   grid x: 0, y: 0, width: 15, height: 15
+    #
+    # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
+    #
+    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts x [Integer] (0) the x-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts y [Integer] (0) the y-coordinate to place. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts width [Integer] the width of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts height [Integer] the height of the rectangle. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts stroke_color [String] (:black) the color with which to stroke the outside of the rectangle. {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}
+    # @option opts stroke_width [Decimal] (2.0) the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts dash [String] ('') define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
+    # @option opts layout [String, Symbol] (nil) entry in the layout to use as defaults for this command. See {file:README.md#Custom_Layouts Custom Layouts}
+    # @return [nil] intended to be void
+    # @api public
+    def grid(opts = {})
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].grid(box[i], draw[i]) }
     end
 
     # Draw a triangle using the given coordinates

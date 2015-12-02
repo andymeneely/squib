@@ -25,6 +25,15 @@ module Squib
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts mask [String] (nil) If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
+    # @option opts crop_x [Integer] (0) Crop the loaded image at this x coordinate. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_y [Integer] (0) Crop the loaded image at this y coordinate. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_corner_radius [Integer] (0): Radius for rounded corners, both x and y. When set, overrides crop_corner_x_radius and crop_corner_y_radius. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_corner_x_radius [Integer] (0): x radius for rounded corners of cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_corner_y_radius [Integer] (0): y radius for rounded corners of cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_width [Integer] (:native): Width of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_height [Integer] (:native): Height of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts flip_horiztonal [Boolean] (false): Flip this image about its center horizontally (i.e. left becomes right and vice versa).
+    # @option opts flip_vertical [Boolean] (false): Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
     # @return [nil] Returns nil
     # @api public
     def png(opts = {})
@@ -32,7 +41,7 @@ module Squib
         range = Args::CardRange.new(opts[:range], deck_size: size)
         paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
         box   = Args::ScaleBox.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-        trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+        trans = Args::Transform.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
         ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         @progress_bar.start('Loading PNG(s)', range.size) do |bar|
           range.each do |i|
@@ -65,6 +74,15 @@ module Squib
     # @option opts blend [:none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity] (:none) the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts angle [FixNum] (0) Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     # @option opts mask [String] (nil) If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
+    # @option opts crop_x [Integer] (0) Crop the loaded image at this x coordinate. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_y [Integer] (0) Crop the loaded image at this y coordinate. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_corner_radius [Integer] (0): Radius for rounded corners, both x and y. When set, overrides crop_corner_x_radius and crop_corner_y_radius. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_corner_x_radius [Integer] (0): x radius for rounded corners of cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_corner_y_radius [Integer] (0): y radius for rounded corners of cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_width [Integer] (:native): Width of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts crop_height [Integer] (:native): Height of the cropped image. Supports Unit Conversion, see {file:README.md#Units Units}.
+    # @option opts flip_horiztonal [Boolean] (false): Flip this image about its center horizontally (i.e. left becomes right and vice versa).
+    # @option opts flip_vertical [Boolean] (false): Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
     # @return [nil] Returns nil
     # @api public
     def svg(opts = {})
@@ -72,7 +90,7 @@ module Squib
         range = Args::CardRange.new(opts[:range], deck_size: size)
         paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
         box   = Args::ScaleBox.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-        trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+        trans = Args::Transform.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
         ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         svg_args = Args::SvgSpecial.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         @progress_bar.start('Loading SVG(s)', range.size) do |bar|

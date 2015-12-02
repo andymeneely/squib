@@ -1,6 +1,7 @@
 require 'roo'
 require 'csv'
 require 'squib/args/input_file'
+require 'squib/args/import'
 
 module Squib
 
@@ -16,28 +17,34 @@ module Squib
   #   # | 1  | 2  |
   #   # | 3  | 4  |
   #   data = xlsx file: 'data.xlsx', sheet: 0
-  #   {'h1' => [1,3], 'h2' => [2,4]}
+  #   => {'h1' => [1,3], 'h2' => [2,4]}
   #
   # @option opts file [String]  the file to open. Must end in `.xlsx`. Opens relative to the current directory.
   # @option opts sheet [Integer] (0) The zero-based index of the sheet from which to read.
+  # @option opts strip [Boolean] (true) When true, strips leading and trailing whitespace on values and headers
+  # @option opts explode [String] ('qty') Quantity explosion will be applied to the column this name. See README for example.
   # @return [Hash] a hash of arrays based on columns in the spreadsheet
   # @api public
   def xlsx(opts = {})
     input = Args::InputFile.new(file: 'deck.xlsx').load!(opts)
+    import = Args::Import.new.load!(opts)
     s = Roo::Excelx.new(input.file[0])
     s.default_sheet = s.sheets[input.sheet[0]]
     data = {}
     s.first_column.upto(s.last_column) do |col|
       header = s.cell(s.first_row,col).to_s
+      header.strip! if import.strip?
       data[header] = []
       (s.first_row + 1).upto(s.last_row) do |row|
         cell = s.cell(row,col)
         # Roo hack for avoiding unnecessary .0's on whole integers (https://github.com/roo-rb/roo/issues/139)
         cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, 'General']
+        cell.strip! if cell.respond_to?(:strip) && import.strip?
+        cell = yield(header, cell) if block_given?
         data[header] << cell
       end#row
     end#col
-    data
+    explode_quantities(data, import.explode)
   end#xlsx
   module_function :xlsx
 
@@ -58,19 +65,29 @@ module Squib
   # http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html
   #
   # @option opts file [String]  the CSV-formatted file to open. Opens relative to the current directory.
+  # @option opts strip [Boolean] (true) When true, strips leading and trailing whitespace on values and headers
+  # @option opts explode [String] ('qty') Quantity explosion will be applied to the column this name. See README for example.
   # @return [Hash] a hash of arrays based on columns in the table
   # @api public
   def csv(opts = {})
     file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
-    opts = Squib::SYSTEM_DEFAULTS.merge(opts)
-    # opts = Squib::InputHelpers.fileify(opts)
+    import = Args::Import.new.load!(opts)
     table = CSV.read(file, headers: true, converters: :numeric)
     check_duplicate_csv_headers(table)
     hash = Hash.new
     table.headers.each do |header|
-      hash[header.to_s] ||= table[header]
+      new_header = header.to_s
+      new_header = new_header.strip if import.strip?
+      hash[new_header] ||= table[header]
     end
-    return hash
+    if import.strip?
+      new_hash = Hash.new
+      hash.each do |header, col|
+        new_hash[header] = col.map { |str| str = str.strip if str.respond_to?(:strip); str }
+      end
+      hash = new_hash
+    end
+    return explode_quantities(hash, import.explode)
   end
   module_function :csv
 
@@ -83,6 +100,20 @@ module Squib
     end
   end
   module_function :check_duplicate_csv_headers
+
+  def explode_quantities(data, qty)
+    return data unless data.key? qty.to_s.strip
+    qtys = data[qty]
+    new_data = {}
+    data.each do |col, arr|
+      new_data[col] = []
+      qtys.each_with_index do |qty, index|
+        qty.to_i.times { new_data[col] << arr[index] }
+      end
+    end
+    return new_data
+  end
+  module_function :explode_quantities
 
   class Deck
 

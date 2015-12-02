@@ -1,4 +1,5 @@
 require 'squib/args/arg_loader'
+require 'squib/constants'
 
 module Squib
   # @api private
@@ -41,7 +42,7 @@ module Squib
 
       def validate_font(arg, _i)
         arg = @deck_font if arg == :use_set
-        arg = Squib::SYSTEM_DEFAULTS[:default_font] if arg == :default
+        arg = DEFAULT_FONT if arg == :default
         arg
       end
 

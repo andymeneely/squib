@@ -23,7 +23,7 @@ module Squib
         input = 0..(deck_size - 1) if input == :all
         input = (input.to_i)..(input.to_i) if input.respond_to? :to_i
         raise ArgumentError.new("#{input} must be Enumerable (i.e. respond_to :each).") unless input.respond_to? :each
-        raise ArgumentError.new("#{input} is outside of deck range of 0..#{deck_size-1}") if input.max > (deck_size - 1)
+        raise ArgumentError.new("#{input} is outside of deck range of 0..#{deck_size-1}") if (!input.max.nil?) && (input.max > (deck_size - 1))
         input
       end
 

@@ -21,7 +21,7 @@ describe Squib::Args::Paragraph do
     it 'uses system default font when deck font is :default' do
       para = Squib::Args::Paragraph.new(:default)
       para.load!( {} )
-      expect(para.font).to eq [Squib::SYSTEM_DEFAULTS[:default_font]]
+      expect(para.font).to eq [Squib::DEFAULT_FONT]
     end
 
     it 'uses specified font when given' do

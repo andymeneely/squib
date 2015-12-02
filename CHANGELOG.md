@@ -1,6 +1,31 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.9.0 / Unreleased
+
+Features:
+* Crop your PNGs and SVGs! This means you can work from spritesheets if you want. New options to `png` and `svg` are documented in the API docs and demonstrated in the `load_images.rb` sample. (#11)
+* Flip your PNGs and SVGs! Set `flip_horizontal: true` or `flip_vertical: true` (or both!) to flip the image about it's center. (#11)
+* Added a `grid` shape that fills the whole card with a grid of your choosing. (#68)
+
+Chores:
+* Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
+* Emit a warning when a `config.yml` option is not recognized
+* Upgrade roo (xlsx parser) to latest 2.2 version. Nothing exciting for us in this release.
+
+## v0.8.0 / 2015-10-26
+Features
+* The `xlsx` and `csv` support quantity explosion! Just use the column name 'Qty' and put integers in your sheet and you'll produce copies of the entire row. See README and the csv sample for more info. (#78)
+* The `xlsx` and `csv` methods will now strip leading and trailing whitespace by default where applicable. This is now turned on by default, but can be turned off with `strip: false`. (#79)
+* The `xlsx` and `csv` methods will now yield to a block (if given) for each cell so you can do some extra processing if you like. See samples/excel.rb for an example. (#108)
+* Layout file for TheGameCrafter tuck boxes (#113). Thanks @alexgorski!
+
+Compatibility change:
+* Stripping leading and trailing whitespace of xlsx and csv values by default might change how your data gets parsed.
+
+Bugs fixes:
+* The `range` option everywhere doesn't fail on `[]` (#107)
+
 ## v0.7.0 / 2015-09-11
 
 Features
