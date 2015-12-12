@@ -4,9 +4,17 @@ require 'squib'
 
 Squib::Deck.new(width: 825, height: 1125, cards: 16) do
   background color: :gray
-  rect x: 38, y: 38, width: 750, height: 1050, x_radius: 38, y_radius: 38
+  rect x: 38, y: 38, width: 750, height: 1050,
+       x_radius: 38, y_radius: 38, stroke: 3.0, dash: '4 4'
 
   text str: (1..16).to_a, x: 220, y: 78, font: 'Arial 54'
+
+  # Here's what a regular save_png looks like for just the first card
+  save_png range: 0, prefix: 'save_png_'
+
+  # save_png supports trim and trim_radius
+  save_png trim: 30, trim_radius: 38,
+           range: 0, prefix: 'save_png_trimmed_'
 
   # Place on multiple pages over the PDF, with bleed beeing trimmed off
   save_pdf file: 'save-pdf.pdf', margin: 75, gap: 5, trim: 37
