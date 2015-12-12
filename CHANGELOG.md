@@ -8,6 +8,7 @@ Features:
 * Flip your PNGs and SVGs! Set `flip_horizontal: true` or `flip_vertical: true` (or both!) to flip the image about it's center. (#11)
 * Added a `grid` shape that fills the whole card with a grid of your choosing. (#68)
 * Added `warn_png_scale` configuration option to suppress the PNG scale warning. Also: warning only occurs on upscale, not on downscaling (#121)
+* `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards indivudally and bleedlessly! (#122)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
