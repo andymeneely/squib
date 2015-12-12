@@ -12,11 +12,13 @@ Features:
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
 * Emit a warning when a `config.yml` option is not recognized
-* Upgrade roo (xlsx parser) to latest 2.2 version. Nothing exciting for us in this release.
+* Upgrade roo (xlsx parser) to latest 2.3 version. Nothing exciting for us in this release.
+* Force upgrade of nokogiri to latest 1.6.7 version. This should fix the Windows+Ruby2.2 problem.
 
 Docs:
-* [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation. Go check out and feel free to contribute.
+* [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation, as well as organizing our documentation around workflows and recipes instead of features. Go check out and feel free to contribute. Help make the mega README be a relic of the past!
 * Added new files to the project template for `squib new`: `IDEAS.md`, `RULES.md`, and `PLAYTESTING.md`
+* Wrote up new samples that are more web-friendly where you see the output right next to the code on GitHub gist: [images](https://gist.github.com/andymeneely/00ba7eb0aa1d82140503/514af49430797daf7a69c31118b6056dc4abaf20), [text](https://gist.github.com/andymeneely/52d7b8e332194946bc69/d1ebe078102b1eb6631ac9b1228a588395dc4bb5), [intro](https://gist.github.com/andymeneely/5026392a419124312cb7/fef084df3dbdfbdb749f418994e2b77124e49418)
 
 ## v0.8.0 / 2015-10-26
 Features
