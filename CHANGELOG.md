@@ -15,6 +15,7 @@ Chores:
 * Emit a warning when a `config.yml` option is not recognized
 * Upgrade roo (xlsx parser) to latest 2.3 version. Nothing exciting for us in this release.
 * Force upgrade of nokogiri to latest 1.6.7 version. This should fix the Windows+Ruby2.2 problem.
+* Got continuous integration set up on a Windows environment using AppVeyor. New badge on README. (#115)
 
 Docs:
 * [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation, as well as organizing our documentation around workflows and recipes instead of features. Go check out and feel free to contribute. Help make the mega README be a relic of the past!
