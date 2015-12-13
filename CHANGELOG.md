@@ -8,14 +8,13 @@ Features:
 * Flip your PNGs and SVGs! Set `flip_horizontal: true` or `flip_vertical: true` (or both!) to flip the image about it's center. (#11)
 * Added a `grid` shape that fills the whole card with a grid of your choosing. (#68)
 * Added `warn_png_scale` configuration option to suppress the PNG scale warning. Also: warning only occurs on upscale, not on downscaling (#121)
-* `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards indivudally and bleedlessly! (#122)
+* `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards individually and bleedlessly! (#122)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
 * Emit a warning when a `config.yml` option is not recognized
 * Upgrade roo (xlsx parser) to latest 2.3 version. Nothing exciting for us in this release.
 * Force upgrade of nokogiri to latest 1.6.7 version. This should fix the Windows+Ruby2.2 problem.
-* Got continuous integration set up on a Windows environment using AppVeyor. New badge on README. (#115)
 
 Docs:
 * [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation, as well as organizing our documentation around workflows and recipes instead of features. Go check out and feel free to contribute. Help make the mega README be a relic of the past!
