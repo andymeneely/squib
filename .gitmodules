@@ -9,3 +9,6 @@
 [submodule "samples/text"]
 	path = samples/text
 	url = https://gist.github.com/52d7b8e332194946bc69.git
+[submodule "samples/autoscale_font"]
+	path = samples/autoscale_font
+	url = https://gist.github.com/andymeneely/a4536fff0f3dc5d59c66
