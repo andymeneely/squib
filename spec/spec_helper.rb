@@ -16,6 +16,14 @@ RSpec.configure do |config|
   end
 end
 
+def tmp_dir
+  "#{File.expand_path(File.dirname(__FILE__))}/../tmp"
+end
+
+def samples_dir
+  File.expand_path("#{File.dirname(__FILE__)}/../samples")
+end
+
 def layout_file(str)
   "#{File.expand_path(File.dirname(__FILE__))}/data/layouts/#{str}"
 end
