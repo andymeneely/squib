@@ -8,4 +8,4 @@ rvm:
   - 2.3
 matrix:
   allow_failures:
-    - rvm: jruby-head
+    - rvm: 2.3
