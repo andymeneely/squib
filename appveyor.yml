@@ -1,0 +1,29 @@
+version: '{build}'
+
+skip_tags: true
+
+environment:
+  matrix:
+    - ruby_version: "200"
+    - ruby_version: "200-x64"
+    - ruby_version: "21"
+    - ruby_version: "21-x64"
+    - ruby_version: "22"
+    - ruby_version: "22-x64"
+
+install:
+  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - ruby --version
+  - gem --version
+  - gem install bundler --quiet --no-ri --no-rdoc
+  - bundler --version
+  - bundle install
+  - git submodule update --init --recursive
+
+test_script:
+  - rake
+
+artifacts:
+  - path: pkg\*.gem
+
+build: off

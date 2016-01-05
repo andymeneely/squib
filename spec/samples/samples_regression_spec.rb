@@ -16,7 +16,9 @@ describe "Squib samples" do
     it "should execute #{sample} with no errors", slow: true do
       allow(Squib.logger).to receive(:warn) {}
       allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
-      load sample
+      Dir.chdir(File.dirname(sample)) do
+        load sample
+      end
     end
   end
 

@@ -7,11 +7,23 @@ Features:
 * Crop your PNGs and SVGs! This means you can work from spritesheets if you want. New options to `png` and `svg` are documented in the API docs and demonstrated in the `load_images.rb` sample. (#11)
 * Flip your PNGs and SVGs! Set `flip_horizontal: true` or `flip_vertical: true` (or both!) to flip the image about it's center. (#11)
 * Added a `grid` shape that fills the whole card with a grid of your choosing. (#68)
+* Added `warn_png_scale` configuration option to suppress the PNG scale warning. Also: warning only occurs on upscale, not on downscaling (#121)
+* `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards indivudally and bleedlessly! (#122)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
 * Emit a warning when a `config.yml` option is not recognized
-* Upgrade roo (xlsx parser) to latest 2.2 version. Nothing exciting for us in this release.
+* Upgrade roo (xlsx parser) to latest 2.3 version. Nothing exciting for us in this release.
+* Force upgrade of nokogiri to latest 1.6.7 version. This should fix the Windows+Ruby2.2 problem.
+* Got continuous integration set up on a Windows environment using AppVeyor. New badge on README. (#115)
+
+Docs:
+* [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation, as well as organizing our documentation around workflows and recipes instead of features. Go check out and feel free to contribute. Help make the mega README be a relic of the past!
+* Added new files to the project template for `squib new`: `IDEAS.md`, `RULES.md`, and `PLAYTESTING.md`
+* Wrote up new samples that are more web-friendly where you see the output right next to the code on GitHub gist: [images](https://gist.github.com/andymeneely/00ba7eb0aa1d82140503/514af49430797daf7a69c31118b6056dc4abaf20), [text](https://gist.github.com/andymeneely/52d7b8e332194946bc69/d1ebe078102b1eb6631ac9b1228a588395dc4bb5), [intro](https://gist.github.com/andymeneely/5026392a419124312cb7/fef084df3dbdfbdb749f418994e2b77124e49418)
+
+Community:
+* Beta testers needed!! Want to test pre-release of Squib? Join the mailing list for announcements. Go ahead and join our Google Group: https://groups.google.com/forum/#!forum/squib-testers
 
 ## v0.8.0 / 2015-10-26
 Features

@@ -42,7 +42,6 @@ module Squib
       end
     end
 
-
   # A save/restore wrapper for using Cairo
   # :nodoc:
   # @api private

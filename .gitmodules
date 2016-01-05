@@ -1,0 +1,11 @@
+[submodule "samples/intro"]
+    path = samples/intro
+    url = https://gist.github.com/5026392a419124312cb7.git
+
+[submodule "samples/images"]
+	path = samples/images
+	url = https://gist.github.com/00ba7eb0aa1d82140503.git
+
+[submodule "samples/text"]
+	path = samples/text
+	url = https://gist.github.com/52d7b8e332194946bc69.git

@@ -55,6 +55,8 @@ module Squib
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
     # @option opts [Boolean, :clockwise, :counterclockwise] rotate (false) if true, the saved cards will be rotated 90 degrees clockwise. Or, rotate by the number of radians. Intended to rendering landscape instead of portrait.
+    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports unit conversion.
+    # @option opts trim_radius [Integer] (38) the rounded rectangle radius around the card to trim before putting into the showcase
     # @return [nil] Returns nothing
     # @api public
     def save_png(opts = {})

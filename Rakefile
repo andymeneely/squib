@@ -2,7 +2,7 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'yard'
 require 'benchmark'
-require 'byebug'
+# require 'byebug'
 
 task default: [:install, :spec]
 

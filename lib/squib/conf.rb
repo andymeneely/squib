@@ -26,6 +26,7 @@ module Squib
       'smart_quotes'  => true,
       'text_hint'     => 'off',
       'warn_ellipsize'=> true,
+      'warn_png_scale'=> true,
     }
 
     #Translate the hints to the methods.
@@ -106,6 +107,10 @@ module Squib
 
     def warn_ellipsize?
       @config_hash['warn_ellipsize']
+    end
+
+    def warn_png_scale?
+      @config_hash['warn_png_scale']
     end
 
     private

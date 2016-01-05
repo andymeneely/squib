@@ -12,11 +12,14 @@ module Squib
       end
 
       def self.parameters
-        { dir: '_output',
-          prefix: 'card_',
-          count_format: '%02d',
-          rotate: false,
+        {
           angle: 0,
+          count_format: '%02d',
+          dir: '_output',
+          prefix: 'card_',
+          rotate: false,
+          trim_radius: 0,
+          trim: 0,
         }
       end
 
@@ -25,7 +28,7 @@ module Squib
       end
 
       def self.params_with_units
-        [] # none of them
+        [:trim, :trim_radius]
       end
 
       def validate_dir(arg, _i)
