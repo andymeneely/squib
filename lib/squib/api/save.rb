@@ -7,7 +7,7 @@ require 'squib/args/showcase_special'
 module Squib
   class Deck
 
-    # Saves the given range of cards to either PNG or PDF
+    # Saves the given range of cards to either PNG or PDF or both
     #
     #
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
@@ -33,11 +33,12 @@ module Squib
     # @option opts width [Integer] (3300) the height of the page in pixels. Default is 11in * 300dpi. Supports unit conversion.
     # @option opts height [Integer] (2550) the height of the page in pixels. Default is 8.5in * 300dpi. Supports unit conversion.
     # @option opts margin [Integer] (75) the margin around the outside of the page. Supports unit conversion.
-    # @option opts gap [Integer] (0) the space in pixels between the cards. Supports unit conversion.
+    # @option opts gap [Integer] (0) the space in pixels between the cards. Supports unit conversion.  Defautls to bleed attribute of deck if specified.
     # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports unit conversion.
     # @return [nil]
     # @api public
     def save_pdf(opts = {})
+      opts[:trim] ||= @bleed || 0 #sets trim to arg if given, else bleed attribute of deck if present, else 0.
       range = Args::CardRange.new(opts[:range], deck_size: size)
       sheet = Args::Sheet.new(custom_colors, {file: 'output.pdf'}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       render_pdf(range, sheet)
@@ -50,16 +51,17 @@ module Squib
     #
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
-    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}.
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
-    # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
+    # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics).
     # @option opts [Boolean, :clockwise, :counterclockwise] rotate (false) if true, the saved cards will be rotated 90 degrees clockwise. Or, rotate by the number of radians. Intended to rendering landscape instead of portrait.
-    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports unit conversion.
-    # @option opts trim_radius [Integer] (38) the rounded rectangle radius around the card to trim before putting into the showcase
-    # @return [nil] Returns nothing
+    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports unit conversion. Defautls to bleed attribute of deck if specified.
+    # @option opts trim_radius [Integer] (38) the rounded rectangle radius around the card to trim before putting into the showcase.
+    # @return [nil] Returns nothing.
     # @api public
     def save_png(opts = {})
+      opts[:trim] ||= @bleed || 0 #sets trim to arg if given, else bleed attribute of deck if present, else 0.
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       @progress_bar.start("Saving PNGs to #{batch.summary}", size) do |bar|
@@ -75,18 +77,19 @@ module Squib
     # @example
     #   save_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
     #
-    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts columns [Integer] (5) the number of columns in the grid. Must be an integer
+    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}.
+    # @option opts columns [Integer] (5) the number of columns in the grid. Must be an integer.
     # @option opts rows [Integer] (:infinite) the number of rows in the grid. When set to :infinite, the sheet scales to the rows needed. If there are more cards than rows*columns, new sheets are started.
-    # @option opts [String] prefix (card_) the prefix of the file name(s)
+    # @option opts [String] prefix (card_) the prefix of the file name(s).
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
     # @option opts margin [Integer] (0) the margin around the outside of the sheet.
-    # @option opts gap [Integer] (0) the space in pixels between the cards
-    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)
+    # @option opts gap [Integer] (0) the space in pixels between the cards.
+    # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Defautls to bleed attribute of deck if specified.
     # @return [nil]
     # @api public
     def save_sheet(opts = {})
+      opts[:trim] ||= @bleed || 0 #sets trim to arg if given, else bleed attribute of deck if present, else 0
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       sheet = Args::Sheet.new(custom_colors, {margin: 0}, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
