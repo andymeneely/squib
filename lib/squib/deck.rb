@@ -52,13 +52,15 @@ module Squib
     #
     # @param width [Integer] the width of each card in pixels. Supports unit conversion (e.g. '2.5in').
     # @param height [Integer] the height of each card in pixels. Supports unit conversion (e.g. '3.5in').
-    # @param cards [Integer] the number of cards in the deck
+    # @param cards [Integer] the number of cards in the deck.
     # @param dpi [Integer] the pixels per inch when rendering out to PDF or calculating using inches.
-    # @param config [String] the file used for global settings of this deck
+    # @param bleed [Integer] the size of the bleed in pixels. Supports unit conversion(e.g. '0.125in').
+    # @param config [String] the file used for global settings of this deck.
     # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
     # @param block [Block] the main body of the script.
     # @api public
-    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
+    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, bleed: 0, config: 'config.yml', layout: nil, &block)
+      @bleed       = Args::UnitConversion.parse bleed, dpi 
       @dpi           = dpi
       @font          = DEFAULT_FONT
       @cards         = []
