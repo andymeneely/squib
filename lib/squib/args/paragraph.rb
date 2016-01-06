@@ -1,4 +1,4 @@
-require_relative '../args/arg_loader'
+require_relative 'arg_loader'
 require_relative '../constants'
 
 module Squib

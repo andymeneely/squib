@@ -1,5 +1,5 @@
 require 'forwardable'
-require 'squib'
+require_relative '../squib'
 require_relative 'args/typographer'
 require 'yaml'
 

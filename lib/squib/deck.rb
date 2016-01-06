@@ -108,14 +108,14 @@ module Squib
     ##################
     ### PUBLIC API ###
     ##################
-    require 'squib/api/background'
-    require 'squib/api/data'
-    require 'squib/api/image'
-    require 'squib/api/save'
-    require 'squib/api/settings'
-    require 'squib/api/shapes'
-    require 'squib/api/text'
-    require 'squib/api/units'
+    require_relative 'api/background'
+    require_relative 'api/data'
+    require_relative 'api/image'
+    require_relative 'api/save'
+    require_relative 'api/settings'
+    require_relative 'api/shapes'
+    require_relative 'api/text'
+    require_relative 'api/units'
 
   end
 end

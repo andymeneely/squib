@@ -1,5 +1,5 @@
 require 'cairo'
-require_relative '../args/arg_loader'
+require_relative 'arg_loader'
 require_relative '../args/color_validator'
 
 module Squib
