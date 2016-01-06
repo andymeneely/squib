@@ -1,0 +1,11 @@
+items:
+  business
+  poker
+  mini
+  square
+  large
+  bridge
+
+specs:
+  dpi: 300
+  bleed: 0.125in

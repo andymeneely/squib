@@ -10,6 +10,7 @@ require_relative 'graphics/showcase'
 require_relative 'layout_parser'
 require_relative 'progress'
 
+require 'byebug'
 
 # The project module
 #
@@ -59,7 +60,7 @@ module Squib
     # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
     # @param block [Block] the main body of the script.
     # @api public
-    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, bleed: 0, config: 'config.yml', layout: nil, &block)
+    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, bleed: 0, config: 'config.yml', layout: nil,  &block)
       @bleed       = Args::UnitConversion.parse bleed, dpi 
       @dpi           = dpi
       @font          = DEFAULT_FONT
@@ -76,9 +77,37 @@ module Squib
       end
     end
 
-    def self.missing_method(card, *args, &block)
-      vendor = args.keys.include?(:vendor) ? args[vendor] : none
-      if YAML.load_file("squib/vendor/#{vendor}")
+    def self.method_missing(card, args = nil, &block)
+      if args.is_a?(Hash)
+        vendor = args.keys.include?(:vendor) ? args[:vendor] : nil
+        if vendor
+          vendor_opts = YAML.load_file("#{File.dirname(__FILE__)}/vendor/#{vendor}.yml")
+          if  vendor_opts['items'].include? card.to_s
+            vendor_args = vendor_opts['specs'][card.to_s] || vendor_opts['specs']['default']
+          end
+        end
+        base_opts = YAML.load_file("#{File.dirname(__FILE__)}/vendor/base.yml")
+        base_args = base_opts[card.to_s]
+        # Validate card is valid
+        args.delete :vendor
+        args.merge! base_args if base_args
+        args.merge! vendor_args if vendor_args
+        # add logic to add blead to height and width
+        sym_args = {}
+        args.each_pair do |key, val|
+          sym_args[key.to_sym] = val
+        end
+        Squib::Deck.new **sym_args, &block
+      else
+        super
+      end
+    end
+
+    def self.respond_to?(card, priv = false)
+      if card == :poker
+        return true
+      else
+        super
       end
     end
 

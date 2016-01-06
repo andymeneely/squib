@@ -1,0 +1,25 @@
+poker: 
+  height: 3.5in
+  width: 2.5in
+
+mini: 
+  height: 2.5in
+  width: 1.75in
+
+bridge: 
+  height: 3.5in
+  width: 2.25in
+
+business:
+  height: 4in
+  width: 25in
+
+large: 
+  height: 5in
+  width: 3.5in
+
+square:
+  height: 3.5in
+  width: 3.5in
+
+
