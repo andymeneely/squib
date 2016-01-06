@@ -1,7 +1,7 @@
 require 'roo'
 require 'csv'
-require 'squib/args/input_file'
-require 'squib/args/import'
+require_relative '../args/input_file'
+require_relative '../args/import'
 
 module Squib
 

@@ -1,14 +1,14 @@
 require 'forwardable'
 require 'pp'
-require 'squib'
-require 'squib/args/unit_conversion'
-require 'squib/card'
-require 'squib/conf'
-require 'squib/constants'
-require 'squib/graphics/hand'
-require 'squib/graphics/showcase'
-require 'squib/layout_parser'
-require 'squib/progress'
+require_relative '../squib.rb'
+require_relative 'args/unit_conversion'
+require_relative 'card'
+require_relative 'conf'
+require_relative 'constants'
+require_relative 'graphics/hand'
+require_relative 'graphics/showcase'
+require_relative 'layout_parser'
+require_relative 'progress'
 
 
 # The project module
@@ -73,6 +73,12 @@ module Squib
       @layout        = LayoutParser.load_layout(layout)
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
+      end
+    end
+
+    def self.missing_method(card, *args, &block)
+      vendor = args.keys.include?(:vendor) ? args[vendor] : none
+      if YAML.load_file("squib/vendor/#{vendor}")
       end
     end
 

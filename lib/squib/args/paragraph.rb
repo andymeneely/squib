@@ -1,5 +1,5 @@
-require 'squib/args/arg_loader'
-require 'squib/constants'
+require_relative '../args/arg_loader'
+require_relative '../constants'
 
 module Squib
   # @api private

@@ -1,8 +1,8 @@
-require 'squib/args/box'
-require 'squib/args/draw'
-require 'squib/args/card_range'
-require 'squib/args/transform'
-require 'squib/args/coords'
+require_relative '../args/box'
+require_relative '../args/draw'
+require_relative '../args/card_range'
+require_relative '../args/transform'
+require_relative '../args/coords'
 
 module Squib
   class Deck

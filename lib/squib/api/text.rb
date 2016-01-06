@@ -1,8 +1,8 @@
-require 'squib/api/text_embed'
-require 'squib/args/box'
-require 'squib/args/card_range'
-require 'squib/args/draw'
-require 'squib/args/paragraph'
+require_relative '../api/text_embed'
+require_relative '../args/box'
+require_relative '../args/card_range'
+require_relative '../args/draw'
+require_relative '../args/paragraph'
 
 module Squib
   class Deck

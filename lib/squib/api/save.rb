@@ -1,8 +1,8 @@
-require 'squib/args/card_range'
-require 'squib/args/hand_special'
-require 'squib/args/save_batch'
-require 'squib/args/sheet'
-require 'squib/args/showcase_special'
+require_relative '../args/card_range'
+require_relative '../args/hand_special'
+require_relative '../args/save_batch'
+require_relative '../args/sheet'
+require_relative '../args/showcase_special'
 
 module Squib
   class Deck
@@ -51,7 +51,7 @@ module Squib
     #
     # Options support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Singleon Expansion}
     #
-    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}.
+    # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}. add -A
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     # @option opts [String] prefix (card_) the prefix of the file name to be printed.
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics).
@@ -76,7 +76,7 @@ module Squib
     #
     # @example
     #   save_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
-    #
+    # @option opts [:none, :9up :8up, :game_crafter, :pnp_prod, :drive_thru_cards]
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}.
     # @option opts columns [Integer] (5) the number of columns in the grid. Must be an integer.
     # @option opts rows [Integer] (:infinite) the number of rows in the grid. When set to :infinite, the sheet scales to the rows needed. If there are more cards than rows*columns, new sheets are started.
@@ -89,12 +89,17 @@ module Squib
     # @return [nil]
     # @api public
     def save_sheet(opts = {})
+
+
+    # def save_parsed_sheet(opts = {})
       opts[:trim] ||= @bleed || 0 #sets trim to arg if given, else bleed attribute of deck if present, else 0
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       sheet = Args::Sheet.new(custom_colors, {margin: 0}, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       render_sheet(range, batch, sheet)
     end
+
+    
 
     # Renders a range of cards in a showcase as if they are sitting in 3D on a reflective surface
     # See {file:samples/showcase.rb} for full example

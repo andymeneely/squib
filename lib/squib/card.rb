@@ -1,5 +1,5 @@
 require 'cairo'
-require 'squib/graphics/cairo_context_wrapper'
+require_relative 'graphics/cairo_context_wrapper'
 
 module Squib
   # Back end graphics. Private.

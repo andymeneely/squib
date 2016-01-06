@@ -1,10 +1,10 @@
-require 'squib/args/box'
-require 'squib/args/card_range'
-require 'squib/args/embed_adjust'
-require 'squib/args/embed_key'
-require 'squib/args/input_file'
-require 'squib/args/paint'
-require 'squib/args/transform'
+require_relative '../args/box'
+require_relative '../args/card_range'
+require_relative '../args/embed_adjust'
+require_relative '../args/embed_key'
+require_relative '../args/input_file'
+require_relative '../args/paint'
+require_relative '../args/transform'
 
 module Squib
   class TextEmbed

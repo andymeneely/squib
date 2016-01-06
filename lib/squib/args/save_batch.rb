@@ -1,5 +1,5 @@
-require 'squib/args/arg_loader'
-require 'squib/args/dir_validator'
+require_relative '../args/arg_loader'
+require_relative '../args/dir_validator'
 
 module Squib
   # @api private
