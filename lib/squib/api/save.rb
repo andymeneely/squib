@@ -89,9 +89,6 @@ module Squib
     # @return [nil]
     # @api public
     def save_sheet(opts = {})
-
-
-    # def save_parsed_sheet(opts = {})
       opts[:trim] ||= @bleed || 0 #sets trim to arg if given, else bleed attribute of deck if present, else 0
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
