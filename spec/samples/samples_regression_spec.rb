@@ -3,22 +3,10 @@ require 'squib'
 require 'pp'
 
 describe "Squib samples" do
-  @SAMPLES_DIR      = "#{File.expand_path(File.dirname(__FILE__))}/../../samples/"
-  let(:samples_dir) { "#{File.expand_path(File.dirname(__FILE__))}/../../samples/" }
-
+  
   around(:each) do |example|
     Dir.chdir(samples_dir) do
       example.run
-    end
-  end
-
-  Dir["#{@SAMPLES_DIR}/**/*.rb"].each do |sample|
-    it "should execute #{sample} with no errors", slow: true do
-      allow(Squib.logger).to receive(:warn) {}
-      allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
-      Dir.chdir(File.dirname(sample)) do
-        load sample
-      end
     end
   end
 

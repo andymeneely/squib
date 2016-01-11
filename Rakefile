@@ -4,10 +4,12 @@ require 'yard'
 require 'benchmark'
 # require 'byebug'
 
+desc 'install + spec'
 task default: [:install, :spec]
 
 # Useful for hooking up with SublimeText.
 # e.g. rake sample[basic.rb]
+desc 'Run a specific sample'
 task :run,[:file] => :install do |t, args|
   args.with_defaults(file: 'basic.rb')
   Dir.chdir('samples') do
@@ -24,6 +26,7 @@ RSpec::Core::RakeTask.new(:spec_fastonly) do |t|
   t.rspec_opts = "--tag ~slow"
 end
 
+desc 'Build API docs'
 task doc: [:yarddoc, :apply_google_analytics]
 
 YARD::Rake::YardocTask.new(:yarddoc) do |t|
@@ -31,6 +34,7 @@ YARD::Rake::YardocTask.new(:yarddoc) do |t|
   #t.options = ['--any', '--extra', '--opts'] # optional
 end
 
+desc 'Run some performance benchmarks'
 task benchmark: [:install] do
   require 'squib'
   Squib::logger.level = Logger::ERROR #silence warnings
@@ -44,13 +48,16 @@ task benchmark: [:install] do
   end
 end
 
+desc 'Run sanity tests without a full rebuild'
 task :sanity_only do
   require_relative 'spec/samples/sanity.rb'
   Sanity.new.run
 end
 
+desc 'Run full rebuild with sanity tests'
 task sanity: [:install, :spec, :sanity_only]
 
+desc 'Insert Google Analytics into documentation build'
 task :apply_google_analytics do
   # The string to replace in the html document. This is chosen to be the end
   # body </body> tag. So the script can be injected as the last thing in the
