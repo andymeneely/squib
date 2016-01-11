@@ -27,6 +27,8 @@ Docs:
 Community:
 * Beta testers needed!! Want to test pre-release of Squib? Join the mailing list for announcements. Go ahead and join our Google Group: https://groups.google.com/forum/#!forum/squib-testers
 
+Special thanks to testing and bug reporting from programmingisgoo and bcompter!
+
 ## v0.8.0 / 2015-10-26
 Features
 * The `xlsx` and `csv` support quantity explosion! Just use the column name 'Qty' and put integers in your sheet and you'll produce copies of the entire row. See README and the csv sample for more info. (#78)
