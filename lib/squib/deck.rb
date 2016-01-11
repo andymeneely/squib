@@ -107,12 +107,13 @@ module Squib
 
     end
 
-    def self.respond_to?(card, priv = false)
-      if card == :poker
-        return true
-      else
-        super
-      end
+    # :nodoc:
+    # @api private
+    def self.respond_to_missing?(card, priv = false)
+        res = Squib::Args::VendorArgs.base_options(card.to_s)
+        return true if res
+      rescue ArgumentError
+        return false
     end
 
     # Directly accesses the array of cards in the deck
