@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.9.0 / Unreleased
+## v0.9.0 / 2016-01-10
 
 Features:
 * Crop your PNGs and SVGs! This means you can work from spritesheets if you want. New options to `png` and `svg` are documented in the API docs and demonstrated in the `load_images.rb` sample. (#11)
@@ -9,6 +9,9 @@ Features:
 * Added a `grid` shape that fills the whole card with a grid of your choosing. (#68)
 * Added `warn_png_scale` configuration option to suppress the PNG scale warning. Also: warning only occurs on upscale, not on downscaling (#121)
 * `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards individually and bleedlessly! (#122)
+
+Bug fixes:
+* Radial Gradients when using a Mask does not work as anticipated (#127)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
