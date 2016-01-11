@@ -2,6 +2,7 @@ require 'forwardable'
 require 'pp'
 require_relative '../squib.rb'
 require_relative 'args/unit_conversion'
+require_relative 'args/vendor_args'
 require_relative 'card'
 require_relative 'conf'
 require_relative 'constants'
@@ -9,7 +10,6 @@ require_relative 'graphics/hand'
 require_relative 'graphics/showcase'
 require_relative 'layout_parser'
 require_relative 'progress'
-
 
 # The project module
 #
@@ -58,6 +58,11 @@ module Squib
     # @param config [String] the file used for global settings of this deck.
     # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
     # @param block [Block] the main body of the script.
+
+    # Squib also provides convienence methods that make accessing common card sizes easy.  For example, Squib::Deck.poker will call Squib::Deck.new, with height: '3.5in' and width: '2.5in' and passing through other parameters. 
+    # Currently supported preset card sizes: poker, bridge, large, hobbit, square, and business.
+    # You can also pass a param :vendor to these methods to add additional default values that match the vendor's specification, such as dpi and bleed.  Currently, the only vendor supported is pnp_productions, more coming soon.
+    # Squib looks in the lib/vendor directory for yaml files that specify card formats and vendor specifications.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, bleed: 0, config: 'config.yml', layout: nil, **factory_args,  &block)
       @bleed       = Args::UnitConversion.parse bleed, dpi 
@@ -78,32 +83,28 @@ module Squib
       end
     end
 
-    def self.method_missing(card, args = nil, &block)
-      if args
-        if args.is_a?(Hash) 
-          vendor = args.keys.include?(:vendor) ? args[:vendor] : nil
-          # Add error handling if invalid params.
-          if vendor
-            vendor_opts = YAML.load_file("#{File.dirname(__FILE__)}/vendor/#{vendor}.yml")
-            if  vendor_opts['items'].include? card.to_s
-              vendor_args = vendor_opts['specs'] || vendor_opts['specs']['default']
-            end
-          end
-          base_opts = YAML.load_file("#{File.dirname(__FILE__)}/vendor/base.yml")
-          base_args = base_opts[card.to_s]
-          # Validate card is valid
-          args.merge!({ card_name: card })
-          args.merge! base_args if base_args
-          args.merge! vendor_args if vendor_args
-          sym_args = {}
-          args.each_pair do |key, val|
-            sym_args[key.to_sym] = val
-          end
-          Squib::Deck.new **sym_args, &block
-        end
-      else
-        super # run if errors are caught 
+    # :nodoc:
+    # @api private
+    def self.method_missing(card, args = {}, &block)
+      args.merge!({ card_name: card })
+      args.merge! Squib::Args::VendorArgs.base_options(card.to_s)
+
+      vendor = args.keys.include?(:vendor) ? args[:vendor] : nil
+      if vendor
+        vendor_opts = Squib::Args::VendorArgs.vendor_options(card.to_s, vendor.to_s)
+        args.merge! vendor_opts if vendor_opts
       end
+
+      sym_args = {}
+      args.each_pair do |key, val|
+        sym_args[key.to_sym] = val
+      end
+
+      Squib::Deck.new **sym_args, &block
+
+    rescue ArgumentError
+      super
+
     end
 
     def self.respond_to?(card, priv = false)

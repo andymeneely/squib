@@ -65,14 +65,14 @@ module Squib
             x, y = sheet.margin, sheet.margin
             cc = Cairo::Context.new(Cairo::ImageSurface.new(sheet_width, sheet_height))
           end
-          surface = trim(@cards[i].cairo_surface, sheet.trim, @width, @height)
+          card_surface = trim(@cards[i].cairo_surface, sheet.trim)
           cc.set_source(surface, x, y)
           cc.paint
           num_this_sheet += 1
-          x += surface.width + sheet.gap
+          x += card_surface.width + sheet.gap
           if num_this_sheet % sheet.columns == 0 # new row
             x = sheet.margin
-            y += surface.height + sheet.gap
+            y += card_surface.height + sheet.gap
           end
           bar.increment
         end
@@ -88,9 +88,9 @@ module Squib
     # @param height The height of the surface prior to the trim
     # :nodoc:
     # @api private
-    def trim(surface, trim, width, height)
+    def trim(surface, trim)
       if trim > 0
-        tmp = Cairo::ImageSurface.new(width-2*trim, height-2*trim)
+        tmp = Cairo::ImageSurface.new(@width-2*trim, @height-2*trim)
         cc = Cairo::Context.new(tmp)
         cc.set_source(surface,-1*trim, -1*trim)
         cc.paint

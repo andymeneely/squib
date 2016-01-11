@@ -8,4 +8,4 @@ items:
 
 specs:
   dpi: 300
-  bleed: 0.125in
+  bleed: 0.2cm

@@ -76,14 +76,15 @@ module Squib
     #
     # @example
     #   save_sheet prefix: 'sheet_', margin: 75, gap: 5, trim: 37
-    # @option opts [:none, :9up :8up, :game_crafter, :pnp_prod, :drive_thru_cards]
     # @option opts [Enumerable] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}.
     # @option opts columns [Integer] (5) the number of columns in the grid. Must be an integer.
     # @option opts rows [Integer] (:infinite) the number of rows in the grid. When set to :infinite, the sheet scales to the rows needed. If there are more cards than rows*columns, new sheets are started.
     # @option opts [String] prefix (card_) the prefix of the file name(s).
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
-    # @option opts margin [Integer] (0) the margin around the outside of the sheet.
+    ##Need to modify code to accept different x and y margins
+    # @option opts margin-x [Integer] (0) the margin around the outside of the sheet.
+    # @option opts margin-x [Integer] (0) the margin around the outside of the sheet.
     # @option opts gap [Integer] (0) the space in pixels between the cards.
     # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Defautls to bleed attribute of deck if specified.
     # @return [nil]
@@ -95,6 +96,17 @@ module Squib
       sheet = Args::Sheet.new(custom_colors, {margin: 0}, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       render_sheet(range, batch, sheet)
     end
+
+    # Additional Option: page_size [:letter, :a4] default: :letter
+    def save_9up opts = {}
+      opts[:page_size] ||= :letter
+      opts[:trim] ||= @bleed || 0
+      opts[:gap] = 2
+      opts[:columns] = 3
+      opts[:rows] = 3
+      opts[:margin] = calculate_margin(opts[:page_size], rows: 3, columns: 3, gap: 2)
+    end
+
 
     
 
