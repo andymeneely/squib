@@ -16,4 +16,4 @@
 
 [submodule "samples/publishers"]
 	path = samples/publishers
-	url = git@gist.github.com:799c8c1c3521ea72390c.git
+	url = https://gist.github.com/andymeneely/799c8c1c3521ea72390c
