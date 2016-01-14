@@ -83,6 +83,20 @@ module Squib
         "#{dir}/#{file}"
       end
 
+      def compute_width(card_width)
+        effective_card_width = card_width + 2 * gap - 2 * trim
+        return columns * effective_card_width + margin_west + margin_east
+      end
+
+      def compute_height(card_height)
+        effective_card_height = card_height + 2 * gap - 2 * trim
+        return rows * effective_card_height + margin_north + margin_south
+      end
+
+      def upper_left
+        [margin_west, margin_north]
+      end
+
     end
 
   end

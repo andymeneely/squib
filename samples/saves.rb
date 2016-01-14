@@ -42,4 +42,12 @@ Squib::Deck.new(width: 825, height: 1125, cards: 16) do
              range: 0..5,
              columns: 2, rows: 2,
              margin: 75, gap: 5, trim: 37
+
+  # Margins can be specific to a side too
+  save_sheet prefix: 'save_sheet_margins_',
+             margin_north: 100, margin_south: 200,
+             margin_east: 300, margin_west: 400,
+             columns: 3, rows: 5,
+             fill_color: :blue
+
 end

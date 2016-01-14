@@ -81,15 +81,21 @@ module Squib
     # @option opts [String] prefix (card_) the prefix of the file name(s)
     # @option opts [String] count_format (%02d) the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)
     # @option opts dir [String] (_output) the directory to save to. Created if it doesn't exist.
-    # @option opts margin [Integer] (0) the margin around the outside of the sheet.
-    # @option opts gap [Integer] (0) the space in pixels between the cards
+    # @option opts [String, Color] fill_color (:white) backdrop color. Supports gradients.
+    # @option opts margin [Integer] (:use_individuals) the margin around the outside of the sheet. Supports unit conversion. If set, this will override any individual margins set (e.g. margin_north)
+    # @option opts margin_west [Integer] (0) the left-side margin around the outside of the sheet. Overridden by margin if set. Supports unit conversion.
+    # @option opts margin_east [Integer] (0) the right-side margin around the outside of the sheet. Overridden by margin if set. Supports unit conversion.
+    # @option opts margin_north [Integer] (0) the top-side margin around the outside of the sheet. Overridden by margin if set. Supports unit conversion.
+    # @option opts margin_south [Integer] (0) the bottom-side margin around the outside of the sheet. Overridden by margin if set. Supports unit conversion.
+    # @option opts gap [Integer] (0) the space in pixels between the cards. Supports unit conversion
     # @option opts trim [Integer] (0) the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)
     # @return [nil]
     # @api public
     def save_sheet(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      sheet = Args::Sheet.new(custom_colors, {margin: 0}, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      method_defaults = {margin: :use_individuals, margin_north: 0, margin_south: 0, margin_east: 0, margin_west: 0}
+      sheet = Args::Sheet.new(custom_colors, method_defaults, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       render_sheet(range, batch, sheet)
     end
 
