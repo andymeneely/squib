@@ -51,7 +51,41 @@ describe Squib::Args::Sheet do
       expect { sheet.load!(opts) }.to raise_error('columns must be an integer')
     end
 
+    context 'margins' do
+      subject(:sheet) { Squib::Args::Sheet.new({}, {}, 4) }
 
+      it 'has the north on margin when not set' do
+        opts = {}
+        sheet.load! opts
+        expect(sheet).to have_attributes(margin: 75, margin_north: 75,
+                                         margin_south: 75, margin_east: 75,
+                                         margin_west: 75)
+      end
+
+      it 'margin overrides everyone else' do
+        opts = { margin: 1,
+                 margin_north: 2,
+                 margin_south: 3,
+                 margin_east: 4,
+                 margin_west: 5}
+        sheet.load! opts
+        expect(sheet).to have_attributes(margin: 1, margin_north: 1,
+                                         margin_south: 1, margin_east: 1,
+                                         margin_west: 1)
+      end
+
+      it 'individuals support units' do
+        opts = { margin_north: '2in',
+                 margin_south: '3in',
+                 margin_east: '4in',
+                 margin_west: '5in'}
+        sheet.load! opts
+        expect(sheet).to have_attributes(margin: 600, margin_north: 600,
+                                         margin_south: 900, margin_east: 1200,
+                                         margin_west: 1500)
+      end
+
+    end
 
   end
 
