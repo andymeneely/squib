@@ -50,4 +50,9 @@ Squib::Deck.new(width: 825, height: 1125, cards: 16) do
              columns: 3, rows: 5,
              fill_color: :blue
 
+  # Can rotate the cards clockwise or counterclockwise
+  save_sheet prefix: 'save_sheet_rotate_',
+             rotate: :clockwise,
+             columns: 4, rows: 5
+
 end

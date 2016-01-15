@@ -50,10 +50,11 @@ module Squib
     # :nodoc:
     # @api private
     def render_sheet(range, batch, sheet)
-      cc = init_sheet_cc(sheet)
+      cc = init_sheet_cc(sheet, batch.angle[0])
       num_this_sheet = 0
       sheet_num = 0
       x, y = sheet.upper_left
+
       @progress_bar.start("Saving PNG sheet to #{batch.summary}", @cards.size + 1) do |bar|
         range.each do |i|
           if num_this_sheet >= (sheet.columns * sheet.rows) # new sheet
@@ -63,7 +64,7 @@ module Squib
             num_this_sheet = 0
             sheet_num += 1
             x, y = sheet.upper_left
-            cc = init_sheet_cc(sheet)
+            cc = init_sheet_cc(sheet, batch.angle[i])
           end
           surface = trim(@cards[i].cairo_surface, sheet.trim, @width, @height)
           cc.set_source(surface, x, y)
@@ -81,13 +82,16 @@ module Squib
     end
 
     # Initialize the CairoContextWrapper for the new sheet
-    def init_sheet_cc(sheet)
+    def init_sheet_cc(sheet, angle)
       sheet_width = sheet.compute_width(@width)
       sheet_height = sheet.compute_height(@height)
       surface = Cairo::ImageSurface.new(sheet_width, sheet_height)
       cc = Graphics::CairoContextWrapper.new(Cairo::Context.new(surface))
       cc.set_source_squibcolor(sheet.fill_color)
       cc.paint
+      cc.translate(sheet_width, sheet_height)
+      cc.rotate(angle)
+      cc.translate(-sheet_width, -sheet_height)
       return cc
     end
 
