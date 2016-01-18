@@ -1,11 +1,12 @@
+dist: trusty
 language: ruby
 sudo: false # taking advantage of container-based infrastructure
-cache: bundler # maybe someday they'll add support for us freeloaders...
+cache: bundler # cache bundled gems from build to build
 rvm:
   - 2.0
   - 2.1
   - 2.2
-  - 2.3
+  - 2.3.0
 matrix:
   allow_failures:
-    - rvm: 2.3
+    - rvm: 2.3.0
