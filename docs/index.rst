@@ -7,9 +7,10 @@ Contents:
 .. toctree::
    :maxdepth: 1
    :glob:
-   
+
+   dsl/index.rst
    units
-   dsl/*
+   range
 
 Indices and tables
 ==================
