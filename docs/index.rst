@@ -8,9 +8,12 @@ Contents:
    :maxdepth: 1
    :glob:
 
-   dsl/index.rst
-   units
+   learning
+   parameters
    range
+   units
+   colors
+   dsl/index.rst
 
 Indices and tables
 ==================
