@@ -5,6 +5,8 @@ Squib is all about sane defaults and shorthand specification. Arguments to DSL m
 
 For example `x` and `y` default to 0 (i.e. the upper-left corner of the card). Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules.
 
+.. highlight:: none
+
 Note: you MUST use named parameters rather than positional parameters. For example: ``save :png`` will lead to an error like this::
 
     C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.3/lib/squib/api/save.rb:12:in `save': wrong number of arguments (2 for 0..1) (ArgumentError)

@@ -1,5 +1,5 @@
 DSL Reference
-===========
+=============
 
 .. toctree::
    :maxdepth: 1

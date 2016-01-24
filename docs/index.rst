@@ -10,7 +10,7 @@ Contents:
 
    learning
    parameters
-   range
+   arrays
    units
    colors
    dsl/index.rst
@@ -19,5 +19,4 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

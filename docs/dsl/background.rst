@@ -8,12 +8,14 @@ Support Arrays, see {file:README.md#Arrays_and_Singleton_Expansion Arrays and Si
 Options
 ^^^^^^^
 range
-  default: *:all*
+  default: ``:all``
 
-  the range of cards over which this will be rendered. See :doc:`range`
+  the range of cards over which this will be rendered. See :ref:`using_ranges`
 
 color
-     [String] (:black) the color the font will render to. See {file:README.md#Specifying_Colors___Gradients Specifying Colors & Gradients}.
+  default: ``:black`` . See :doc:`/colors`
+
+  the color to fill the background with.
 
 
 Examples
