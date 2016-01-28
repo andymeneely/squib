@@ -20,17 +20,21 @@ module Squib
 
       def self.parameters
         {
-          dir: '_output',
-          file: 'sheet.png',
-          fill_color: :white,
-          gap: 0,
-          height: 2550,
-          margin: 75,
-          rows: :infinite,
-          columns: 5,
-          trim_radius: 38,
-          trim: 0,
-          width: 3300,
+          dir:          '_output',
+          file:         'sheet.png',
+          fill_color:   :white,
+          gap:          0,
+          height:       2550,
+          margin_east:  75,
+          margin_north: 75,
+          margin_south: 75,
+          margin_west:  75,
+          margin:       :use_individuals,
+          rows:         :infinite,
+          columns:      5,
+          trim_radius:  38,
+          trim:         0,
+          width:        3300,
         }
       end
 
@@ -39,7 +43,8 @@ module Squib
       end
 
       def self.params_with_units
-        [ :gap, :height, :margin, :trim_radius, :trim, :width ]
+        [ :gap, :height, :margin, :margin_north, :margin_south, :margin_east,
+          :margin_west, :trim_radius, :trim, :width ]
       end
 
       def validate_fill_color(arg)
@@ -55,6 +60,18 @@ module Squib
         arg.to_i
       end
 
+      def validate_margin(arg)
+        if arg.respond_to? :to_f
+          @margin_east  = arg
+          @margin_north = arg
+          @margin_south = arg
+          @margin_west  = arg
+          arg
+        else # e.g. :use_individuals
+          @margin_north # in case someone just uses margin, not individuals
+        end
+      end
+
       def validate_rows(arg)
         raise 'columns must be an integer' unless columns.respond_to? :to_i
         return 1 if @deck_size < columns
@@ -64,6 +81,20 @@ module Squib
 
       def full_filename
         "#{dir}/#{file}"
+      end
+
+      def compute_width(card_width)
+        effective_card_width = card_width + 2 * gap - 2 * trim
+        return columns * effective_card_width + margin_west + margin_east
+      end
+
+      def compute_height(card_height)
+        effective_card_height = card_height + 2 * gap - 2 * trim
+        return rows * effective_card_height + margin_north + margin_south
+      end
+
+      def upper_left
+        [margin_west, margin_north]
       end
 
     end

@@ -1,21 +1,23 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.9.0 / Unreleased
+## v0.9.0 / 2016-01-10
 
 Features:
 * Crop your PNGs and SVGs! This means you can work from spritesheets if you want. New options to `png` and `svg` are documented in the API docs and demonstrated in the `load_images.rb` sample. (#11)
 * Flip your PNGs and SVGs! Set `flip_horizontal: true` or `flip_vertical: true` (or both!) to flip the image about it's center. (#11)
 * Added a `grid` shape that fills the whole card with a grid of your choosing. (#68)
 * Added `warn_png_scale` configuration option to suppress the PNG scale warning. Also: warning only occurs on upscale, not on downscaling (#121)
-* `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards indivudally and bleedlessly! (#122)
+* `save_png` now supports `trim` and `trim_radius`, which means you can now render your cards individually and bleedlessly! (#122)
+
+Bug fixes:
+* Radial Gradients when using a Mask does not work as anticipated (#127)
 
 Chores:
 * Ripped out a lot of old constants used from the old way we handled arguments. Yay negative churn!
 * Emit a warning when a `config.yml` option is not recognized
 * Upgrade roo (xlsx parser) to latest 2.3 version. Nothing exciting for us in this release.
 * Force upgrade of nokogiri to latest 1.6.7 version. This should fix the Windows+Ruby2.2 problem.
-* Got continuous integration set up on a Windows environment using AppVeyor. New badge on README. (#115)
 
 Docs:
 * [Squib's Wiki](https://github.com/andymeneely/squib/wiki) has started! We've begun the long process of developing more longform types of documentation, as well as organizing our documentation around workflows and recipes instead of features. Go check out and feel free to contribute. Help make the mega README be a relic of the past!
@@ -24,6 +26,8 @@ Docs:
 
 Community:
 * Beta testers needed!! Want to test pre-release of Squib? Join the mailing list for announcements. Go ahead and join our Google Group: https://groups.google.com/forum/#!forum/squib-testers
+
+Special thanks to testing and bug reporting from programmingisgoo and bcompter!
 
 ## v0.8.0 / 2015-10-26
 Features

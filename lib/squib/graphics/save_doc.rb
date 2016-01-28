@@ -1,3 +1,5 @@
+require 'squib/graphics/cairo_context_wrapper'
+
 module Squib
   class Deck
 
@@ -48,12 +50,11 @@ module Squib
     # :nodoc:
     # @api private
     def render_sheet(range, batch, sheet)
-      sheet_width = (sheet.columns * (@width + 2 * sheet.gap - 2 * sheet.trim)) + (2 * sheet.margin)
-      sheet_height = (sheet.rows * (@height + 2 * sheet.gap - 2 * sheet.trim)) + (2 * sheet.margin)
-      cc = Cairo::Context.new(Cairo::ImageSurface.new(sheet_width, sheet_height))
+      cc = init_sheet_cc(sheet, batch.angle[0])
       num_this_sheet = 0
       sheet_num = 0
-      x, y = sheet.margin, sheet.margin
+      x, y = sheet.upper_left
+
       @progress_bar.start("Saving PNG sheet to #{batch.summary}", @cards.size + 1) do |bar|
         range.each do |i|
           if num_this_sheet >= (sheet.columns * sheet.rows) # new sheet
@@ -62,16 +63,17 @@ module Squib
             new_sheet = false
             num_this_sheet = 0
             sheet_num += 1
-            x, y = sheet.margin, sheet.margin
-            cc = Cairo::Context.new(Cairo::ImageSurface.new(sheet_width, sheet_height))
+            x, y = sheet.upper_left
+            cc = init_sheet_cc(sheet, batch.angle[i])
           end
-          surface = trim(@cards[i].cairo_surface, sheet.trim, @width, @height)
+          surface = prep(@cards[i].cairo_surface, sheet.trim, batch.angle[i])
           cc.set_source(surface, x, y)
           cc.paint
+
           num_this_sheet += 1
           x += surface.width + sheet.gap
           if num_this_sheet % sheet.columns == 0 # new row
-            x = sheet.margin
+            x = sheet.margin_west
             y += surface.height + sheet.gap
           end
           bar.increment
@@ -80,7 +82,25 @@ module Squib
       end
     end
 
-    # Return a new Cairo::ImageSurface that is trimmed from the original
+    # Initialize the CairoContextWrapper for the new sheet
+    def init_sheet_cc(sheet, angle)
+      card_w, card_h = angle == 0 ? [@width, @height] : [@height, @width]
+      sheet_width = sheet.compute_width(card_w)
+      sheet_height = sheet.compute_height(card_h)
+      surface = Cairo::ImageSurface.new(sheet_width, sheet_height)
+      cc = Graphics::CairoContextWrapper.new(Cairo::Context.new(surface))
+      cc.set_source_squibcolor(sheet.fill_color)
+      cc.paint
+
+      # cc.translate(x, y)
+      # cc.rotate(Math::PI / 2)
+      # cc.translate(-x, -y)
+      # cc.rotate_about(sheet_width / 2, sheet_height / 2, angle)
+      return cc
+    end
+
+    # Return a new Cairo::ImageSurface that is trimmed and rotated
+    # from the original
     #
     # @param surface The surface to trim
     # @param trim The number of pixels around the edge to trim
@@ -88,15 +108,16 @@ module Squib
     # @param height The height of the surface prior to the trim
     # :nodoc:
     # @api private
-    def trim(surface, trim, width, height)
-      if trim > 0
-        tmp = Cairo::ImageSurface.new(width-2*trim, height-2*trim)
-        cc = Cairo::Context.new(tmp)
-        cc.set_source(surface,-1*trim, -1*trim)
-        cc.paint
-        surface = tmp
-      end
-      surface
+    def prep(surface, trim, angle)
+      tmp_w, tmp_h = angle == 0 ? [@width, @height] : [@height, @width]
+      tmp_w = tmp_w - 2 * trim
+      tmp_h = tmp_h - 2 * trim
+      tmp = Cairo::ImageSurface.new(tmp_w, tmp_h)
+      cc = Graphics::CairoContextWrapper.new(Cairo::Context.new(tmp))
+      cc.rotate_about(tmp_w / 2, tmp_h / 2, angle)
+      cc.set_source(surface)
+      cc.paint
+      return tmp
     end
 
   end

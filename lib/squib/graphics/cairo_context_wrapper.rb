@@ -37,15 +37,17 @@ module Squib
           arg.scan(STOPS).each do |color, offset|
             linear.add_color_stop(offset.to_f, color)
           end
+          linear.matrix = matrix # match the coordinate systems - see bug 127
           @cairo_cxt.set_source(linear)
         elsif match = arg.match(RADIAL_GRADIENT)
           x1, y1, r1, x2, y2, r2  = match.captures
-          linear = Cairo::RadialPattern.new(x1.to_f, y1.to_f, r1.to_f,
+          radial = Cairo::RadialPattern.new(x1.to_f, y1.to_f, r1.to_f,
                                             x2.to_f, y2.to_f, r2.to_f)
+          radial.matrix = matrix # match the coordinate systems - see bug 127
           arg.scan(STOPS).each do |color, offset|
-            linear.add_color_stop(offset.to_f, color)
+            radial.add_color_stop(offset.to_f, color)
           end
-          @cairo_cxt.set_source(linear)
+          @cairo_cxt.set_source(radial)
         else
           @cairo_cxt.set_source_color(arg)
         end

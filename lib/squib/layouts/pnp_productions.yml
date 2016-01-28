@@ -1,0 +1,16 @@
+poker:
+    margin: 0.25in
+    gap: 0
+    trim: 0
+poker_cut: # The "cut line", without rounded corners
+  x: 37.5
+  y: 37.5
+  width: 750
+  height: 1050
+poker_safe: # The "safe zone" inside cut line
+  x: 75
+  y: 75
+  width: 675
+  height: 975
+  radius: 16
+  dash: 3 3
