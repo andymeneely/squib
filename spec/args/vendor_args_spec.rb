@@ -13,7 +13,7 @@ describe Squib::Args::VendorArgs do
     end
 
     it "raises an error if the specified card is not found in the YAML file" do
-      expect {Squib::Args::VendorArgs.base_options("not-a-card")}.to raise_error
+      expect {Squib::Args::VendorArgs.base_options("not-a-card")}.to raise_error('Card type "not-a-card" is not supported.')
     end
   end
 
