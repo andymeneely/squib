@@ -16,7 +16,7 @@ module Squib
         when /cm$/ #ends with "cm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
         else
-          arg
+          arg.to_f
         end
       end
 
