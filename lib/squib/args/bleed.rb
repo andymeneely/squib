@@ -11,10 +11,11 @@ module Squib
 
       def self.size(card, height, width, dpi)
         dimentions =  Args::VendorArgs.base_options(card)
+        height, width = [height, width].map {|dim| Args::UnitConversion.parse dim, dpi}
         cut_height = Args::UnitConversion.parse dimentions[:height], dpi
         cut_width = Args::UnitConversion.parse dimentions[:width], dpi
         unless (width - cut_width) - (height - cut_height) < 0.1
-          Squib::Logger.warn "Cannot deternmine bleed; X and Y bleed are uneven."
+          Squib.logger.warn "Cannot deternmine bleed; X and Y bleed are uneven."
           return 0;
         end
         return (height - cut_height) / 2
