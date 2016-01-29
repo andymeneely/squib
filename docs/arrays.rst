@@ -4,8 +4,8 @@ Squib Thinks in Arrays
 
 .. _using_ranges:
 
-Using ``range``
----------------
+Using ``range`` to specify cards
+--------------------------------
 
 There's another way to limit a method to certain cards: the ``range`` parameter.
 
