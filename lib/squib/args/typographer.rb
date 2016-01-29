@@ -1,4 +1,5 @@
-require 'squib/constants'
+require_relative '../constants'
+
 module Squib
   #@api private
   module Args

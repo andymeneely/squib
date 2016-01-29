@@ -1,5 +1,5 @@
 require 'pango'
-require 'squib/args/typographer'
+require_relative '../args/typographer'
 
 module Squib
   class Card

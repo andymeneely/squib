@@ -2,10 +2,10 @@ require 'logger'
 require 'cairo'
 require 'pango'
 require 'rsvg2'
-require 'squib/version'
-require 'squib/commands/new'
-require 'squib/deck'
-require 'squib/card'
+require_relative 'squib/version'
+require_relative 'squib/commands/new'
+require_relative 'squib/deck'
+require_relative 'squib/card'
 
 module Squib
 

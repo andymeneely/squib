@@ -1,14 +1,14 @@
 require 'forwardable'
 require 'pp'
-require 'squib'
-require 'squib/args/unit_conversion'
-require 'squib/card'
-require 'squib/conf'
-require 'squib/constants'
-require 'squib/graphics/hand'
-require 'squib/graphics/showcase'
-require 'squib/layout_parser'
-require 'squib/progress'
+require_relative '../squib'
+require_relative 'args/unit_conversion'
+require_relative 'card'
+require_relative 'conf'
+require_relative 'constants'
+require_relative 'graphics/hand'
+require_relative 'graphics/showcase'
+require_relative 'layout_parser'
+require_relative 'progress'
 
 
 # The project module
@@ -100,14 +100,14 @@ module Squib
     ##################
     ### PUBLIC API ###
     ##################
-    require 'squib/api/background'
-    require 'squib/api/data'
-    require 'squib/api/image'
-    require 'squib/api/save'
-    require 'squib/api/settings'
-    require 'squib/api/shapes'
-    require 'squib/api/text'
-    require 'squib/api/units'
+    require_relative 'api/background'
+    require_relative 'api/data'
+    require_relative 'api/image'
+    require_relative 'api/save'
+    require_relative 'api/settings'
+    require_relative 'api/shapes'
+    require_relative 'api/text'
+    require_relative 'api/units'
 
   end
 end

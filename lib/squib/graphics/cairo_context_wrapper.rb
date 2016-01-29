@@ -1,5 +1,5 @@
 require 'forwardable'
-require 'squib/graphics/gradient_regex'
+require_relative 'gradient_regex'
 
 module Squib
   module Graphics

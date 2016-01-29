@@ -1,4 +1,4 @@
-require 'squib/args/arg_loader'
+require_relative 'arg_loader'
 
 module Squib
   # @api private

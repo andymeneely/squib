@@ -1,8 +1,8 @@
-require 'squib/args/card_range'
-require 'squib/args/hand_special'
-require 'squib/args/save_batch'
-require 'squib/args/sheet'
-require 'squib/args/showcase_special'
+require_relative '../args/card_range'
+require_relative '../args/hand_special'
+require_relative '../args/save_batch'
+require_relative '../args/sheet'
+require_relative '../args/showcase_special'
 
 module Squib
   class Deck

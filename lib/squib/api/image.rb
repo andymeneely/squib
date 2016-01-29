@@ -1,9 +1,9 @@
-require 'squib/args/card_range'
-require 'squib/args/paint'
-require 'squib/args/scale_box'
-require 'squib/args/transform'
-require 'squib/args/input_file'
-require 'squib/args/svg_special'
+require_relative '../args/card_range'
+require_relative '../args/paint'
+require_relative '../args/scale_box'
+require_relative '../args/transform'
+require_relative '../args/input_file'
+require_relative '../args/svg_special'
 
 module Squib
   class Deck

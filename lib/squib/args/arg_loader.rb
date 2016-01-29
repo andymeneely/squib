@@ -1,5 +1,5 @@
-require 'squib/constants'
-require 'squib/conf'
+require_relative '../constants'
+require_relative '../conf'
 require 'ostruct'
 
 module Squib

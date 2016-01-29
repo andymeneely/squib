@@ -1,4 +1,4 @@
-require 'squib/graphics/cairo_context_wrapper'
+require_relative 'cairo_context_wrapper'
 
 module Squib
   class Deck

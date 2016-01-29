@@ -1,3 +1,6 @@
+require_relative '../args/card_range'
+require_relative '../args/draw'
+
 module Squib
   class Deck
     # Fills the background with the given color

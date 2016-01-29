@@ -1,4 +1,4 @@
-require 'squib/constants'
+require_relative '../constants'
 
 module Squib
   class Deck

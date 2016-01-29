@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.10.0 / Unreleased
+
+Chores:
+* Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
+
 ## v0.9.0 / 2016-01-10
 
 Features:
