@@ -11,6 +11,7 @@ Contents:
    learning
    parameters
    arrays
+   layouts
    units
    colors
    dsl/index.rst
