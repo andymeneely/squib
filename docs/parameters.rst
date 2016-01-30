@@ -1,5 +1,5 @@
-Parameters are Options
-======================
+Parameters are Optional
+=======================
 
 Squib is all about sane defaults and shorthand specification. Arguments to DSL methods are almost always using hashes, which look a lot like [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. All parameters are optional.
 
