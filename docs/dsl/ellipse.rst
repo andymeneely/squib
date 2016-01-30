@@ -1,7 +1,7 @@
 ellipse
 -------
 
-Draw an ellipse at the given coordinates.
+Draw an ellipse at the given coordinates. An ellipse is an oval that is defined by a bounding rectangle. To draw a circle, see :doc:`circle`.
 
 Options
 ^^^^^^^

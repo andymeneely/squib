@@ -9,14 +9,6 @@ Options
 -------
 
 
-definition
-   This is a definition of something.
-   And some more stuff.
-
-x
-   The x-coordinate of the upper-left corner of the text box. Supports :doc:`/units`
-
-
 Examples
 --------
 

@@ -101,6 +101,7 @@ module Squib
   end
   module_function :check_duplicate_csv_headers
 
+  # @api private
   def explode_quantities(data, qty)
     return data unless data.key? qty.to_s.strip
     qtys = data[qty]
