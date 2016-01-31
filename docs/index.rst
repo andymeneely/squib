@@ -6,8 +6,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 1
-   :glob:
 
+   install
    learning
    parameters
    arrays
