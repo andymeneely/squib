@@ -140,8 +140,22 @@ From a design point of view, you can also extract out a base design and have you
 
    Those fluent in Yaml may notice that ``extends`` key is similar to Yaml's `merge keys <http://www.yaml.org/YAML_for_ruby.html#merge_key>`_. Technically, you can use these together - but I just recommend sticking with ``extends`` since it does what merge keys do *and more*. If you do choose to use both ``extends`` and Yaml merge keys, the Yaml merge keys are processed first (upon Yaml parsing), then ``extends`` (after parsing).
 
-Yes, ``extends`` Supports Multiple Inheritance
-----------------------------------------------
+Yes, ``extends`` is Multi-Generational
+--------------------------------------
+
+As you might expect, ``extends`` can be composed multiple times::
+
+  socrates:
+    x: 100
+  plato:
+    extends: socrates
+    x: += 10    # evaluates to 150
+  aristotle:
+    extends: plato
+    x: += 20    # evaluates to 150
+
+Yes, ``extends`` has Multiple Inheritance
+-----------------------------------------
 
 If you want to extend multiple parents, it looks like this::
 
