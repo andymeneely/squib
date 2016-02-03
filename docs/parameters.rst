@@ -17,3 +17,10 @@ Note: you MUST use named parameters rather than positional parameters. For examp
         from deck.rb:18:in `<main>'
 
 Instead, you must name the parameters: `save format: :png`
+
+.. warning::
+
+  If you provide an option to a DSL method that the DSL method does not recognize, Squib ignores the extraenous option without warning. For example, these two calls have identical behavior::
+
+    save_png prefix: 'front_'
+    save_png prefix: 'front_', narf: true
