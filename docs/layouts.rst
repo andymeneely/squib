@@ -51,12 +51,16 @@ For example, back to our example::
 
   # custom-layout.yml
   bleed:
-    x: 75
-    y: 75
-    width: 975
-    height: 675
+    x: 0.25in
+    y: 0.25in
+    width: 2.5in
+    height: 3.5in
 
-And this script::
+(Note that this example makes use of :doc:`/units`)
+
+Combined with this script:
+
+.. code-block:: ruby
 
   # deck.rb
   Squib::Deck.new(layout: 'custom-layout.yml') do
@@ -87,19 +91,34 @@ When Layouts Are Similar, Use ``extends``
 
 Using layouts are a great way of keeping your Ruby code clean and concise. But those layout Yaml files can get pretty long. If you have a bunch of icons along the top of a card, for example, you're specifying the same ``y`` option over and over again. This is annoyingly verbose, and what if you want to move all those icons downward at once?
 
-Squib provides a way of reusing layouts with the special `extends`` key. When defining an `extends`` key, we can merge in another key and modify its data coming in if we want to. This allows us to do things like place text next to an icon and be able to move them with each other. Like this::
+Squib provides a way of reusing layouts with the special `extends`` key. When defining an ```extends`` key, we can merge in another key and modify its data coming in if we want to. This allows us to do things like place text next to an icon and be able to move them with each other. Like this::
 
   # If we change attack, we move defend too!
   attack:
     x: 100
     y: 100
-    radius: 100
+  defend:
+    extends: attack
+    x: 150
+    #defend now is {:x => 150, :y => 100}
+
+Over time, using ``extends`` saves you a lot of space in your Yaml files while also giving more structure and readability to the file itself.
+
+You can also **modify** data as they get passed through extends::
+
+  # If we change attack, we move defend too!
+  attack:
+    x: 100
   defend:
     extends: attack
     x: += 50
     #defend now is {:x => 150, :y => 100}
 
-Over time, using ``extends`` saves you a lot of space in your Yaml files while also giving more structure and readability to the file itself.
+The following operators are supported within evaluating ``extends``
+  * ``+=`` will add the giuven number to the inherited number
+  * ``-=`` will subtract the given number from the inherited number
+
+Both operators also support :doc:`/units`
 
 From a design point of view, you can also extract out a base design and have your other layouts extend from them::
 
@@ -144,9 +163,9 @@ If multiple keys override the same keys in a parent, the later ("younger") child
     x: 200
   aristotle:
     extends:
-      - plato
+      - plato    # note the order here
       - socrates
-    x: += 50   # evaluates to 250 from socrates
+    x: += 50     # evaluates to 150 from socrates
 
 
 Multiple Layout Files get Merged

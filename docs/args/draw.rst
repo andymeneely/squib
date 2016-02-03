@@ -7,7 +7,7 @@ fill_color
 stroke_color
   default: ``:black``
 
-  the color with which to stroke the outside of the rectangle. See :docs:`/colors`.
+  the color with which to stroke the outside of the rectangle. See :doc:`/colors`.
 
 
 stroke_width
