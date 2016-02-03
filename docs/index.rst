@@ -14,6 +14,7 @@ Contents:
    layouts
    units
    colors
+   get_help
    dsl/index.rst
 
 Indices and tables

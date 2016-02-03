@@ -1,8 +1,6 @@
 Learning Squib
 ==============
 
-Here is some stuff:
-
 .. toctree::
    :maxdepth: 1
 
