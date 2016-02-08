@@ -14,6 +14,7 @@ Contents:
    layouts
    units
    colors
+   config
    get_help
    dsl/index.rst
 
