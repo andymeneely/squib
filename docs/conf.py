@@ -284,3 +284,7 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# sphinx-contrib configurations
+inline_highlight_respect_highlight = True
+inline_highlight_literals = True
