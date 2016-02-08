@@ -8,7 +8,7 @@ Options
 .. include:: /args/expansion.rst
 
 file
-  default: ``''``
+  default: ``''`` (empty string)
 
   file(s) to read in. As in :doc:`/arrays`, if this a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done for that card.
 

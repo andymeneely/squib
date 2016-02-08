@@ -12,10 +12,12 @@ Contents:
    parameters
    arrays
    layouts
+   data
    units
    colors
    config
-   get_help
+   backends
+   help
    dsl/index.rst
 
 Indices and tables

@@ -469,7 +469,7 @@ Squib supports various configuration properties that can be specified in an exte
 * `warn_ellipsize` (default: true). Warn when text is ellipsized
 * `warn_png_scale` (default: true). Warn when a PNG file is upscaled
 
-For debugging/sanity purposes, if you want to make sure your configuration options are parsed correclty, the above options are also available as methods within Squib::Deck, for example:
+For debugging/sanity purposes, if you want to make sure your configuration options are parsed correctly, the above options are also available as methods within Squib::Deck, for example:
 
 ```ruby
 Squib::Deck.new do
