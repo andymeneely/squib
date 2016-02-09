@@ -66,9 +66,12 @@ Examples
 
 Here are a few recipes for using arrays and ranges in practice:
 
-TODO Embed the ranges.rb sample as a gist
+.. raw:: HTML
 
-Recipes
--------
+  <script src="https://gist.github.com/andymeneely/25b0da2a84ab906bd44b.js"></script>
+
+
+Contribute Recipes!
+-------------------
 
 There are a lot more great recipes we could come up with. Feel free to contribute! You can add them here via pull request or `via the wiki <https://github.com/andymeneely/squib/wiki>`_
