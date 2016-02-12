@@ -1,5 +1,5 @@
-star
-----
+polygon
+-------
 
 Draw an n-sided regular polygon, centered at x,y.
 

@@ -3,7 +3,7 @@ xlsx
 
 Pulls ExcelX data from .xlsx files into a hash of arrays keyed by the headers. First row is assumed to be the header row.
 
-The ``csv`` method is a member of ``Squib::Deck``, but it is also available outside of the Deck DSL with ``Squib.csv()``. This allows a construction like::
+The ``xlsx`` method is a member of ``Squib::Deck``, but it is also available outside of the Deck DSL with ``Squib.xlsx()``. This allows a construction like::
 
   data = Squib.xlsx file: 'data.xlsx'
   Squib::Deck.new(cards: data['name'].size) do
