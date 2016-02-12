@@ -54,7 +54,7 @@ module Squib
     #
     # @param width [Integer] the width of each card in pixels. Supports unit conversion (e.g. '2.5in').
     # @param height [Integer] the height of each card in pixels. Supports unit conversion (e.g. '3.5in').
-    # c
+    # @param cards [Integer] the number of cards in the deck
     # @param dpi [Integer] the pixels per inch when rendering out to PDF or calculating using inches.
     # @param config [String] the file used for global settings of this deck
     # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
