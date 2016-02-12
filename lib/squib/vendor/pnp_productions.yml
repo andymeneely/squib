@@ -1,0 +1,11 @@
+items:
+  business
+  poker
+  hobbit
+  square
+  large
+  bridge
+
+specs:
+  :dpi: 300
+  :bleed: 0.2cm

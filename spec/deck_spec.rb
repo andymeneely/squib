@@ -63,4 +63,28 @@ describe Squib::Deck do
     })
   end
 
+  context "new_from_preset" do
+    it "sets the width and height from a preset" do
+      d = Squib::Deck.new_from_preset card_name: "poker"
+      expect(d.height).to eq 1050
+      expect(d.width).to eq 750
+    end
+
+    context "when vendor is supplied" do
+      before do
+        allow(Squib::Args::VendorArgs).to receive(:vendor_options).and_return({bleed: 50, dpi: 100})
+      end
+
+      it "also sets dpi" do
+        d = Squib::Deck.new_from_preset card_name: "poker", vendor: "vendor"
+        expect(d.dpi).to eq(100)
+      end
+
+      it "adds bleed to the height and width" do
+        d = Squib::Deck.new_from_preset card_name: "poker", vendor: "vendor"
+        expect(d.height).to eq(1150)
+        expect(d.width).to eq(850)
+      end
+    end
+  end
 end
