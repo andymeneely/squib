@@ -55,6 +55,48 @@ warn_png_scale
 
   Show a warning on the console when a PNG file is upscaled. Warning is issued per card.
 
+lsquote
+  default: ``"\u2018"``
+
+  Smart quoting: change the left single quote when ``markup: true``
+
+rsquote
+  default: ``"\u2019"``
+
+  Smart quoting: change the right single quote when ``markup: true``
+
+ldquote
+  default: ``"\u201C"``
+
+  Smart quoting: change the left double quote when ``markup: true``
+
+rdquote
+  default: ``"\u201D"``
+
+  Smart quoting: change the right double quote when ``markup: true``
+
+em_dash
+  default: ``"\u2014"``
+
+  Convert the ``--`` to this character when ``markup: true``
+
+en_dash
+  default: ``"\u2013"``
+
+  Convert the ``---`` to this character when ``markup: true``
+
+
+ellipsis
+  default: ``"\u2026"``
+
+  Convert ``...`` to this character when ``markup: true``
+
+smart_quotes
+  default: true
+
+  When ``markup: true``, the ``text`` method will convert quotes. With ``smart_quotes: false``, explicit replacements like em-dashes and en-dashes will be replaced but not smart quotes.
+
+
 Options are available as methods
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

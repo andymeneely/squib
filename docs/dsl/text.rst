@@ -5,6 +5,7 @@ Renders a string at a given location, width, alignment, font, etc.
 
 Unix newlines are interpreted even on Windows (i.e. ``"\n"``).
 
+
 Options
 -------
 .. include:: /args/expansion.rst
@@ -12,41 +13,39 @@ Options
 str
   default: ``''``
 
-  the string to be rendered. Must support `#to_s`. If the card responds to `#each`, it's mapped out one at a time across the cards.
+  the string to be rendered. Must support ``#to_s``.
 
 font
   default: ``'Arial 36'``
 
-  the Font description string, including family, styles, and size. (e.g. `'Arial bold italic 12'`). For the official documentation, see the [Pango docs](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style). This [description](http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html) is also quite good.
+  the Font description string, including family, styles, and size. (e.g. ``'Arial bold italic 12'``). For the official documentation, see the `Pango docs <http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style>)`_. This `description <http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html>`_ is also quite good.
 
 font_size
   default: ``nil``
 
-  an override of font string description, for scaling the font according to the size of the string
+  an override of font string description (i.e. ``font``).
 
 .. include:: /args/xy.rst
 
 markup:
   default: ``false``
 
-  Enable markup parsing of `str` using the HTML-like Pango Markup syntax, defined [here](http://ruby-gnome2.sourceforge.jp/hiki.cgi?pango-markup) and [here](https://developer.gnome.org/pango/stable/PangoMarkupFormat.html). Also does other replacements, such as smart quotes, curly apostraphes, en- and em-dashes, and explict ellipses (not to be confused with ellipsize option). See README for full explanation.
+  When set to true, various extra styles are allowed. See :ref:`Markup <text-markup>`.
 
 width
   default: ``:auto``
 
-  the width of the box the string will be placed in. Stretches to the content by default.. Supports Unit Conversion, see {file:README.md#Units Units}.
+  the width of the box the string will be placed in. Stretches to the content by default.. Supports :doc:`/units`.
 
 height
-  default: :``auto``
+  default: ``:auto``
 
-  the height of the box the string will be placed in. Stretches to the content by default. Supports Unit Conversion, see {file:README.md#Units Units}.
+  the height of the box the string will be placed in. Stretches to the content by default. Supports :doc:`/units`.
 
 wrap
   default: ``:word_char``
 
-  [:none, :word, :char, :word_char, true, false] (:word_char) When height is set, determines the behavior of how the string wraps. The `:word_char` option will break at words, but then fall back to characters when the word cannot fit.    #
-
-#   Options are `:none, :word, :char, :word_char`. Also: `true` is the same as `:word_char`, `false` is the same as `:none`. Default `:word_char`
+   when ``height`` is set, determines the behavior of how the string wraps. The ``:word_char`` option will break at words, but then fall back to characters when the word cannot fit. Options are ``:none``, ``:word``, ``:char``, ``:word_char``. Also: ``true`` is the same as ``:word_char``, ``false`` is the same as ``:none``.
 
 spacing
   default: ``0``
@@ -81,7 +80,7 @@ angle
 stroke_width
   default: ``0.0``
 
-  the width of the outside stroke. Supports Unit Conversion, see {file:README.md#Units Units}.
+  the width of the outside stroke. Supports :doc:`/units`, see {file:README.md#Units Units}.
 
 stroke_color
   default: ``:black``
@@ -96,7 +95,7 @@ stroke_strategy
 dash
   default: ``''``
 
-  define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports Unit Conversion, see {file:README.md#Units Units} (e.g. `'0.02in 0.02in'`).
+  define a dash pattern for the stroke. Provide a string with space-separated numbers that define the pattern of on-and-off alternating strokes, measured in pixels by defautl. Supports :doc:`/units` (e.g. ``'0.02in 0.02in'``).
 
 hint
   default: ``:nil`` (i.e. no hint)
@@ -109,6 +108,28 @@ color
 .. include:: /args/draw.rst
 .. include:: /args/range.rst
 .. include:: /args/layout.rst
+
+.. _text-markup:
+
+Markup
+------
+
+If you want to do specialized formatting within a given string, Squib has lots of options. By setting ``markup: true``, you enable tons of text processing. This includes:
+
+  * Pango Markup. This is an HTML-like formatting language that specifies formatting inside your string. Pango Markup essentially supports any formatting option, but on a letter-by-letter basis. Such as: font options, letter spacing, gravity, color, etc. See the `Pango docs  <https://developer.gnome.org/pango/stable/PangoMarkupFormat.html>`_ for details.
+  * Quotes are converted to their curly counterparts where appropriate.
+  * Apostraphes are converted to curly as well.
+  * LaTeX-style quotes are explicitly converted (````like this''``)
+  * Em-dash and en-dash are converted with triple and double-dashes respectively (``--`` is an en-dash, and ``---`` becomes an em-dash.)
+  * Ellipses can be specified with ``...`` (three periods). Note that this is entirely different from the ``ellipsize`` option (which determines what to do with overflowing text).
+
+  A few notes:
+    * Smart quoting assumes the UTF-8 character set by default. If you are in a different character set and want to change how it behaves
+    * Pango markup uses an XML/HTML-ish processor. Some characters require HTML-entity escaping (e.g. ``&amp;`` for ``&``)
+
+
+  You can also disable the auto-quoting mechanism by setting ``smart_quotes: false`` in your config. Explicit replacements will still be performed. See :doc:`/config`
+
 
 Examples
 --------
