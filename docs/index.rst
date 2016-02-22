@@ -15,6 +15,7 @@ Contents:
    data
    units
    colors
+   bleed
    config
    backends
    help
