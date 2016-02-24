@@ -1,3 +1,5 @@
+:orphan:
+
 range
   default: ``:all``
 

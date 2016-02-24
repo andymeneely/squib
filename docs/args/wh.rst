@@ -1,3 +1,5 @@
+:orphan:
+
 width
   default: ``:deck`` (the width of the deck)
 

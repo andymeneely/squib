@@ -1,3 +1,5 @@
+:orphan:
+
 dir
   default: ``_output``
 

@@ -1,3 +1,5 @@
+:orphan:
+
 trim
   default: ``0``
 
