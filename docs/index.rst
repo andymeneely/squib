@@ -2,10 +2,12 @@
 Squib Documentation
 ===================
 
+Welcome to the official Squib documentation!
+
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    install
    learning
