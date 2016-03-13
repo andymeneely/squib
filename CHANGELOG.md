@@ -3,8 +3,12 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.10.0 / Unreleased
 
+Features:
+* Build groups! Simplify the process of building your deck different ways (e.g. one for color, one for PNP). Can be enabled explicitly or via command line. [See our shiny new docs for how these work](http://squib.readthedocs.org).
+
 Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
+* Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org)
 
 ## v0.9.0 / 2016-01-10
 

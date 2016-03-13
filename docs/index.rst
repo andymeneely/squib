@@ -20,6 +20,7 @@ Contents:
    bleed
    config
    backends
+   build_groups
    help
    dsl/index.rst
 
