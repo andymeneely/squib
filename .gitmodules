@@ -14,4 +14,4 @@
 	url = https://gist.github.com/andymeneely/a4536fff0f3dc5d59c66
 [submodule "samples/build_groups"]
 	path = samples/build_groups
-	url = git@gist.github.com:bda48487e3b8c9d15edb.git
+	url = https://gist.github.com/andymeneely/bda48487e3b8c9d15edb
