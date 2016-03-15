@@ -50,6 +50,14 @@ describe Squib::Deck do
         })
     end
 
+    it 'loads inline data' do
+      hash = Squib.csv(data: "h1,h2\n1,2\n3,4")
+      expect(hash).to eq({
+        'h1' => [1, 3],
+        'h2' => [2, 4]
+        })
+    end
+
   end
 
   context '#xlsx' do

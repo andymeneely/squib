@@ -24,3 +24,10 @@ Squib::Deck.new(cards: num_cards) do
   text str: data['Name'], font: 'Arial 54'
   save_sheet  prefix: 'sample_csv_qty_', columns: 4
 end
+
+# Additionally, CSV supports inline data specifically
+data = Squib.csv data: <<-EOCSV
+Name,Cost
+Knight,3
+Orc,1
+EOCSV

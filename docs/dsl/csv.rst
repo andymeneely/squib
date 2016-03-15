@@ -19,7 +19,12 @@ Options
 file
   default: ``'deck.csv'``
 
-  the CSV-formatted file to open. Opens relative to the current directory.
+  the CSV-formatted file to open. Opens relative to the current directory. If ``data`` is set, this option is overridden.
+
+data
+  default: ``nil``
+
+  when set, CSV will parse this data instead of reading the file.
 
 strip
   default: ``true``

@@ -70,9 +70,10 @@ module Squib
   # @return [Hash] a hash of arrays based on columns in the table
   # @api public
   def csv(opts = {})
-    file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
     import = Args::Import.new.load!(opts)
-    table = CSV.read(file, headers: true, converters: :numeric)
+    file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
+    data = opts.key?(:data) ? opts[:data] : File.read(file)
+    table = CSV.parse(data, headers: true, converters: :numeric)
     check_duplicate_csv_headers(table)
     hash = Hash.new
     table.headers.each do |header|

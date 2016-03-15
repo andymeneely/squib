@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * Build groups! Simplify the process of building your deck different ways (e.g. one for color, one for PNP). Can be enabled explicitly or via command line. [See our shiny new docs for how these work](http://squib.readthedocs.org).
+* The `csv` method now supports a `data` option to read CSV data directly. When set, it overrides the `file` option.
 
 Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
