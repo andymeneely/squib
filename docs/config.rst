@@ -98,10 +98,20 @@ smart_quotes
 
 
 Options are available as methods
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 For debugging/sanity purposes, if you want to make sure your configuration options are parsed correctly, the above options are also available as methods within ``Squib::Deck``, for example::
 
   Squib::Deck.new do
     puts backend # prints 'memory' by default
   end
+
+
+Making Squib Verbose
+--------------------
+
+By default, Squib's logger is set to ``WARN``, but more fine-grained logging is embedded in the code. To set the logger, just put this at the top of your script::
+
+  Squib::logger.level = Logger::INFO
+
+If you REALLY want to see tons of output, you can also set DEBUG, but that's not intended for general consumption.

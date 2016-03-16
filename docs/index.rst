@@ -17,6 +17,7 @@ Contents:
    data
    units
    colors
+   text_feature
    bleed
    config
    backends
