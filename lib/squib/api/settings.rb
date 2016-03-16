@@ -31,5 +31,11 @@ module Squib
       @font = (opts[:font] == :default) ? Squib::DEFAULT_FONT: opts[:font]
     end
 
+    # Load a new layout into the deck
+    # @api public
+    def use_layout(file: 'layout.yml')
+      @layout = LayoutParser.load_layout(file, @layout)
+    end
+
   end
 end

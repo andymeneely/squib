@@ -7,8 +7,8 @@ module Squib
 
     # Load the layout file(s), if exists
     # @api private
-    def self.load_layout(files)
-      layout = {}
+    def self.load_layout(files, initial = {})
+      layout = initial
       Squib::logger.info { "  using layout(s): #{files}" }
       Array(files).each do |file|
         thefile = file

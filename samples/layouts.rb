@@ -60,3 +60,13 @@ Squib::Deck.new(layout: 'hand.yml') do
   png file: 'pokercard.png', alpha: 0.5
   save_png prefix: 'layout_builtin_hand_'
 end
+
+# Layouts can also be specified in their own DSL method call
+# Each layout call will progressively be merged with the priors
+Squib::Deck.new do
+  use_layout file: 'custom-layout.yml'
+  use_layout file: 'custom-layout2.yml'
+  text str: 'The Title',   layout: :title     # from custom-layout.yml
+  text str: 'The Subtitle',layout: :subtitle  # redefined in custom-layout2.yml
+  save_png prefix: 'layout3_'
+end

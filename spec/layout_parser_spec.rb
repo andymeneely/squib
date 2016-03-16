@@ -186,4 +186,16 @@ describe Squib::LayoutParser do
       })
   end
 
+  it 'loads progressively on multiple calls' do
+    a = layout_file('multifile-a.yml')
+    b = layout_file('multifile-b.yml')
+    layout = Squib::LayoutParser.load_layout(a)
+    layout = Squib::LayoutParser.load_layout(b, layout)
+    expect(layout).to eq({
+        'title'    => { 'x' => 300 },
+        'subtitle' => { 'x' => 200 },
+        'desc'     => { 'x' => 400 }
+        })
+  end
+
 end
