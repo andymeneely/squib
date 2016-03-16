@@ -22,9 +22,10 @@ module Squib
 
     # :nodoc:
     # @api private
-    def compute_valign(layout, valign)
+    def compute_valign(layout, valign, embed_h)
       return 0 unless layout.height > 0
       ink_extents = layout.extents[1]
+      ink_extents.height = embed_h * Pango::SCALE if ink_extents.height == 0 #JUST embed, bug #134
       case valign.to_s.downcase
       when 'middle'
         Pango.pixels( (layout.height - ink_extents.height) / 2)
@@ -48,6 +49,12 @@ module Squib
     def set_wh!(layout, width, height)
       layout.width  = width * Pango::SCALE unless width.nil? || width == :auto
       layout.height = height * Pango::SCALE unless height.nil? || height == :auto
+    end
+
+    def max_embed_height(embed_draws)
+      embed_draws.inject(0) do |max, ed|
+        ed[:h] > max ? ed[:h] : max
+      end
     end
 
     # :nodoc:
@@ -97,7 +104,9 @@ module Squib
         rect = layout.index_to_pos(search[:index])
         x    = Pango.pixels(rect.x) + search[:rule][:adjust].dx[@index]
         y    = Pango.pixels(rect.y) + search[:rule][:adjust].dy[@index]
-        draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
+        h    = rule[:box].height[@index]
+        draw_calls << {x: x, y: y, h: h, # defer drawing until we've valigned
+                       draw: search[:rule][:draw]}
       end
       return draw_calls
     end
@@ -148,7 +157,7 @@ module Squib
 
         embed_draws    = process_embeds(embed, para.str, layout)
 
-        vertical_start = compute_valign(layout, para.valign)
+        vertical_start = compute_valign(layout, para.valign, max_embed_height(embed_draws))
         cc.move_to(0, vertical_start) #TODO clean this up a bit
 
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
