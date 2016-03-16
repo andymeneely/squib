@@ -1,4 +1,4 @@
-:orphan:
+.. :orphan:
 
 range
   default: ``:all``

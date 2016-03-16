@@ -1,4 +1,4 @@
-:orphan:
+.. :orphan:
 
 trim
   default: ``0``

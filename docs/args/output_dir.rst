@@ -1,4 +1,4 @@
-:orphan:
+.. :orphan:
 
 dir
   default: ``_output``

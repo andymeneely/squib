@@ -1,4 +1,4 @@
-:orphan:
+.. :orphan:
 
 angle
   default: ``0``

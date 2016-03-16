@@ -1,4 +1,4 @@
-:orphan:
+.. :orphan:
 
 fill_color
   default: ``'#0000'`` (fully transparent)

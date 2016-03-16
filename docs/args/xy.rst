@@ -1,4 +1,4 @@
-:orphan:
+.. :orphan:
 
 x
   default: ``0``
