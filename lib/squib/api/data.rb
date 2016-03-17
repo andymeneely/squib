@@ -5,26 +5,7 @@ require_relative '../args/import'
 
 module Squib
 
-  # Pulls Excel data from `.xlsx` files into a column-based hash
-  #
-  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
-  # See the example `samples/excel.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
-  #
-  # @example
-  #   # Excel file looks like this:
-  #   # | h1 | h2 |
-  #   # ------------
-  #   # | 1  | 2  |
-  #   # | 3  | 4  |
-  #   data = xlsx file: 'data.xlsx', sheet: 0
-  #   => {'h1' => [1,3], 'h2' => [2,4]}
-  #
-  # @option opts file [String]  the file to open. Must end in `.xlsx`. Opens relative to the current directory.
-  # @option opts sheet [Integer] (0) The zero-based index of the sheet from which to read.
-  # @option opts strip [Boolean] (true) When true, strips leading and trailing whitespace on values and headers
-  # @option opts explode [String] ('qty') Quantity explosion will be applied to the column this name. See README for example.
-  # @return [Hash] a hash of arrays based on columns in the spreadsheet
-  # @api public
+  # DSL method. See http://squib.readthedocs.org
   def xlsx(opts = {})
     input = Args::InputFile.new(file: 'deck.xlsx').load!(opts)
     import = Args::Import.new.load!(opts)
@@ -48,27 +29,7 @@ module Squib
   end#xlsx
   module_function :xlsx
 
-  # Pulls CSV data from `.csv` files into a column-based hash
-  #
-  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
-  # See the example `samples/csv.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
-  #
-  # @example
-  #   # File data.csv looks like this (without the comment symbols)
-  #   # h1,h2
-  #   # 1,2
-  #   # 3,4
-  #   data = csv file: 'data.csv'
-  #   => {'h1' => [1,3], 'h2' => [2,4]}
-  #
-  # Parsing uses Ruby's CSV, with options `{headers: true, converters: :numeric}`
-  # http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html
-  #
-  # @option opts file [String]  the CSV-formatted file to open. Opens relative to the current directory.
-  # @option opts strip [Boolean] (true) When true, strips leading and trailing whitespace on values and headers
-  # @option opts explode [String] ('qty') Quantity explosion will be applied to the column this name. See README for example.
-  # @return [Hash] a hash of arrays based on columns in the table
-  # @api public
+  # DSL method. See http://squib.readthedocs.org
   def csv(opts = {})
     import = Args::Import.new.load!(opts)
     file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
@@ -119,12 +80,12 @@ module Squib
 
   class Deck
 
-    # Convenience call on deck goes to the module function
+    # DSL method. See http://squib.readthedocs.org
     def xlsx(opts = {})
       Squib.xlsx(opts)
     end
 
-    # Convenience call on deck goes to the module function
+    # DSL method. See http://squib.readthedocs.org
     def csv(opts = {})
       Squib.csv(opts)
     end

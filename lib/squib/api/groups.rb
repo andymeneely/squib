@@ -12,30 +12,30 @@ module Squib
 
   class Deck
 
-    # See official API docs
+    # DSL method. See http://squib.readthedocs.org
     def group grp = :all, &block
       raise 'Please provide a block' unless block_given?
       block.yield if groups.include? grp
     end
 
-    # See official API docs
+    # DSL method. See http://squib.readthedocs.org
     def enable_group grp
       groups # make sure it's initialized
       @build_groups << grp
     end
 
-    # See official API docs
+    # DSL method. See http://squib.readthedocs.org
     def disable_group grp
       groups # make sure it's initialized
       @build_groups.delete grp
     end
 
-    # See official API docs
+    # DSL method. See http://squib.readthedocs.org
     def groups
       @build_groups ||= Set.new.add(:all)
     end
 
-    # See official API docs
+    # DSL method. See http://squib.readthedocs.org
     def enable_groups_from_env!
       return if ENV['SQUIB_BUILD'].nil?
       ENV['SQUIB_BUILD'].split(',').each do |grp|
