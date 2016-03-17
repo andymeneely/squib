@@ -1,5 +1,5 @@
-The Might text Method
-=====================
+The Mighty text Method
+======================
 
 
 The :doc:`/dsl/text` method is a particularly powerful method with a ton of options. Be sure to check the option-by-option details in the DSL reference, but here are the highlights.
