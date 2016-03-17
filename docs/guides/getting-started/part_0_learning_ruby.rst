@@ -132,8 +132,14 @@ Here are some of my favorite resources for getting started with Ruby. A lot of t
 `RubyMonk.com <https://rubymonk.com/>`_
   An interactive explanation through Ruby. Gets a bit philosophical, but hey, what else would you expect from a monk?
 
+`Pragmatic Programmer's Guide to Ruby (The PickAxe Book) <http://ruby-doc.com/docs/ProgrammingRuby/>`_
+  One of the best comprehensive resources out there for Ruby - available for free!
+
 `Ruby's Own Website: Getting Started <https://www.ruby-lang.org/en/documentation/quickstart/>`_
   This will take you through the basics of programming in Ruby. It works mostly from the Interactive Ruby shell `irb`, which is pretty helpful for seeing how things work and what Ruby syntax looks like.
 
 `Why's Poignant Guide to Ruby <http://poignant.guide/>`_
   No list of Ruby resources is complete without a reference to this, well, poignant guide to Ruby. Enjoy.
+
+`The Pragmatic Programmer <http://www.amazon.com/The-Pragmatic-Programmer-Journeyman-Master/dp/020161622X>`_
+  The best software development book ever written (in my opinion). If you are doing programming and you have one book on your shelf, this is it. Much of what inspired Squib came from this thinking.
