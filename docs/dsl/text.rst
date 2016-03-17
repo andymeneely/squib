@@ -45,7 +45,7 @@ height
 wrap
   default: ``:word_char``
 
-   when ``height`` is set, determines the behavior of how the string wraps. The ``:word_char`` option will break at words, but then fall back to characters when the word cannot fit. Options are ``:none``, ``:word``, ``:char``, ``:word_char``. Also: ``true`` is the same as ``:word_char``, ``false`` is the same as ``:none``.
+   when ``width`` is set, determines the behavior of how the string wraps. The ``:word_char`` option will break at words, but then fall back to characters when the word cannot fit. Options are ``:none``, ``:word``, ``:char``, ``:word_char``. Also: ``true`` is the same as ``:word_char``, ``false`` is the same as ``:none``.
 
 spacing
   default: ``0``
