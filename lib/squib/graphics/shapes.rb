@@ -52,8 +52,8 @@ module Squib
     def grid(box, draw)
       x, y, w, h = box.x, box.y, box.width, box.height
       use_cairo do |cc|
-        (x..@width + w).step(w)  { |ix| line_xy( ix, y - @height, ix, @height + y, draw) }
-        (y..@height + h).step(h) { |iy| line_xy( x - @width, iy, @width + x, iy, draw) }
+        (x..@width + w).step(w)  { |ix| line_xy(ix, y - @height, ix, @height + y, draw) }
+        (y..@height + h).step(h) { |iy| line_xy(x - @width, iy, @width + x, iy, draw) }
       end
     end
 

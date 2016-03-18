@@ -20,7 +20,7 @@ describe Squib::Args::Draw do
 
     it 'works when specified' do
       draw.load!({}) # go right to defaults
-      expect(draw.stroke_width).to eq( [0.0] ) #ordinarily a non-zero according
+      expect(draw.stroke_width).to eq([0.0]) #ordinarily a non-zero according
     end
 
   end
@@ -57,25 +57,25 @@ describe Squib::Args::Draw do
     it 'converts line caps to Cairo constants' do
       args = { cap: :SQUARE }
       draw.load! args
-      expect(draw).to have_attributes( cap: [Cairo::LINE_CAP_SQUARE] )
+      expect(draw).to have_attributes(cap: [Cairo::LINE_CAP_SQUARE])
     end
 
     it 'converts line join' do
       args = { join: 'round' }
       draw.load! args
-      expect(draw).to have_attributes( join: [Cairo::LINE_JOIN_ROUND] )
+      expect(draw).to have_attributes(join: [Cairo::LINE_JOIN_ROUND])
     end
 
     it 'allows fill_first stroke_strategy' do
       args = { stroke_strategy: :FILL_first }
       draw.load! args
-      expect(draw).to have_attributes( stroke_strategy: [:fill_first] )
+      expect(draw).to have_attributes(stroke_strategy: [:fill_first])
     end
 
     it 'allows stroke_first stroke_strategy' do
       args = { stroke_strategy: '  stroke_FIRST ' }
       draw.load! args
-      expect(draw).to have_attributes( stroke_strategy: [:stroke_first] )
+      expect(draw).to have_attributes(stroke_strategy: [:stroke_first])
     end
 
     it 'disallows anything not stroke_first and fill_first' do

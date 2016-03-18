@@ -40,10 +40,10 @@ describe Squib::Graphics::CairoContextWrapper do
         expect(cairo).to receive(:set_source).with(dbl)
       end
 
-      it('handles no decimals'  ) { subject.set_source_squibcolor('(1,2) (3,4) blue@0 red@1') }
-      it('handles decimals'     ) { subject.set_source_squibcolor('(1.0,2.0) (3.0,4.0) blue@0 red@1') }
+      it('handles no decimals') { subject.set_source_squibcolor('(1,2) (3,4) blue@0 red@1') }
+      it('handles decimals') { subject.set_source_squibcolor('(1.0,2.0) (3.0,4.0) blue@0 red@1') }
       it('handles no whitespace') { subject.set_source_squibcolor('(1,2)(3,4)blue@0red@1') }
-      it('handles whitespace'   ) { subject.set_source_squibcolor('  (  1  ,  2  )  ( 3  ,  4  )  blue@0   red@1   ') }
+      it('handles whitespace') { subject.set_source_squibcolor('  (  1  ,  2  )  ( 3  ,  4  )  blue@0   red@1   ') }
     end
 
     context 'regex variations for radial gradients' do
@@ -58,10 +58,10 @@ describe Squib::Graphics::CairoContextWrapper do
         expect(cairo).to receive(:set_source).with(dbl)
       end
 
-      it('handles no decimals'  ) { subject.set_source_squibcolor('(1,2,5) (3,4,6) blue@0 red@1') }
-      it('handles decimals'     ) { subject.set_source_squibcolor('(1.0,2.0,5.0) (3.0,4.0,6.0) blue@0 red@1') }
+      it('handles no decimals') { subject.set_source_squibcolor('(1,2,5) (3,4,6) blue@0 red@1') }
+      it('handles decimals') { subject.set_source_squibcolor('(1.0,2.0,5.0) (3.0,4.0,6.0) blue@0 red@1') }
       it('handles no whitespace') { subject.set_source_squibcolor('(1,2,5)(3,4,6)blue@0red@1') }
-      it('handles whitespace'   ) { subject.set_source_squibcolor('  (  1  ,  2  , 5 )  ( 3  ,  4 , 6 )  blue@0   red@1   ') }
+      it('handles whitespace') { subject.set_source_squibcolor('  (  1  ,  2  , 5 )  ( 3  ,  4 , 6 )  blue@0   red@1   ') }
     end
 
     context 'regex handles hash notation' do

@@ -28,7 +28,7 @@ module Squib
       ink_extents.height = embed_h * Pango::SCALE if ink_extents.height == 0 #JUST embed, bug #134
       case valign.to_s.downcase
       when 'middle'
-        Pango.pixels( (layout.height - ink_extents.height) / 2)
+        Pango.pixels((layout.height - ink_extents.height) / 2)
       when 'bottom'
         Pango.pixels(layout.height - ink_extents.height)
       else

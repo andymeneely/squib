@@ -33,7 +33,7 @@ module Squib
     # Process the extends recursively
     # :nodoc:
     # @api private
-    def self.recurse_extends(yml, key, visited )
+    def self.recurse_extends(yml, key, visited)
       assert_not_visited(key, visited)
       return yml[key] unless has_extends?(yml, key)
       return yml[key] unless parents_exist?(yml, key)
