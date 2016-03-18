@@ -18,7 +18,7 @@ describe Squib::Deck, '#save_pdf' do
     end
 
     before(:each) do
-      allow(Cairo::PDFSurface).to receive(:new).and_return(nil) #don't create the file
+      allow(Cairo::PDFSurface).to receive(:new).and_return(nil) # don't create the file
       allow(Cairo::Context).to    receive(:new).and_return(cxt)
       allow(cxt).to receive(:antialias=)
     end
@@ -27,7 +27,7 @@ describe Squib::Deck, '#save_pdf' do
       num_cards = 9
       deck = Squib::Deck.new(cards: 9, width: 825, height: 1125)
       expect(Squib.logger).to receive(:debug).at_least(:once)
-      expect(Squib.logger).to receive(:warn).exactly(:once) #warn about making the dir
+      expect(Squib.logger).to receive(:warn).exactly(:once) # warn about making the dir
       expect(Dir).to receive(:mkdir) {} # don't actually make the dir
       expect(cxt).to receive(:scale).with(0.24, 0.24)
 
@@ -51,7 +51,7 @@ describe Squib::Deck, '#save_pdf' do
       args = { range: 2..4, file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck = Squib::Deck.new(cards: num_cards, width: 825, height: 1125)
       expect(Squib.logger).to receive(:debug).at_least(:once)
-      expect(Squib.logger).to receive(:warn).exactly(:once) #warn about making the dir
+      expect(Squib.logger).to receive(:warn).exactly(:once) # warn about making the dir
       expect(Dir).to receive(:mkdir) {} # don't actually make the dir
       expect(cxt).to receive(:scale).with(0.24, 0.24)
 

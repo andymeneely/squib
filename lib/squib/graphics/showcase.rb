@@ -69,7 +69,7 @@ module Squib
       (0..src.width).step(in_thickness) do |i|
         percentage = i / src.width.to_f
         i = src.width - i if face_right
-        factor = scale + (percentage * (1.0 - scale)) #linear interpolation
+        factor = scale + (percentage * (1.0 - scale)) # linear interpolation
         dest_cxt.save
         dest_cxt.translate 0, src.height / 2.0 * (1.0 - factor)
         dest_cxt.scale factor * scale, factor

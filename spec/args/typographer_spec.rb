@@ -63,7 +63,7 @@ it "single quotes inside double quotes" do
 
 
   context 'configured' do
-    #TODO
+    # TODO
   end
 
 

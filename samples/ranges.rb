@@ -50,7 +50,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
        x:25, y: 500
 
   # Useful idiom: draw a different number of images for different cards
-  hearts = [nil, 1, 2] #i.e. card 0 has no hearts, card 2 has 2 hearts drawn
+  hearts = [nil, 1, 2] # i.e. card 0 has no hearts, card 2 has 2 hearts drawn
   1.upto(2).each do |n|
     range = hearts.each_index.select { |i| hearts[i] == n}
     n.times do |i|

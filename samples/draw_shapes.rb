@@ -36,7 +36,7 @@ Squib::Deck.new do
   star x: 300, y: 1000, n: 5, inner_radius: 15, outer_radius: 40,
        fill_color: :cyan, stroke_color: :burgundy, stroke_width: 5
 
-  #default draw is fill-then-stroke. Can be changed to stroke-then-fill
+  # default draw is fill-then-stroke. Can be changed to stroke-then-fill
   star x: 375, y: 1000, n: 5, inner_radius: 15, outer_radius: 40,
        fill_color: :cyan, stroke_color: :burgundy,
        stroke_width: 5, stroke_strategy: :stroke_first

@@ -1,5 +1,5 @@
 module Squib
-  #@api private
+  # @api private
   module Args
     module ColorValidator
 

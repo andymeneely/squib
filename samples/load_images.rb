@@ -10,7 +10,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1, config: 'load_images_config.
   # Can be scaled if width and height are set
   svg file: 'spanner.svg', x: 50, y: 50, width: 250, height: 250
   png file: 'shiny-purse.png', x: 305, y: 50, width: 250, height: 250
-  #...but PNGs will warn if it's an upscale, unless you disable them in config.yml
+  # ...but PNGs will warn if it's an upscale, unless you disable them in config.yml
 
   # Can be scaled using just width or height, if one of them is set to :scale
   svg file: 'spanner.svg', x: 200, y: 350, width: 35,     height: :scale

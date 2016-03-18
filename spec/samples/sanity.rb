@@ -20,7 +20,7 @@ class Sanity
       row = []
       actual_png = @@OUTPUT_DIR + File.basename(exp_png)
       row << "file:///" + exp_png
-      row << "file:///" + actual_png #actual
+      row << "file:///" + actual_png # actual
       row << "file:///" + diff_image(exp_png, actual_png)
       images << row
       bar.increment

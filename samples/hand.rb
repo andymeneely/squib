@@ -7,7 +7,7 @@ Squib::Deck.new(cards: 8, layout: 'playing-card.yml') do
   text str: ('A'..'Z').to_a, layout: :bonus_ul, font: 'Sans bold 100'
 
   # Defaults are sensible
-  hand #saves to _output/hand.png
+  hand # saves to _output/hand.png
 
   # Here's a prettier version:
   #  - Each card is trimmed with rounded corners

@@ -64,8 +64,8 @@ describe Squib::Deck do
     it 'loads basic xlsx data' do
       expect(Squib.xlsx(file: xlsx_file('basic.xlsx'))).to eq({
         'Name'           => %w(Larry Curly Mo),
-        'General Number' => %w(1 2 3), #general types always get loaded as strings with no conversion
-        'Actual Number' => [4.0, 5.0, 6.0], #numbers get auto-converted to integers
+        'General Number' => %w(1 2 3), # general types always get loaded as strings with no conversion
+        'Actual Number' => [4.0, 5.0, 6.0], # numbers get auto-converted to integers
         })
     end
 

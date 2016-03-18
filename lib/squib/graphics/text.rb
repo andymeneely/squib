@@ -25,7 +25,7 @@ module Squib
     def compute_valign(layout, valign, embed_h)
       return 0 unless layout.height > 0
       ink_extents = layout.extents[1]
-      ink_extents.height = embed_h * Pango::SCALE if ink_extents.height == 0 #JUST embed, bug #134
+      ink_extents.height = embed_h * Pango::SCALE if ink_extents.height == 0 # JUST embed, bug #134
       case valign.to_s.downcase
       when 'middle'
         Pango.pixels((layout.height - ink_extents.height) / 2)
@@ -94,7 +94,7 @@ module Squib
         rule    = embed.rules[key]
         spacing = rule[:box].width[@index] * Pango::SCALE
         kindex   = clean_str.index(key)
-        kindex   = clean_str[0..kindex].bytesize #convert to byte index (bug #57)
+        kindex   = clean_str[0..kindex].bytesize # convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
@@ -158,7 +158,7 @@ module Squib
         embed_draws    = process_embeds(embed, para.str, layout)
 
         vertical_start = compute_valign(layout, para.valign, max_embed_height(embed_draws))
-        cc.move_to(0, vertical_start) #TODO clean this up a bit
+        cc.move_to(0, vertical_start) # TODO clean this up a bit
 
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
         cc.move_to(0, vertical_start)

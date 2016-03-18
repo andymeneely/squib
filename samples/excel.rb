@@ -11,7 +11,7 @@ Squib::Deck.new(cards: 3) do
   text str: data['Level'], x: 65, y: 65, font: 'Arial 72'
   text str: data['Description'], x: 65, y: 600, font: 'Arial 36'
 
-  save format: :png, prefix: 'sample_excel_' #save to individual pngs
+  save format: :png, prefix: 'sample_excel_' # save to individual pngs
 end
 
 # xlsx is also a Squib-module-level function, so this also works:
@@ -51,5 +51,5 @@ Squib::Deck.new(cards: resource_data['Name'].size) do
   rect width: :deck, height: :deck
   text str: resource_data['Name'], align: :center, width: :deck, hint: 'red'
   text str: resource_data['Cost'], align: :right, width: :deck, hint: 'red'
-  save_sheet prefix: 'sample_excel_resources_' #save to a whole sheet
+  save_sheet prefix: 'sample_excel_resources_' # save to a whole sheet
 end

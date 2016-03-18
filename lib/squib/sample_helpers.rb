@@ -1,7 +1,7 @@
 module Squib
 
   # Some helper methods specifically for samples
-  #@api private
+  # @api private
   #:nodoc:
   class Deck
 

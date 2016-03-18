@@ -122,9 +122,9 @@ module Squib
 
       def convert_unit(arg, dpi)
         case arg.to_s.rstrip
-        when /in$/ #ends with "in"
+        when /in$/ # ends with "in"
           arg.rstrip[0..-2].to_f * dpi
-        when /cm$/ #ends with "cm"
+        when /cm$/ # ends with "cm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
         else
           arg

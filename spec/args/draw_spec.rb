@@ -20,7 +20,7 @@ describe Squib::Args::Draw do
 
     it 'works when specified' do
       draw.load!({}) # go right to defaults
-      expect(draw.stroke_width).to eq([0.0]) #ordinarily a non-zero according
+      expect(draw.stroke_width).to eq([0.0]) # ordinarily a non-zero according
     end
 
   end

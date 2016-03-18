@@ -28,7 +28,7 @@ module Squib
       'warn_png_scale' => true,
     }
 
-    #Translate the hints to the methods.
+    # Translate the hints to the methods.
     ANTIALIAS_OPTS = {
       nil        => 'subpixel',
       'best'     => 'subpixel',

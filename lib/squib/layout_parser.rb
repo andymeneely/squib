@@ -2,7 +2,7 @@ require 'yaml'
 
 module Squib
   # Internal class for handling layouts
-  #@api private
+  # @api private
   class LayoutParser
 
     # Load the layout file(s), if exists
@@ -14,7 +14,7 @@ module Squib
         thefile = file
         thefile = builtin(file) unless File.exists?(file)
         if File.exists? thefile
-          yml = layout.merge(YAML.load_file(thefile) || {}) #load_file returns false on empty file
+          yml = layout.merge(YAML.load_file(thefile) || {}) # load_file returns false on empty file
           yml.each do |key, value|
             layout[key] = recurse_extends(yml, key, {})
           end
@@ -47,11 +47,11 @@ module Squib
           elsif child_val.to_s.strip.start_with?('-=')
             parent_val - child_val.sub('-=', '').strip.to_f
           else
-            child_val #child overrides parent when merging, no +=
+            child_val # child overrides parent when merging, no +=
           end
         end
         h = h.merge(from_extends) do |key, older_sibling, younger_sibling|
-          younger_sibling #when two siblings have the same entry, the "younger" (lower one) overrides
+          younger_sibling # when two siblings have the same entry, the "younger" (lower one) overrides
         end
       end
       return h

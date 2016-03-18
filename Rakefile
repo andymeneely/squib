@@ -29,7 +29,7 @@ end
 desc 'Run some performance benchmarks'
 task benchmark: [:install] do
   require 'squib'
-  Squib::logger.level = Logger::ERROR #silence warnings
+  Squib::logger.level = Logger::ERROR # silence warnings
   Dir.chdir('benchmarks') do
     Benchmark.bm(15) do |bm|
       Dir['*.rb'].each do | script |

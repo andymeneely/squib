@@ -1,10 +1,10 @@
 require_relative '../constants'
 
 module Squib
-  #@api private
+  # @api private
   module Args
     # Internal class for handling arguments
-    #@api private
+    # @api private
     class Typographer
 
       def initialize(config = Conf::DEFAULTS)

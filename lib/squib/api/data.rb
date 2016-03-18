@@ -23,10 +23,10 @@ module Squib
         cell.strip! if cell.respond_to?(:strip) && import.strip?
         cell = yield(header, cell) if block_given?
         data[header] << cell
-      end#row
-    end#col
+      end# row
+    end# col
     explode_quantities(data, import.explode)
-  end#xlsx
+  end# xlsx
   module_function :xlsx
 
   # DSL method. See http://squib.readthedocs.org
