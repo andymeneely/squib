@@ -60,13 +60,19 @@ Zombie  drone    Take a card from the discard pile
 Robot   drone    Draw two cards
 ======  =======  ===============================
 
-If you're a spreadsheet person, go ahead and put this into Excel (in the above format). Or, if you want to be plaintext-friendly, put it into a comma-separated format (CSV). Like this::
+If you're a spreadsheet person, go ahead and put this into Excel (in the above format). Or, if you want to be plaintext-friendly, put it into a comma-separated format (CSV). Like this:
 
-  name,faction,power
-  Ninja,human,"Use the power of another player"
-  Pirate,human,"Steal 1 card from another player"
-  Zombie,drone,"Take a card from the discard pile"
-  Robot,drone,"Draw two cards"
+.. raw:: html
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.4/gist-embed.min.js"></script>
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="data.csv"></code>
+
+name,faction,power
+Ninja,human,"Use the power of another player"
+Pirate,human,"Steal 1 card from another player"
+Zombie,drone,"Take a card from the discard pile"
+Robot,drone,"Draw two cards"
 
 
 Initial Card Layout
