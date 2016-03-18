@@ -140,7 +140,7 @@ module Squib
         font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
-        layout.text    = para.str
+        layout.text = para.str
         if para.markup
           para.str = @deck.typographer.process(layout.text)
           layout.markup = para.str

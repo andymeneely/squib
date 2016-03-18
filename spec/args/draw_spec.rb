@@ -16,7 +16,7 @@ describe Squib::Args::Draw do
   end
 
   context 'dsl overrides' do
-    subject(:draw)      {Squib::Args::Draw.new(custom_colors, {stroke_width: 0.0})}
+    subject(:draw) {Squib::Args::Draw.new(custom_colors, {stroke_width: 0.0})}
 
     it 'works when specified' do
       draw.load!({}) # go right to defaults

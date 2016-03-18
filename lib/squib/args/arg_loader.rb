@@ -84,7 +84,7 @@ module Squib
             attribute = "@#{param}"
             val = instance_variable_get(attribute)
             if val.respond_to? :each
-              new_val =  val.map.with_index{ |v, i| send(method, v, i) }
+              new_val = val.map.with_index{ |v, i| send(method, v, i) }
               instance_variable_set(attribute, new_val)
             else
               instance_variable_set(attribute, send(method, val))

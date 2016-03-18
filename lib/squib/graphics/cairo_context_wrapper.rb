@@ -40,7 +40,7 @@ module Squib
           linear.matrix = matrix # match the coordinate systems - see bug 127
           @cairo_cxt.set_source(linear)
         elsif match = arg.match(RADIAL_GRADIENT)
-          x1, y1, r1, x2, y2, r2  = match.captures
+          x1, y1, r1, x2, y2, r2 = match.captures
           radial = Cairo::RadialPattern.new(x1.to_f, y1.to_f, r1.to_f,
                                             x2.to_f, y2.to_f, r2.to_f)
           radial.matrix = matrix # match the coordinate systems - see bug 127

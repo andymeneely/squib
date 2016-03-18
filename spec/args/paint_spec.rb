@@ -3,7 +3,7 @@ require 'squib/args/paint'
 
 describe Squib::Args::Draw do
   let(:custom_colors) { {'foo' => 'abc'} }
-  subject(:paint)      {Squib::Args::Paint.new(custom_colors)}
+  subject(:paint) {Squib::Args::Paint.new(custom_colors)}
 
   context 'alpha' do
 

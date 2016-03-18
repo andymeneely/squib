@@ -47,7 +47,7 @@ module Squib
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       svg_args = Args::SvgSpecial.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }
+      rule = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }
       rule[:draw] = Proc.new do |card, x, y|
         i = card.index
         b = box[i]

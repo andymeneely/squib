@@ -7,7 +7,7 @@ describe Squib::Args::UnitConversion do
     expect(subject.parse(20)).to eq(20)
   end
 
-  it 'strips trailing whitespace'  do
+  it 'strips trailing whitespace' do
     expect(subject.parse('1in ')).to eq(300)
   end
 

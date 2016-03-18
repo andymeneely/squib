@@ -66,7 +66,7 @@ end
 Squib::Deck.new do
   use_layout file: 'custom-layout.yml'
   use_layout file: 'custom-layout2.yml'
-  text str: 'The Title',   layout: :title     # from custom-layout.yml
-  text str: 'The Subtitle', layout: :subtitle  # redefined in custom-layout2.yml
+  text str: 'The Title',   layout: :title # from custom-layout.yml
+  text str: 'The Subtitle', layout: :subtitle # redefined in custom-layout2.yml
   save_png prefix: 'layout3_'
 end

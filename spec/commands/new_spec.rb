@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'squib'
 
-describe  Squib::Commands::New do
+describe Squib::Commands::New do
 
   describe '#process' do
     before(:all) do

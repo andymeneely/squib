@@ -60,7 +60,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1, config: 'load_images_config.
 
   # WARNING! If you choose to use the SVG ID, the x-y coordinates are still
   # relative to the SVG page. See this example in an SVG editor
-  svg file: 'offset.svg', id: 'thing',  x: 0, y: 0, width: 600, height: 600
+  svg file: 'offset.svg', id: 'thing', x: 0, y: 0, width: 600, height: 600
 
   # Over 15 different blending operators are supported.
   # See http://cairographics.org/operators

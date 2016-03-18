@@ -22,7 +22,7 @@ Squib::Deck.new(cards: num_cards) do
   background color: :white
   rect # card border
   text str: data['Name'], font: 'Arial 54'
-  save_sheet  prefix: 'sample_csv_qty_', columns: 4
+  save_sheet prefix: 'sample_csv_qty_', columns: 4
 end
 
 # Additionally, CSV supports inline data specifically

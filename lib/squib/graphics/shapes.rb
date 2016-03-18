@@ -33,7 +33,7 @@ module Squib
         cc.move_to(x, y + 0.5*h)       # start west
         cc.curve_to(x, y + 0.25*h,     # west to north
                     x + 0.25*w, y,
-                    x +  0.5*w, y)
+                    x + 0.5*w, y)
         cc.curve_to(x + 0.75*w, y,     # north to east
                     x + w, y + 0.25*h,
                     x + w, y + 0.5*h)
