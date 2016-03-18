@@ -21,4 +21,3 @@ Squib::Deck.new(cards: 8, layout: 'playing-card.yml') do
   # Tip: you can have the top card be on the left by reversing the range
   #  angle_range: (Math::PI / 4)..(Math::PI / -4)
 end
-

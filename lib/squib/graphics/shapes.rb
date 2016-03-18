@@ -132,4 +132,3 @@ module Squib
 
   end
 end
-
