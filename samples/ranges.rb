@@ -55,7 +55,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
     range = hearts.each_index.select { |i| hearts[i] == n}
     n.times do |i|
       svg file: 'glass-heart.svg', range: range,
-          x: 150, y: 55 + i*42, width: 40, height: 40
+          x: 150, y: 55 + i * 42, width: 40, height: 40
     end
   end
 

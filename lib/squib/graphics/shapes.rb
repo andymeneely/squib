@@ -30,19 +30,19 @@ module Squib
     def ellipse(box, draw)
       x, y, w, h = box.x, box.y, box.width, box.height
       use_cairo do |cc|
-        cc.move_to(x, y + 0.5*h)       # start west
-        cc.curve_to(x, y + 0.25*h,     # west to north
-                    x + 0.25*w, y,
-                    x + 0.5*w, y)
-        cc.curve_to(x + 0.75*w, y,     # north to east
-                    x + w, y + 0.25*h,
-                    x + w, y + 0.5*h)
-        cc.curve_to(x + w, y + 0.75*h, # east to south
-                    x + 0.75*w, y + h,
-                    x + 0.5*w, y + h)
-        cc.curve_to(x + 0.25*w, y + h, # south to west
-                    x, y + 0.75*h,
-                    x, y + 0.5*h)
+        cc.move_to(x, y + 0.5 * h)       # start west
+        cc.curve_to(x, y + 0.25 * h,     # west to north
+                    x + 0.25 * w, y,
+                    x + 0.5 * w, y)
+        cc.curve_to(x + 0.75 * w, y,     # north to east
+                    x + w, y + 0.25 * h,
+                    x + w, y + 0.5 * h)
+        cc.curve_to(x + w, y + 0.75 * h, # east to south
+                    x + 0.75 * w, y + h,
+                    x + 0.5 * w, y + h)
+        cc.curve_to(x + 0.25 * w, y + h, # south to west
+                    x, y + 0.75 * h,
+                    x, y + 0.5 * h)
         cc.fill_n_stroke(draw)
       end
     end

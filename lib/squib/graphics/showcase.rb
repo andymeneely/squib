@@ -12,8 +12,8 @@ module Squib
     # :nodoc:
     # @api private
     def render_showcase(range, sheet, showcase)
-      out_width = range.size * ((@width - 2*sheet.trim) * showcase.scale * showcase.offset) + 2*sheet.margin
-      out_height = showcase.reflect_offset + (1.0 + showcase.reflect_percent) * (@height - 2*sheet.trim) + 2*sheet.margin
+      out_width = range.size * ((@width - 2 * sheet.trim) * showcase.scale * showcase.offset) + 2 * sheet.margin
+      out_height = showcase.reflect_offset + (1.0 + showcase.reflect_percent) * (@height - 2 * sheet.trim) + 2 * sheet.margin
       out_cc = Cairo::Context.new(Cairo::ImageSurface.new(out_width, out_height))
       wrapper = Squib::Graphics::CairoContextWrapper.new(out_cc)
       wrapper.set_source_squibcolor(sheet.fill_color)
@@ -33,7 +33,7 @@ module Squib
     # :nodoc:
     # @api private
     def trim_rounded(src, trim, radius)
-      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width-2.0*trim, src.height-2.0*trim))
+      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width - 2.0 * trim, src.height - 2.0 * trim))
       trim_cc.rounded_rectangle(0, 0, trim_cc.target.width, trim_cc.target.height, radius, radius)
       trim_cc.set_source(src, -1 * trim, -1 * trim)
       trim_cc.clip

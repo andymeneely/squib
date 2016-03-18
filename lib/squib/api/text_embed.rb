@@ -43,7 +43,7 @@ module Squib
       range = Args::CardRange.new(opts[:range], deck_size: @deck_size)
       paint = Args::Paint.new(@custom_colors).load!(opts, expand_by: @deck_size, layout: @layout)
       box   = Args::Box.new(self, { width: :native, height: :native }).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      adjust= Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
+      adjust = Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       svg_args = Args::SvgSpecial.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
@@ -77,7 +77,7 @@ module Squib
       range = Args::CardRange.new(opts[:range], deck_size: @deck_size)
       paint = Args::Paint.new(@custom_colors).load!(opts, expand_by: @deck_size, layout: @layout)
       box   = Args::Box.new(self, { width: :native, height: :native }).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      adjust= Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
+      adjust = Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }

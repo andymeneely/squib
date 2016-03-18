@@ -105,7 +105,7 @@ module Squib
         v = vertical   ? -1.0 : 1.0
         h = horizontal ? -1.0 : 1.0
         transform Cairo::Matrix.new(v, 0.0,     0.0,
-                                    h, x*(1-v), y*(1-h))
+                                    h, x * (1 - v), y * (1 - h))
       end
 
     end

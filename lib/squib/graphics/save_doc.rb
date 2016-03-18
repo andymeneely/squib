@@ -32,10 +32,10 @@ module Squib
           bar.increment
           cc.reset_clip
           cc.translate(-x, -y)
-          x += card.width + sheet.gap - 2*sheet.trim
+          x += card.width + sheet.gap - 2 * sheet.trim
           if x > (sheet.width - card_width - sheet.margin)
             x = sheet.margin
-            y += card.height + sheet.gap - 2*sheet.trim
+            y += card.height + sheet.gap - 2 * sheet.trim
             if y > (sheet.height - card_height - sheet.margin)
               cc.show_page # next page
               x, y = sheet.margin, sheet.margin
@@ -90,9 +90,9 @@ module Squib
     # @api private
     def trim(surface, trim, width, height)
       if trim > 0
-        tmp = Cairo::ImageSurface.new(width-2*trim, height-2*trim)
+        tmp = Cairo::ImageSurface.new(width - 2 * trim, height - 2 * trim)
         cc = Cairo::Context.new(tmp)
-        cc.set_source(surface, -1*trim, -1*trim)
+        cc.set_source(surface, -1 * trim, -1 * trim)
         cc.paint
         surface = tmp
       end

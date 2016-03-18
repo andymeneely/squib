@@ -179,7 +179,7 @@ describe Squib::LayoutParser do
       .with("Processing layout: 'verbal' attempts to extend a missing 'kaisersoze'")
     layout = Squib::LayoutParser.load_layout(layout_file('extends-nonexists.yml'))
     expect(layout).to eq({
-      'verbal'  => {
+      'verbal' => {
           'font_size' => 25,
           'extends' => 'kaisersoze'
         }

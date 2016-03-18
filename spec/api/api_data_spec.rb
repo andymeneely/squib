@@ -38,14 +38,14 @@ describe Squib::Deck do
 
     it 'explodes quantities' do
       expect(Squib.csv(file: csv_file('qty.csv'))).to eq({
-        'Name'  => %w(Ha Ha Ha Ho),
+        'Name' => %w(Ha Ha Ha Ho),
         'Qty' => [3, 3, 3, 1],
         })
     end
 
     it 'explodes quantities on specified header' do
       expect(Squib.csv(explode: 'Quantity', file: csv_file('qty_named.csv'))).to eq({
-        'Name'  => %w(Ha Ha Ha Ho),
+        'Name' => %w(Ha Ha Ha Ho),
         'Quantity' => [3, 3, 3, 1],
         })
     end
@@ -65,7 +65,7 @@ describe Squib::Deck do
       expect(Squib.xlsx(file: xlsx_file('basic.xlsx'))).to eq({
         'Name'           => %w(Larry Curly Mo),
         'General Number' => %w(1 2 3), #general types always get loaded as strings with no conversion
-        'Actual Number'  =>  [4.0, 5.0, 6.0], #numbers get auto-converted to integers
+        'Actual Number' => [4.0, 5.0, 6.0], #numbers get auto-converted to integers
         })
     end
 

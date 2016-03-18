@@ -37,7 +37,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   # Extents come back as an array of hashes, which can get split out like this
   ws = extents.inject([]) { |arr, ext| arr << ext[:width] + 10; arr }
   hs = extents.inject([]) { |arr, ext| arr << ext[:height] + 10; arr }
-  rect x: 65 - margin/2, y: 550 - margin/2,
+  rect x: 65 - margin / 2, y: 550 - margin / 2,
        width: ws, height: hs,
        radius: 10, stroke_color: :black
 

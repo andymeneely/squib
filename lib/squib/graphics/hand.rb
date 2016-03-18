@@ -30,7 +30,7 @@ module Squib
         end
       end
       x, y, w, h = cxt.target.ink_extents # I love Ruby assignment ;)
-      png_cxt = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(Cairo::ImageSurface.new(w + 2*sheet.margin, h + 2*sheet.margin)))
+      png_cxt = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(Cairo::ImageSurface.new(w + 2 * sheet.margin, h + 2 * sheet.margin)))
       png_cxt.set_source_squibcolor(sheet.fill_color)
       png_cxt.paint
       png_cxt.translate(-x + sheet.margin, -y + sheet.margin)
