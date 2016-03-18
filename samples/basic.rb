@@ -1,7 +1,7 @@
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
-        'level' => [1, 2, 3]}
+data = { 'name' => ['Thief', 'Grifter', 'Mastermind'],
+        'level' => [1, 2, 3] }
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   background color: :white

@@ -3,7 +3,7 @@ require 'squib/args/box'
 
 describe Squib::Args::Box do
   subject(:box) { Squib::Args::Box.new }
-  let(:expected_defaults) { {x: [0], y: [0], width: [:deck], height: [:deck] } }
+  let(:expected_defaults) { { x: [0], y: [0], width: [:deck], height: [:deck] } }
 
   it 'intitially has no params set' do
     expect(box).not_to respond_to(:x, :y, :width, :height)
@@ -20,13 +20,13 @@ describe Squib::Args::Box do
   end
 
   it 'extracts the defaults from Box on an empty hash' do
-    box.load!({foo: :bar})
+    box.load!({ foo: :bar })
     expect(box).to have_attributes(expected_defaults)
     expect(box).not_to respond_to(:foo)
   end
 
   context 'single expansion' do
-    let(:args)    { {x: [1, 2], y: 3} }
+    let(:args)    { { x: [1, 2], y: 3 } }
     before(:each) { box.load!(args, expand_by: 2) }
     it 'expands box' do
       expect(box).to have_attributes({
@@ -81,7 +81,7 @@ describe Squib::Args::Box do
     end
 
     it 'warns on non-existent layouts' do
-      args = { layout: :heal}
+      args = { layout: :heal }
       expect(Squib.logger).to receive(:warn).with('Layout "heal" does not exist in layout file - using default instead').at_least(:once)
       box.load!(args, expand_by: 2, layout: layout)
       expect(box).to have_attributes(
@@ -94,7 +94,7 @@ describe Squib::Args::Box do
   context 'unit conversion' do
 
     it 'converts units on all args' do
-      args = {x: ['1in', '2in'], y: 300, width: '1in', height: '1in'}
+      args = { x: ['1in', '2in'], y: 300, width: '1in', height: '1in' }
       box.load!(args, expand_by: 2)
       expect(box).to have_attributes(
         x: [300, 600],
@@ -108,7 +108,7 @@ describe Squib::Args::Box do
 
   context 'validation' do
     it 'replaces with deck width and height' do
-      args = {width: :deck, height: :deck}
+      args = { width: :deck, height: :deck }
       deck = OpenStruct.new(width: 123, height: 456)
       box = Squib::Args::Box.new(deck)
       box.load!(args, expand_by: 1)
@@ -116,7 +116,7 @@ describe Squib::Args::Box do
     end
 
     it 'has radius override x_radius and y_radius' do
-      args = {x_radius: 1, y_radius: 2, radius: 3}
+      args = { x_radius: 1, y_radius: 2, radius: 3 }
       box.load!(args, expand_by: 2)
       expect(box).to have_attributes(x_radius: [3, 3], y_radius: [3, 3])
     end

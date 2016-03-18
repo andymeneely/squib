@@ -105,8 +105,8 @@ module Squib
         x    = Pango.pixels(rect.x) + search[:rule][:adjust].dx[@index]
         y    = Pango.pixels(rect.y) + search[:rule][:adjust].dy[@index]
         h    = rule[:box].height[@index]
-        draw_calls << {x: x, y: y, h: h, # defer drawing until we've valigned
-                       draw: search[:rule][:draw]}
+        draw_calls << { x: x, y: y, h: h, # defer drawing until we've valigned
+                       draw: search[:rule][:draw] }
       end
       return draw_calls
     end

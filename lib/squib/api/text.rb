@@ -11,9 +11,9 @@ module Squib
     def text(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       para  = Args::Paragraph.new(font).load!(opts, expand_by: size, layout: layout)
-      box   = Args::Box.new(self, {width: :auto, height: :auto}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self, { width: :auto, height: :auto }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      draw  = Args::Draw.new(custom_colors, {stroke_width: 0.0}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      draw  = Args::Draw.new(custom_colors, { stroke_width: 0.0 }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       embed = TextEmbed.new(size, custom_colors, layout, dpi, img_dir)
       yield(embed) if block_given? #store the opts for later use
       extents = Array.new(@cards.size)

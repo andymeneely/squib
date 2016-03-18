@@ -1,8 +1,8 @@
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
+data = { 'name' => ['Thief', 'Grifter', 'Mastermind'],
         'type' => ['Thug', 'Thinker', 'Thinker'],
-        'level' => [1, 2, 3]}
+        'level' => [1, 2, 3] }
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   # Default range is :all

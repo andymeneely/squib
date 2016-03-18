@@ -27,7 +27,7 @@ module Squib
     def ellipse(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      box   = Args::Box.new(self, {width: '0.25in', height: '0.25in'}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      box   = Args::Box.new(self, { width: '0.25in', height: '0.25in' }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       range.each { |i| @cards[i].ellipse(box[i], draw[i]) }
     end
 

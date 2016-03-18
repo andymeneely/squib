@@ -1,8 +1,8 @@
 # encoding: UTF-8
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
-        'level' => [1, 2, 3]}
+data = { 'name' => ['Thief', 'Grifter', 'Mastermind'],
+        'level' => [1, 2, 3] }
 longtext = "This is left-justified text, with newlines.\nWhat do you know about tweetle beetles? well... When tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle."
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
