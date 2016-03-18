@@ -30,18 +30,16 @@ Our Idea: Familiar Fights
 -------------------------
 Let's start with an idea for a game: Familiar Fights. Let's say we want to have players fight each other based on collecting cards that represent their familiars, each with different abilities. We'll have two factions: drones and humans. Each card will have some artwork in it, and some text describing their powers.
 
-First thing: the title. It stnks, I know. It's gonna change. So instead of naming the directory after our game and getting married to our bad idea, let's give our game a code name. I like to use animal names, so let's go with Arctic Lemming::
+First thing: the title. It stinks, I know. It's gonna change. So instead of naming the directory after our game and getting married to our bad idea, let's give our game a code name. I like to use animal names, so let's go with Arctic Lemming::
 
   $ squib new arctic-lemming
   $ cd arctic-lemming
   $ ls
   ABOUT.md	Gemfile		PNP NOTES.md	Rakefile	_output		config.yml	deck.rb		layout.yml
 
-Go ahead and put "Familiar Fights" in the IDEAS.md file. [Why all the .md files?](Why Markdown)
+Go ahead and put "Familiar Fights" as an idea for a title in the ``IDEAS.md`` file.
 
-If you're using Git or other version control, now's a good time to commit. See [Squib+Git](Squib + Git).
-
-If you want to know what all of those files we just created are, check out [[squib new explained]].
+If you're using Git or other version control, now's a good time to commit. See :doc:`/guides/git`.
 
 Data or Layout?
 ---------------
@@ -92,6 +90,14 @@ Let's dissect this:
   * Line 6: Put some text in upper-left the corner of the card.
   * Line 7: Save our card out to a png file called ``card_00.png``. Ordinarily, this will be saved to ``_output/card_00.png``, but in our examples we'll be saving to the current directory (because this documentation has its examples as GitHub gists and gists don't have folders - I do not recommend having ``dir: '.'`` in your code)
 
+By the way, this is what's created:
+
+.. raw:: html
+
+  <code data-gist-id="d2bb2eb028b27cf1dace"
+        data-gist-file="01_hello_rb00.png"
+        class=code_img></code>
+
 Now let's incrementally convert the above snippet into just one of our cards. Let's just focus on one card for now. Later we'll hook it up to our CSV and apply that to all of our cards.
 
 You may have seen in some examples that we can just put in x-y coordinates into our DSL method calls (e.g. ``text x: 0, y: 100``). That's great for customizing our work later, but we want to get this to the table quickly. Instead, let's make use of Squib's feature (see :doc:`/layouts`).
@@ -102,117 +108,101 @@ Layouts are a way of specifying some of your arguments in one place - a layout f
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.4/gist-embed.min.js"></script>
-  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="02_onecard.rb"></code>
+  <code data-gist-id="d2bb2eb028b27cf1dace"
+        data-gist-file="02_onecard.rb"></code>
+  <code data-gist-id="d2bb2eb028b27cf1dace"
+        data-gist-file="02_onecard_rb.png"
+        class=code_img
+        ></code>
 
 
 There are a few key decisions I've made here:
 
   * **Black-and-white**. We're now only using black or white so that we can be printer-friendly.
-  * **Safe and Cut**. We added two rectangles for guides based on the poker card template from `TheGameCrafter.com <http://www.thegamecrafter.com>`_. This is important to do now and not later. In most print-on-demand templates, we have a 1/8-inch border that is larger than what is to be used, and will be cut down (called a *bleed*). Rather than have to change all our coordinates later, let's build that right into our prototype. Squib can trim around these bleeds for things like :doc:`/dsl/showcase`, :doc:`/dsl/hand`, :doc:`/dsl/save_sheet`, :doc:`/dsl/save_png`, and :doc:`/dsl/save_pdf`.
+  * **Safe and Cut**. We added two rectangles for guides based on the poker card template from `TheGameCrafter.com <http://www.thegamecrafter.com>`_. This is important to do now and not later. In most print-on-demand templates, we have a 1/8-inch border that is larger than what is to be used, and will be cut down (called a *bleed*). Rather than have to change all our coordinates later, let's build that right into our prototype. Squib can trim around these bleeds for things like :doc:`/dsl/showcase`, :doc:`/dsl/hand`, :doc:`/dsl/save_sheet`, :doc:`/dsl/save_png`, and :doc:`/dsl/save_pdf`. See :doc:`/bleed`.
   * **Title**. We added a title based on our data.
-  * **layout: 'foo'**. Each command references a "layout" rule. These can be seen in our layout file, which is a built-in layout called `economy.yml` (see [ours on GitHub](https://github.com/andymeneely/squib/blob/master/lib/squib/layouts/economy.yml)). Later on, we can define our own layout rules in our own file, but for now we just want to get our work done as fast as possible and make use of the stock layout.
+  * **layout: 'foo'**. Each command references a "layout" rule. These can be seen in our layout file, which is a built-in layout called ``economy.yml`` (see `ours on GitHub <https://github.com/andymeneely/squib/blob/master/lib/squib/layouts/economy.yml>`_ ). Later on, we can define our own layout rules in our own file, but for now we just want to get our work done as fast as possible and make use of the stock layout. See :doc:`/layouts`.
 
 Multiple Cards
------------------------------
-Ok now we've got a basic card. But we only have one. The real power of Squib is the ability to customize things *per card*. So if we, say, want to have two different titles on two different cards, our `text` call will look like this:
+--------------
+Ok now we've got a basic card. But we only have one. The real power of Squib is the ability to customize things *per card*. So if we, say, want to have two different titles on two different cards, our `text` call will look like this::
 
-```ruby
-text str: ['Zombie', 'Robot'], layout: 'title'
-```
+  text str: ['Zombie', 'Robot'], layout: 'title'
+
 When Squib gets this, it will:
-  * See that the `str:` option has an array, and put `'Zombie'` on the first card and `'Robot'` on the second.
-  * See that the `layout:` option is NOT an array - so it will use the same one for every card.
 
-So technically, these two lines are equivalent:
+  * See that the ``str:`` option has an array, and put ``'Zombie'`` on the first card and ``'Robot'`` on the second.
+  * See that the ``layout:`` option is NOT an array - so it will use the same one for every card.
 
-```ruby
-text str: ['Zombie', 'Robot'], layout: 'title'
-text str: ['Zombie', 'Robot'], layout: ['title','title']
-```
+So technically, these two lines are equivalent::
+
+  text str: ['Zombie', 'Robot'], layout: 'title'
+  text str: ['Zombie', 'Robot'], layout: ['title','title']
 
 Ok back to the game. We COULD just put our data into literal arrays. But that's considered bad programming practice (called *hardcoding*, where you put data  directly into your code). Instead, let's make use of our CSV data file.
 
-What the `csv` command does here is read in our file and create a hash of arrays. Each array is a column in the table, and the header to the colum is the key to the hash. To see this in action, check it out on Ruby's interactive shell (`irb`):
+What the ``csv`` command does here is read in our file and create a hash of arrays. Each array is a column in the table, and the header to the colum is the key to the hash. To see this in action, check it out on Ruby's interactive shell (``irb``)::
 
-```sh
-$ irb
-2.1.2 :001 > require 'squib'
- => true
-2.1.2 :002 > Squib.csv file: 'data.csv'
- => {"name"=>["Ninja", "Pirate", "Zombie", "Robot"], "class"=>["human", "human", "drone", "drone"], "power"=>["Use the power of another player", "Steal 1 card from another player", "Take a card from the discard pile", "Draw two cards"]}
-```
+  $ irb
+  2.1.2 :001 > require 'squib'
+   => true
+  2.1.2 :002 > Squib.csv file: 'data.csv'
+   => {"name"=>["Ninja", "Pirate", "Zombie", "Robot"], "class"=>["human", "human", "drone", "drone"], "power"=>["Use the power of another player", "Steal 1 card from another player", "Take a card from the discard pile", "Draw two cards"]}
 
-So, we COULD do this:
+So, we COULD do this::
 
-```ruby
-require 'squib'
+  require 'squib'
 
-Squib::Deck.new cards: 4, layout: 'economy.yml' do
-  data = csv file: 'data.csv'
-  #rest of our code
-end
-```
+  Squib::Deck.new cards: 4, layout: 'economy.yml' do
+    data = csv file: 'data.csv'
+    #rest of our code
+  end
 
-**BUT!** What if we change the number of total cards in the deck? We won't always have 4 cards (i.e. the number 4 is hardcoded). Instead, let's read in the data outside of our `Squib::Deck.new` and then create the deck size based on that:
+**BUT!** What if we change the number of total cards in the deck? We won't always have 4 cards (i.e. the number 4 is hardcoded). Instead, let's read in the data outside of our ``Squib::Deck.new`` and then create the deck size based on that::
 
-```ruby
-require 'squib'
+  require 'squib'
 
-data = Squib.csv file: 'data.csv'
+  data = Squib.csv file: 'data.csv'
 
-Squib::Deck.new cards: data['name'].size, layout: 'economy.yml' do
-  #rest of our code
-end
-```
+  Squib::Deck.new cards: data['name'].size, layout: 'economy.yml' do
+    #rest of our code
+  end
 
 So now we've got our data, let's replace all of our other hardcoded data from before with their corresponding arrays:
 
-```ruby
-require 'squib'
+.. raw:: html
 
-data = Squib.csv file: 'data.csv'
-
-Squib::Deck.new cards: data['name'].size, layout: 'economy.yml' do
-  background color: 'white'
-  rect layout: 'cut' # cut line as defined by TheGameCrafter
-  rect layout: 'safe' # safe zone as defined by TheGameCrafter
-  text str: data['name'], layout: 'title'
-  text str: data['power'], layout: 'description'
-  save_png
-end
-```
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="03_csv.rb"></code>
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="03_csv_rb00.png"
+        class=code_img ></code>
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="03_csv_rb01.png"
+        class=code_img ></code>
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="03_csv_rb02.png"
+        class=code_img ></code>
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="03_csv_rb03.png"
+        class=code_img ></code>
 
 Awesome! Now we've got our all of our cards prototyped out. Let's add two more calls before we bring this to the table:
-  * `save_pdf` that stitches our images out to pdf
+
+  * ``save_pdf`` that stitches our images out to pdf
   * A version number, based on today's date
 
-```ruby
-require 'squib'
+.. raw:: html
 
-data = Squib.csv file: 'data.csv'
+  <code data-gist-id="d2bb2eb028b27cf1dace" data-gist-file="04_save_pdf.rb">
+  </code>
 
-Squib::Deck.new cards: data['name'].size, layout: 'economy.yml' do
-  background color: 'white'
-  rect layout: 'cut' # cut line as defined by TheGameCrafter
-  rect layout: 'safe' # safe zone as defined by TheGameCrafter
-  text str: data['name'], layout: 'title'
-  text str: data['power'], layout: 'description'
-  text str: Time.now, layout: 'credits'
-  save_png
-  save_pdf trim: 37.5
-end
-```
-
-The file `_output/output.pdf` gets created now. Note that we *don't* want to print out the bleed area, as that is for the printing process, so we add a 1/8-inch trim (Squib defaults to 300ppi, so 300/8=37.5). The `save_pdf` defaults to 8.5x11 piece of landscape paper, and arranges the cards in rows - ready for you to print out and play!
+The file ``_output/output.pdf`` gets created now. Note that we *don't* want to print out the bleed area, as that is for the printing process, so we add a 1/8-inch trim (Squib defaults to 300ppi, so 300/8=37.5). The ``save_pdf`` defaults to 8.5x11 piece of landscape paper, and arranges the cards in rows - ready for you to print out and play!
 
 If you're working with version control, I recommend committing multiple times throughout this process. At this stage, I recommend creating a tag when you are ready to print something out so you know what version precisely you printed out.
 
 To the table!
------------------------------
+-------------
 
 Squib's job is done, for at least this prototype anyway. Now let's print this sheet out and make some cards!
 
 My recommended approach is to get the following:
+
   * A pack of standard sized sleeves, 2.5"x3.5"
   * Some cardstock to give the cards some spring
   * A paper trimmer, rotary cutter, knife+steel ruler - some way to cut your cards quickly.

@@ -6,3 +6,4 @@ Learning Squib
 
    guides/hello_world
    guides/getting-started/index
+   guides/git

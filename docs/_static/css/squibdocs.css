@@ -8,3 +8,11 @@
 code.literal span.pre{
   color: black;
 }
+
+code.code_img{
+  width: 50%;
+}
+
+code.code_img_small{
+  width: 33%;
+}
