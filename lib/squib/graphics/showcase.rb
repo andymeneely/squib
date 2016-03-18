@@ -52,9 +52,9 @@ module Squib
       tmp_cc.transform(matrix) # flips the coordinate system
       top_y    = src.height    # top of the reflection
       bottom_y = src.height * (1.0 - rpercent) + roffset # bottom of the reflection
-      gradient = Cairo::LinearPattern.new(0,top_y, 0,bottom_y)
-      gradient.add_color_stop_rgba(0.0, 0,0,0, rstrength) # start a little reflected
-      gradient.add_color_stop_rgba(1.0, 0,0,0, 0.0)       # fade to nothing
+      gradient = Cairo::LinearPattern.new(0, top_y, 0, bottom_y)
+      gradient.add_color_stop_rgba(0.0, 0, 0, 0, rstrength) # start a little reflected
+      gradient.add_color_stop_rgba(1.0, 0, 0, 0, 0.0)       # fade to nothing
       tmp_cc.set_source(src, 0, 0)
       tmp_cc.mask(gradient)
       return tmp_cc.target
@@ -74,7 +74,7 @@ module Squib
         dest_cxt.translate 0, src.height / 2.0 * (1.0 - factor)
         dest_cxt.scale factor * scale, factor
         dest_cxt.set_source src, 0, 0
-        dest_cxt.rounded_rectangle i, 0, out_thickness, src.height, 0,0
+        dest_cxt.rounded_rectangle i, 0, out_thickness, src.height, 0, 0
         dest_cxt.fill
         dest_cxt.restore
       end

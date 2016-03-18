@@ -87,7 +87,7 @@ module Squib
               new_val =  val.map.with_index{ |v, i| send(method, v, i) }
               instance_variable_set(attribute, new_val)
             else
-              instance_variable_set(attribute,send(method, val))
+              instance_variable_set(attribute, send(method, val))
             end
           end
         end

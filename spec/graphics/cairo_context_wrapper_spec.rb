@@ -32,7 +32,7 @@ describe Squib::Graphics::CairoContextWrapper do
       before(:each) do
         dbl = double(Cairo::LinearPattern)
         mtx = double(Cairo::Matrix)
-        expect(Cairo::LinearPattern).to receive(:new).with(1,2,3,4).and_return(dbl)
+        expect(Cairo::LinearPattern).to receive(:new).with(1, 2, 3, 4).and_return(dbl)
         expect(dbl).to   receive(:add_color_stop).with(0.0, 'blue')
         expect(dbl).to   receive(:add_color_stop).with(1.0, 'red')
         expect(cairo).to receive(:matrix).and_return(mtx)
@@ -50,7 +50,7 @@ describe Squib::Graphics::CairoContextWrapper do
       before(:each) do
         dbl = double(Cairo::RadialPattern)
         mtx = double(Cairo::Matrix)
-        expect(Cairo::RadialPattern).to receive(:new).with(1,2,5,3,4,6).and_return(dbl)
+        expect(Cairo::RadialPattern).to receive(:new).with(1, 2, 5, 3, 4, 6).and_return(dbl)
         expect(dbl).to   receive(:add_color_stop).with(0.0, 'blue')
         expect(dbl).to   receive(:add_color_stop).with(1.0, 'red')
         expect(cairo).to receive(:matrix).and_return(mtx)
@@ -68,7 +68,7 @@ describe Squib::Graphics::CairoContextWrapper do
       it 'on radial patterns' do
         dbl = double(Cairo::RadialPattern)
         mtx = double(Cairo::Matrix)
-        expect(Cairo::RadialPattern).to receive(:new).with(1,2,5,3,4,6).and_return(dbl)
+        expect(Cairo::RadialPattern).to receive(:new).with(1, 2, 5, 3, 4, 6).and_return(dbl)
         expect(dbl).to   receive(:add_color_stop).with(0.0, '#def')
         expect(dbl).to   receive(:add_color_stop).with(1.0, '#112233')
         expect(cairo).to receive(:matrix).and_return(mtx)
@@ -80,7 +80,7 @@ describe Squib::Graphics::CairoContextWrapper do
       it 'on linear patterns' do
         dbl = double(Cairo::LinearPattern)
         mtx = double(Cairo::Matrix)
-        expect(Cairo::LinearPattern).to receive(:new).with(1,2,3,4).and_return(dbl)
+        expect(Cairo::LinearPattern).to receive(:new).with(1, 2, 3, 4).and_return(dbl)
         expect(dbl).to   receive(:add_color_stop).with(0.0, '#def')
         expect(dbl).to   receive(:add_color_stop).with(1.0, '#112233')
         expect(cairo).to receive(:matrix).and_return(mtx)

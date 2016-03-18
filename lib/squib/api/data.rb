@@ -13,13 +13,13 @@ module Squib
     s.default_sheet = s.sheets[input.sheet[0]]
     data = {}
     s.first_column.upto(s.last_column) do |col|
-      header = s.cell(s.first_row,col).to_s
+      header = s.cell(s.first_row, col).to_s
       header.strip! if import.strip?
       data[header] = []
       (s.first_row + 1).upto(s.last_row) do |row|
-        cell = s.cell(row,col)
+        cell = s.cell(row, col)
         # Roo hack for avoiding unnecessary .0's on whole integers (https://github.com/roo-rb/roo/issues/139)
-        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, 'General']
+        cell = s.excelx_value(row, col) if s.excelx_type(row, col) == [:numeric_or_formula, 'General']
         cell.strip! if cell.respond_to?(:strip) && import.strip?
         cell = yield(header, cell) if block_given?
         data[header] << cell

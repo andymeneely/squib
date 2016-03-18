@@ -22,7 +22,7 @@ end
 Squib::Deck.new(width: 3000, height: 1500) do
   colors = (Cairo::Color.constants - %i(HEX_RE Base RGB CMYK HSV X11))
   colors.sort_by! {|c| Cairo::Color.parse(c).to_s}
-  x,y,w,h = 0,0,300,50
+  x, y, w, h = 0, 0, 300, 50
   colors.each_with_index do |color, i|
     rect x: x, y: y, width: w, height: h, fill_color: color
     text str: color.to_s, x: x + 5, y: y+13, font: 'Sans Bold 16',

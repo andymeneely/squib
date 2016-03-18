@@ -13,7 +13,7 @@ module Squib
       @progress_bar.start("Saving PDF to #{file}", range.size) do |bar|
         range.each do |i|
           card = @cards[i]
-          cc.translate(x,y)
+          cc.translate(x, y)
           cc.rectangle(sheet.trim, sheet.trim, card_width, card_height)
           cc.clip
           case card.backend.downcase.to_sym
@@ -23,7 +23,7 @@ module Squib
           when :svg
             card.cairo_surface.finish
             cc.save
-            cc.scale(0.8,0.8) # I really don't know why I needed to do this at all. But 0.8 is the magic number to get this to scale right
+            cc.scale(0.8, 0.8) # I really don't know why I needed to do this at all. But 0.8 is the magic number to get this to scale right
             cc.render_rsvg_handle(RSVG::Handle.new_from_file(card.svgfile), nil)
             cc.restore
           else
@@ -31,14 +31,14 @@ module Squib
           end
           bar.increment
           cc.reset_clip
-          cc.translate(-x,-y)
+          cc.translate(-x, -y)
           x += card.width + sheet.gap - 2*sheet.trim
           if x > (sheet.width - card_width - sheet.margin)
             x = sheet.margin
             y += card.height + sheet.gap - 2*sheet.trim
             if y > (sheet.height - card_height - sheet.margin)
               cc.show_page # next page
-              x,y = sheet.margin,sheet.margin
+              x, y = sheet.margin, sheet.margin
             end
           end
         end
@@ -92,7 +92,7 @@ module Squib
       if trim > 0
         tmp = Cairo::ImageSurface.new(width-2*trim, height-2*trim)
         cc = Cairo::Context.new(tmp)
-        cc.set_source(surface,-1*trim, -1*trim)
+        cc.set_source(surface, -1*trim, -1*trim)
         cc.paint
         surface = tmp
       end

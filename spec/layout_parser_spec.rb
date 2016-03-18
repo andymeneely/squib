@@ -81,7 +81,7 @@ describe Squib::LayoutParser do
             'b' => 106,
             },
           'child' => {
-            'extends' => ['uncle','aunt'],
+            'extends' => ['uncle', 'aunt'],
             'a' => 107, # my own
             'b' => 102, # from the younger aunt
             'c' => 103, # from aunt

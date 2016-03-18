@@ -13,7 +13,7 @@ describe Squib::Deck, '#save_pdf' do
       expect(cxt).to receive(:set_source)  # place the card
                       .with(instance_of(Cairo::ImageSurface), 0, 0).once
       expect(cxt).to receive(:paint).once  # paint placed card
-      expect(cxt).to receive(:translate).with(-x,-y).once
+      expect(cxt).to receive(:translate).with(-x, -y).once
       expect(cxt).to receive(:reset_clip).once
     end
 

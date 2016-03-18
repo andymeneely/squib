@@ -43,9 +43,9 @@ module Squib
       parent_keys.each do |parent_key|
         from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
           if child_val.to_s.strip.start_with?('+=')
-            parent_val + child_val.sub('+=','').strip.to_f
+            parent_val + child_val.sub('+=', '').strip.to_f
           elsif child_val.to_s.strip.start_with?('-=')
-            parent_val - child_val.sub('-=','').strip.to_f
+            parent_val - child_val.sub('-=', '').strip.to_f
           else
             child_val #child overrides parent when merging, no +=
           end

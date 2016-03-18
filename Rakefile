@@ -10,7 +10,7 @@ task default: [:install, :spec]
 # Useful for hooking up with SublimeText.
 # e.g. rake sample[basic.rb]
 desc 'Run a specific sample'
-task :run,[:file] => :install do |t, args|
+task :run, [:file] => :install do |t, args|
   args.with_defaults(file: 'basic.rb')
   Dir.chdir('samples') do
     args[:file]  << ".rb" unless args[:file].end_with? '.rb'
