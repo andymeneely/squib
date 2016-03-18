@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'squib'
 require 'pp'
 
-describe "Squib samples" do
+describe 'Squib samples' do
   
   around(:each) do |example|
     Dir.chdir(samples_dir) do

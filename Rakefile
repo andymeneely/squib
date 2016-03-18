@@ -13,7 +13,7 @@ desc 'Run a specific sample'
 task :run, [:file] => :install do |t, args|
   args.with_defaults(file: 'basic.rb')
   Dir.chdir('samples') do
-    args[:file] << ".rb" unless args[:file].end_with? '.rb'
+    args[:file] << '.rb' unless args[:file].end_with? '.rb'
     puts "Running samples/#{args[:file]}"
     load args[:file]
   end
@@ -23,7 +23,7 @@ end
 RSpec::Core::RakeTask.new(:spec)
 
 RSpec::Core::RakeTask.new(:spec_fastonly) do |t|
-  t.rspec_opts = "--tag ~slow"
+  t.rspec_opts = '--tag ~slow'
 end
 
 desc 'Run some performance benchmarks'

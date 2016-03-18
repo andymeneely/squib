@@ -14,14 +14,14 @@ class Sanity
 
   def images
     images   = []
-    exp_pngs = Dir[@@EXPECTED_DIR + "/**/*.png"]
+    exp_pngs = Dir[@@EXPECTED_DIR + '/**/*.png']
     bar      = ProgressBar.create(title: 'Diffing images', total: exp_pngs.size)
     exp_pngs.each do |exp_png|
       row = []
       actual_png = @@OUTPUT_DIR + File.basename(exp_png)
-      row << "file:///" + exp_png
-      row << "file:///" + actual_png # actual
-      row << "file:///" + diff_image(exp_png, actual_png)
+      row << 'file:///' + exp_png
+      row << 'file:///' + actual_png # actual
+      row << 'file:///' + diff_image(exp_png, actual_png)
       images << row
       bar.increment
     end
@@ -30,11 +30,11 @@ class Sanity
   end
 
   def run
-    puts "Building sanity test..."
+    puts 'Building sanity test...'
     sanity_template = File.read(@@SANITY_ERB)
     process_erb(sanity_template)
-    Launchy.open("file:///" + @@SANITY_HTML)
-    puts "Done."
+    Launchy.open('file:///' + @@SANITY_HTML)
+    puts 'Done.'
   end
 
   private
@@ -51,7 +51,7 @@ class Sanity
       end
     end
     out = Cairo::ImageSurface.new(new_data.pack('c*'), exp.format, exp.width, exp.height, exp.stride)
-    out_file = @@DIFF_DIR + exp_file[exp_file.rindex("/")..-1]
+    out_file = @@DIFF_DIR + exp_file[exp_file.rindex('/')..-1]
     out.write_to_png(out_file)
     out_file
   end

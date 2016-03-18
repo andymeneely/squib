@@ -167,10 +167,10 @@ module Squib
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
-          puts "====EXCEPTION!===="
+          puts '====EXCEPTION!===='
           puts e
-          puts "If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55"
-          puts "=================="
+          puts 'If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55'
+          puts '=================='
           raise e
         end
         draw_text_hint(cc, box.x, box.y, layout, para.hint)

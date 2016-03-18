@@ -2,7 +2,7 @@ require 'squib'
 
 Squib::Deck.new(cards: 200, config: 'backend-svg.yml') do
   background color: :white
-  text       str: "Hello, world!", y: 500, width: 825, font: 'Sans bold 72', align: :center
+  text       str: 'Hello, world!', y: 500, width: 825, font: 'Sans bold 72', align: :center
   rect       x: 10, y: 10, width: 20, height: 20
   circle     x: 40, y: 40, radius: 25
   triangle   x1: 50, y1: 15, x2: 60, y2: 25, x3: 75, y3: 25

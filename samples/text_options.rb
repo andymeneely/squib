@@ -79,15 +79,15 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
   end
 
-  text str: "Fill n <span fgcolor=\"\#ff0000\">stroke</span>",
+  text str: 'Fill n <span fgcolor="#ff0000">stroke</span>',
        color: :green, stroke_width: 2.0, stroke_color: :blue,
        x: '1.8in', y: '2.9in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
-  text str: "Stroke n <span fgcolor=\"\#ff0000\">fill</span>",
+  text str: 'Stroke n <span fgcolor="#ff0000">fill</span>',
        color: :green, stroke_width: 2.0, stroke_color: :blue, stroke_strategy: :stroke_first,
        x: '1.8in', y: '3.0in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
-  text str: "Dotted",
+  text str: 'Dotted',
        color: :white, stroke_width: 2.0, dash: '4 2', stroke_color: :black,
        x: '1.8in', y: '3.1in', width: '0.85in', font: 'Sans Bold 26', markup: true
   #
