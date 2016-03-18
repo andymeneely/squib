@@ -1,7 +1,10 @@
 @import url("theme.css");
 
 /* Can add custom styling here */
-
 .attribution{
   text-align: right;
+}
+
+code.literal span.pre{
+  color: black;
 }
