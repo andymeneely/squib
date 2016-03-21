@@ -15,7 +15,7 @@ module Squib
     # DSL method. See http://squib.readthedocs.org
     def build grp = :all, &block
       raise 'Please provide a block' unless block_given?
-      block.yield if groups.include? grp
+      block.yield if build_groups.include? grp
     end
 
     # DSL method. See http://squib.readthedocs.org
