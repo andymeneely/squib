@@ -3,13 +3,7 @@ The Squib Way pt 2: Iconography
 
 .. warning::
 
-  This chapter is still being written - sorry that it ends suddenly and lacks examples.
-
-*Under construction*
-  * One icon per place
-  * One place, multiple icons
-  * Places for icons
-  * Working with GameIcons.net
+  This chapter is still being written
 
 In the previous guide, we walked you through the basics of going from ideas in your head to a very simple set of cards ready for playtesting at the table. In this guide we take the next step: creating a visual language.
 
@@ -55,8 +49,9 @@ Squib is good for supporting any kind of layout you can think of, but it's also 
   * :doc:`/dsl/svg` method, and all of its features like scaling, ID-specific rendering, direct XML manipulation, and all that the SVG file format has to offer
   * :doc:`/dsl/png` method, and all of its features like blending operators, alpha transparency, and masking
   * Layout files allow multiple icons for one data column (see :doc:`/layouts`)
-  * Layout files also have the `extends` feature that allows icons to inherit details from each other
+  * Layout files also have the ``extends`` feature that allows icons to inherit details from each other
   * The ``range`` option on :doc:`/dsl/text`, :doc:`/dsl/svg`, and :doc:`/dsl/png` allows you to specify text and icons for any subset of your files
+  * The :doc:`/dsl/text` method allows for embedded icons.
   * Ruby provides neat ways of aggregating data with ``inject``, ``map``, and ``zip`` that supports iconography
 
 Back to the Example: Drones vs. Humans
@@ -78,7 +73,9 @@ When we were brainstorming our game, we placed one category of icons in a single
   svg range: 0..1, file 'auto_repair.svg'
   svg range: 2..3, file 'backup.svg'
 
-That's too much hardcoding of data into our Ruby code. That's what layouts are for. Now, we've already specified a layout file in our prior example. Fortunately, Squib supports *multiple* layout files, which get combined into a single set of layout styles. So let's do that: we create our own layout file that defines what a ``human`` is and what a ``drone`` is. Then just tell ``svg`` to use the layout data. The data column is simply an array of factions, the icon call is just connecting the factions to their styles with ``svg layout: data['faction']``.
+That's too much hardcoding of data into our Ruby code. That's what layouts are for. Now, we've already specified a layout file in our prior example. Fortunately, Squib supports *multiple* layout files, which get combined into a single set of layout styles. So let's do that: we create our own layout file that defines what a ``human`` is and what a ``drone`` is. Then just tell ``svg`` to use the layout data. The data column is simply an array of factions, the icon call is just connecting the factions to their styles with::
+
+  svg layout: data['faction']
 
 So, putting it all together, our code looks like this.
 
@@ -96,8 +93,6 @@ So, putting it all together, our code looks like this.
   <code data-gist-id="d2bb2eb028b27cf1dace"
         data-gist-file="_part2_01_factions_00.png"></code>
 
-Looks great! Code is in Ruby, styles are in YML, and data is in CSV. Everything is where it should be.
-
 **BUT!** There's a very important software design principle we're violating here. It's called DRY: Don't Repeat Yourself. In making the above layout file, I hit copy and paste. What happens later when we change our mind and want to move the faction icon!?!? We have to change TWO numbers. Blech.
 
 There's a better way: ``extends``
@@ -111,10 +106,46 @@ The layout files in Squib also support a special keyword, ``extends``, that allo
 
 Much better!
 
-Now, when we want to add a new faction - we don't have to copy-pasta any code! We just extend from faction and call in our new file. Suppose we add a new faction that needs a bigger icon - we can define our own ``width`` and ``height`` beneath the ``extends`` that will override the parent values of 75.
+Now if we want to add a new faction, we don't have to copy-pasta any code! We just extend from faction and call in our new SVG file. Suppose we add a new faction that needs a bigger icon - we can define our own ``width`` and ``height`` beneath the ``extends`` that will override the parent values of 75.
+
+Looks great! Now let's get these cards out to the playtesting table!
+
+At this point, we've got a very scalable design for our future iterations. Let's take side-trip and discuss why this design works.
+
+Why Ruby+YAML+Spreadsheets Works
+--------------------------------
+
+In software design, a "good" design is one where the problem is broken down into a set of easier duties that each make sense on their own, where the interaction between duties is easy, and where to place new responsbilities is obvious.
+
+In Squib, we're using automation to assist the prototyping process. This means that we're going to have a bunch of decisions and responsibilities, such as:
+
+  * *Game data decisions*. How many of this card should be in the deck? What should this card be called? What should the cost of this card be?
+  * *Style Decisions*. Where should this icon be? How big should the font be? What color should we use?
+  * *Logic Decisions*. Can we build this to a PDF, too? How do we save this in black-and-white? Can we include a time stamp on each card? Can we just save one card this time so we can test quickly?
+
+With the Ruby+YAML+Spreadsheets design, we've separated these three kinds of questions into three areas:
+
+  * Game data is in a spreadsheet
+  * Styles are in YAML layout files
+  * Code is in Ruby
+
+When you work with this design, you'll probably find yourself spending a lot of time working on one of these files for a long time. That means this design is working.
+
+For example, you might be adjusting the exact location of an image by editing your layout file and re-running your code over and over again to make sure you get the exact x-y coordinates right. That's fine. You're not making game data decisions in that moment, so you shouldn't be presented with any of that stuff. This eases the cognitive complexity of what you're doing.
+
+The best way to preserve this design is to try to keep the Ruby code clean. As wonderful as Ruby is, it's the hardest of the three to edit. It is code, after all. So don't clutter it up with game data or style data - let it be the glue between your styles and your game.
+
+Ok, let's get back to this prototype.
 
 Icons for Some, But Not All, Cards
 ----------------------------------
+
+.. note::
+
+  to be written
+
+One Column per Icon
+-------------------
 
 .. note::
 
