@@ -110,6 +110,7 @@ module Squib
     require_relative 'api/shapes'
     require_relative 'api/text'
     require_relative 'api/units'
+    require_relative 'api/util'
 
   end
 end
