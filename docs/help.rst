@@ -1,16 +1,20 @@
 Get Help and Give Help
 ======================
 
+.. raw:: html
+
+  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png"></a>
+
 Get Help
 --------
 
-Squib is powerful and customizablem, which means it can get complicated pretty quickly. Don't settle for being stuck.
+Squib is powerful and customizable, which means it can get complicated pretty quickly. Don't settle for being stuck.
 
 Here's an ordered list of how to find help:
 
 1. Go through this documentation
-2. Go through `the wiki <https://github.com/andymeneely/squib/wiki`_
-3. Go through `the samples https://github.com/andymeneely/squib/tree/master/samples>`_
+2. Go through `the wiki <https://github.com/andymeneely/squib/wiki>`_
+3. Go through `the samples <https://github.com/andymeneely/squib/tree/master/samples>`_
 4. Google it - people have asked lots of questions about Squib already in many forums.
 5. Ask on Stackoverflow `using the tags "ruby" and "squib" <http://stackoverflow.com/questions/ask?tags=ruby squib>`_. You will get answers quickly from Ruby programmers it's and a great way for us to archive questions for future Squibbers.
 6. Our `thread on BoardGameGeek <http://boardgamegeek.com/thread/1293453>`_ is quite active and informal (if a bit unstructured).
