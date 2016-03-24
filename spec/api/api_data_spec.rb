@@ -67,6 +67,15 @@ describe Squib::Deck do
       })
     end
 
+    it 'loads custom CSV options' do
+      hash = Squib.csv(file: csv_file('custom_opts.csv'),
+                       col_sep: '-', quote_char: '|')
+      expect(hash).to eq({
+        'x' => ['p'],
+        'y' => ['q-r']
+        })
+    end
+
   end
 
   context '#xlsx' do

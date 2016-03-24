@@ -2,6 +2,7 @@ require 'roo'
 require 'csv'
 require_relative '../args/input_file'
 require_relative '../args/import'
+require_relative '../args/csv_opts'
 
 module Squib
 
@@ -34,8 +35,8 @@ module Squib
     import = Args::Import.new.load!(opts)
     file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
     data = opts.key?(:data) ? opts[:data] : File.read(file)
-    sep = opts.key?(:sep) ? opts[:sep] : ','
-    table = CSV.parse(data, headers: true, converters: :numeric, col_sep: sep)
+    csv_opts = Args::CSV_Opts.new(opts)
+    table = CSV.parse(data, csv_opts.to_hash)
     check_duplicate_csv_headers(table)
     hash = Hash.new
     table.headers.each do |header|
