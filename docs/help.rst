@@ -47,10 +47,12 @@ Squib is a small operation. And programming is hard. So we need testers! In part
 
 Want to join the mailing list and get notifications? https://groups.google.com/forum/#!forum/squib-testers
 
-The preferred way of doing getting Squib directly from my GitHub repository. Bundler makes this easy.
+There's no time commitment expectation associated with signing up. Any help you can give is appreciated!
 
 Beta: Using Pre-Builds
 ^^^^^^^^^^^^^^^^^^^^^^
+
+The preferred way of doing getting Squib directly from my GitHub repository. Bundler makes this easy.
 
 If you are just starting out you'll need to install bundler::
 
