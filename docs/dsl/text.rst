@@ -130,6 +130,141 @@ If you want to do specialized formatting within a given string, Squib has lots o
 
   You can also disable the auto-quoting mechanism by setting ``smart_quotes: false`` in your config. Explicit replacements will still be performed. See :doc:`/config`
 
+Embedded Icons
+--------------
+
+The ``text`` method will also respond to a block. The object that gets passed to this block allows for embedding images into the flow of your text. The following methods are supported::
+
+  text(str: 'Take 1 :tool: and gain 2 :health:') do |embed|
+    embed.svg key: ':tool:', file: 'tool.svg'
+    embed.png key: ':health:', file: 'health.png'
+  end
+
+embed.svg
+^^^^^^^^^
+.. include:: /args/expansion.rst
+
+
+key
+  default: ``'*'``
+
+  the string to replace with the graphic. Can be multiple letters, e.g. ``':tool:'``
+
+
+file
+  default: ``''``
+
+  file(s) to read in, relative to the root directory or ``img_dir`` if set in the config.
+
+id
+  default: ``nil``
+
+  if set, then only render the SVG element with the given id. Prefix '#' is optional. Note: the x-y coordinates are still relative to the SVG document's page.
+
+
+force_id
+  default: ``false``
+
+  if set, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered.
+
+layout
+  default: ``nil``
+
+  entry in the layout to use as defaults for this command. See :doc:`/layouts`
+
+width
+  default: ``:native``
+
+  the width of the image rendered.
+
+height
+  default: ``:native``
+
+  the height the height of the image rendered.
+
+dx
+  default: ``0``
+
+  "delta x", or adjust the icon horizontally by x pixels
+
+dy
+  default: ``0``
+
+  "delta y", or adjust the icon vertically by y pixels
+
+alpha
+  default: ``1.0``
+
+  the alpha-transparency percentage used to blend this image.
+
+angle
+  default: ``0``
+
+  rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky.
+
+embed.png
+^^^^^^^^^
+
+.. include:: /args/expansion.rst
+
+key
+  default: ``'*'``
+
+  the string to replace with the graphic. Can be multiple letters, e.g. ``':tool:'``
+
+file
+  default: ``''``
+
+  file(s) to read in, relative to the root directory or ``img_dir`` if set in the config.
+
+layout
+  default: ``nil``
+
+  entry in the layout to use as defaults for this command. See :doc:`/layouts`
+
+width
+  default: ``:native``
+
+  the width of the image rendered.
+
+height
+  default: ``:native``
+
+  the height the height of the image rendered.
+
+dx
+  default: ``0``
+
+  "delta x", or adjust the icon horizontally by x pixels
+
+dy
+  default: ``0``
+
+  "delta y", or adjust the icon vertically by y pixels
+
+alpha
+  default: ``1.0``
+
+  the alpha-transparency percentage used to blend this image.
+
+blend
+  default: ``:none``
+
+  the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators.
+  The possibilties include :none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity. String versions of these options are accepted too.
+
+
+mask
+  default: ``nil``
+
+  Accepts a color (see :doc:`/colors`). If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
+
+angle
+  default: ``0``
+
+  rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky.
+
+
 
 Examples
 --------
