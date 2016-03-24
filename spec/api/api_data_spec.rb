@@ -58,6 +58,15 @@ describe Squib::Deck do
         })
     end
 
+    it 'loads csv with newlines' do
+      hash = Squib.csv(file: csv_file('newline.csv'))
+      expect(hash).to eq({
+        'title' => ['Foo'],
+        'level' => [1],
+        'notes' => ["a\nb"]
+      })
+    end
+
   end
 
   context '#xlsx' do
