@@ -10,7 +10,7 @@ Features:
 
 Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
-* Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org)
+* Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org). :tada:
 
 ## v0.9.0 / 2016-01-10
 
