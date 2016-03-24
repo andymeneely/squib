@@ -192,6 +192,16 @@ dy
 
   "delta y", or adjust the icon vertically by y pixels
 
+flip_horiztonal
+  default: ``false``
+
+  Flip this image about its center horizontally (i.e. left becomes right and vice versa).
+
+flip_vertical
+  default: ``false``
+
+  Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
+
 alpha
   default: ``1.0``
 
@@ -241,6 +251,16 @@ dy
   default: ``0``
 
   "delta y", or adjust the icon vertically by y pixels
+
+flip_horiztonal
+  default: ``false``
+
+  Flip this image about its center horizontally (i.e. left becomes right and vice versa).
+
+flip_vertical
+  default: ``false``
+
+  Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
 
 alpha
   default: ``1.0``
