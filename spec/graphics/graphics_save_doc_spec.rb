@@ -4,7 +4,8 @@ require 'squib'
 describe Squib::Deck, '#save_pdf' do
 
   context 'typical inputs' do
-    let(:cxt) { double(Cairo::Context) }
+    let(:cxt)    { double(Cairo::Context) }
+    let(:target) { double(Cairo::PDFSurface) }
 
     def expect_card_place(x, y)
       expect(cxt).to receive(:translate).with(x, y).once
@@ -41,6 +42,8 @@ describe Squib::Deck, '#save_pdf' do
       expect_card_place(2343, 1131)
       expect(cxt).to receive(:show_page).once
       expect_card_place(75, 75)
+      expect(cxt).to receive(:target).and_return(target)
+      expect(target).to receive(:finish).once
 
       args = { file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
       deck.save_pdf(args)
@@ -58,6 +61,9 @@ describe Squib::Deck, '#save_pdf' do
       expect_card_place(75, 75)
       expect_card_place(831, 75)
       expect_card_place(1587, 75)
+
+      expect(cxt).to receive(:target).and_return(target)
+      expect(target).to receive(:finish).once
 
       deck.save_pdf(args)
     end

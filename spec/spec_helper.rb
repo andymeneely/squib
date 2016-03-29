@@ -128,7 +128,7 @@ def mock_cairo(strio)
     allow(font).to receive(m) { |*args| strio << scrub_hex("pango font: #{m}(#{args})\n") }
   end
 
-  %w(write_to_png).each do |m|
+  %w(write_to_png finish).each do |m|
     allow(surface).to receive(m) { |*args| strio << scrub_hex("surface: #{m}(#{args})\n") }
   end
 

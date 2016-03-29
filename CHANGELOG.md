@@ -9,6 +9,9 @@ Features:
 * The `csv` method now supports all of the Ruby CSV options (e.g. `col_sep`, `quote_char`). These options simply get passed through to Ruby, so as they change in Ruby, so the support changes in Squib. (#149) Special thanks to Qgel's initial pull request (#146).
 * New `use_layout` method will allow you to load a layout file as a DSL method instead of in the constructor. Useful in conjunction with build groups! (#141)
 
+Bugs:
+* The `save_pdf` method will flush to file upon exit so that the PDF is available immediately. (#150, thanks for the bug report Qgel!)
+
 Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
 * Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org). :tada:

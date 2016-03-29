@@ -43,6 +43,7 @@ module Squib
           end
         end
       end
+      cc.target.finish
     end
 
     # :nodoc:
