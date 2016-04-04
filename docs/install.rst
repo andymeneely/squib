@@ -6,7 +6,9 @@ Squib is a Ruby gem, and installation is handled like most gems.
 Pre-requisites
 --------------
 
-  * Ruby 2.0+
+  * `Ruby 2.1+ <https://www.ruby-lang.org>`_
+
+Squib works with both x86 and x86_64 versions of Ruby.
 
 Typical Install
 ---------------

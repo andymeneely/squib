@@ -16,6 +16,9 @@ Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
 * Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org). :tada:
 
+Compatibility:
+* Upgraded Cairo from 1.14.3 to 1.15.2. With this change, Squib no longer supports Ruby <= 2.1.
+
 ## v0.9.0 / 2016-01-10
 
 Features:

@@ -99,9 +99,9 @@ By the way, this is what's created:
 
 Now let's incrementally convert the above snippet into just one of our cards. Let's just focus on one card for now. Later we'll hook it up to our CSV and apply that to all of our cards.
 
-You may have seen in some examples that we can just put in x-y coordinates into our DSL method calls (e.g. ``text x: 0, y: 100``). That's great for customizing our work later, but we want to get this to the table quickly. Instead, let's make use of Squib's **layout** feature (see :doc:`/layouts`).
+You may have seen in some examples that we can just put in x-y coordinates into our DSL method calls (e.g. ``text x: 0, y: 100``). That's great for customizing our work later, but we want to get this to the table quickly. Instead, let's make use of Squib's feature (see :doc:`/layouts`).
 
-Layouts are a way of specifying some of your arguments in one place - in a layout file! The ``squib new`` command created our own ``layout.yml`` file, but we can also use one of Squib's built-in layout files. Since we just need a title, artwork, and description, we can just use ``economy.yml`` (inspired by a popular deck builder that currently has *dominion* over the genre). Here's how that looks:
+Layouts are a way of specifying some of your arguments in one place - a layout file. The ``squib new`` command created our own ``layout.yml`` file, but we can also use one of Squib's built-in layout files. Since we just need a title, artwork, and description, we can just use ``economy.yml`` (inspired by a popular deck builder that currently has *dominion* over the genre). Here's how that looks:
 
 .. raw:: html
 
@@ -119,7 +119,7 @@ There are a few key decisions I've made here:
 
   * **Black-and-white**. We're now only using black or white so that we can be printer-friendly.
   * **Safe and Cut**. We added two rectangles for guides based on the poker card template from `TheGameCrafter.com <http://www.thegamecrafter.com>`_. This is important to do now and not later. In most print-on-demand templates, we have a 1/8-inch border that is larger than what is to be used, and will be cut down (called a *bleed*). Rather than have to change all our coordinates later, let's build that right into our prototype. Squib can trim around these bleeds for things like :doc:`/dsl/showcase`, :doc:`/dsl/hand`, :doc:`/dsl/save_sheet`, :doc:`/dsl/save_png`, and :doc:`/dsl/save_pdf`. See :doc:`/bleed`.
-  * **Title**. We added a title based on our data - hardcoded since we're just tlaking about one card for now.
+  * **Title**. We added a title based on our data.
   * **layout: 'foo'**. Each command references a "layout" rule. These can be seen in our layout file, which is a built-in layout called ``economy.yml`` (see `ours on GitHub <https://github.com/andymeneely/squib/blob/master/lib/squib/layouts/economy.yml>`_ ). Later on, we can define our own layout rules in our own file, but for now we just want to get our work done as fast as possible and make use of the stock layout. See :doc:`/layouts`.
 
 Multiple Cards
@@ -137,8 +137,6 @@ So technically, these two lines are equivalent::
 
   text str: ['Zombie', 'Robot'], layout: 'title'
   text str: ['Zombie', 'Robot'], layout: ['title','title']
-
-This is key to understanding how Squib works. See :doc:`/arrays`. 
 
 Ok back to the game. We COULD just put our data into literal arrays. But that's considered bad programming practice (called *hardcoding*, where you put data  directly into your code). Instead, let's make use of our CSV data file.
 

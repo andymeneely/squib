@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.specification_version = 2 if spec.respond_to? :specification_version=
   spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.rubygems_version = '2.2.2'
-  spec.required_ruby_version = '>= 2.0.0'
+  spec.required_ruby_version = '>= 2.2.0'
 
   spec.name          = 'squib'
   spec.version       = Squib::VERSION
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cairo', '~> 1.14.3'
+  spec.add_runtime_dependency 'cairo', '~> 1.15.2'
   spec.add_runtime_dependency 'pango', '~> 3.0.1'
   spec.add_runtime_dependency 'nokogiri', '~> 1.6.7'
   spec.add_runtime_dependency 'roo', '~> 2.3.0'
@@ -40,7 +40,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.3'
   spec.add_development_dependency 'redcarpet', '~> 3.1'
   spec.add_development_dependency 'github-markup', '~> 1.3'
-  spec.add_development_dependency 'yard', '~> 0.8'
   spec.add_development_dependency 'coveralls'
   # spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'launchy'
