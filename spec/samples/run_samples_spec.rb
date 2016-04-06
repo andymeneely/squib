@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'squib'
 require 'pp'
 
-describe "Squib samples" do
+describe 'Squib samples' do
 
   Dir["#{samples_dir}/**/*.rb"].each do |sample|
     it "executes #{sample} with no errors", slow: true do

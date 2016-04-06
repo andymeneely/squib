@@ -6,7 +6,7 @@ Squib::Deck.new(config: 'config_text_markup.yml') do
        x: 10, y: 10, width: 300, height: 200, font: 'Serif 20',
        markup: true, hint: :cyan
 
-  text str: "Notice also the antialiasing method.",
+  text str: 'Notice also the antialiasing method.',
        x: 320, y: 10, width: 300, height: 200, font: 'Arial Bold 20'
 
   save_png prefix: 'config_text_'

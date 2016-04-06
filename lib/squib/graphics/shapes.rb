@@ -30,19 +30,19 @@ module Squib
     def ellipse(box, draw)
       x, y, w, h = box.x, box.y, box.width, box.height
       use_cairo do |cc|
-        cc.move_to(x, y + 0.5*h)       # start west
-        cc.curve_to(x, y + 0.25*h,     # west to north
-                    x + 0.25*w, y,
-                    x +  0.5*w, y)
-        cc.curve_to(x + 0.75*w, y,     # north to east
-                    x + w, y + 0.25*h,
-                    x + w, y + 0.5*h)
-        cc.curve_to(x + w, y + 0.75*h, # east to south
-                    x + 0.75*w, y + h,
-                    x + 0.5*w, y + h)
-        cc.curve_to(x + 0.25*w, y + h, # south to west
-                    x, y + 0.75*h,
-                    x, y + 0.5*h)
+        cc.move_to(x, y + 0.5 * h)       # start west
+        cc.curve_to(x, y + 0.25 * h,     # west to north
+                    x + 0.25 * w, y,
+                    x + 0.5 * w, y)
+        cc.curve_to(x + 0.75 * w, y,     # north to east
+                    x + w, y + 0.25 * h,
+                    x + w, y + 0.5 * h)
+        cc.curve_to(x + w, y + 0.75 * h, # east to south
+                    x + 0.75 * w, y + h,
+                    x + 0.5 * w, y + h)
+        cc.curve_to(x + 0.25 * w, y + h, # south to west
+                    x, y + 0.75 * h,
+                    x, y + 0.5 * h)
         cc.fill_n_stroke(draw)
       end
     end
@@ -52,8 +52,8 @@ module Squib
     def grid(box, draw)
       x, y, w, h = box.x, box.y, box.width, box.height
       use_cairo do |cc|
-        (x..@width + w).step(w)  { |ix| line_xy( ix, y - @height, ix, @height + y, draw) }
-        (y..@height + h).step(h) { |iy| line_xy( x - @width, iy, @width + x, iy, draw) }
+        (x..@width + w).step(w)  { |ix| line_xy(ix, y - @height, ix, @height + y, draw) }
+        (y..@height + h).step(h) { |iy| line_xy(x - @width, iy, @width + x, iy, draw) }
       end
     end
 
@@ -101,7 +101,7 @@ module Squib
       inner_radius, outer_radius = poly.inner_radius, poly.outer_radius
       use_cairo do |cc|
         cc.rotate_about(x, y, trans.angle)
-        cc.move_to(x + outer_radius, y) #i = 0, so cos(0)=1 and sin(0)=0
+        cc.move_to(x + outer_radius, y) # i = 0, so cos(0)=1 and sin(0)=0
         theta = Math::PI / n.to_f # i.e. (2*pi) / (2*n)
         0.upto(2 * n) do |i|
             radius = i.even? ? outer_radius : inner_radius
@@ -132,4 +132,3 @@ module Squib
 
   end
 end
-

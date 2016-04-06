@@ -1,4 +1,4 @@
-require 'squib/graphics/cairo_context_wrapper'
+require_relative 'cairo_context_wrapper'
 
 module Squib
   class Deck
@@ -12,8 +12,8 @@ module Squib
     # :nodoc:
     # @api private
     def render_showcase(range, sheet, showcase)
-      out_width = range.size * ((@width - 2*sheet.trim) * showcase.scale * showcase.offset) + 2*sheet.margin
-      out_height = showcase.reflect_offset + (1.0 + showcase.reflect_percent) * (@height - 2*sheet.trim) + 2*sheet.margin
+      out_width = range.size * ((@width - 2 * sheet.trim) * showcase.scale * showcase.offset) + 2 * sheet.margin
+      out_height = showcase.reflect_offset + (1.0 + showcase.reflect_percent) * (@height - 2 * sheet.trim) + 2 * sheet.margin
       out_cc = Cairo::Context.new(Cairo::ImageSurface.new(out_width, out_height))
       wrapper = Squib::Graphics::CairoContextWrapper.new(out_cc)
       wrapper.set_source_squibcolor(sheet.fill_color)
@@ -33,7 +33,7 @@ module Squib
     # :nodoc:
     # @api private
     def trim_rounded(src, trim, radius)
-      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width-2.0*trim, src.height-2.0*trim))
+      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width - 2.0 * trim, src.height - 2.0 * trim))
       trim_cc.rounded_rectangle(0, 0, trim_cc.target.width, trim_cc.target.height, radius, radius)
       trim_cc.set_source(src, -1 * trim, -1 * trim)
       trim_cc.clip
@@ -52,9 +52,9 @@ module Squib
       tmp_cc.transform(matrix) # flips the coordinate system
       top_y    = src.height    # top of the reflection
       bottom_y = src.height * (1.0 - rpercent) + roffset # bottom of the reflection
-      gradient = Cairo::LinearPattern.new(0,top_y, 0,bottom_y)
-      gradient.add_color_stop_rgba(0.0, 0,0,0, rstrength) # start a little reflected
-      gradient.add_color_stop_rgba(1.0, 0,0,0, 0.0)       # fade to nothing
+      gradient = Cairo::LinearPattern.new(0, top_y, 0, bottom_y)
+      gradient.add_color_stop_rgba(0.0, 0, 0, 0, rstrength) # start a little reflected
+      gradient.add_color_stop_rgba(1.0, 0, 0, 0, 0.0)       # fade to nothing
       tmp_cc.set_source(src, 0, 0)
       tmp_cc.mask(gradient)
       return tmp_cc.target
@@ -69,12 +69,12 @@ module Squib
       (0..src.width).step(in_thickness) do |i|
         percentage = i / src.width.to_f
         i = src.width - i if face_right
-        factor = scale + (percentage * (1.0 - scale)) #linear interpolation
+        factor = scale + (percentage * (1.0 - scale)) # linear interpolation
         dest_cxt.save
         dest_cxt.translate 0, src.height / 2.0 * (1.0 - factor)
         dest_cxt.scale factor * scale, factor
         dest_cxt.set_source src, 0, 0
-        dest_cxt.rounded_rectangle i, 0, out_thickness, src.height, 0,0
+        dest_cxt.rounded_rectangle i, 0, out_thickness, src.height, 0, 0
         dest_cxt.fill
         dest_cxt.restore
       end

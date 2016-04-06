@@ -1,5 +1,5 @@
 require 'pango'
-require 'squib/args/typographer'
+require_relative '../args/typographer'
 
 module Squib
   class Card
@@ -22,12 +22,13 @@ module Squib
 
     # :nodoc:
     # @api private
-    def compute_valign(layout, valign)
+    def compute_valign(layout, valign, embed_h)
       return 0 unless layout.height > 0
       ink_extents = layout.extents[1]
+      ink_extents.height = embed_h * Pango::SCALE if ink_extents.height == 0 # JUST embed, bug #134
       case valign.to_s.downcase
       when 'middle'
-        Pango.pixels( (layout.height - ink_extents.height) / 2)
+        Pango.pixels((layout.height - ink_extents.height) / 2)
       when 'bottom'
         Pango.pixels(layout.height - ink_extents.height)
       else
@@ -48,6 +49,12 @@ module Squib
     def set_wh!(layout, width, height)
       layout.width  = width * Pango::SCALE unless width.nil? || width == :auto
       layout.height = height * Pango::SCALE unless height.nil? || height == :auto
+    end
+
+    def max_embed_height(embed_draws)
+      embed_draws.inject(0) do |max, ed|
+        ed[:h] > max ? ed[:h] : max
+      end
     end
 
     # :nodoc:
@@ -87,7 +94,7 @@ module Squib
         rule    = embed.rules[key]
         spacing = rule[:box].width[@index] * Pango::SCALE
         kindex   = clean_str.index(key)
-        kindex   = clean_str[0..kindex].bytesize #convert to byte index (bug #57)
+        kindex   = clean_str[0..kindex].bytesize # convert to byte index (bug #57)
         str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
@@ -97,7 +104,9 @@ module Squib
         rect = layout.index_to_pos(search[:index])
         x    = Pango.pixels(rect.x) + search[:rule][:adjust].dx[@index]
         y    = Pango.pixels(rect.y) + search[:rule][:adjust].dy[@index]
-        draw_calls << {x: x, y: y, draw: search[:rule][:draw]} # defer drawing until we've valigned
+        h    = rule[:box].height[@index]
+        draw_calls << { x: x, y: y, h: h, # defer drawing until we've valigned
+                       draw: search[:rule][:draw] }
       end
       return draw_calls
     end
@@ -131,7 +140,7 @@ module Squib
         font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
-        layout.text    = para.str
+        layout.text = para.str
         if para.markup
           para.str = @deck.typographer.process(layout.text)
           layout.markup = para.str
@@ -148,8 +157,8 @@ module Squib
 
         embed_draws    = process_embeds(embed, para.str, layout)
 
-        vertical_start = compute_valign(layout, para.valign)
-        cc.move_to(0, vertical_start) #TODO clean this up a bit
+        vertical_start = compute_valign(layout, para.valign, max_embed_height(embed_draws))
+        cc.move_to(0, vertical_start) # TODO clean this up a bit
 
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
         cc.move_to(0, vertical_start)
@@ -158,10 +167,10 @@ module Squib
         begin
           embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
         rescue Exception => e
-          puts "====EXCEPTION!===="
+          puts '====EXCEPTION!===='
           puts e
-          puts "If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55"
-          puts "=================="
+          puts 'If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55'
+          puts '=================='
           raise e
         end
         draw_text_hint(cc, box.x, box.y, layout, para.hint)

@@ -1,7 +1,6 @@
 require 'forwardable'
-require 'squib'
-require 'squib/args/typographer'
 require 'yaml'
+require_relative 'args/typographer'
 
 module Squib
   # @api private
@@ -25,11 +24,11 @@ module Squib
       'ellipsis'      => "\u2026",
       'smart_quotes'  => true,
       'text_hint'     => 'off',
-      'warn_ellipsize'=> true,
-      'warn_png_scale'=> true,
+      'warn_ellipsize' => true,
+      'warn_png_scale' => true,
     }
 
-    #Translate the hints to the methods.
+    # Translate the hints to the methods.
     ANTIALIAS_OPTS = {
       nil        => 'subpixel',
       'best'     => 'subpixel',

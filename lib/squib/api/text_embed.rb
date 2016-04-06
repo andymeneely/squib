@@ -1,10 +1,10 @@
-require 'squib/args/box'
-require 'squib/args/card_range'
-require 'squib/args/embed_adjust'
-require 'squib/args/embed_key'
-require 'squib/args/input_file'
-require 'squib/args/paint'
-require 'squib/args/transform'
+require_relative '../args/box'
+require_relative '../args/card_range'
+require_relative '../args/embed_adjust'
+require_relative '../args/embed_key'
+require_relative '../args/input_file'
+require_relative '../args/paint'
+require_relative '../args/transform'
 
 module Squib
   class TextEmbed
@@ -42,12 +42,12 @@ module Squib
       key   = Args::EmbedKey.new.validate_key(opts[:key])
       range = Args::CardRange.new(opts[:range], deck_size: @deck_size)
       paint = Args::Paint.new(@custom_colors).load!(opts, expand_by: @deck_size, layout: @layout)
-      box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      adjust= Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
+      box   = Args::Box.new(self, { width: :native, height: :native }).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
+      adjust = Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       svg_args = Args::SvgSpecial.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }
+      rule = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }
       rule[:draw] = Proc.new do |card, x, y|
         i = card.index
         b = box[i]
@@ -76,8 +76,8 @@ module Squib
       key   = Args::EmbedKey.new.validate_key(opts[:key])
       range = Args::CardRange.new(opts[:range], deck_size: @deck_size)
       paint = Args::Paint.new(@custom_colors).load!(opts, expand_by: @deck_size, layout: @layout)
-      box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      adjust= Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
+      box   = Args::Box.new(self, { width: :native, height: :native }).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
+      adjust = Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }

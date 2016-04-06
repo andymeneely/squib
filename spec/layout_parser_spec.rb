@@ -4,7 +4,7 @@ describe Squib::LayoutParser do
 
   it 'loads a normal layout with no extends' do
     layout = Squib::LayoutParser.load_layout(layout_file('no-extends.yml'))
-    expect(layout).to eq({'frame' => {
+    expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'valign' => :middle,
             'str' => 'blah',
@@ -16,7 +16,7 @@ describe Squib::LayoutParser do
 
   it 'loads with a single extends' do
     layout = Squib::LayoutParser.load_layout(layout_file('single-extends.yml'))
-    expect(layout).to eq({'frame' => {
+    expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
             },
@@ -32,7 +32,7 @@ describe Squib::LayoutParser do
 
   it 'applies the extends regardless of order' do
     layout = Squib::LayoutParser.load_layout(layout_file('pre-extends.yml'))
-    expect(layout).to eq({'frame' => {
+    expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
             },
@@ -48,7 +48,7 @@ describe Squib::LayoutParser do
 
   it 'applies the single-level extends multiple times' do
     layout = Squib::LayoutParser.load_layout(layout_file('single-level-multi-extends.yml'))
-    expect(layout).to eq({'frame' => {
+    expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
             },
@@ -70,7 +70,7 @@ describe Squib::LayoutParser do
 
   it 'applies multiple extends in a single rule' do
     layout = Squib::LayoutParser.load_layout(layout_file('multi-extends-single-entry.yml'))
-    expect(layout).to eq({'aunt' => {
+    expect(layout).to eq({ 'aunt' => {
             'a' => 101,
             'b' => 102,
             'c' => 103,
@@ -81,7 +81,7 @@ describe Squib::LayoutParser do
             'b' => 106,
             },
           'child' => {
-            'extends' => ['uncle','aunt'],
+            'extends' => ['uncle', 'aunt'],
             'a' => 107, # my own
             'b' => 102, # from the younger aunt
             'c' => 103, # from aunt
@@ -94,7 +94,7 @@ describe Squib::LayoutParser do
 
   it 'applies multi-level extends' do
     layout = Squib::LayoutParser.load_layout(layout_file('multi-level-extends.yml'))
-    expect(layout).to eq({'frame' => {
+    expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
             },
@@ -179,11 +179,23 @@ describe Squib::LayoutParser do
       .with("Processing layout: 'verbal' attempts to extend a missing 'kaisersoze'")
     layout = Squib::LayoutParser.load_layout(layout_file('extends-nonexists.yml'))
     expect(layout).to eq({
-      'verbal'  => {
+      'verbal' => {
           'font_size' => 25,
           'extends' => 'kaisersoze'
         }
       })
+  end
+
+  it 'loads progressively on multiple calls' do
+    a = layout_file('multifile-a.yml')
+    b = layout_file('multifile-b.yml')
+    layout = Squib::LayoutParser.load_layout(a)
+    layout = Squib::LayoutParser.load_layout(b, layout)
+    expect(layout).to eq({
+        'title'    => { 'x' => 300 },
+        'subtitle' => { 'x' => 200 },
+        'desc'     => { 'x' => 400 }
+        })
   end
 
 end

@@ -46,7 +46,7 @@ end
 Squib::Deck.new(layout: 'playing-card.yml') do
   text str: "A\u2660",      layout: :bonus_ul, font: 'Sans bold 100', hint: :red
   text str: "A\u2660",      layout: :bonus_lr, font: 'Sans bold 100', hint: :red
-  text str: "artwork here", layout: :art, hint: :red
+  text str: 'artwork here', layout: :art, hint: :red
   save_png prefix: 'layout_builtin_playing_card_'
 end
 
@@ -59,4 +59,14 @@ Squib::Deck.new(layout: 'hand.yml') do
   end
   png file: 'pokercard.png', alpha: 0.5
   save_png prefix: 'layout_builtin_hand_'
+end
+
+# Layouts can also be specified in their own DSL method call
+# Each layout call will progressively be merged with the priors
+Squib::Deck.new do
+  use_layout file: 'custom-layout.yml'
+  use_layout file: 'custom-layout2.yml'
+  text str: 'The Title',   layout: :title # from custom-layout.yml
+  text str: 'The Subtitle', layout: :subtitle # redefined in custom-layout2.yml
+  save_png prefix: 'layout3_'
 end

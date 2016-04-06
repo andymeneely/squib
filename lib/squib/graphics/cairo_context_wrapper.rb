@@ -1,5 +1,5 @@
 require 'forwardable'
-require 'squib/graphics/gradient_regex'
+require_relative 'gradient_regex'
 
 module Squib
   module Graphics
@@ -40,7 +40,7 @@ module Squib
           linear.matrix = matrix # match the coordinate systems - see bug 127
           @cairo_cxt.set_source(linear)
         elsif match = arg.match(RADIAL_GRADIENT)
-          x1, y1, r1, x2, y2, r2  = match.captures
+          x1, y1, r1, x2, y2, r2 = match.captures
           radial = Cairo::RadialPattern.new(x1.to_f, y1.to_f, r1.to_f,
                                             x2.to_f, y2.to_f, r2.to_f)
           radial.matrix = matrix # match the coordinate systems - see bug 127
@@ -105,7 +105,7 @@ module Squib
         v = vertical   ? -1.0 : 1.0
         h = horizontal ? -1.0 : 1.0
         transform Cairo::Matrix.new(v, 0.0,     0.0,
-                                    h, x*(1-v), y*(1-h))
+                                    h, x * (1 - v), y * (1 - h))
       end
 
     end

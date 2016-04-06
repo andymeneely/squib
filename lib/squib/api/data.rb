@@ -1,30 +1,12 @@
 require 'roo'
 require 'csv'
-require 'squib/args/input_file'
-require 'squib/args/import'
+require_relative '../args/input_file'
+require_relative '../args/import'
+require_relative '../args/csv_opts'
 
 module Squib
 
-  # Pulls Excel data from `.xlsx` files into a column-based hash
-  #
-  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
-  # See the example `samples/excel.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
-  #
-  # @example
-  #   # Excel file looks like this:
-  #   # | h1 | h2 |
-  #   # ------------
-  #   # | 1  | 2  |
-  #   # | 3  | 4  |
-  #   data = xlsx file: 'data.xlsx', sheet: 0
-  #   => {'h1' => [1,3], 'h2' => [2,4]}
-  #
-  # @option opts file [String]  the file to open. Must end in `.xlsx`. Opens relative to the current directory.
-  # @option opts sheet [Integer] (0) The zero-based index of the sheet from which to read.
-  # @option opts strip [Boolean] (true) When true, strips leading and trailing whitespace on values and headers
-  # @option opts explode [String] ('qty') Quantity explosion will be applied to the column this name. See README for example.
-  # @return [Hash] a hash of arrays based on columns in the spreadsheet
-  # @api public
+  # DSL method. See http://squib.readthedocs.org
   def xlsx(opts = {})
     input = Args::InputFile.new(file: 'deck.xlsx').load!(opts)
     import = Args::Import.new.load!(opts)
@@ -32,47 +14,29 @@ module Squib
     s.default_sheet = s.sheets[input.sheet[0]]
     data = {}
     s.first_column.upto(s.last_column) do |col|
-      header = s.cell(s.first_row,col).to_s
+      header = s.cell(s.first_row, col).to_s
       header.strip! if import.strip?
       data[header] = []
       (s.first_row + 1).upto(s.last_row) do |row|
-        cell = s.cell(row,col)
+        cell = s.cell(row, col)
         # Roo hack for avoiding unnecessary .0's on whole integers (https://github.com/roo-rb/roo/issues/139)
-        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, 'General']
+        cell = s.excelx_value(row, col) if s.excelx_type(row, col) == [:numeric_or_formula, 'General']
         cell.strip! if cell.respond_to?(:strip) && import.strip?
         cell = yield(header, cell) if block_given?
         data[header] << cell
-      end#row
-    end#col
+      end# row
+    end# col
     explode_quantities(data, import.explode)
-  end#xlsx
+  end# xlsx
   module_function :xlsx
 
-  # Pulls CSV data from `.csv` files into a column-based hash
-  #
-  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
-  # See the example `samples/csv.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
-  #
-  # @example
-  #   # File data.csv looks like this (without the comment symbols)
-  #   # h1,h2
-  #   # 1,2
-  #   # 3,4
-  #   data = csv file: 'data.csv'
-  #   => {'h1' => [1,3], 'h2' => [2,4]}
-  #
-  # Parsing uses Ruby's CSV, with options `{headers: true, converters: :numeric}`
-  # http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html
-  #
-  # @option opts file [String]  the CSV-formatted file to open. Opens relative to the current directory.
-  # @option opts strip [Boolean] (true) When true, strips leading and trailing whitespace on values and headers
-  # @option opts explode [String] ('qty') Quantity explosion will be applied to the column this name. See README for example.
-  # @return [Hash] a hash of arrays based on columns in the table
-  # @api public
+  # DSL method. See http://squib.readthedocs.org
   def csv(opts = {})
-    file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
     import = Args::Import.new.load!(opts)
-    table = CSV.read(file, headers: true, converters: :numeric)
+    file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
+    data = opts.key?(:data) ? opts[:data] : File.read(file)
+    csv_opts = Args::CSV_Opts.new(opts)
+    table = CSV.parse(data, csv_opts.to_hash)
     check_duplicate_csv_headers(table)
     hash = Hash.new
     table.headers.each do |header|
@@ -101,6 +65,7 @@ module Squib
   end
   module_function :check_duplicate_csv_headers
 
+  # @api private
   def explode_quantities(data, qty)
     return data unless data.key? qty.to_s.strip
     qtys = data[qty]
@@ -117,12 +82,12 @@ module Squib
 
   class Deck
 
-    # Convenience call on deck goes to the module function
+    # DSL method. See http://squib.readthedocs.org
     def xlsx(opts = {})
       Squib.xlsx(opts)
     end
 
-    # Convenience call on deck goes to the module function
+    # DSL method. See http://squib.readthedocs.org
     def csv(opts = {})
       Squib.csv(opts)
     end

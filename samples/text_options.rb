@@ -1,8 +1,8 @@
 # encoding: UTF-8
 require 'squib'
 
-data = {'name' => ['Thief', 'Grifter', 'Mastermind'],
-        'level' => [1,2,3]}
+data = { 'name' => ['Thief', 'Grifter', 'Mastermind'],
+        'level' => [1, 2, 3] }
 longtext = "This is left-justified text, with newlines.\nWhat do you know about tweetle beetles? well... When tweetle beetles fight, it's called a tweetle beetle battle. And when they battle in a puddle, it's a tweetle beetle puddle battle. AND when tweetle beetles battle with paddles in a puddle, they call it a tweetle beetle puddle paddle battle. AND... When beetles battle beetles in a puddle paddle battle and the beetle battle puddle is a puddle in a bottle... ..they call this a tweetle beetle bottle puddle paddle battle muddle."
 
 Squib::Deck.new(width: 825, height: 1125, cards: 3) do
@@ -37,7 +37,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
   # Extents come back as an array of hashes, which can get split out like this
   ws = extents.inject([]) { |arr, ext| arr << ext[:width] + 10; arr }
   hs = extents.inject([]) { |arr, ext| arr << ext[:height] + 10; arr }
-  rect x: 65 - margin/2, y: 550 - margin/2,
+  rect x: 65 - margin / 2, y: 550 - margin / 2,
        width: ws, height: hs,
        radius: 10, stroke_color: :black
 
@@ -79,15 +79,15 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
     embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
   end
 
-  text str: "Fill n <span fgcolor=\"\#ff0000\">stroke</span>",
+  text str: 'Fill n <span fgcolor="#ff0000">stroke</span>',
        color: :green, stroke_width: 2.0, stroke_color: :blue,
        x: '1.8in', y: '2.9in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
-  text str: "Stroke n <span fgcolor=\"\#ff0000\">fill</span>",
+  text str: 'Stroke n <span fgcolor="#ff0000">fill</span>',
        color: :green, stroke_width: 2.0, stroke_color: :blue, stroke_strategy: :stroke_first,
        x: '1.8in', y: '3.0in', width: '0.85in', font: 'Sans Bold 26', markup: true
 
-  text str: "Dotted",
+  text str: 'Dotted',
        color: :white, stroke_width: 2.0, dash: '4 2', stroke_color: :black,
        x: '1.8in', y: '3.1in', width: '0.85in', font: 'Sans Bold 26', markup: true
   #

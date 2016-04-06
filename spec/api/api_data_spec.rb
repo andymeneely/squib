@@ -38,15 +38,41 @@ describe Squib::Deck do
 
     it 'explodes quantities' do
       expect(Squib.csv(file: csv_file('qty.csv'))).to eq({
-        'Name'  => %w(Ha Ha Ha Ho),
+        'Name' => %w(Ha Ha Ha Ho),
         'Qty' => [3, 3, 3, 1],
         })
     end
 
     it 'explodes quantities on specified header' do
       expect(Squib.csv(explode: 'Quantity', file: csv_file('qty_named.csv'))).to eq({
-        'Name'  => %w(Ha Ha Ha Ho),
+        'Name' => %w(Ha Ha Ha Ho),
         'Quantity' => [3, 3, 3, 1],
+        })
+    end
+
+    it 'loads inline data' do
+      hash = Squib.csv(data: "h1,h2\n1,2\n3,4")
+      expect(hash).to eq({
+        'h1' => [1, 3],
+        'h2' => [2, 4]
+        })
+    end
+
+    it 'loads csv with newlines' do
+      hash = Squib.csv(file: csv_file('newline.csv'))
+      expect(hash).to eq({
+        'title' => ['Foo'],
+        'level' => [1],
+        'notes' => ["a\nb"]
+      })
+    end
+
+    it 'loads custom CSV options' do
+      hash = Squib.csv(file: csv_file('custom_opts.csv'),
+                       col_sep: '-', quote_char: '|')
+      expect(hash).to eq({
+        'x' => ['p'],
+        'y' => ['q-r']
         })
     end
 
@@ -56,8 +82,8 @@ describe Squib::Deck do
     it 'loads basic xlsx data' do
       expect(Squib.xlsx(file: xlsx_file('basic.xlsx'))).to eq({
         'Name'           => %w(Larry Curly Mo),
-        'General Number' => %w(1 2 3), #general types always get loaded as strings with no conversion
-        'Actual Number'  =>  [4.0, 5.0, 6.0], #numbers get auto-converted to integers
+        'General Number' => %w(1 2 3), # general types always get loaded as strings with no conversion
+        'Actual Number' => [4.0, 5.0, 6.0], # numbers get auto-converted to integers
         })
     end
 

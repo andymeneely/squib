@@ -1,7 +1,7 @@
 require 'cairo'
-require 'squib/args/arg_loader'
-require 'squib/args/color_validator'
-require 'squib/args/dir_validator'
+require_relative 'arg_loader'
+require_relative 'color_validator'
+require_relative 'dir_validator'
 
 module Squib
   # @api private

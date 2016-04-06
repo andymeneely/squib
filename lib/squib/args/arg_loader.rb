@@ -1,5 +1,5 @@
-require 'squib/constants'
-require 'squib/conf'
+require_relative '../constants'
+require_relative '../conf'
 require 'ostruct'
 
 module Squib
@@ -84,10 +84,10 @@ module Squib
             attribute = "@#{param}"
             val = instance_variable_get(attribute)
             if val.respond_to? :each
-              new_val =  val.map.with_index{ |v, i| send(method, v, i) }
+              new_val = val.map.with_index{ |v, i| send(method, v, i) }
               instance_variable_set(attribute, new_val)
             else
-              instance_variable_set(attribute,send(method, val))
+              instance_variable_set(attribute, send(method, val))
             end
           end
         end
@@ -122,9 +122,9 @@ module Squib
 
       def convert_unit(arg, dpi)
         case arg.to_s.rstrip
-        when /in$/ #ends with "in"
+        when /in$/ # ends with "in"
           arg.rstrip[0..-2].to_f * dpi
-        when /cm$/ #ends with "cm"
+        when /cm$/ # ends with "cm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
         else
           arg

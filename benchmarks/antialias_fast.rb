@@ -9,5 +9,5 @@ Squib::Deck.new(cards: 200, config: 'antialias_fast.yml') do
            x: (i % 17) * 50,
            y: (i / 17) * 50
   end
-  save_png   prefix: 'antialias_fast_'
+  save_png prefix: 'antialias_fast_'
 end

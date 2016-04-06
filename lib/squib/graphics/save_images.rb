@@ -19,7 +19,7 @@ module Squib
     end
 
     def preprocessed_save(angle, trim, trim_radius)
-      new_width, new_height = @width - 2*trim, @height - 2*trim
+      new_width, new_height = @width - 2 * trim, @height - 2 * trim
       new_cc = Cairo::Context.new(Cairo::ImageSurface.new(new_width, new_height))
       new_cc.translate(new_width * 0.5, new_height * 0.5)
       new_cc.rotate(angle)

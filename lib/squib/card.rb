@@ -1,5 +1,5 @@
 require 'cairo'
-require 'squib/graphics/cairo_context_wrapper'
+require_relative 'graphics/cairo_context_wrapper'
 
 module Squib
   # Back end graphics. Private.
@@ -54,13 +54,13 @@ module Squib
     ########################
     ### BACKEND GRAPHICS ###
     ########################
-    require 'squib/graphics/background'
-    require 'squib/graphics/image'
-    require 'squib/graphics/save_doc'
-    require 'squib/graphics/save_images'
-    require 'squib/graphics/shapes'
-    require 'squib/graphics/showcase'
-    require 'squib/graphics/text'
+    require_relative 'graphics/background'
+    require_relative 'graphics/image'
+    require_relative 'graphics/save_doc'
+    require_relative 'graphics/save_images'
+    require_relative 'graphics/shapes'
+    require_relative 'graphics/showcase'
+    require_relative 'graphics/text'
 
   end
 end

@@ -6,12 +6,12 @@ describe Squib::Args::SaveBatch do
 
   context 'dir' do
     it 'is created if not exists (and warns)' do
-      opts = {dir: 'tocreate'}
+      opts = { dir: 'tocreate' }
       Dir.chdir(output_dir) do
         FileUtils.rm_rf('tocreate', secure: true)
         expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
         save_batch.load! opts
-        expect(save_batch).to have_attributes({dir: ['tocreate']})
+        expect(save_batch).to have_attributes({ dir: ['tocreate'] })
         expect(Dir.exists? 'tocreate').to be true
       end
     end
@@ -21,29 +21,29 @@ describe Squib::Args::SaveBatch do
     it 'does nothing by default' do
       opts = {}
       save_batch.load! opts
-      expect(save_batch[0]).to have_attributes({rotate: false, angle: 0})
+      expect(save_batch[0]).to have_attributes({ rotate: false, angle: 0 })
     end
 
     it 'rotates by pi/2 with true' do
-      opts = {rotate: true}
+      opts = { rotate: true }
       save_batch.load! opts
-      expect(save_batch[0]).to have_attributes({rotate: true, angle: Math::PI / 2})
+      expect(save_batch[0]).to have_attributes({ rotate: true, angle: Math::PI / 2 })
     end
 
     it 'rotates by pi/2' do
-      opts = {rotate: :clockwise}
+      opts = { rotate: :clockwise }
       save_batch.load! opts
-      expect(save_batch[0]).to have_attributes({rotate: true, angle: Math::PI / 2})
+      expect(save_batch[0]).to have_attributes({ rotate: true, angle: Math::PI / 2 })
     end
 
     it 'rotates by pi/2 with counterclockwise' do
-      opts = {rotate: :counterclockwise}
+      opts = { rotate: :counterclockwise }
       save_batch.load! opts
-      expect(save_batch[0]).to have_attributes({rotate: true, angle: 3 * Math::PI / 2})
+      expect(save_batch[0]).to have_attributes({ rotate: true, angle: 3 * Math::PI / 2 })
     end
 
     it 'raises error on a number' do
-      opts = {rotate: 5.0}
+      opts = { rotate: 5.0 }
       expect { save_batch.load!(opts) }.to raise_error('invalid option to rotate: only [true, false, :clockwise, :counterclockwise]')
     end
   end
