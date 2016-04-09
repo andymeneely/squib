@@ -39,7 +39,7 @@ module Squib
     def enable_groups_from_env!
       return if ENV['SQUIB_BUILD'].nil?
       ENV['SQUIB_BUILD'].split(',').each do |grp|
-        enable_group grp.strip.to_sym
+        enable_build grp.strip.to_sym
       end
     end
 
