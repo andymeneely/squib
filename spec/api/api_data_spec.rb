@@ -76,6 +76,35 @@ describe Squib::Deck do
         })
     end
 
+    it 'yields to block when given' do
+      data = Squib.csv(file: csv_file('basic.csv')) do |header, value|
+        case header
+        when 'h1'
+          value * 2
+        else
+          'ha'
+        end
+      end
+      expect(data).to eq({
+        'h1' => [2, 6],
+        'h2' => %w(ha ha),
+        })
+    end
+
+    it 'replaces newlines whenever its a string' do
+      data = Squib.csv(file: csv_file('yield.csv')) do |header, value|
+        if value.respond_to? :gsub
+          value.gsub '%n', "\n"
+        else
+          value
+        end
+      end
+      expect(data).to eq({
+        'a' => ["foo\nbar", 1],
+        'b' => [1, "blah\n"],
+        })
+    end
+
   end
 
   context '#xlsx' do

@@ -32,6 +32,7 @@ module Squib
 
   # DSL method. See http://squib.readthedocs.org
   def csv(opts = {})
+    # TODO refactor all this out to separate methods, and its own class
     import = Args::Import.new.load!(opts)
     file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
     data = opts.key?(:data) ? opts[:data] : File.read(file)
@@ -47,9 +48,19 @@ module Squib
     if import.strip?
       new_hash = Hash.new
       hash.each do |header, col|
-        new_hash[header] = col.map { |str| str = str.strip if str.respond_to?(:strip); str }
+        new_hash[header] = col.map do |str|
+          str = str.strip if str.respond_to?(:strip)
+          str
+        end
       end
       hash = new_hash
+    end
+    if block_given?
+      hash.each do |header, col|
+        col.map! do |val|
+          yield(header, val)
+        end
+      end
     end
     return explode_quantities(hash, import.explode)
   end

@@ -44,6 +44,19 @@ col_sep
 CSV custom options in Ruby standard lib.
   All of the options in Ruby's std lib version of CSV are supported **except** ``headers`` is always ``true`` and ``converters`` is always set to ``:numeric``. See the `Ruby Docs <http://ruby-doc.org/stdlib-2.2.0/libdoc/csv/rdoc/CSV.html#method-c-new>`_ for information on the options.
 
+Individual Pre-processing
+-------------------------
+
+The ``xlsx`` method also takes in a block that will be executed for each cell in your data. This is useful for processing individual cells, like putting a dollar sign in front of dollars, or converting from a float to an integer. The value of the block will be what is assigned to that cell. For example::
+
+  resource_data = Squib.csv(file: 'sample.xlsx') do |header, value|
+    case header
+    when 'Cost'
+      "$#{value}k" # e.g. "3" becomes "$3k"
+    else
+      value # always return the original value if you didn't do anything to it
+    end
+  end
 
 Examples
 --------
