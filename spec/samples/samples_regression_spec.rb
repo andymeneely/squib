@@ -38,19 +38,19 @@ describe 'Squib samples' do
   # These are samples that don't really need a regression log
       # colors.rb
       # unicode.rb
-  %w( autoscale_font.rb
+  %w( autoscale_font/_autoscale_font.rb
       basic.rb
       cairo_access.rb
       csv_import.rb
       config_text_markup.rb
       custom_config.rb
-      draw_shapes.rb
+      shapes/_draw_shapes.rb
       embed_text.rb
       excel.rb
       gradients.rb
       hand.rb
       hello_world.rb
-      load_images.rb
+      images/_more_load_images.rb
       portrait-landscape.rb
       ranges.rb
       saves.rb
@@ -63,7 +63,7 @@ describe 'Squib samples' do
       log = StringIO.new
       mock_cairo(log)
       load sample
-      # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
+      overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
       expect(log.string).to eq(test_file_str)
     end
