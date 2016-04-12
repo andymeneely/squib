@@ -44,9 +44,9 @@ describe 'Squib samples' do
       embed_text.rb
       hello_world.rb
       images/_more_load_images.rb
-      portrait-landscape.rb
       ranges.rb
       saves/_hand.rb
+      saves/_portrait_landscape.rb
       saves/_saves.rb
       saves/_showcase.rb
       shapes/_draw_shapes.rb
