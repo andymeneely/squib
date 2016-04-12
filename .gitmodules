@@ -19,3 +19,7 @@
 [submodule "samples/backend"]
   	path = samples/backend
   	url = https://gist.github.com/7b4a3acd0e758aedf87ba549e2025a11.git
+
+[submodule "samples/shapes"]
+  	path = samples/shapes
+  	url = https://gist.github.com/59089c972b8b0e5d7e76598010e69291.git
