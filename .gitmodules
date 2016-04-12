@@ -31,3 +31,6 @@
 [submodule "samples/data"]
   	path = samples/data
   	url = https://gist.github.com/6f89115805e205c647a779b7b4866151.git
+[submodule "samples/colors"]
+  	path = samples/colors
+  	url = https://gist.github.com/fac2f4a16a23c2bada126e93d6523971.git

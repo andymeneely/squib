@@ -36,20 +36,20 @@ describe 'Squib samples' do
       autoscale_font/_autoscale_font.rb
       basic.rb
       cairo_access.rb
-      data/_csv.rb
+      colors/_gradients.rb
       config_text_markup.rb
       custom_config.rb
-      shapes/_draw_shapes.rb
-      embed_text.rb
+      data/_csv.rb
       data/_excel.rb
-      gradients.rb
-      saves/_hand.rb
+      embed_text.rb
       hello_world.rb
       images/_more_load_images.rb
       portrait-landscape.rb
       ranges.rb
+      saves/_hand.rb
       saves/_saves.rb
       saves/_showcase.rb
+      shapes/_draw_shapes.rb
       text_options.rb
       tgc_proofs.rb
       units.rb
