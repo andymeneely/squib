@@ -16,6 +16,6 @@
 	path = samples/build_groups
 	url = https://gist.github.com/andymeneely/bda48487e3b8c9d15edb
 
-[submodule "samples/gists"]
-  	path = samples/gists
+[submodule "samples/backend"]
+  	path = samples/backend
   	url = https://gist.github.com/7b4a3acd0e758aedf87ba549e2025a11.git

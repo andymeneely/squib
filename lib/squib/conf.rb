@@ -15,6 +15,7 @@ module Squib
       'hint'          => :none,
       'img_dir'       => '.',
       'progress_bars' => false,
+      'prefix'        => 'card_',
       'ldquote'       => "\u201C", # UTF8 chars
       'rdquote'       => "\u201D",
       'lsquote'       => "\u2018",
