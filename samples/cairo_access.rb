@@ -24,5 +24,16 @@ Squib::Deck.new(cards: 2) do
     cairo_context.fill
   end
 
+  # Or modify the coordinate system for all (most?) future calls
+  # Could be handy for a dynamic bleed
+  each do |card|
+    # note how this does NOT use save/restore.
+    # again... this "feature" lives in the Land of Undefined Behavior
+    card.cairo_context.translate(500, 500)
+  end
+  rect x: 0, y: 0, # actually 500, 500
+       width: 50, height: 50, fill_color: :red
+
+
   save_png prefix: 'cairo_access_'
 end
