@@ -38,7 +38,8 @@ describe 'Squib samples' do
   # These are samples that don't really need a regression log
       # colors.rb
       # unicode.rb
-  %w( autoscale_font/_autoscale_font.rb
+  %w(
+      autoscale_font/_autoscale_font.rb
       basic.rb
       cairo_access.rb
       csv_import.rb
@@ -48,13 +49,13 @@ describe 'Squib samples' do
       embed_text.rb
       excel.rb
       gradients.rb
-      hand.rb
+      saves/_hand.rb
       hello_world.rb
       images/_more_load_images.rb
       portrait-landscape.rb
       ranges.rb
-      saves.rb
-      showcase.rb
+      saves/_saves.rb
+      saves/_showcase.rb
       text_options.rb
       tgc_proofs.rb
       units.rb

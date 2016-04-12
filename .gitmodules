@@ -25,5 +25,5 @@
   	url = https://gist.github.com/59089c972b8b0e5d7e76598010e69291.git
 
 [submodule "samples/saves"]
-  	path = samples/save
+  	path = samples/saves
   	url = https://gist.github.com/3c60c13b25f525abd037db4055abf35c.git
