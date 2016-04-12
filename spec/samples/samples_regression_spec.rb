@@ -4,12 +4,6 @@ require 'pp'
 
 describe 'Squib samples' do
 
-  around(:each) do |example|
-    Dir.chdir(samples_dir) do
-      example.run
-    end
-  end
-
   # This test could use some explanation
   # Much of the development of Squib has been sample-driven. Every time I want
   # new syntax or feature, I write a sample, get it working, and then write
@@ -42,12 +36,12 @@ describe 'Squib samples' do
       autoscale_font/_autoscale_font.rb
       basic.rb
       cairo_access.rb
-      csv_import.rb
+      data/_csv.rb
       config_text_markup.rb
       custom_config.rb
       shapes/_draw_shapes.rb
       embed_text.rb
-      excel.rb
+      data/_excel.rb
       gradients.rb
       saves/_hand.rb
       hello_world.rb
@@ -63,8 +57,11 @@ describe 'Squib samples' do
     it "has not changed for #{sample}", slow: true do
       log = StringIO.new
       mock_cairo(log)
-      load sample
-      overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
+      full_sample_path = File.expand_path "#{samples_dir}/#{sample}"
+      Dir.chdir(File.dirname("#{samples_dir}/#{sample}")) do
+        load full_sample_path
+      end
+      # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
       expect(log.string).to eq(test_file_str)
     end

@@ -27,3 +27,7 @@
 [submodule "samples/saves"]
   	path = samples/saves
   	url = https://gist.github.com/3c60c13b25f525abd037db4055abf35c.git
+
+[submodule "samples/data"]
+  	path = samples/data
+  	url = https://gist.github.com/6f89115805e205c647a779b7b4866151.git
