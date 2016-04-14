@@ -1,5 +1,5 @@
-Use Groups for Custom Builds
-============================
+Group Your Builds
+=================
 
 Often in the prototyping process you'll find yourself cycling between running your overall build and building a single card. You'll probably be commenting out code in the process.
 
