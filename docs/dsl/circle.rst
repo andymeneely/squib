@@ -20,3 +20,8 @@ radius
 
 Examples
 ^^^^^^^^
+
+.. literalinclude:: /../samples/shapes/_draw_shapes.rb
+   :language: ruby
+   :linenos:
+   :caption: This snippet and others like it live `here <https://github.com/andymeneely/squib/blob/master/samples/>`_
