@@ -29,3 +29,7 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
+
+
+.. meta::
+   :google-site-verification: BWelviUOeiImUuyxt54P6YinZcSuxHm8_aQidm9ju-U
