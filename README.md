@@ -63,14 +63,21 @@ $ ruby deck.rb
 The `squib new` command will generate files and folders like this:
 
 ```
-_output/gitkeep.txt
-.gitignore
-ABOUT.md
-config.yml
-deck.rb
-Gemfile
-layout.yml
-PNP NOTES.md
+├── .gitignore
+├── ABOUT.md
+├── Gemfile
+├── IDEAS.md
+├── PLAYTESTING.md
+├── PNP NOTES.md
+├── RULES.md
+├── Rakefile
+├── _output
+│   └── gitkeep.txt
+├── config.yml
+├── deck.rb
+└── layout.yml
+
+12 files
 ```
 
 
