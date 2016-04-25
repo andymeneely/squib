@@ -15,6 +15,7 @@ Bugs:
 Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
 * Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org). :tada:
+* Bumped dependency ruby-progressbar to 1.8.
 
 Compatibility:
 * Upgraded Cairo from 1.14.3 to 1.15.2. With this change, Squib no longer supports Ruby <= 2.1.
