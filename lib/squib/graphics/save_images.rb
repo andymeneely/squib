@@ -6,8 +6,6 @@ module Squib
     def save_png(batch)
       surface = if preprocess_save?(batch)
                   w, h = compute_dimensions(batch.rotate, batch.trim)
-                  puts "Gonna preprocess! #{w}x#{h}"
-                  puts "Batch: #{batch}"
                   preprocessed_save(w, h, batch)
                 else
                   @cairo_surface
