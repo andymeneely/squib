@@ -52,7 +52,7 @@ There's no time commitment expectation associated with signing up. Any help you 
 Beta: Using Pre-Builds
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The preferred way of doing getting Squib directly from my GitHub repository. Bundler makes this easy.
+The preferred way of doing beta testing is by to get Squib directly from my GitHub repository. Bundler makes this easy.
 
 If you are just starting out you'll need to install bundler::
 
