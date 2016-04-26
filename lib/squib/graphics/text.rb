@@ -95,7 +95,8 @@ module Squib
         spacing = rule[:box].width[@index] * Pango::SCALE
         kindex   = clean_str.index(key)
         kindex   = clean_str[0..kindex].bytesize # convert to byte index (bug #57)
-        str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
+        # str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
+        str = str.sub(key, "\u0091<span letter_spacing=\"#{spacing.to_i}\">\u0091</span>\u0091")
         layout.markup = str
         clean_str     = layout.text
         searches << { index: kindex, rule: rule }
