@@ -7,7 +7,7 @@ require_relative '../args/paragraph'
 module Squib
   class Deck
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def text(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       para  = Args::Paragraph.new(font).load!(opts, expand_by: size, layout: layout)

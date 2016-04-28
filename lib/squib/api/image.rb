@@ -8,7 +8,7 @@ require_relative '../args/svg_special'
 module Squib
   class Deck
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def png(opts = {})
       Dir.chdir(img_dir) do
         range = Args::CardRange.new(opts[:range], deck_size: size)
@@ -25,7 +25,7 @@ module Squib
       end
     end
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def svg(opts = {})
       Dir.chdir(img_dir) do
         range = Args::CardRange.new(opts[:range], deck_size: size)

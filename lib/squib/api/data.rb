@@ -6,7 +6,7 @@ require_relative '../args/csv_opts'
 
 module Squib
 
-  # DSL method. See http://squib.readthedocs.org
+  # DSL method. See http://squib.readthedocs.io
   def xlsx(opts = {})
     input = Args::InputFile.new(file: 'deck.xlsx').load!(opts)
     import = Args::Import.new.load!(opts)
@@ -30,7 +30,7 @@ module Squib
   end# xlsx
   module_function :xlsx
 
-  # DSL method. See http://squib.readthedocs.org
+  # DSL method. See http://squib.readthedocs.io
   def csv(opts = {})
     # TODO refactor all this out to separate methods, and its own class
     import = Args::Import.new.load!(opts)
@@ -93,12 +93,12 @@ module Squib
 
   class Deck
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def xlsx(opts = {})
       Squib.xlsx(opts)
     end
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def csv(opts = {})
       Squib.csv(opts)
     end
