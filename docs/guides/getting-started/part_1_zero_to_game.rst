@@ -93,9 +93,7 @@ By the way, this is what's created:
 
 .. raw:: html
 
-  <code data-gist-id="d2bb2eb028b27cf1dace"
-        data-gist-file="01_hello_rb00.png"
-        class=code_img></code>
+  <img src="../../intro/part1_00_expected.png" width=250>
 
 Now let's incrementally convert the above snippet into just one of our cards. Let's just focus on one card for now. Later we'll hook it up to our CSV and apply that to all of our cards.
 
