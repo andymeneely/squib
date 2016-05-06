@@ -9,7 +9,8 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] `rake sanity`, and check visually
  - [ ] Travis is passing on dev branch
  - [ ] Merge master branch
- - [ ] Push master branch
+ - [ ] Merge release branch
+ - [ ] Push master and release branches
  - [ ] Create GitHub release tag
  - [ ] `gem push pkg/squib-x.y.z.gem`
  - [ ] Github milestone closed

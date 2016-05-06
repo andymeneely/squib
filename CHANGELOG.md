@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.10.0 / Unreleased
+## v0.10.0 / 2016-05-06
 
 Features:
 * Build groups! Simplify the process of building your deck different ways (e.g. one for color, one for PNP). Can be enabled explicitly or via command line. [See our shiny new docs for how these work](http://squib.readthedocs.org/en/latest/build_groups.html).
