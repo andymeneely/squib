@@ -8,27 +8,39 @@ Options
 .. include:: /args/expansion.rst
 
 x1
-  default: ``0``
+  default: ``100``
 
-  the x-coordinate to place. Supports :doc:`/units/`
+  the first x-coordinate to place. Supports :doc:`/units/`
 
 
 y1
-  default: ``0``
+  default: ``100``
 
-  the y-coordinate to place. Supports :doc:`/units/`
+  the first y-coordinate to place. Supports :doc:`/units/`
 
 
 x2
-  default: ``50``
+  default: ``150``
 
-  the x-coordinate to place. Supports :doc:`/units/`
+  the second x-coordinate to place. Supports :doc:`/units/`
 
 
 y2
-  default: ``50``
+  default: ``150``
 
-  the y-coordinate to place. Supports :doc:`/units/`
+  the second y-coordinate to place. Supports :doc:`/units/`
+
+x3
+  default: ``100``
+
+  the third x-coordinate to place. Supports :doc:`/units/`
+
+
+y3
+  default: ``150``
+
+  the third y-coordinate to place. Supports :doc:`/units/`
+
 
 .. include:: /args/draw.rst
 .. include:: /args/range.rst
