@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.11.0 / 2016-06-27
+
+Features:
+* Unit conversion supports mm (#161)
+
 ## v0.10.0 / 2016-05-06
 
 Features:

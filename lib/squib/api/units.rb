@@ -13,5 +13,10 @@ module Squib
       @dpi * Squib::INCHES_IN_CM * n.to_f
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def mm(n)
+      @dpi * Squib::INCHES_IN_CM * n.to_f / 10.0
+    end
+
   end
 end
