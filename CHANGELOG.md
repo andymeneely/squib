@@ -1,20 +1,28 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.10.0 / Unreleased
+## v0.11.0 / 2016-06-27
 
 Features:
-* Build groups! Simplify the process of building your deck different ways (e.g. one for color, one for PNP). Can be enabled explicitly or via command line. [See our shiny new docs for how these work](http://squib.readthedocs.org).
-* The `csv` method now supports a `data` option to read CSV data directly. When set, it overrides the `file` option.
-* The `csv` method now supports all of the Ruby CSV options (e.g. `col_sep`, `quote_char`). These options simply get passed through to Ruby, so as they change in Ruby, so the support changes in Squib. (#149) Special thanks to Qgel's initial pull request (#146).
+* Unit conversion supports mm (#161)
+
+## v0.10.0 / 2016-05-06
+
+Features:
+* Build groups! Simplify the process of building your deck different ways (e.g. one for color, one for PNP). Can be enabled explicitly or via command line. [See our shiny new docs for how these work](http://squib.readthedocs.io/en/latest/build_groups.html).
 * New `use_layout` method will allow you to load a layout file as a DSL method instead of in the constructor. Useful in conjunction with build groups! (#141)
+* The `csv` method now supports a `data` option to read CSV data directly. When set, it overrides the `file` option.
+* The `csv` method now supports all of the Ruby CSV options (e.g. `col_sep`, `quote_char`). These options simply get passed through to Ruby, so as they change in Ruby, so the support changes in Squib (#149). Special thanks to Qgel's initial pull request (#146).
+* The `csv` method now supports a block that it yields to for each element for pre-processing data (#145). Oh and `xlsx` has had that functionality for a while now, and now it's actually documented (#151).
+* Rewrote the entire API doc and placed it on [squib.readthedocs.io](http://squib.readthedocs.io). :tada:
 
 Bugs:
 * The `save_pdf` method will flush to file upon exit so that the PDF is available immediately. (#150, thanks for the bug report Qgel!)
+* The `text` embedding now supports both stroke-n-fill operations AND embedded images (#103 - aka "andy's nemesis"). Also: no more bizzare zero-sized fonts that made your OS secretly cry in the corner every time you embedded an image (#153).
 
 Chores:
 * Switched to `require_relative` internally throughout the codebase to be more pry-friendly (#130)
-* Rewrote the entire API doc and placed it on [squib.readthedocs.org](http://squib.readthedocs.org). :tada:
+* Bumped dependency ruby-progressbar to 1.8.
 
 Compatibility:
 * Upgraded Cairo from 1.14.3 to 1.15.2. With this change, Squib no longer supports Ruby <= 2.1.

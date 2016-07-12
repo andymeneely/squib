@@ -15,6 +15,8 @@ module Squib
           arg.rstrip[0..-2].to_f * dpi
         when /cm$/ # ends with "cm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
+        when /mm$/ # ends with "mm"
+          arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM / 10.0
         else
           arg
         end

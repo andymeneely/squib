@@ -3,7 +3,7 @@ Get Help and Give Help
 
 .. raw:: html
 
-  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png"></a>
+  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png"></a> and <a href="https://boardgamegeek.com/guilds/2601">joining our guild!</a>
 
 Get Help
 --------
@@ -17,7 +17,7 @@ Here's an ordered list of how to find help:
 3. Go through `the samples <https://github.com/andymeneely/squib/tree/master/samples>`_
 4. Google it - people have asked lots of questions about Squib already in many forums.
 5. Ask on Stackoverflow `using the tags "ruby" and "squib" <http://stackoverflow.com/questions/ask?tags=ruby squib>`_. You will get answers quickly from Ruby programmers it's and a great way for us to archive questions for future Squibbers.
-6. Our `thread on BoardGameGeek <http://boardgamegeek.com/thread/1293453>`_ is quite active and informal (if a bit unstructured).
+6. Our `thread on BoardGameGeek <http://boardgamegeek.com/thread/1293453>`_ or `our guild <https://boardgamegeek.com/guild/2601>`_ is quite active and informal (if a bit unstructured).
 
 If you email me directly I'll probably ask you to post your question publicly so we can document answers for future Googling Squibbers.
 
@@ -52,7 +52,7 @@ There's no time commitment expectation associated with signing up. Any help you 
 Beta: Using Pre-Builds
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The preferred way of doing getting Squib directly from my GitHub repository. Bundler makes this easy.
+The preferred way of doing beta testing is by to get Squib directly from my GitHub repository. Bundler makes this easy.
 
 If you are just starting out you'll need to install bundler::
 

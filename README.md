@@ -1,4 +1,4 @@
-# Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Vey][vey]][vey_url] [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![ReadTheDocs](https://readthedocs.org/projects/squib/badge/?version=latest)](http://squib.readthedocs.org) [![BoardGameGeek](https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png)](https://boardgamegeek.com/microbadge/37841)
+# Squib [![Gem Version](https://badge.fury.io/rb/squib.svg)](https://rubygems.org/gems/squib) [![Build Status](https://secure.travis-ci.org/andymeneely/squib.svg?branch=master)](https://travis-ci.org/andymeneely/squib) [![Vey][vey]][vey_url] [![Dependency Status](https://gemnasium.com/andymeneely/squib.svg)](https://gemnasium.com/andymeneely/squib) [![Coverage Status](https://img.shields.io/coveralls/andymeneely/squib.svg)](https://coveralls.io/r/andymeneely/squib) [![ReadTheDocs](https://readthedocs.org/projects/squib/badge/?version=latest)](http://squib.readthedocs.io/en/latest/?badge=latest) [![BoardGameGeek](https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png)](https://boardgamegeek.com/guild/2601)
 Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for prototyping card and board games. Write a little bit of Ruby, define your deck's stats, then compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don't Repeat Yourself. Think of it like [nanDeck](http://www.nand.it/nandeck/) done "the Ruby way". Squib supports:
 
 [vey]: https://ci.appveyor.com/api/projects/status/github/andymeneely/squib?svg=true
@@ -63,14 +63,21 @@ $ ruby deck.rb
 The `squib new` command will generate files and folders like this:
 
 ```
-_output/gitkeep.txt
-.gitignore
-ABOUT.md
-config.yml
-deck.rb
-Gemfile
-layout.yml
-PNP NOTES.md
+├── .gitignore
+├── ABOUT.md
+├── Gemfile
+├── IDEAS.md
+├── PLAYTESTING.md
+├── PNP NOTES.md
+├── RULES.md
+├── Rakefile
+├── _output
+│   └── gitkeep.txt
+├── config.yml
+├── deck.rb
+└── layout.yml
+
+12 files
 ```
 
 

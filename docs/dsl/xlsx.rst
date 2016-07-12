@@ -9,7 +9,6 @@ The ``xlsx`` method is a member of ``Squib::Deck``, but it is also available out
   Squib::Deck.new(cards: data['name'].size) do
   end
 
-
 Options
 -------
 
@@ -32,6 +31,20 @@ explode
   default: ``'qty'``
 
   Quantity explosion will be applied to the column this name. For example, rows in the csv with a ``'qty'`` of 3 will be duplicated 3 times.
+
+Individual Pre-processing
+-------------------------
+
+The ``xlsx`` method also takes in a block that will be executed for each cell in your data. This is useful for processing individual cells, like putting a dollar sign in front of dollars, or converting from a float to an integer. The value of the block will be what is assigned to that cell. For example::
+
+  resource_data = Squib.xlsx(file: 'sample.xlsx') do |header, value|
+    case header
+    when 'Cost'
+      "$#{value}k" # e.g. "3" becomes "$3k"
+    else
+      value # always return the original value if you didn't do anything to it
+    end
+  end
 
 Examples
 --------

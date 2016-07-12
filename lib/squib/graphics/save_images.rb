@@ -5,7 +5,8 @@ module Squib
     # @api private
     def save_png(batch)
       surface = if preprocess_save?(batch)
-                  preprocessed_save(batch.angle, batch.trim, batch.trim_radius)
+                  w, h = compute_dimensions(batch.rotate, batch.trim)
+                  preprocessed_save(w, h, batch)
                 else
                   @cairo_surface
                 end
@@ -15,20 +16,32 @@ module Squib
     # :nodoc:
     # @api private
     def preprocess_save?(batch)
-      batch.rotate || batch.trim > 0
+      batch.rotate != false || batch.trim > 0
     end
 
-    def preprocessed_save(angle, trim, trim_radius)
-      new_width, new_height = @width - 2 * trim, @height - 2 * trim
-      new_cc = Cairo::Context.new(Cairo::ImageSurface.new(new_width, new_height))
-      new_cc.translate(new_width * 0.5, new_height * 0.5)
-      new_cc.rotate(angle)
-      new_cc.translate(new_width * -0.5, new_height * -0.5)
-      new_cc.set_source(@cairo_surface, -trim, -trim)
-      new_cc.rounded_rectangle(0, 0, new_width, new_height, trim_radius, trim_radius)
+    def compute_dimensions(rotate, trim)
+      if rotate
+        [ @height - 2 * trim, @width - 2 * trim ]
+      else
+        [ @width - 2 * trim, @height - 2 * trim ]
+      end
+    end
+
+    def preprocessed_save(width, height, batch)
+      new_cc = Cairo::Context.new(Cairo::ImageSurface.new(width, height))
+      trim_radius = batch.trim_radius
+      if batch.rotate != false
+        new_cc.translate(width * 0.5, height * 0.5)
+        new_cc.rotate(batch.angle)
+        new_cc.translate(height * -0.5, width * -0.5)
+        new_cc.rounded_rectangle(0, 0, height, width, trim_radius, trim_radius)
+      else
+        new_cc.rounded_rectangle(0, 0, width, height, trim_radius, trim_radius)
+      end
       new_cc.clip
+      new_cc.set_source(@cairo_surface, -batch.trim, -batch.trim)
       new_cc.paint
-      new_cc.target
+      return new_cc.target
     end
 
     def write_png(surface, i, dir, prefix, count_format)

@@ -1,5 +1,5 @@
-Backends: Vector vs. Raster
-===========================
+Vector vs. Raster Backends
+==========================
 
 Squib's graphics rendering engine, Cairo, has the ability to support a variety of surfaces to draw on, including both raster images stored in memory and vectors stored in SVG files. Thus, Squib supports the ability to handle both. They are options in the configuration file ``backend: memory`` or ``backend: svg`` described in :doc:`/config`.
 

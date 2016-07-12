@@ -40,8 +40,8 @@ end
 
 desc 'Run sanity tests without a full rebuild'
 task :sanity_only do
-  require_relative 'spec/samples/sanity.rb'
-  Sanity.new.run
+  require_relative 'spec/sanity/sanity_test.rb'
+  SanityTest.new.run
 end
 
 desc 'Run full rebuild with sanity tests'

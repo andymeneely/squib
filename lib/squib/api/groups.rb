@@ -12,25 +12,25 @@ module Squib
 
   class Deck
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def build grp = :all, &block
       raise 'Please provide a block' unless block_given?
       block.yield if build_groups.include? grp
     end
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def enable_build grp
       build_groups # make sure it's initialized
       @build_groups << grp
     end
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def disable_build grp
       build_groups # make sure it's initialized
       @build_groups.delete grp
     end
 
-    # DSL method. See http://squib.readthedocs.org
+    # DSL method. See http://squib.readthedocs.io
     def build_groups
       @build_groups ||= Set.new.add(:all)
     end
@@ -39,7 +39,7 @@ module Squib
     def enable_groups_from_env!
       return if ENV['SQUIB_BUILD'].nil?
       ENV['SQUIB_BUILD'].split(',').each do |grp|
-        enable_group grp.strip.to_sym
+        enable_build grp.strip.to_sym
       end
     end
 

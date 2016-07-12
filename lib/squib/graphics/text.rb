@@ -73,15 +73,6 @@ module Squib
       ret_key
     end
 
-    # When we do embedded icons, we create a 3-character string that has a font
-    # size of zero and a letter-spacing that fits the icon we need. That gives
-    # us the wrapping behavior we need but no clutter beneath.  On most
-    # platforms, this works fine. On Linux, this creates
-    # a Cairo transformation matrix that
-    ZERO_WIDTH_CHAR_SIZE = 0 # this works on most platforms
-    # some platforms make this Pango pixels (1/1024), others a 1 pt font
-    ZERO_WIDTH_CHAR_SIZE = 1 if RbConfig::CONFIG['host_os'] === 'linux-gnu'
-
     # :nodoc:
     # @api private
     def process_embeds(embed, str, layout)
@@ -94,8 +85,8 @@ module Squib
         rule    = embed.rules[key]
         spacing = rule[:box].width[@index] * Pango::SCALE
         kindex   = clean_str.index(key)
-        kindex   = clean_str[0..kindex].bytesize # convert to byte index (bug #57)
-        str = str.sub(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
+        kindex   = clean_str[0..kindex].bytesize # byte index (bug #57)
+        str = str.sub(key, "\u0091<span letter_spacing=\"#{spacing.to_i}\">\u0091</span>\u0091")
         layout.markup = str
         clean_str     = layout.text
         searches << { index: kindex, rule: rule }

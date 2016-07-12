@@ -73,6 +73,27 @@ Squib::Deck.new do
     embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
   end
 
+  embed_text = ':tool:' # JUST the icon
+  text(str: embed_text, x: 0, y: 640, width: 180, height: 50, markup: true,
+     font: 'Arial 21', align: :center, valign: :middle, hint: :red) do |embed|
+    embed.svg key: ':tool:', width: 28, height: 28, file: 'spanner.svg'
+  end
+
+  embed_text = ':purse:' # JUST the icon
+  text(str: embed_text, x: 200, y: 640, width: 180, height: 50, markup: true,
+     font: 'Arial 21', align: :center, valign: :middle, hint: :red) do |embed|
+    embed.png key: ':purse:', width: 28, height: 28, file: 'shiny-purse.png'
+  end
+
+  embed_text = ":tool: Death to Nemesis bug 103!! :purse:"
+  text(str: embed_text, font: 'Sans Bold 24', stroke_width: 2,
+       color: :red, stroke_color: :blue, dash: '3 3', align: :center,
+       valign: :middle, x: 0, y: 700, width: 380, height: 150,
+       hint: :magenta) do |embed|
+    embed.svg key: ':tool:', file: 'spanner.svg', width: 32, height: 32
+    embed.png key: ':purse:', file: 'shiny-purse.png', width: 32, height: 32
+  end
+
   save_png prefix: 'embed_'
 end
 
