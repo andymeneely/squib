@@ -45,6 +45,11 @@ prefix
 
   When using an SVG backend, cards are auto-saved with this prefix and ``'%02d'`` numbering format.
 
+img_dir
+  default: ``'.'``
+  
+  For reading image file command (e.g. png and svg), read from this directory instead
+
 warn_ellipsize
   default: true
 
