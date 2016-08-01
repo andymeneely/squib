@@ -59,7 +59,7 @@ module Squib
 
       def validate_dash(arg, _i)
         arg.to_s.split.collect do |x|
-          convert_unit(x, @dpi).to_f
+          UnitConversion.parse(x, @dpi).to_f
         end
       end
 
