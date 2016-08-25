@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'nokogiri', '~> 1.6.7'
   spec.add_runtime_dependency 'roo', '~> 2.4.0'
   spec.add_runtime_dependency 'rsvg2', '~> 3.0.0'
+  spec.add_runtime_dependency 'gobject-introspection', '~> 3.0.0' # for bug 172
   spec.add_runtime_dependency 'mercenary', '~> 0.3.4'
   spec.add_runtime_dependency 'ruby-progressbar', '~> 1.8'
 
