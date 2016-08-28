@@ -118,8 +118,6 @@ The following operators are supported within evaluating ``extends``
   * ``+=`` will add the giuven number to the inherited number
   * ``-=`` will subtract the given number from the inherited number
 
-Both operators also support :doc:`/units`
-
 From a design point of view, you can also extract out a base design and have your other layouts extend from them::
 
   top_icons:
