@@ -2,6 +2,12 @@ dist: trusty
 language: ruby
 sudo: false # taking advantage of container-based infrastructure
 cache: bundler # cache bundled gems from build to build
+
+addons:
+  apt:
+    packages:
+      - libgirepository1.0-dev # for gobject-introspection
+
 rvm:
   - 2.2
   - 2.3.0
