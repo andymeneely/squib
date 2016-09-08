@@ -6,6 +6,9 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * Unit conversion supports mm (#161)
 
+Bugs:
+* Fresh installs of Squib were broken due to two hidden dependencies, gio2 and gobject-introspection. (#172)
+
 ## v0.10.0 / 2016-05-06
 
 Features:
