@@ -175,12 +175,12 @@ layout
 width
   default: ``:native``
 
-  the width of the image rendered.
+  the width of the image rendered. Does not support ``:scale`` (`yet <https://github.com/andymeneely/squib/issues/160>`_)
 
 height
   default: ``:native``
 
-  the height the height of the image rendered.
+  the height the height of the image rendered. Does not support ``:scale`` (`yet <https://github.com/andymeneely/squib/issues/160>`_)
 
 dx
   default: ``0``
