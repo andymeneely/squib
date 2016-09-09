@@ -57,7 +57,6 @@ Squib::Deck.new(layout: 'hand.yml') do
     text str: icon.capitalize, layout: icon,
          hint: :red, valign: 'middle', align: 'center'
   end
-  png file: 'pokercard.png', alpha: 0.5
   save_png prefix: 'layout_builtin_hand_'
 end
 

@@ -16,3 +16,8 @@ code.code_img{
 code.code_img_small{
   width: 33%;
 }
+
+.figure{
+  border: 1pt solid black;
+  box-shadow: 5px 5px 8px #333;
+}

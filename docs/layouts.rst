@@ -227,6 +227,61 @@ If your layout file is not found in the current directory, Squib will search for
 
 Contributions in this area are particularly welcome!!
 
+The following depictions of the layouts are generated with `this script <https://github.com/andymeneely/squib/tree/master/samples/layouts/builtin_layouts.rb>`_
+
+fantasy.yml
+~~~~~~~~~~~
+
+.. raw:: html
+
+  <img src="../layouts/expected_layouts_builtin_fantasy_00.png"
+    class="figure" width=350>
+
+https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/fantasy.yml
+
+economy.yml
+~~~~~~~~~~~
+
+.. raw:: html
+
+  <img src="../layouts/expected_layouts_builtin_economy_00.png"
+    class="figure" width=350>
+
+https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/economy.yml
+
+tuck_box.yml
+~~~~~~~~~~~
+
+Based on TheGameCrafter's template.
+
+.. raw:: html
+
+  <img src="../layouts/expected_layouts_builtin_tuck_box_00.png"
+    class="figure" width=450>
+
+https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/tuck_box.yml
+
+
+hand.yml
+~~~~~~~~~~~
+
+.. raw:: html
+
+  <img src="../layouts/expected_layouts_builtin_hand_00.png"
+    class="figure" width=350>
+
+https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/hand.yml
+
+playing_card.yml
+~~~~~~~~~~~
+
+.. raw:: html
+
+  <img src="../layouts/expected_layouts_builtin_playing_card_00.png"
+    class="figure" width=350>
+
+https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/playing_card.yml
+
 See Layouts in Action
 ---------------------
 

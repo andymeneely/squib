@@ -42,10 +42,33 @@ Squib::Deck.new(layout: 'economy.yml') do
   save_png prefix: 'layouts_builtin_economy_'
 end
 
-# Stitch together a deck of all the above examples
-Squib::Deck.new(cards: 2) do
-  Dir.glob('_output/layouts_builtin_*.png').each.with_index do |file, i|
-    png file: file, range: i
+Squib::Deck.new(layout: 'hand.yml') do
+  background color: 'white'
+  %w(title bonus1 bonus2 bonus3 bonus4 bonus5 description
+     snark art).each do |icon|
+    text str: icon.capitalize, layout: icon,
+         hint: :red, valign: 'middle', align: 'center'
   end
-  save_sheet prefix: 'layouts_builtinsheet_'
+  save_png prefix: 'layouts_builtin_hand_'
+end
+
+Squib::Deck.new(layout: 'playing-card.yml') do
+  background color: 'white'
+  text str: "A\u2660", layout: :bonus_ul, font: 'Sans bold 100', hint: :red
+  text str: "A\u2660", layout: :bonus_lr, font: 'Sans bold 100', hint: :red
+  text str: 'artwork here', layout: :art, hint: :red
+  save_png prefix: 'layouts_builtin_playing_card_'
+end
+
+Squib::Deck.new(layout: 'tuck_box.yml', width: 2325, height: 1950) do
+  background color: 'white'
+  rect layout: :top_rect
+  rect layout: :bottom_rect
+  rect layout: :right_rect
+  rect layout: :left_rect
+  rect layout: :back_rect
+  rect layout: :front_rect
+  curve layout: :front_curve
+
+  save_png prefix: 'layouts_builtin_tuck_box_'
 end

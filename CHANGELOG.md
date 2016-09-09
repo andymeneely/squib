@@ -6,6 +6,9 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * Unit conversion supports mm (#161)
 
+Docs:
+* Provide previews of each built-in template on the docs (#163)
+
 Bugs:
 * Fresh installs of Squib were broken due to two hidden dependencies, gio2 and gobject-introspection. (#172)
 * Embedding icons in text show unicode placeholders on some OSs. This is a workaround until we get a better solution for embedding icons. See #170, #171, and #176. For that matter, see #103, #153, and #30 if you really want the whole story.
