@@ -4,9 +4,11 @@ module Squib
 
     # :nodoc:
     # @api private
-    def rect(box, draw)
+    def rect(box, draw, trans)
       use_cairo do |cc|
-        cc.rounded_rectangle(box.x, box.y, box.width, box.height, box.x_radius, box.y_radius)
+        cc.rotate_about(box.x, box.y, trans.angle)
+        cc.rounded_rectangle(box.x, box.y, box.width, box.height,
+                             box.x_radius, box.y_radius)
         cc.fill_n_stroke(draw)
       end
     end
@@ -27,9 +29,10 @@ module Squib
     # of the rectangle. Control points are at 1/4 and 3/4 of the side.
     # :nodoc:
     # @api private
-    def ellipse(box, draw)
+    def ellipse(box, draw, trans)
       x, y, w, h = box.x, box.y, box.width, box.height
       use_cairo do |cc|
+        cc.rotate_about(box.x, box.y, trans.angle)
         cc.move_to(x, y + 0.5 * h)       # start west
         cc.curve_to(x, y + 0.25 * h,     # west to north
                     x + 0.25 * w, y,

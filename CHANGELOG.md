@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * Unit conversion supports mm (#161)
+* `rect` and `ellipse` support the `angle` option (#162)
 
 Docs:
 * Provide previews of each built-in template on the docs (#163)
@@ -13,6 +14,8 @@ Bugs:
 * Fresh installs of Squib were broken due to two hidden dependencies, gio2 and gobject-introspection. (#172)
 * Embedding icons in text show unicode placeholders on some OSs. This is a workaround until we get a better solution for embedding icons. See #170, #171, and #176. For that matter, see #103, #153, and #30 if you really want the whole story.
 * Unit conversion is supported when using `extends` in layouts, as promised in the docs (#173)
+
+Special thanks to everyone who tested, reported, suggested, and helped for this release! bcompter, rhyok, temetherian, rpond-pa, Nibodhika,  briant-spindance, lcarlsen, spilth
 
 ## v0.10.0 / 2016-05-06
 

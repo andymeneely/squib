@@ -13,6 +13,10 @@ Options
 .. include:: /args/range.rst
 .. include:: /args/layout.rst
 
+angle
+  default: 0
+
+  the angle at which to rotate the rectangle about it's upper-left corner
 
 Examples
 ^^^^^^^^

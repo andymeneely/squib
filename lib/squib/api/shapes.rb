@@ -12,7 +12,8 @@ module Squib
       range = Args::CardRange.new(opts[:range], deck_size: size)
       box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].rect(box[i], draw[i]) }
+      trans  = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].rect(box[i], draw[i], trans[i]) }
     end
 
     # DSL method. See http://squib.readthedocs.io
@@ -28,7 +29,8 @@ module Squib
       range = Args::CardRange.new(opts[:range], deck_size: size)
       draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       box   = Args::Box.new(self, { width: '0.25in', height: '0.25in' }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].ellipse(box[i], draw[i]) }
+      trans  = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      range.each { |i| @cards[i].ellipse(box[i], draw[i], trans[i]) }
     end
 
     # DSL method. See http://squib.readthedocs.io
