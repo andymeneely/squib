@@ -14,7 +14,7 @@ module Squib
 
     # DSL method. See http://squib.readthedocs.io
     def use_layout(file: 'layout.yml')
-      @layout = LayoutParser.load_layout(file, @layout)
+      @layout = LayoutParser.new(@dpi).load_layout(file, @layout)
     end
 
   end

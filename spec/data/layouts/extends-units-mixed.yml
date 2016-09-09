@@ -1,0 +1,8 @@
+parent:
+  x: 0.5in
+  y: 1in
+
+child:
+  extends: parent
+  x: += 1in
+  y: -= 0.5in

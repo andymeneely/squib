@@ -68,7 +68,7 @@ module Squib
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
       cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
-      @layout = LayoutParser.load_layout(layout)
+      @layout = LayoutParser.new(dpi).load_layout(layout)
       enable_groups_from_env!
       if block_given?
         instance_eval(&block) # here we go. wheeeee!

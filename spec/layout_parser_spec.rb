@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Squib::LayoutParser do
 
   it 'loads a normal layout with no extends' do
-    layout = Squib::LayoutParser.load_layout(layout_file('no-extends.yml'))
+    layout = subject.load_layout(layout_file('no-extends.yml'))
     expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'valign' => :middle,
@@ -15,7 +15,7 @@ describe Squib::LayoutParser do
   end
 
   it 'loads with a single extends' do
-    layout = Squib::LayoutParser.load_layout(layout_file('single-extends.yml'))
+    layout = subject.load_layout(layout_file('single-extends.yml'))
     expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
@@ -31,7 +31,7 @@ describe Squib::LayoutParser do
   end
 
   it 'applies the extends regardless of order' do
-    layout = Squib::LayoutParser.load_layout(layout_file('pre-extends.yml'))
+    layout = subject.load_layout(layout_file('pre-extends.yml'))
     expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
@@ -47,7 +47,7 @@ describe Squib::LayoutParser do
   end
 
   it 'applies the single-level extends multiple times' do
-    layout = Squib::LayoutParser.load_layout(layout_file('single-level-multi-extends.yml'))
+    layout = subject.load_layout(layout_file('single-level-multi-extends.yml'))
     expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
@@ -69,7 +69,7 @@ describe Squib::LayoutParser do
   end
 
   it 'applies multiple extends in a single rule' do
-    layout = Squib::LayoutParser.load_layout(layout_file('multi-extends-single-entry.yml'))
+    layout = subject.load_layout(layout_file('multi-extends-single-entry.yml'))
     expect(layout).to eq({ 'aunt' => {
             'a' => 101,
             'b' => 102,
@@ -93,7 +93,7 @@ describe Squib::LayoutParser do
   end
 
   it 'applies multi-level extends' do
-    layout = Squib::LayoutParser.load_layout(layout_file('multi-level-extends.yml'))
+    layout = subject.load_layout(layout_file('multi-level-extends.yml'))
     expect(layout).to eq({ 'frame' => {
             'x' => 38,
             'y' => 38,
@@ -116,26 +116,26 @@ describe Squib::LayoutParser do
 
   it 'fails on a self-circular extends' do
     file = layout_file('self-circular-extends.yml')
-    expect { Squib::LayoutParser.load_layout(file) }
+    expect { subject.load_layout(file)}
       .to raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
   end
 
   it 'fails on a easy-circular extends' do
     file = layout_file('easy-circular-extends.yml')
-    expect { Squib::LayoutParser.load_layout(file) }
+    expect { subject.load_layout(file)}
       .to raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
   end
 
   it 'hard on a easy-circular extends' do
     file = layout_file('hard-circular-extends.yml')
-    expect { Squib::LayoutParser.load_layout(file) }
+    expect { subject.load_layout(file)}
       .to raise_error(RuntimeError, 'Invalid layout: circular extends with \'a\'')
   end
 
   it 'redefines keys on multiple layouts' do
     a = layout_file('multifile-a.yml')
     b = layout_file('multifile-b.yml')
-    layout = Squib::LayoutParser.load_layout([a, b])
+    layout = subject.load_layout([a, b])
     expect(layout).to eq({
         'title'    => { 'x' => 300 },
         'subtitle' => { 'x' => 200 },
@@ -146,7 +146,7 @@ describe Squib::LayoutParser do
   it 'evaluates extends on each file first' do
     a = layout_file('multifile-extends-a.yml')
     b = layout_file('multifile-extends-b.yml')
-    layout = Squib::LayoutParser.load_layout([a, b])
+    layout = subject.load_layout([a, b])
     expect(layout).to eq({
         'grandparent' => { 'x' => 100 },
         'parent_a'    => { 'x' => 110, 'extends' => 'grandparent' },
@@ -157,12 +157,12 @@ describe Squib::LayoutParser do
   end
 
   it 'loads nothing on an empty layout file' do
-    layout = Squib::LayoutParser.load_layout(layout_file('empty.yml'))
+    layout = subject.load_layout(layout_file('empty.yml'))
     expect(layout).to eq({})
   end
 
   it 'handles extends on a rule with no args' do
-    layout = Squib::LayoutParser.load_layout(layout_file('empty-rule.yml'))
+    layout = subject.load_layout(layout_file('empty-rule.yml'))
     expect(layout).to eq({
       'empty' => nil
     })
@@ -170,14 +170,14 @@ describe Squib::LayoutParser do
 
   it 'logs an error when a file is not found' do
     expect(Squib.logger).to receive(:error).once
-    Squib::LayoutParser.load_layout('yeti')
+    subject.load_layout('yeti')
   end
 
   it 'freaks out if you extend something doesn\'t exist' do
     expect(Squib.logger)
       .to receive(:error)
       .with("Processing layout: 'verbal' attempts to extend a missing 'kaisersoze'")
-    layout = Squib::LayoutParser.load_layout(layout_file('extends-nonexists.yml'))
+    layout = subject.load_layout(layout_file('extends-nonexists.yml'))
     expect(layout).to eq({
       'verbal' => {
           'font_size' => 25,
@@ -186,11 +186,36 @@ describe Squib::LayoutParser do
       })
   end
 
+  it 'does unit conversion when extending' do
+    layout = subject.load_layout(layout_file('extends-units.yml'))
+    expect(layout).to eq({
+      'parent' => { 'x' => '0.5in', 'y' => '1in'},
+      'child'  => { 'x' => 450.0, 'y' => 150.0, 'extends' => 'parent' },
+    })
+  end
+
+  it 'does unit conversion on non-300 dpis' do
+    parser = Squib::LayoutParser.new(100)
+    layout = parser.load_layout(layout_file('extends-units.yml'))
+    expect(layout).to eq({
+      'parent' => { 'x' => '0.5in', 'y' => '1in'},
+      'child'  => { 'x' => 150.0, 'y' => 50.0, 'extends' => 'parent' },
+    })
+  end
+
+  it 'does mixed unit conversion when extending' do
+    layout = subject.load_layout(layout_file('extends-units-mixed.yml'))
+    expect(layout).to eq({
+      'parent' => { 'x' => '0.5in', 'y' => '1in'},
+      'child'  => { 'x' => 450.0, 'y' => 150.0, 'extends' => 'parent' },
+    })
+  end
+
   it 'loads progressively on multiple calls' do
     a = layout_file('multifile-a.yml')
     b = layout_file('multifile-b.yml')
-    layout = Squib::LayoutParser.load_layout(a)
-    layout = Squib::LayoutParser.load_layout(b, layout)
+    layout = subject.load_layout(a)
+    layout = subject.load_layout(b, layout)
     expect(layout).to eq({
         'title'    => { 'x' => 300 },
         'subtitle' => { 'x' => 200 },

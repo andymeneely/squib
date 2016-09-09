@@ -9,6 +9,7 @@ Features:
 Bugs:
 * Fresh installs of Squib were broken due to two hidden dependencies, gio2 and gobject-introspection. (#172)
 * Embedding icons in text show unicode placeholders on some OSs. This is a workaround until we get a better solution for embedding icons. See #170, #171, and #176. For that matter, see #103, #153, and #30 if you really want the whole story.
+* Unit conversion is supported when using `extends` in layouts, as promised in the docs (#173)
 
 ## v0.10.0 / 2016-05-06
 

@@ -5,16 +5,21 @@ module Squib
   # @api private
   class LayoutParser
 
+    def initialize(dpi = 300)
+      @dpi = dpi
+    end
+
     # Load the layout file(s), if exists
     # @api private
-    def self.load_layout(files, initial = {})
+    def load_layout(files, initial = {})
       layout = initial
       Squib::logger.info { "  using layout(s): #{files}" }
       Array(files).each do |file|
         thefile = file
         thefile = builtin(file) unless File.exists?(file)
         if File.exists? thefile
-          yml = layout.merge(YAML.load_file(thefile) || {}) # load_file returns false on empty file
+          # note: YAML.load_file returns false on empty file
+          yml = layout.merge(YAML.load_file(thefile) || {})
           yml.each do |key, value|
             layout[key] = recurse_extends(yml, key, {})
           end
@@ -25,15 +30,17 @@ module Squib
       return layout
     end
 
+    private
+
     # Determine the file path of the built-in layout file
-    def self.builtin(file)
+    def builtin(file)
       "#{File.dirname(__FILE__)}/layouts/#{file}"
     end
 
     # Process the extends recursively
     # :nodoc:
     # @api private
-    def self.recurse_extends(yml, key, visited)
+    def recurse_extends(yml, key, visited)
       assert_not_visited(key, visited)
       return yml[key] unless has_extends?(yml, key)
       return yml[key] unless parents_exist?(yml, key)
@@ -43,9 +50,9 @@ module Squib
       parent_keys.each do |parent_key|
         from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
           if child_val.to_s.strip.start_with?('+=')
-            parent_val + child_val.sub('+=', '').strip.to_f
+            add_parent_child(parent_val, child_val)
           elsif child_val.to_s.strip.start_with?('-=')
-            parent_val - child_val.sub('-=', '').strip.to_f
+            sub_parent_child(parent_val, child_val)
           else
             child_val # child overrides parent when merging, no +=
           end
@@ -57,17 +64,29 @@ module Squib
       return h
     end
 
+    def add_parent_child(parent, child)
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
+      child_pixels = Args::UnitConversion.parse(child.sub('+=', ''), @dpi).to_f
+      parent_pixels + child_pixels
+    end
+
+    def sub_parent_child(parent, child)
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
+      child_pixels = Args::UnitConversion.parse(child.sub('-=', ''), @dpi).to_f
+      parent_pixels - child_pixels
+    end
+
     # Does this layout entry have an extends field?
     # i.e. is it a base-case or will it need recursion?
     # :nodoc:
     # @api private
-    def self.has_extends?(yml, key)
+    def has_extends?(yml, key)
       !!yml[key] && yml[key].key?('extends')
     end
 
     # Checks if we have any absentee parents
     # @api private
-    def self.parents_exist?(yml, key)
+    def parents_exist?(yml, key)
       exists = true
       Array(yml[key]['extends']).each do |parent|
         unless yml.key?(parent)
@@ -81,7 +100,7 @@ module Squib
     # Safeguard against malformed circular extends
     # :nodoc:
     # @api private
-    def self.assert_not_visited(key, visited)
+    def assert_not_visited(key, visited)
       if visited.key? key
         raise "Invalid layout: circular extends with '#{key}'"
       end
