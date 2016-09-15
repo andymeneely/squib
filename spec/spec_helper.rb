@@ -65,6 +65,7 @@ def scrub_hex(str)
   str.gsub(/0x\w{1,8}/, '')
      .gsub(/ptr=\w{1,8}/, '')
      .gsub(/#<Pango::FontDescription:.*>/, '')
+     .gsub(/#<Pango::AttrList:.*>/, 'Pango::AttrList')
      .gsub(/#<Cairo::ImageSurface:.*>/, 'ImageSurface')
      .gsub(/#<Cairo::LinearPattern:.*>/, 'LinearPattern')
      .gsub(/#<Cairo::RadialPattern:.*>/, 'RadialPattern')
@@ -103,6 +104,8 @@ def mock_cairo(strio)
   allow(pango).to receive(:alignment).and_return(Pango::Layout::Alignment::LEFT)
   allow(pango).to receive(:text).and_return('foo')
   allow(pango).to receive(:context).and_return(pango_cxt)
+  allow(pango).to receive(:attributes).and_return(nil)
+  allow(pango_cxt).to receive(:set_shape_renderer)
   allow(pango_cxt).to receive(:font_options=)
   allow(iter).to receive(:next_char!).and_return(false)
   allow(iter).to receive(:char_extents).and_return(Pango::Rectangle.new(5, 5, 5, 5))
@@ -120,7 +123,8 @@ def mock_cairo(strio)
   end
 
   %w(font_description= text= width= height= wrap= ellipsize= alignment=
-    justify= spacing= markup= ellipsized?).each do |m|
+    justify= spacing= markup= ellipsized? attributes=
+    set_shape_renderer).each do |m|
     allow(pango).to receive(m) {|*args| strio << scrub_hex("pango: #{m}(#{args})\n") }
   end
 

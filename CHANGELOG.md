@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.11.0 / 2016-06-27
+## v0.11.0 / Unreleased
 
 Features:
 * Unit conversion supports mm (#161)
@@ -9,11 +9,16 @@ Features:
 
 Docs:
 * Provide previews of each built-in template on the docs (#163)
+* Documented lack of `:scale` behavior on text embedding. (#160)
 
 Bugs:
 * Fresh installs of Squib were broken due to two hidden dependencies, gio2 and gobject-introspection. (#172)
-* Embedding icons in text show unicode placeholders on some OSs. This is a workaround until we get a better solution for embedding icons. See #170, #171, and #176. For that matter, see #103, #153, and #30 if you really want the whole story.
+* Embedding icons in text show unicode placeholders on some OSs. Actually, all of icon embedding was one giant bug waiting to be squashed. I finally implemented this functionality using the proper API calls. See #177 for the feature, and then the bugs were #170, #171, #158, and #176. For that matter, see #103, #153, and #30 if you really want the whole story.
+* With #177, the `:native` option for image width and height text embedding should work ().
 * Unit conversion is supported when using `extends` in layouts, as promised in the docs (#173)
+
+Compatibility:
+* I reworked the way icons are embedded, and that was a big change internally (#177). We're now using Pango's API in the expected way and not dealing with "undefined behavior" situations with zero-sized fonts and obscure UTF-8 characters as we were before. But, as a result, Pango handles custom shapes a little differently than before. Wrapping doesn't render exactly the same way as before, although it's acceptable in most cases. If you still find problems, please file a bug.
 
 Special thanks to everyone who tested, reported, suggested, and helped for this release! bcompter, rhyok, temetherian, rpond-pa, Nibodhika,  briant-spindance, lcarlsen, spilth
 

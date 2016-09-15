@@ -8,10 +8,9 @@ Squib::Deck.new do
   text(str: embed_text, font: 'Sans 21',
        x: 0, y: 0, width: 180, hint: :red,
        align: :left, ellipsize: false, justify: false) do |embed|
-    # Notice how we use dx and dy to adjust the icon to not rest directly on the baseline
-    embed.svg key: ':tool:',   width: 28, height: 28, dx:  0, dy: 4, file: 'spanner.svg'
-    embed.svg key: ':health:', width: 28, height: 28, dx: -2, dy: 4, file: 'glass-heart.svg'
-    embed.png key: ':purse:',  width: 28, height: 28, dx:  0, dy: 4, file: 'shiny-purse.png'
+    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
   embed_text = 'Middle align: Take 1 :tool: and gain 2 :health:. Take 2 :tool: and gain 3 :purse:'
@@ -32,11 +31,11 @@ Squib::Deck.new do
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
-  embed_text = 'Wrapping multiples: These are 1 :tool::tool::tool: and these are multiple :tool::tool: :tool::tool:'
-  text(str: embed_text, font: 'Sans 21',
-       x: 600, y: 0, width: 180, height: 300, valign: :middle,
+  embed_text = 'Yes, this wraps strangely. We are trying to determine the cause. These are 1 :tool::tool::tool: and these are multiple :tool::tool: :tool::tool:'
+  text(str: embed_text, font: 'Sans 18',
+       x: 600, y: 0, width: 180, height: 300, wrap: :word_char,
        align: :left, ellipsize: false, justify: false, hint: :cyan) do |embed|
-    embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':tool:', width: 28, height: 28, file: 'spanner.svg'
   end
 
   embed_text = ':tool:Justify will :tool: work too, and :purse: with more words just for fun'
@@ -87,11 +86,30 @@ Squib::Deck.new do
 
   embed_text = ":tool: Death to Nemesis bug 103!! :purse:"
   text(str: embed_text, font: 'Sans Bold 24', stroke_width: 2,
-       color: :red, stroke_color: :blue, dash: '3 3', align: :center,
+       color: :red, stroke_color: :blue, dash: '3 3', align: :left,
        valign: :middle, x: 0, y: 700, width: 380, height: 150,
        hint: :magenta) do |embed|
     embed.svg key: ':tool:', file: 'spanner.svg', width: 32, height: 32
     embed.png key: ':purse:', file: 'shiny-purse.png', width: 32, height: 32
+  end
+
+  embed_text = 'You can adjust the icon with dx and dy. Normal: :tool: Adjusted: :heart:'
+  text(str: embed_text, font: 'Sans 18', x: 400, y: 640, width: 180,
+       height: 300, hint: :magenta) do |embed|
+    embed.svg key: ':tool:', width: 28, height: 28, file: 'spanner.svg'
+    embed.svg key: ':heart:', width: 28, height: 28, dx: 10, dy: 10,
+              file: 'glass-heart.svg'
+  end
+
+  embed_text = "Native sizes work too\n:tool:\n\n\n\n\n\n:shiny-purse:\n\n\n\n\n\n:tool2:"
+  text(str: embed_text, font: 'Sans 18', x: 600, y: 640, width: 180,
+       height: 475, hint: :magenta) do |embed|
+    embed.svg key: ':tool:', width: :native, height: :native,
+              file: 'spanner.svg'
+    embed.svg key: ':tool2:', width: :native, height: :native,
+              data: File.open('spanner.svg','r').read
+    embed.png key: ':shiny-purse:', width: :native, height: :native,
+              file: 'shiny-purse.png'
   end
 
   save_png prefix: 'embed_'

@@ -1,5 +1,6 @@
 require 'pango'
 require_relative '../args/typographer'
+require_relative 'embedding_utils'
 
 module Squib
   class Card
@@ -51,55 +52,59 @@ module Squib
       layout.height = height * Pango::SCALE unless height.nil? || height == :auto
     end
 
-    def max_embed_height(embed_draws)
-      embed_draws.inject(0) do |max, ed|
-        ed[:h] > max ? ed[:h] : max
-      end
-    end
-
-    # :nodoc:
-    # @api private
-    def next_embed(keys, str)
-      ret     = nil
-      ret_key = nil
-      keys.each do |key|
-        i = str.index(key)
-        ret ||= i
-        unless i.nil? || i > ret
-          ret = i
-          ret_key = key
+    # Compute the width of the carve that we need
+    def compute_carve(rule, range)
+      w = rule[:box].width[@index]
+      if w == :native
+        file = rule[:file][@index].file
+        case rule[:type]
+        when :png
+          Squib.cache_load_image(file).width.to_f / (range.size - 1)
+        when :svg
+          svg_data = rule[:svg_args].data[@index]
+          unless file.to_s.empty? || svg_data.to_s.empty?
+            Squib.logger.warn 'Both an SVG file and SVG data were specified'
+          end
+          return 0 if (file.nil? or file.eql? '') and svg_data.nil?
+          svg_data = File.read(file) if svg_data.to_s.empty?
+          RSVG::Handle.new_from_data(svg_data).width
         end
+      else
+        rule[:box].width[@index] * Pango::SCALE / (range.size - 1)
       end
-      ret_key
     end
 
-    # :nodoc:
-    # @api private
-    def process_embeds(embed, str, layout)
+    # # :nodoc:
+    # # @api private
+    def embed_images!(embed, str, layout, valign)
       return [] unless embed.rules.any?
       layout.markup = str
       clean_str     = layout.text
-      draw_calls    = []
-      searches      = []
-      while (key = next_embed(embed.rules.keys, clean_str)) != nil
-        rule    = embed.rules[key]
-        spacing = rule[:box].width[@index] * Pango::SCALE
-        kindex   = clean_str.index(key)
-        kindex   = clean_str[0..kindex].bytesize # byte index (bug #57)
-        str = str.sub(key, "\u2062<span letter_spacing=\"#{spacing.to_i}\">\u2062</span>\u2062")
-        layout.markup = str
-        clean_str     = layout.text
-        searches << { index: kindex, rule: rule }
+      attrs = layout.attributes || Pango::AttrList.new
+      EmbeddingUtils.indices(clean_str, embed.rules.keys).each do |key, ranges|
+        rule = embed.rules[key]
+        ranges.each do |range|
+          carve = Pango::Rectangle.new(0, 0, compute_carve(rule, range), 0)
+          att = Pango::AttrShape.new(carve, carve, rule)
+          att.start_index = range.first
+          att.end_index = range.last
+          attrs.insert(att)
+        end
       end
-      searches.each do |search|
-        rect = layout.index_to_pos(search[:index])
-        x    = Pango.pixels(rect.x) + search[:rule][:adjust].dx[@index]
-        y    = Pango.pixels(rect.y) + search[:rule][:adjust].dy[@index]
-        h    = rule[:box].height[@index]
-        draw_calls << { x: x, y: y, h: h, # defer drawing until we've valigned
-                       draw: search[:rule][:draw] }
+      layout.attributes = attrs
+      layout.context.set_shape_renderer do |cxt, att, do_path|
+        unless do_path # when stroking the text
+          rule = att.data
+          x = Pango.pixels(layout.index_to_pos(att.start_index).x) +
+              rule[:adjust].dx[@index]
+          y = Pango.pixels(layout.index_to_pos(att.start_index).y) +
+                rule[:adjust].dy[@index] +
+                compute_valign(layout, valign, rule[:box].height[@index])
+          rule[:draw].call(self, x, y)
+          cxt.reset_clip
+          [cxt, att, do_path]
+        end
       end
-      return draw_calls
     end
 
     def stroke_outline!(cc, layout, draw)
@@ -146,24 +151,16 @@ module Squib
         layout.justify = para.justify unless para.justify.nil?
         layout.spacing = para.spacing unless para.spacing.nil?
 
-        embed_draws    = process_embeds(embed, para.str, layout)
+        embed_images!(embed, para.str, layout, para.valign)
 
-        vertical_start = compute_valign(layout, para.valign, max_embed_height(embed_draws))
-        cc.move_to(0, vertical_start) # TODO clean this up a bit
+        vertical_start = compute_valign(layout, para.valign, 0)
+        cc.move_to(0, vertical_start)
 
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :stroke_first
         cc.move_to(0, vertical_start)
+
         cc.show_pango_layout(layout)
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :fill_first
-        begin
-          embed_draws.each { |ed| ed[:draw].call(self, ed[:x], ed[:y] + vertical_start) }
-        rescue Exception => e
-          puts '====EXCEPTION!===='
-          puts e
-          puts 'If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55'
-          puts '=================='
-          raise e
-        end
         draw_text_hint(cc, box.x, box.y, layout, para.hint)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
