@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.12.0 / Unreleased
+
+Chores:
+* Bumped dependency roo to 2.5.1.
+
 ## v0.11.0 / 2016-09-05
 
 Features:
