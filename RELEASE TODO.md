@@ -3,6 +3,7 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] CHANGELOG is written for all new changes
  - [ ] README is updated
  - [ ] Samples are updated
+ - [ ] Are all the dependencies up to date?
  - [ ] Check `sample_regression_spec.rb` regression tests are all enabled (i.e. `overwrite_sample` is commented out)
  - [ ] Bump version.rb
  - [ ] Bump docs/conf.py versions
