@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.11.0 / Unreleased
+## v0.11.0 / 2016-09-05
 
 Features:
 * Unit conversion supports mm (#161)
@@ -18,7 +18,7 @@ Bugs:
 * Unit conversion is supported when using `extends` in layouts, as promised in the docs (#173)
 
 Compatibility:
-* I reworked the way icons are embedded, and that was a big change internally (#177). We're now using Pango's API in the expected way and not dealing with "undefined behavior" situations with zero-sized fonts and obscure UTF-8 characters as we were before. But, as a result, Pango handles custom shapes a little differently than before. Wrapping doesn't render exactly the same way as before, although it's acceptable in most cases. If you still find problems, please file a bug.
+* I reworked the way icons are embedded, and that was a big change internally (#177). We're now using Pango's API in the expected way and not dealing with "undefined behavior" situations with zero-sized fonts and obscure UTF-8 characters as we were before. But, as a result, Pango handles custom shapes acd  little differently than before. Wrapping doesn't render exactly the same way as before, although it's acceptable in most cases. If you still find problems, please file a bug.
 
 Special thanks to everyone who tested, reported, suggested, and helped for this release! bcompter, rhyok, temetherian, rpond-pa, Nibodhika,  briant-spindance, lcarlsen, spilth
 
