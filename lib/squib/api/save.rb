@@ -3,6 +3,7 @@ require_relative '../args/hand_special'
 require_relative '../args/save_batch'
 require_relative '../args/sheet'
 require_relative '../args/showcase_special'
+require_relative '../graphics/save_pdf'
 
 module Squib
   class Deck
@@ -18,7 +19,7 @@ module Squib
     def save_pdf(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       sheet = Args::Sheet.new(custom_colors, { file: 'output.pdf' }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      render_pdf(range, sheet)
+      Graphics::SavePDF.new(self).render_pdf(range, sheet)
     end
 
     # DSL method. See http://squib.readthedocs.io

@@ -45,7 +45,8 @@ describe Squib::Deck, '#save_pdf' do
       expect(cxt).to receive(:target).and_return(target)
       expect(target).to receive(:finish).once
 
-      args = { file: 'foo.pdf', dir: '_out', margin: 75, gap: 5, trim: 37 }
+      args = { file: 'foo.pdf', dir: '_out', crop_marks: false,
+               margin: 75, gap: 5, trim: 37 }
       deck.save_pdf(args)
     end
 

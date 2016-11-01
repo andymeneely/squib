@@ -50,9 +50,31 @@ describe Squib::Args::Sheet do
       opts = { columns: :infinite }
       expect { sheet.load!(opts) }.to raise_error('columns must be an integer')
     end
-
-
-
   end
 
+  context 'crop marks' do
+    subject(:sheet) { Squib::Args::Sheet.new({}, {}, 4) }
+
+    it 'computes crop marks properly' do
+      opts = {
+        width: 1000,
+        height: 1100,
+        trim: 10,
+        crop_margin_top: 20,
+        crop_margin_left: 30,
+        crop_margin_right: 40,
+        crop_margin_bottom: 50,
+      }
+      expect(sheet.load!(opts).crop_coords(3,4, 300, 400)).to eq(
+        [ {:x1=>43, :y1=>0, :x2=>43, :y2=>74},
+          {:x1=>253, :y1=>0, :x2=>253, :y2=>74},
+          {:x1=>43, :y1=>1100, :x2=>43, :y2=>1026},
+          {:x1=>253, :y1=>1100, :x2=>253, :y2=>1026},
+          {:x1=>0, :y1=>34, :x2=>74, :y2=>34},
+          {:x1=>1000, :y1=>34, :x2=>926, :y2=>34},
+          {:x1=>0, :y1=>344, :x2=>74, :y2=>344},
+          {:x1=>1000, :y1=>344, :x2=>926, :y2=>344}]
+      )
+    end
+  end
 end
