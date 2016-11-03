@@ -46,6 +46,10 @@ crop_marks
 
   When ``true``, draws lines in the margins as guides for cutting. Crop marks factor in the ``trim`` (if non-zero), and can also be customized via ``crop_margin_*`` options (see below). Has no effect if ``margin`` is 0.
 
+.. warning::
+
+  Enabling this feature will draw lines to the edge of the page. Most PDF Readers, by default, will recognize this and scale down the entire PDF to fit in those crop marks - throwing off your overall scale. To disable this, you will need to set Print Scaling "Use original" or "None" when you go to print (this looks different for different PDF readers). Be sure to test this out before you do your big print job!!
+
 crop_margin_bottom
   default: 0
 
