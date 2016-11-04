@@ -59,7 +59,7 @@ Back to the Example: Drones vs. Humans
 
 Ok, let's go back to our running example, project ``arctic-lemming`` from Part 1. We created cards for playtesting, but we never put down the faction for each card. That's a good candidate for an icon.
 
-Let's get some stock icons for this exercise. For this example, I went to http://game-icons.net. I set my foreground color to black, and background to white. I then  downloaded "auto-repair.svg" and "backup.svg". I'm choosing not to rename the files so that I can find them again on the website if I need to. (If you want to know how to do this process DIRECTLY from Ruby, and not going to the website, check out my *other* Ruby gem called `game_icons <https://github.com/andymeneely/game_icons>`_ - it's tailor-made for Squib!)
+Let's get some stock icons for this exercise. For this example, I went to http://game-icons.net. I set my foreground color to black, and background to white. I then downloaded "auto-repair.svg" and "backup.svg". I'm choosing not to rename the files so that I can find them again on the website if I need to. (If you want to know how to do this process DIRECTLY from Ruby, and not going to the website, check out my *other* Ruby gem called `game_icons <https://github.com/andymeneely/game_icons>`_ - it's tailor-made for Squib!)
 
 When we were brainstorming our game, we placed one category of icons in a single column ("faction"). Presumably, one would want the faction icon to be in the same place on every card, but a different icon depending on the card's faction. There are a couple of ways of accomplishing this in Squib. First, here some less-than-clean ways of doing it::
 
@@ -115,7 +115,7 @@ At this point, we've got a very scalable design for our future iterations. Let's
 Why Ruby+YAML+Spreadsheets Works
 --------------------------------
 
-In software design, a "good" design is one where the problem is broken down into a set of easier duties that each make sense on their own, where the interaction between duties is easy, and where to place new responsbilities is obvious.
+In software design, a "good" design is one where the problem is broken down into a set of easier duties that each make sense on their own, where the interaction between duties is easy, and where to place new responsibilities is obvious.
 
 In Squib, we're using automation to assist the prototyping process. This means that we're going to have a bunch of decisions and responsibilities, such as:
 
@@ -144,9 +144,21 @@ Icons for Some, But Not All, Cards
 
   to be written
 
+Method 1: Ruby Array#map
+------------------------
+
+
+Method 2: Use Layouts
+---------------------
+
+Methods 3: Use range
+
 One Column per Icon
 -------------------
 
 .. note::
 
   to be written
+
+Don't Forget Unicode Icons
+--------------------------
