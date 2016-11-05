@@ -1,5 +1,5 @@
-The Squib Way pt 4: Leveraging Ruby
-===================================
+The Squib Way pt 4: Ruby Power!
+===============================
 
 .. warning::
 
@@ -15,4 +15,4 @@ This part is about cataloging some powerful things you can do if you're willing 
 * Building newlines yourself (i.e. with your own placeholder like "%n" in Your Last Heist)
 * Summarization card backs for Your Last Heist as an example
 * "Lacks" string for Your Last Heist
-* Rules doc written in Markdown 
+* Rules doc written in Markdown
