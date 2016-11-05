@@ -6,8 +6,11 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * `save_pdf` now supports crop marks! These are lines drawn in the margins of a PDF file to help you cut. These can be enabled by setting `crop_marks: true` in your `save_pdf` call. Can be further customized with `crop_margin_bottom`, `crop_margin_left`, `crop_margin_right`, `crop_margin_top`, `crop_marks`, `crop_stroke_color`, `crop_stroke_dash`, and `crop_stroke_width` (#123)
 
+Docs:
+* Wrote out documentation for [Squib and GameIcons](http://squib.readthedocs.io/en/latest/guides/game_icons.html)
+
 Chores:
-* Bumped dependency roo to 2.5.1.
+* Bumped dependency roo to 2.5.1. Nothing that affects Squib users (probably).
 
 ## v0.11.0 / 2016-09-05
 
