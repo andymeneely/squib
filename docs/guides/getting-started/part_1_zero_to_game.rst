@@ -1,13 +1,6 @@
 The Squib Way pt 1: Zero to Game
 =================================
 
-.. warning::
-
-  Conversion from markdown not finished yet
-
-Prototyping with Squib
-----------------------
-
 Squib is all about being able to change your mind quickly. Change data, change layout, change artwork, change text. But where do we start? What do we work on first?
 
 The key to prototyping tabletop games is *playtesting*. At the table. With humans. Printed components. That means that we need to get our idea out of our brains and onto pieces of paper as fast as possible.

@@ -144,6 +144,9 @@ Icons for Some, But Not All, Cards
 
   to be written
 
+* Method: filenames in Excel
+* Method: filenames in Layout
+
 Method 1: Ruby Array#map
 ------------------------
 

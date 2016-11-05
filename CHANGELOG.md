@@ -8,6 +8,7 @@ Features:
 
 Docs:
 * Wrote out documentation for [Squib and GameIcons](http://squib.readthedocs.io/en/latest/guides/game_icons.html)
+* Wrote out documentation for Hello World! Dissected
 
 Chores:
 * Bumped dependency roo to 2.5.1. Nothing that affects Squib users (probably).
