@@ -1,7 +1,7 @@
 Parameters are Optional
 =======================
 
-Squib is all about sane defaults and shorthand specification. Arguments to DSL methods are almost always using hashes, which look a lot like [Ruby 2.0's named parameters](http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments). This means you can specify your parameters in any order you please. All parameters are optional.
+Squib is all about sane defaults and shorthand specification. Arguments to DSL methods are almost always using hashes, which look a lot like `Ruby 2.0's named parameters <http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments>`_. This means you can specify your parameters in any order you please. All parameters are optional.
 
 For example `x` and `y` default to 0 (i.e. the upper-left corner of the card). Any parameter that is specified in the command overrides any Squib defaults, `config.yml` settings, or layout rules.
 
