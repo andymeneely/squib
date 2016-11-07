@@ -11,6 +11,7 @@ _yardoc
 coverage
 docs/_build*
 doc/
+docs/_build
 lib/bundler/man
 pkg
 rdoc
