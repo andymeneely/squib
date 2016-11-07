@@ -5,8 +5,10 @@ The Squib Way pt 3: Workflows
 
   To be written.
 
-* Build groups: color vs. black-and-white
-* Splitting out decks into different files
 * Setting up rake tasks
+* Splitting out decks into different files
+* Build groups: color vs. black-and-white
 * Switch from built-in layouts to your own layout
 * Launch what you need with Launchy
+* Auto-building with Guard
+* Git

@@ -1,13 +1,21 @@
 The Squib Way pt 1: Zero to Game
 =================================
 
+I've always felt that the Ruby community and the tabletop game design community had a lot in common, and a lot to learn from each other. Both are all about testing. All about iterative development. Both communities are collegial, creative, and fun.
+
+But the Ruby community, and the software development community generally, has a lot to teach us game designers about how to develop something. `Ruby has a "way" of doing things <http://therubyway.io/>`_ that is unique and helpful to game designers.
+
+In this series of guides, I'll introduce you to Squib's key features and I'll walk you through a basic prototype. We'll also take a more circuitous route than normal so that I can touch upon some key design principles and good software development habits so that you can make your Squib scripts maintainable, understandable, flexible, and changeable.
+
+Prototyping with Squib
+----------------------
+
 Squib is all about being able to change your mind quickly. Change data, change layout, change artwork, change text. But where do we start? What do we work on first?
 
 The key to prototyping tabletop games is *playtesting*. At the table. With humans. Printed components. That means that we need to get our idea out of our brains and onto pieces of paper as fast as possible.
 
 But! We also want to get the *second* (and third and fourth and fifth...) version of our game back to the playtesting table quickly, too. If we work with Squib from day one, our ability to react to feedback will be much smoother once we've laid the groundwork.
 
-In this series of guides, we'll introduce you to Squib's key features by also walking you through a basic prototype. We'll take a more circuitous route than normal so we can pick apart what Squib is actually doing so that we can leverage its features.
 
 Get Installed and Set Up
 -----------------------------

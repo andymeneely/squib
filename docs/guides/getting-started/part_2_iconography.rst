@@ -1,10 +1,6 @@
 The Squib Way pt 2: Iconography
 ===================================
 
-.. warning::
-
-  This chapter is still being written
-
 In the previous guide, we walked you through the basics of going from ideas in your head to a very simple set of cards ready for playtesting at the table. In this guide we take the next step: creating a visual language.
 
 Art: Graphic Design vs. Illustration
@@ -213,10 +209,20 @@ And our Ruby code will figure out the file name:
 
 And our output images look identical to Method 1.
 
-Don't Forget Unicode Icons
---------------------------
+Learn by Example
+----------------
 
+In my game, Your Last Heist, I use some similar methods as above:
 
-.. note::
+  * `Use a different background depending <https://github.com/andymeneely/project-timber-wolf/blob/156a5d417dd8021e3f391a67c08b8e9f06f58c2b/src/characters.rb#L14-L16>`_ on if the character is level 1 or 2. Makes use of `Ruby's ternary operator <https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Control_Structures#short-if_expression_.28aka_ternary_operator.29>`_.
+  * `Only put an image if the data is non-nil <https://github.com/andymeneely/project-timber-wolf/blob/156a5d417dd8021e3f391a67c08b8e9f06f58c2b/src/characters.rb#L19-L21>`_. Some characters have a third skill, others do not. Only load a third skill image if they have a third skill. This line leverages the fact that when you do ``svg file: nil``, the ``svg`` simply does nothing.
+  * `Method 2 from above, but into its own directory <https://github.com/andymeneely/project-timber-wolf/blob/156a5d417dd8021e3f391a67c08b8e9f06f58c2b/src/characters.rb#L23>`_.
+  * `Use different-sized backdrops depending on the number of letters in the text <https://github.com/andymeneely/project-timber-wolf/blob/156a5d417dd8021e3f391a67c08b8e9f06f58c2b/src/characters.rb#L24-L31>`_. This one is cool because I can rewrite the description of a card, and it will automatically figure out which backdrop to use based on how many letters the text has. This makes use of `Ruby's case-when expression <https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Control_Structures#case_expression>`_.
+  * After saving the regular cards, we end our script by `creating some annotated figures <https://github.com/andymeneely/project-timber-wolf/blob/156a5d417dd8021e3f391a67c08b8e9f06f58c2b/src/characters.rb#L68-L76>`_ for the rulebook by drawing some text on top of it and saving it using ``showcase``.
 
-  Not quite done here.
+Are We Done?
+------------
+
+At this stage, you've got most of what you need to build a game from prototype through completion. Between images and text, you can do pretty much anything. Squib does much more, of course, but these are the basic building blocks.
+
+But, prototyping is all about speed and agility. The faster you can get what you need, the sooner you can playtest, and the sooner you can make it better. Up next, we'll be looking at workflow: ways to help you get what you need quickly and reliably.
