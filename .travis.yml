@@ -10,8 +10,10 @@ addons:
 
 rvm:
   - 2.2
+  - 2.3.0
   - 2.3.1
   - 2.4.0-preview3
 matrix:
   allow_failures:
+    - rvm: 2.3.1
     - rvm: 2.4.0-preview3
