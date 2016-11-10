@@ -1,6 +1,7 @@
 dist: trusty
 language: ruby
-sudo: false # taking advantage of container-based infrastructure
+sudo: true # need this for libgirepository1.0-dev
+# sudo: false # taking advantage of container-based infrastructure
 cache: bundler # cache bundled gems from build to build
 
 addons:
