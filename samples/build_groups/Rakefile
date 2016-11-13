@@ -1,0 +1,25 @@
+# Example Rakefile that makes use of build groups
+
+desc 'Build black-and-white by default'
+task default: [:bw]
+
+desc 'Build both bw and color'
+task both: [:bw, :color]
+
+desc 'Build black-and-white only'
+task :bw do
+  ENV['SQUIB_BUILD'] = 'print_n_play'
+  load 'build_groups.rb'
+end
+
+desc 'Build the color version only'
+task :color do
+  ENV['SQUIB_BUILD'] = 'color'
+  load 'build_groups.rb'
+end
+
+desc 'Build a test card'
+task :color do
+  ENV['SQUIB_BUILD'] = 'test'
+  load 'build_groups.rb'
+end
