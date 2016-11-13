@@ -1,27 +1,12 @@
 [submodule "samples/intro"]
 	path = samples/intro
 	url = https://gist.github.com/5026392a419124312cb7.git
-[submodule "samples/images"]
-	path = samples/images
-	url = https://gist.github.com/00ba7eb0aa1d82140503.git
 [submodule "samples/text"]
 	path = samples/text
 	url = https://gist.github.com/52d7b8e332194946bc69.git
-[submodule "samples/autoscale_font"]
-	path = samples/autoscale_font
-	url = https://gist.github.com/andymeneely/a4536fff0f3dc5d59c66
-[submodule "samples/build_groups"]
-	path = samples/build_groups
-	url = https://gist.github.com/andymeneely/bda48487e3b8c9d15edb
-[submodule "samples/backend"]
-	path = samples/backend
-	url = https://gist.github.com/7b4a3acd0e758aedf87ba549e2025a11.git
 [submodule "samples/shapes"]
 	path = samples/shapes
 	url = https://gist.github.com/59089c972b8b0e5d7e76598010e69291.git
 [submodule "samples/data"]
 	path = samples/data
 	url = https://gist.github.com/6f89115805e205c647a779b7b4866151.git
-[submodule "samples/colors"]
-	path = samples/colors
-	url = https://gist.github.com/fac2f4a16a23c2bada126e93d6523971.git
