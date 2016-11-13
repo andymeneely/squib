@@ -69,18 +69,48 @@ Markup
 
 See :ref:`Markup <text-markup>` in  :doc:`/dsl/text`.
 
-Examples
---------
+Samples
+-------
 
-  * Examples of all of the above are crammed into the ``text_options.rb`` sample `found here <https://github.com/andymeneely/squib/tree/master/samples/text_options.rb>`_
-  * The ``embed_text.rb`` sample has more examples of embedding text, which can be `found here <https://github.com/andymeneely/squib/tree/master/samples/embed_text.rb>`_
-  * The ``config_text_markup.rb`` sample demonstrates how quoting can be configured, `found here <https://github.com/andymeneely/squib/tree/master/samples/config_text_markup.rb>`_
+These samples are maintained in the `repository here <https://github.com/andymeneely/squib/tree/master/samples>`_ in case you need some of the assets referenced.
 
-And this one too:
+Sample: _text.rb
+^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/text/_text.rb
+  :language: ruby
+  :linenos:
 
 .. raw:: html
 
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.4/gist-embed.min.js"></script>
-  <code data-gist-id="52d7b8e332194946bc69" data-gist-file="_text.rb"></code>
-  <code data-gist-id="52d7b8e332194946bc69" data-gist-file="_text_00_expected.png"></code>
+  <img src="text/_text_00_expected.png" width=600 class="figure">
+
+Sample: text_options.rb
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/text_options.rb
+  :language: ruby
+  :linenos:
+
+Sample: embed_text.rb
+^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/embed_text.rb
+  :language: ruby
+  :linenos:
+
+
+Sample: config_text_markup.rb
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/config_text_markup.rb
+  :language: ruby
+  :linenos:
+
+.. literalinclude:: ../samples/config_text_markup.yml
+  :language: ruby
+  :linenos:
+
+.. literalinclude:: ../samples/config_disable_quote.yml
+  :language: ruby
+  :linenos:
