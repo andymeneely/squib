@@ -1,0 +1,34 @@
+backdrop:
+    fill_color: '#0B3736'
+    x: 38
+    y: 38
+    radius: 38
+    width: 750
+    height: 1050
+title:
+    font: 'True Crimes, Sans 72'
+    align: center
+    color: '#DFDFE1'
+    x: 75
+    y: 90
+    width: 825
+drone:
+    file: auto-repair.svg
+    x: 75
+    y: 75
+    width: 100
+    height: 100
+human:
+    extends: drone
+    file: humans.svg
+art:
+    x: 75
+    y: 300
+    width: 675
+    height: 675
+power:
+    font: 'Serif 36'
+    align: center
+    width: 825
+    color: '#DFDFE1'
+    y: 1000

@@ -1,0 +1,5 @@
+# To configure for using SVG as our backend, we need to set this option
+# This will create a series of SVG files that get updated with Squib command
+backend: svg
+# They are auto-saved with this background
+prefix: backend_vectors_

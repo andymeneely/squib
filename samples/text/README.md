@@ -1,0 +1,1 @@
+Using the `text` method in Squib

@@ -1,0 +1,2 @@
+# Turn off warnings about ellipsization for this example
+warn_ellipsize: false
