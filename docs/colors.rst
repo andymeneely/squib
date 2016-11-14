@@ -60,5 +60,29 @@ In both of these formats, whitespace is ignored between tokens so as to make com
 
 If you need something more powerful than these two types of gradients (e.g. mesh gradients), then we suggest encapsulating your logic within an SVG and using the :doc:`/dsl/svg` method to render it.
 
-Examples
---------
+Samples
+-------
+
+Code is maintained in the `repository here <https://github.com/andymeneely/squib/tree/master/samples>`_ in case you need some of the assets referenced.
+
+Sample: colors and color constants
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/colors/_colors.rb
+  :language: ruby
+  :linenos:
+
+.. raw:: html
+
+  <img src="colors/colors_00_expected.png" width=600 class="figure">
+
+  <img src="colors/color_constants_00_expected.png" width=600 class="figure">
+
+Sample: gradients
+^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/colors/_gradients.rb
+  :language: ruby
+  :linenos:
+
+  <img src="colors/gradient_00_expected.png" width=600 class="figure">
