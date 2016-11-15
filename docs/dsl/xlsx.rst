@@ -48,3 +48,9 @@ The ``xlsx`` method also takes in a block that will be executed for each cell in
 
 Examples
 --------
+
+To get the sample Excel files, go to `its source <https://github.com/andymeneely/squib/tree/dev/samples/data>`_
+
+.. literalinclude:: ../../samples/data/_excel.rb
+  :language: ruby
+  :linenos:

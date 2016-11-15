@@ -289,6 +289,4 @@ angle
 Examples
 --------
 
-.. raw:: html
-
-  <script src="https://gist.github.com/andymeneely/52d7b8e332194946bc69.js"></script>
+See :doc:`/text_feature`.

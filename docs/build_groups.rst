@@ -20,7 +20,7 @@ Groups can be enabled and disabled in several ways:
   * The :doc:`/dsl/enable_build` and :doc:`/dsl/disable_build`  DSL methods can explicitly enable/disable a group. Again, you're back to commenting out the *enable_group* call, but that's easier than remembering what lines to comment out each time.
   * When a ``Squib::Deck`` is initialized, the `environment variable <https://en.wikipedia.org/wiki/Environment_variable>`_ ``SQUIB_BUILD`` is consulted for a comma-separated string. These are converted to Ruby symbols and the corresponding groups are enabled.
 
-Note that the environment variables are intended to change from run to run, from the command line (see above gist for examples in various OS's).
+Note that the environment variables are intended to change from run to run, from the command line.
 
 .. note::
 

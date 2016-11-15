@@ -60,3 +60,22 @@ The ``xlsx`` method also takes in a block that will be executed for each cell in
 
 Examples
 --------
+
+
+To get the sample Excel files, go to `its source <https://github.com/andymeneely/squib/tree/dev/samples/data>`_
+
+.. literalinclude:: ../../samples/data/_csv.rb
+  :language: ruby
+  :linenos:
+
+Here's the sample.csv
+
+.. literalinclude:: ../../samples/data/sample.csv
+  :language: csv
+  :linenos:
+
+Here's the quantity_explosion.csv
+
+.. literalinclude:: ../../samples/data/quantity_explosion.csv
+  :language: csv
+  :linenos:
