@@ -1,7 +1,6 @@
 The Mighty text Method
 ======================
 
-
 The :doc:`/dsl/text` method is a particularly powerful method with a ton of options. Be sure to check the option-by-option details in the DSL reference, but here are the highlights.
 
 Fonts
@@ -42,7 +41,7 @@ Hints
 Laying out text by typing in numbers can be confusing. What Squib calls "hints" is merely a rectangle around the text box. Hints can be turned on globally in the config file, using the :doc:`/dsl/hint` method, or in an individual text method. These are there merely for prototyping and are not intended for production. Additionally, these are not to be conflated with "rendering hints" that Pango and Cairo mention in their documentation.
 
 Extents
-------
+-------
 
 Sometimes you want size things based on the size of your rendered text. For example, drawing a rectangle around card's title such that the rectangle perfectly fits. Squib returns the final rendered size of the text so you can work with it afterward. It's an array of hashes that correspond to each card. The output looks like this::
 
@@ -56,7 +55,7 @@ will output::
   [{:width=>109, :height=>55}, {:width=>142, :height=>55}] # Hello was 109 pixels wide, World 142 pixels
 
 Embedding Images
-------------------
+----------------
 
 Squib can embed icons into the flow of text. To do this, you need to define text keys for Squib to look for, and then the corresponding files. The object given to the block is a ``TextEmbed``, which supports PNG and SVG. Here's a minimal example::
 
@@ -111,6 +110,6 @@ Sample: config_text_markup.rb
   :language: ruby
   :linenos:
 
-.. literalinclude:: ../samples/config_disable_quote.yml
+.. literalinclude:: ../samples/config_disable_quotes.yml
   :language: ruby
   :linenos:

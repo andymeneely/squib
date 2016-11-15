@@ -250,7 +250,7 @@ economy.yml
 https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/economy.yml
 
 tuck_box.yml
-~~~~~~~~~~~
+~~~~~~~~~~~~
 
 Based on TheGameCrafter's template.
 
@@ -263,7 +263,7 @@ https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/tuck_box.yml
 
 
 hand.yml
-~~~~~~~~~~~
+~~~~~~~~
 
 .. raw:: html
 
@@ -273,7 +273,7 @@ hand.yml
 https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/hand.yml
 
 playing_card.yml
-~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. raw:: html
 

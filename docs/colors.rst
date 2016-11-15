@@ -40,7 +40,7 @@ by custom name
 In your ``config.yml``, as described in :doc:`/config`, you can specify custom names of colors. For example, ``'foreground'``.
 
 Gradients
---------
+---------
 
 In most places where colors are allowed, you may also supply a string that defines a gradient. Squib supports two flavors of gradients: linear and radial. Gradients are specified by supplying some xy coordinates, which are relative to the card (not the command). Each stop must be between ``0.0`` and ``1.0``, and you can supply as many as you like. Colors can be specified as above (in any of the hex notations or built-in constant). If you add two or more colors at the same stop, then the gradient keeps the colors in the in order specified and treats it like sharp transition.
 

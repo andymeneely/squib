@@ -18,7 +18,7 @@ str
 font
   default: ``'Arial 36'``
 
-  the Font description string, including family, styles, and size. (e.g. ``'Arial bold italic 12'``). For the official documentation, see the `Pango docs <http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style>)`_. This `description <http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html>`_ is also quite good.
+  the Font description string, including family, styles, and size. (e.g. ``'Arial bold italic 12'``). For the official documentation, see the `Pango docs <http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style>`_. This `description <http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html>`_ is also quite good.
 
 font_size
   default: ``nil``

@@ -71,11 +71,11 @@ To get the sample Excel files, go to `its source <https://github.com/andymeneely
 Here's the sample.csv
 
 .. literalinclude:: ../../samples/data/sample.csv
-  :language: csv
+  :language: text
   :linenos:
 
 Here's the quantity_explosion.csv
 
 .. literalinclude:: ../../samples/data/quantity_explosion.csv
-  :language: csv
+  :language: text
   :linenos:
