@@ -1,0 +1,10 @@
+base:
+  x: .25 in
+  y: 0.751in
+
+example:
+  extends: base
+  x: += 5mm # we can mix units on adding
+  y: -= 5mm
+  width: 1.25in
+  height: 300   # pixels

@@ -53,7 +53,7 @@ describe 'Squib samples' do
       shapes/_draw_shapes.rb
       text_options.rb
       tgc_proofs.rb
-      units.rb
+      units/_units.rb
   ).each do |sample|
     it "has not changed for #{sample}", slow: true do
       log = StringIO.new
