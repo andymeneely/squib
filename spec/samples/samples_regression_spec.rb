@@ -44,7 +44,7 @@ describe 'Squib samples' do
       embed_text.rb
       hello_world.rb
       images/_more_load_images.rb
-      ranges.rb
+      ranges/_ranges.rb
       saves/_hand.rb
       saves/_portrait_landscape.rb
       saves/_saves.rb
