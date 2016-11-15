@@ -66,10 +66,13 @@ Examples
 
 Here are a few recipes for using arrays and ranges in practice:
 
-.. raw:: HTML
+.. literalinclude:: ../samples/ranges/_ranges.rb
+  :language: ruby
+  :linenos:
 
-  <script src="https://gist.github.com/andymeneely/25b0da2a84ab906bd44b.js"></script>
+.. raw:: html
 
+  <img src="ranges/ranges_00_expected.png">
 
 Contribute Recipes!
 -------------------

@@ -29,6 +29,7 @@ samples/_img
 samples/_output/*.png
 samples/_output/*.pdf
 samples/_output/foo
+samples/**/_output/*
 rubocop.txt
 benchmarks/_output/*.png
 benchmarks/_output/*.pdf

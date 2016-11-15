@@ -85,4 +85,6 @@ Sample: gradients
   :language: ruby
   :linenos:
 
+.. raw:: html
+
   <img src="colors/gradient_00_expected.png" width=600 class="figure">
