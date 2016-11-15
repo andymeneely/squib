@@ -11,4 +11,4 @@ Here are some examples, which `lives here <https://github.com/andymeneely/squib/
 
 .. raw:: html
 
-  <img src="units/units_00_expected.png">
+  <img src="units/units_00_expected.png" class="figure">
