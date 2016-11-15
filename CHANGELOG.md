@@ -12,6 +12,7 @@ Docs:
 
 Chores:
 * Bumped dependency roo to 2.5.1. Nothing that affects Squib users (probably).
+* Bumped graphics and text dependencies (cairo to 1.15.3, pango+rsvg et al. to 3.1.0). No new features for us, but some stability improvements.
 
 ## v0.11.0 / 2016-09-05
 

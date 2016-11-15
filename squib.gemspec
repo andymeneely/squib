@@ -27,15 +27,15 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cairo', '~> 1.15.2'
-  spec.add_runtime_dependency 'pango', '~> 3.0.9'
+  spec.add_runtime_dependency 'cairo', '~> 1.15.3'
+  spec.add_runtime_dependency 'pango', '~> 3.1.0'
   spec.add_runtime_dependency 'nokogiri', '~> 1.6.7'
   spec.add_runtime_dependency 'roo', '~> 2.5.1'
-  spec.add_runtime_dependency 'rsvg2', '~> 3.0.9'
+  spec.add_runtime_dependency 'rsvg2', '~> 3.1.0'
   spec.add_runtime_dependency 'mercenary', '~> 0.3.4'
   spec.add_runtime_dependency 'ruby-progressbar', '~> 1.8'
-  spec.add_runtime_dependency 'gobject-introspection', '~> 3.0.9' # for bug 172
-  spec.add_runtime_dependency 'gio2', '~> 3.0.9' # for bug 172
+  spec.add_runtime_dependency 'gobject-introspection', '~> 3.1.0' # for bug 172
+  spec.add_runtime_dependency 'gio2', '~> 3.1.0' # for bug 172
 
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
