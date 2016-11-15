@@ -5,6 +5,10 @@ By default, Squib thinks in pixels. This decision was made so that we can have p
 
 Here are some examples, which `lives here <https://github.com/andymeneely/squib/tree/master/samples/units.rb>`_
 
-.. literalinclude:: ../samples/units.rb
+.. literalinclude:: ../samples/units/_units.rb
   :language: ruby
   :linenos:
+
+.. raw:: html
+
+  <img src="units/units_00_expected.png">

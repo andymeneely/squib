@@ -1,7 +1,7 @@
 require 'squib'
 
 Squib::Deck.new(width: '1.5in', height: '1.5in') do
-  background color: '#ddd'
+  background color: :white
 
   # We can use our DSL-method to use inches
   # Computed using @dpi (set to 300 by default)

@@ -1,6 +1,6 @@
 cairo: antialias=(["subpixel"])
 cairo: save([])
-cairo: set_source_color(["#ddd"])
+cairo: set_source_color(["white"])
 cairo: paint([])
 cairo: restore([])
 cairo: save([])
