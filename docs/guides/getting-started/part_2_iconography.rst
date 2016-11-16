@@ -26,7 +26,7 @@ The majority of the cards in RFTG have no description text on them, and yet the 
 
 But once you know the structure of the game and what various bonuses mean, you can understand new cards very easily. Icons are combined in creative ways to show new bonuses. Text is used only when a bonus is much more complicated than what can be expressed with icons. Icons are primarily arranged along left side of the card so you can hold them in your hand and compare bonuses across cards quickly. All of these design decisions match the gameplay nicely because the game consists of a lot of scrolling through cards in your hand and evaluating which ones you want to play.
 
-Go check out images of Race for the Galaxy `on BoardGameGeek.com <https://boardgamegeek.com/boardgame/28143/race-galaxy>`_.
+Go check out `images of Race for the Galaxy on BoardGameGeek.com <https://boardgamegeek.com/boardgame/28143/race-galaxy>`_.
 
 Dominion
 ^^^^^^^^

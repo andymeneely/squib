@@ -8,3 +8,4 @@ Learning Squib
    guides/getting-started/index
    guides/git
    guides/game_icons
+   guides/guard

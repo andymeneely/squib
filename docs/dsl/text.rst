@@ -18,7 +18,7 @@ str
 font
   default: ``'Arial 36'``
 
-  the Font description string, including family, styles, and size. (e.g. ``'Arial bold italic 12'``). For the official documentation, see the `Pango docs <http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style>`_. This `description <http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html>`_ is also quite good.
+  the Font description string, including family, styles, and size. (e.g. ``'Arial bold italic 12'``). For the official documentation, see the `Pango font string docs <http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style>`_. This `description <http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html>`_ is also quite good.
 
 font_size
   default: ``nil``
@@ -116,7 +116,7 @@ Markup
 
 If you want to do specialized formatting within a given string, Squib has lots of options. By setting ``markup: true``, you enable tons of text processing. This includes:
 
-  * Pango Markup. This is an HTML-like formatting language that specifies formatting inside your string. Pango Markup essentially supports any formatting option, but on a letter-by-letter basis. Such as: font options, letter spacing, gravity, color, etc. See the `Pango docs  <https://developer.gnome.org/pango/stable/PangoMarkupFormat.html>`_ for details.
+  * Pango Markup. This is an HTML-like formatting language that specifies formatting inside your string. Pango Markup essentially supports any formatting option, but on a letter-by-letter basis. Such as: font options, letter spacing, gravity, color, etc. See the `Pango markup docs  <https://developer.gnome.org/pango/stable/PangoMarkupFormat.html>`_ for details.
   * Quotes are converted to their curly counterparts where appropriate.
   * Apostraphes are converted to curly as well.
   * LaTeX-style quotes are explicitly converted (````like this''``)
