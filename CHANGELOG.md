@@ -6,6 +6,10 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * `save_pdf` now supports crop marks! These are lines drawn in the margins of a PDF file to help you cut. These can be enabled by setting `crop_marks: true` in your `save_pdf` call. Can be further customized with `crop_margin_bottom`, `crop_margin_left`, `crop_margin_right`, `crop_margin_top`, `crop_marks`, `crop_stroke_color`, `crop_stroke_dash`, and `crop_stroke_width` (#123)
 
+Bugs:
+* `showcase` works as expected when using `backend: svg` (#179)
+* Graphics will get flushed upon exit, so working under Guard with `backend: svg` is more reliable (#180)
+
 Docs:
 * Wrote out documentation for [Squib and GameIcons](http://squib.readthedocs.io/en/latest/guides/game_icons.html)
 * Wrote out documentation for Hello World! Dissected
