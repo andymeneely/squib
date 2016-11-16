@@ -73,6 +73,7 @@ module Squib
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
       end
+      @cards.each { |c| c.finish! }
     end
 
     # Directly accesses the array of cards in the deck

@@ -51,6 +51,10 @@ module Squib
       @cairo_context.restore
     end
 
+    def finish!
+      @cairo_surface.finish
+    end
+
     ########################
     ### BACKEND GRAPHICS ###
     ########################
