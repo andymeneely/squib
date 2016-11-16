@@ -1,0 +1,10 @@
+
+task default: [:characters, :skills]
+
+task :characters do
+  load 'src/characters.rb'
+end
+
+task :skills do
+  load 'src/skills.rb'
+end

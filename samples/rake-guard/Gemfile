@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'squib'      # the most important part!
+gem 'guard'      # guard is what watches
+gem 'guard-rake' # this hooks Guard into Rake
+gem 'wdm', '>= 0.1.0' if Gem.win_platform? # optional, for watching directories

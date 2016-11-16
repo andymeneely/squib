@@ -11,7 +11,7 @@ describe 'Squib samples' do
       Dir.chdir(File.dirname(sample)) do
         load sample
       end
-    end
+    end unless sample =~ /rake-guard/ # ignore our project sample, run it below
   end
 
 end

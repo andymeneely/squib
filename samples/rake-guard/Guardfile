@@ -1,0 +1,18 @@
+
+group :characters do
+  guard 'rake', task: :characters do # when triggered, do "rake characters"
+    watch %r{src/characters.rb}  # a regular expression that matches our file
+    watch %r{img/.*}             # watch every file inside of our img directory
+    watch %r{.*\.xlsx$}          # Any excel file, anywhere
+    watch %r{.*\.yml}            # Any yml file, anywhere (config or layout)
+  end
+end
+
+group :skills do
+  guard 'rake', task: :skills do # when triggered, do "rake skills"
+    watch %r{src/skills.rb} # a regular expression that matches our file
+    watch %r{img/.*}        # watch every file inside of our img directory
+    watch %r{.*\.xlsx$}     # Any excel file, anywhere
+    watch %r{.*\.yml}       # Any yml file, anywhere (config or layout)
+  end
+end
