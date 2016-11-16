@@ -33,7 +33,7 @@ module Squib
     # :nodoc:
     # @api private
     def trim_rounded(src, trim, radius)
-      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width - 2.0 * trim, src.height - 2.0 * trim))
+      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(@width - 2.0 * trim, @height - 2.0 * trim))
       trim_cc.rounded_rectangle(0, 0, trim_cc.target.width, trim_cc.target.height, radius, radius)
       trim_cc.set_source(src, -1 * trim, -1 * trim)
       trim_cc.clip

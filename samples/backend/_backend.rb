@@ -16,18 +16,11 @@ Squib::Deck.new(cards: 2, config: '_backend-config.yml') do
   # We can still rasterize whenever we want
   save_png prefix: 'backend_'
 
+  showcase file: 'showcase.png', fill_color: 'white'
+
   # And our PDFs will be vectorized .
   save_pdf file: 'backend_vectorized.pdf', gap: 5
 
   # This one is a known issue. Masking an SVG onto an SVG backend is still buggy.
   # svg        file: 'glass-heart.svg', x: 100, y: 200, width: 100, height: 100, mask: :sangria
-
-  # This one is, unfortunately, not possible with svg back ends
-  #   Cairo lacks a perspective transform (currently), so we have to
-  #   use a striping method, which assumes raster. Fortunately, Cairo
-  #   has perspective transforms on its roadmap,
-  #   so perhaps this can be done someday with all vectors.
-  #
-  # showcase file: 'showcase.png', fill_color: 'white'
-
 end

@@ -52,7 +52,11 @@ module Squib
     end
 
     def finish!
-      @cairo_surface.finish
+      begin
+        @cairo_surface.finish
+      rescue Cairo::SurfaceFinishedError
+        # do nothin - if it's already finished that's fine
+      end
     end
 
     ########################
