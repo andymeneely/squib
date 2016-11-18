@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * `save_pdf` now supports crop marks! These are lines drawn in the margins of a PDF file to help you cut. These can be enabled by setting `crop_marks: true` in your `save_pdf` call. Can be further customized with `crop_margin_bottom`, `crop_margin_left`, `crop_margin_right`, `crop_margin_top`, `crop_marks`, `crop_stroke_color`, `crop_stroke_dash`, and `crop_stroke_width` (#123)
+* `Squib.configure` allows you to set options programmatically, overriding your config.yml. This is useful for Rakefiles, and will be documented in my upcoming tutorial on workflows.
 
 Bugs:
 * `showcase` works as expected when using `backend: svg` (#179)

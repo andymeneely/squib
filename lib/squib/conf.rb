@@ -3,6 +3,14 @@ require 'yaml'
 require_relative 'args/typographer'
 
 module Squib
+  USER_CONFIG = {}
+
+  def configure(opts)
+    str_hash = opts.inject({}) { |h, (k, v)| h[k.to_s] = v; h }
+    USER_CONFIG.merge! str_hash
+  end
+  module_function :configure
+
   # @api private
   class Conf
 
@@ -40,7 +48,7 @@ module Squib
     }
 
     def initialize(config_hash = DEFAULTS)
-      @config_hash = config_hash
+      @config_hash = config_hash.merge USER_CONFIG # programmatic overrides yml
       @typographer = Args::Typographer.new(config_hash)
       normalize_antialias
     end

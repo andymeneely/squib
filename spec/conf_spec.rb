@@ -36,4 +36,12 @@ describe Squib::Conf do
     expect(conf.to_s).to start_with 'Conf: '
   end
 
+  it 'allows Squib.configure to override yml' do
+    Squib.configure img_dir: 'color'
+    c = Squib::Conf.load conf('basic.yml')
+    expect(c.img_dir).to eq 'color'
+    # reset our state to be nice
+    Squib::USER_CONFIG.clear
+  end
+
 end

@@ -47,7 +47,7 @@ prefix
 
 img_dir
   default: ``'.'``
-  
+
   For reading image file command (e.g. png and svg), read from this directory instead
 
 warn_ellipsize
@@ -111,6 +111,19 @@ For debugging/sanity purposes, if you want to make sure your configuration optio
     puts backend # prints 'memory' by default
   end
 
+These are read-only - you will not be able to change these.
+
+Squib.configure sets options programmatically
+---------------------------------------------
+
+You can also use :doc:`/dsl/configure` to override anything in the config file. Use it like this:
+
+.. literalinclude:: ../samples/project/Rakefile
+  :language: ruby
+  :linenos:
+
+
+See :doc:`/guides/getting-started/part_3_workflows` for how we put this to good use.
 
 Making Squib Verbose
 --------------------
