@@ -4,7 +4,7 @@ require 'benchmark'
 # require 'byebug'
 
 desc 'install + spec'
-task default: [:install, :spec]
+task default: ['install:local', :spec]
 
 # Useful for hooking up with SublimeText.
 # e.g. rake sample[basic.rb]
