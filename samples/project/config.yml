@@ -1,0 +1,2 @@
+img_dir: bw # is overridden by Rakefile, but in case we dont specify
+progress_bars: true

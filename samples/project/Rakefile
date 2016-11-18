@@ -1,0 +1,25 @@
+require 'squib'
+
+desc 'Build all decks black-and-white'
+task default: [:characters, :skills]
+
+desc 'Build all decks with color'
+task color: [:with_color, :default]
+
+desc 'Enable color build'
+task :with_color do
+  puts "Enabling color build"
+  Squib.configure img_dir: 'color'
+end
+
+desc 'Build the character deck'
+task :characters do
+  puts "Building characters"
+  load 'src/characters.rb'
+end
+
+desc 'Build the skills deck'
+task :skills do
+  puts "Building skills"
+  load 'src/skills.rb'
+end
