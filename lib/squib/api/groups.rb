@@ -2,13 +2,20 @@ require 'set'
 
 module Squib
 
-  # An idea for later...
-  # def enable_group_env group
-  #   ENV['SQUIB_BUILD'] ||= ''
-  #   ENV['SQUIB_BUILD'] += ','
-  #   ENV['SQUIB_BUILD'] += group
-  # end
-  # module_function :enable_group_env
+  # DSL method. See http://squib.readthedocs.io
+  def enable_build_globally group
+    groups = (ENV['SQUIB_BUILD'] ||= '').split(',')
+    ENV['SQUIB_BUILD'] = (groups << group).uniq.join(',')
+  end
+  module_function :enable_build_globally
+
+  # DSL method. See http://squib.readthedocs.io
+  def disable_build_globally group
+    groups = (ENV['SQUIB_BUILD'] ||= '').split(',')
+    groups.delete(group.to_s)
+    ENV['SQUIB_BUILD'] = groups.uniq.join(',')
+  end
+  module_function :disable_build_globally
 
   class Deck
 

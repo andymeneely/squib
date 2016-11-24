@@ -35,19 +35,19 @@ Using Guard + Rake
 
 Guard is a gem, just like Squib. When using Guard, I recommend also using Bundler. So your Gemfile will look like this.
 
-.. literalinclude:: ../../samples/rake-guard/Gemfile
+.. literalinclude:: ../../samples/project/Gemfile
   :language: ruby
   :linenos:
 
 And then your Rakefile might look something like this
 
-.. literalinclude:: ../../samples/rake-guard/Rakefile
+.. literalinclude:: ../../samples/project/Rakefile
   :language: ruby
   :linenos:
 
 To get our images directory set, and to turn on proress bars (which I recommend when working under Guard), you'll need a ``config.yml`` file that looks like this.
 
-.. literalinclude:: ../../samples/rake-guard/config.yml
+.. literalinclude:: ../../samples/project/config.yml
   :language: yaml
   :linenos:
 
@@ -55,7 +55,7 @@ Note that we are using ``load`` instead of ``require`` to run our code. In Ruby,
 
 And then our Guardfile
 
-.. literalinclude:: ../../samples/rake-guard/Guardfile
+.. literalinclude:: ../../samples/project/Guardfile
   :language: ruby
   :linenos:
 
@@ -71,7 +71,7 @@ So, let's say we're working on our Character deck. To run all this we can kick o
   Loading SVG(s) <===========================================> 100% Time: 00:00:00
   Saving PNGs to _output/character__* <======================> 100% Time: 00:00:00
   ]2;[running rake task: characters] watched files: []
-  [1] Characters guard(main)> ow watching at 'C:/Users/andy/code/squib/samples/rake-guard'
+  [1] Characters guard(main)> ow watching at 'C:/Users/andy/code/squib/samples/project'
 
 Guard will do an initial build, then wait for file changes to be made. From here, once we edit and save anything related to characters - any Excel file, our ``characters.rb`` file, any YML file, etc, we'll rebuild our images.
 

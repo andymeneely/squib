@@ -8,18 +8,18 @@ task both: [:bw, :color]
 
 desc 'Build black-and-white only'
 task :bw do
-  ENV['SQUIB_BUILD'] = 'print_n_play'
+  Squib.enable_build_globally :print_n_play
   load 'build_groups.rb'
 end
 
 desc 'Build the color version only'
 task :color do
-  ENV['SQUIB_BUILD'] = 'color'
+  Squib.enable_build_globally :color
   load 'build_groups.rb'
 end
 
 desc 'Build a test card'
 task :color do
-  ENV['SQUIB_BUILD'] = 'test'
+  Squib.enable_build_globally :test
   load 'build_groups.rb'
 end
