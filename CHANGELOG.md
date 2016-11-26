@@ -15,7 +15,8 @@ Bugs:
 Docs:
 * Wrote out documentation for [Squib and GameIcons](http://squib.readthedocs.io/en/latest/guides/game_icons.html)
 * Wrote out documentation for Hello World! Dissected
-* Began un-submoduling our samples and simply embedding them into the code (e.g. [Squib Thinks in Arrays](http://squib.readthedocs.io/en/latest/arrays.html))
+* Un-submoduled our samples and simply embedded them into the docs (e.g. [Squib Thinks in Arrays](http://squib.readthedocs.io/en/latest/arrays.html)). Lots of cleanup there
+* Wrote up [Squib in Action](http://squib.readthedocs.io/en/latest/guides/projects.html), which documents other Squib projects. Ask for yours to be put there!!
 
 Chores:
 * Bumped dependency roo to 2.5.1. Nothing that affects Squib users (probably).
