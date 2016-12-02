@@ -34,7 +34,9 @@ One adaptation of this is to do the environment setting in a ``Rakefile``. `Rake
   :language: ruby
   :linenos:
 
-Thus, you can just run this code on the command line like these::
+Thus, you can just run this code on the command line like these:
+
+.. code-block:: none
 
   $ rake
   $ rake pnp

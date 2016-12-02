@@ -13,7 +13,9 @@ Squib works with both x86 and x86_64 versions of Ruby.
 Typical Install
 ---------------
 
-Regardless of your OS, installation is::
+Regardless of your OS, installation is
+
+.. code-block:: none
 
   $ gem install squib
 
