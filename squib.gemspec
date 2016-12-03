@@ -16,15 +16,17 @@ Gem::Specification.new do |spec|
   spec.summary       = 'A Ruby DSL for prototyping card games'
   spec.description   = 'Squib is a Ruby DSL for prototyping card games'
   spec.authors       = ['Andy Meneely']
-  spec.email         = 'playconfidencegames@gmail.com'
+  spec.email         = 'andy.meneely@gmail.com'
   spec.homepage      = 'https://github.com/andymeneely/squib'
 
   spec.rdoc_options = ['--charset=UTF-8']
   spec.extra_rdoc_files = Dir['README.md', 'samples/**/*.rb']
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = `git ls-files -z`.
+                       split("\x0").
+                       reject { |f| f.match(%r{^(spec|samples)/}) }
   spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
+  spec.test_files    = spec.files.grep(/^(spec|samples)\//)
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'cairo', '~> 1.15.3'

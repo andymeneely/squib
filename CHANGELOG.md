@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.13.0 / Unreleased
+
+Chores:
+* Shrank the gem itself by ignoring test data. From about 5mb to 130kb - yay!
+
 ## v0.12.0 / 2016-12-02
 
 Features:
