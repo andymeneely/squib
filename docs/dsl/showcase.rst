@@ -48,11 +48,6 @@ margin
 
   the margin around the entire image. Supports :doc:`/units`
 
-fill_color
-  default: ``:white``
-
-  Backdrop color. Supports :doc:`/colors`.
-
 file
   default: ``'showcase.png'``
 
