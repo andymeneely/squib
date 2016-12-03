@@ -39,11 +39,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'gobject-introspection', '~> 3.1.0' # for bug 172
   spec.add_runtime_dependency 'gio2', '~> 3.1.0' # for bug 172
 
-  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '~> 3.3'
-  spec.add_development_dependency 'redcarpet', '~> 3.1'
-  spec.add_development_dependency 'github-markup', '~> 1.3'
   spec.add_development_dependency 'coveralls'
   # spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'launchy'
