@@ -30,14 +30,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'cairo', '~> 1.15.3'
-  spec.add_runtime_dependency 'pango', '~> 3.1.0'
+  spec.add_runtime_dependency 'pango', '3.0.9' # NOT 3.1.0 - broken on Linux
   spec.add_runtime_dependency 'nokogiri', '~> 1.6.7'
   spec.add_runtime_dependency 'roo', '~> 2.5.1'
-  spec.add_runtime_dependency 'rsvg2', '~> 3.1.0'
+  spec.add_runtime_dependency 'rsvg2', '3.0.9' # NOT 3.1.0 - broken on Linux
   spec.add_runtime_dependency 'mercenary', '~> 0.3.4'
   spec.add_runtime_dependency 'ruby-progressbar', '~> 1.8'
-  spec.add_runtime_dependency 'gobject-introspection', '~> 3.1.0' # for bug 172
-  spec.add_runtime_dependency 'gio2', '~> 3.1.0' # for bug 172
+  spec.add_runtime_dependency 'gobject-introspection', '3.0.9' # NOT 3.1.0 - broken on Linux
+  spec.add_runtime_dependency 'gio2', '3.0.9' # for bug 172 # NOT 3.1.0 - broken on Linux
 
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake'
