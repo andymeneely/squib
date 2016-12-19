@@ -60,6 +60,10 @@ module Squib
         end
       end
 
+      def validate_crop_marks(arg)
+        arg.to_s.downcase.to_sym unless arg == false
+      end
+
       def validate_fill_color(arg)
         colorify(arg, @custom_colors)
       end
@@ -85,40 +89,68 @@ module Squib
       end
 
       def crop_coords(x, y, deck_w, deck_h)
-        [
-          { # Vertical, Upper-left
-            x1: x + trim + crop_margin_left, y1: 0,
-            x2: x + trim + crop_margin_left, y2: margin - 1
-          },
-          { # Vertical , Upper-right
-            x1: x + deck_w - trim - crop_margin_right, y1: 0,
-            x2: x + deck_w - trim - crop_margin_right, y2: margin - 1
-          },
-          { # Vertical , Lower-left
-            x1: x + trim + crop_margin_left, y1: height,
-            x2: x + trim + crop_margin_left, y2: height - margin + 1
-          },
-          { # Vertical , Lower-right
-            x1: x + deck_w - trim - crop_margin_right, y1: height,
-            x2: x + deck_w - trim - crop_margin_right, y2: height - margin + 1
-          },
-          { # Horizont al, Upper-left
-            x1: 0         , y1: y + trim + crop_margin_top,
-            x2: margin - 1, y2: y + trim + crop_margin_top
-          },
-          { # Horizontal, Upper-Right
-            x1: width             , y1: y + trim + crop_margin_top,
-            x2: width - margin + 1, y2: y + trim + crop_margin_top
-          },
-          { # Horizontal, Lower-Left
-            x1: 0         , y1: y + deck_h - trim - crop_margin_bottom,
-            x2: margin - 1, y2: y + deck_h - trim - crop_margin_bottom
-          },
-          { # Horizontal, Lower-Right
-            x1: width,              y1: y + deck_h - trim - crop_margin_bottom,
-            x2: width - margin + 1, y2: y + deck_h - trim - crop_margin_bottom
-          },
-        ]
+        case crop_marks
+        when false
+          []
+        when :full
+          [
+            {
+              # Vertical, Left
+              x1: x + trim + crop_margin_left, y1: 0,
+              x2: x + trim + crop_margin_left, y2: height - margin + 1
+            },
+            {
+              # Vertical, Right
+              x1: x + deck_w - trim - crop_margin_right, y1: 0,
+              x2: x + deck_w - trim - crop_margin_right, y2: height - margin + 1
+            },
+            {
+              # Horizontal, Top
+              x1: 0                 , y1: y + trim + crop_margin_top,
+              x2: width - margin + 1, y2: y + trim + crop_margin_top
+            },
+            {
+              # Horizontal, Bottom
+              x1: 0         , y1: y + deck_h - trim - crop_margin_bottom,
+              x2: width - margin + 1, y2: y + deck_h - trim - crop_margin_bottom
+            },
+          ]
+        else # e.g. :margin
+          [
+            { # Vertical, Upper-left
+              x1: x + trim + crop_margin_left, y1: 0,
+              x2: x + trim + crop_margin_left, y2: margin - 1
+            },
+            { # Vertical , Upper-right
+              x1: x + deck_w - trim - crop_margin_right, y1: 0,
+              x2: x + deck_w - trim - crop_margin_right, y2: margin - 1
+            },
+            { # Vertical , Lower-left
+              x1: x + trim + crop_margin_left, y1: height,
+              x2: x + trim + crop_margin_left, y2: height - margin + 1
+            },
+            { # Vertical , Lower-right
+              x1: x + deck_w - trim - crop_margin_right, y1: height,
+              x2: x + deck_w - trim - crop_margin_right, y2: height - margin + 1
+            },
+            { # Horizontal, Upper-left
+              x1: 0         , y1: y + trim + crop_margin_top,
+              x2: margin - 1, y2: y + trim + crop_margin_top
+            },
+            { # Horizontal, Upper-Right
+              x1: width             , y1: y + trim + crop_margin_top,
+              x2: width - margin + 1, y2: y + trim + crop_margin_top
+            },
+            { # Horizontal, Lower-Left
+              x1: 0         , y1: y + deck_h - trim - crop_margin_bottom,
+              x2: margin - 1, y2: y + deck_h - trim - crop_margin_bottom
+            },
+            { # Horizontal, Lower-Right
+              x1: width,              y1: y + deck_h - trim - crop_margin_bottom,
+              x2: width - margin + 1, y2: y + deck_h - trim - crop_margin_bottom
+            },
+          ]
+        end
       end
 
     end

@@ -15,4 +15,11 @@ Squib::Deck.new(cards: 8) do
       crop_stroke_dash: '5 5', crop_stroke_color: :red, crop_stroke_width: 4.0,
       crop_margin_left: '0.3in', crop_margin_right: '0.45in',
       crop_margin_top:  '0.4in', crop_margin_bottom: '0.85in'
+
+   # Full crop marks
+   save_pdf file: 'crops-full.pdf', crop_marks: :full,
+      trim: 0, gap: 20,
+      crop_stroke_dash: '5 5', crop_stroke_color: :red, crop_stroke_width: 4.0,
+      crop_margin_left: '0.3in', crop_margin_right: '0.45in',
+      crop_margin_top:  '0.4in', crop_margin_bottom: '0.85in'
 end
