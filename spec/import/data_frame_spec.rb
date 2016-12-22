@@ -246,6 +246,14 @@ Fun with UTF8! | 👊                                  |
                ╰------------------------------------╯
 EOS
     end
+
+    it 'does not pad the data' do
+      data = Squib::DataFrame.new
+      data['a'] = ['b', 'c']
+      expect(data.to_pretty_text.size).to be > 0
+      expect(data.columns).to eq ['a']
+      expect(data['a']).to eq ['b', 'c']
+    end
   end
 
 end

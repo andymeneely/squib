@@ -86,13 +86,13 @@ module Squib
     end
 
     def wrap_n_pad(str, max_col)
-      str.to_s.
-          concat(' '). # handle nil & empty strings
-          scan(/.{1,34}/).
-          map { |s| (' ' * max_col) + " | " + s.ljust(34) }.
-          join(" |\n").
-          lstrip.      # initially no whitespace next to key
-          concat(" |\n")
+      new_str = str.to_s + ' ' # handle nil & empty strings
+      new_str = new_str.
+                  scan(/.{1,34}/). # break down
+                  map { |s| (' ' * max_col) + " | " + s.ljust(34) }.
+                  join(" |\n").
+                  lstrip      # initially no whitespace next to key
+      return new_str + " |\n"
     end
 
     def def_column(col)
