@@ -4,8 +4,8 @@ skip_tags: true
 
 environment:
   matrix:
-    - ruby_version: "22"
-    - ruby_version: "22-x64"
+    - ruby_version: "23"
+    - ruby_version: "23-x64"
 
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
@@ -14,7 +14,6 @@ install:
   - gem install bundler --quiet --no-ri --no-rdoc
   - bundler --version
   - bundle install
-  - git submodule update --init --recursive
 
 test_script:
   - rake
