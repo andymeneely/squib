@@ -18,18 +18,25 @@ Here are some of my own board and card games that use Squib. They are all under 
 
   Want to donate back to Squib? Volunteer to playtest these games :)
 
-Other Projects using Squib
---------------------------
+Open Source Projects using Squib
+--------------------------------
 
 Poking around GitHub, here are a few sightings of Squib:
 
   * `Ecovalia <https://github.com/evolve2k/ecovalia-game>`_ - a game rapidly prototyped in a hackathon. Squib is featured in their video!
   * `Werewolf <https://github.com/Xpktro/werewolf>`_ implemented and even uses GitHub releases!
   * `Cult Following <https://github.com/ericathegreat/Cult-Following>`_ is a neat-looking project
-  * ScrapyardArmory's `Dysplacement <https://www.thegamecrafter.com/games/dysplacement>`_ was used with Squib, and **won** the `Worker Placement contest <https://www.thegamecrafter.com/games/dysplacement>`_ over at TheGameCrafter.
   * `Mad World <https://github.com/spilth/madworld>`_ uses CircleCI to build, even with some custom fonts.
+
+Other Projects Using Squib
+--------------------------
+
+Here are some closed-source projects that use Squib:
+
+  * ScrapyardArmory's `Dysplacement <https://www.thegamecrafter.com/games/dysplacement>`_ was used with Squib, and **won** the `Worker Placement contest <https://www.thegamecrafter.com/games/dysplacement>`_ over at TheGameCrafter.
+  * `One Last Job <http://www.onelastjobgame.com>`_ - A 2-player Assymetrical Heist Card Game (from regular Squib contributor Brian Cronin)
 
 Want yours here?
 ----------------
 
-Create an issue on Github and ask for a link her and  we'll add it here!
+Create an issue on Github and ask for a link her and we'll add it here!
