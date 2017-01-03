@@ -3,8 +3,17 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.13.0 / Unreleased
 
+Features:
+* `save_pdf`'s `crop marks` have a `:full` option that draw lines across the entire page.
+
+Bugs
+* Fix `Squib::DataFrame#to_pretty_text` modification issue (#191)
+* Downgraded Pango et al. back to 3.0.9 from 3.1.0 because there are bugs in the new gobject-introspection library.
+
 Chores:
 * Shrank the gem itself by ignoring test data. From about 5mb to 130kb - yay!
+* Bump roo to newest version (2.7.0).
+* Bumped Nokogiri to latest version (1.7.0).
 
 ## v0.12.0 / 2016-12-02
 
