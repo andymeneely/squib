@@ -1,2 +1,3 @@
 *.png
-!_text_00_expected.png
+!*_expected.png
+!shiny-purse.png
