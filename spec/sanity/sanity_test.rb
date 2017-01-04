@@ -5,28 +5,31 @@ require 'yaml'
 # An pixel-by-pixel comparison of sample images for visual regression testing
 class SanityTest
 
-  @@ERB      = "#{File.expand_path(File.dirname(__FILE__))}/sanity.html.erb"
-  @@HTML     = "#{File.expand_path(File.dirname(__FILE__))}/sanity.html"
-  @@COMPARES = "#{File.expand_path(File.dirname(__FILE__))}/tests.yml"
-  @@SAMPLES  = "file:///#{File.expand_path("samples/")}"
+  def sanity_html_erb
+    "#{File.expand_path(File.dirname(__FILE__))}/sanity.html.erb"
+  end
+
+   def sanity_html
+     "#{File.expand_path(File.dirname(__FILE__))}/sanity.html"
+   end
+
+  def samples_dir
+    File.expand_path "samples/"
+  end
 
   def images
-    require 'pp'
-    comps = YAML.load_file(@@COMPARES)
-    pp comps
-    comps.each do | test, data |
-      pp data
+    Dir["#{samples_dir}/**/*_expected.png"].map do |expected|
+      actual = [ File.dirname(expected),
+                 "/_output/",
+                File.basename(expected).gsub('_expected', '')].join
+      [expected, actual]
     end
-    [
-      ["#{@@SAMPLES}/images/_images_00_expected.png", "#{@@SAMPLES}/images/_images_00.png"]
-    ]
   end
 
   def run
-    puts @@SAMPLES
     puts 'Building sanity test...'
-    process_erb(File.read(@@ERB))
-    Launchy.open('file:///' + @@HTML)
+    process_erb(File.read(sanity_html_erb))
+    Launchy.open('file:///' + sanity_html)
     puts 'Done.'
   end
 
@@ -34,7 +37,7 @@ class SanityTest
 
   def process_erb(sanity_template)
     renderer = ERB.new(sanity_template)
-    File.open(@@HTML, 'w+') do |html|
+    File.open(sanity_html, 'w+') do |html|
       html.write(renderer.result(binding))
     end
   end

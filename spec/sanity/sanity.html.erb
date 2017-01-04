@@ -6,35 +6,57 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Diff with CSS Example</title>
 	<style>
-		body{
-			/*background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAHElEQVQYlWO4ePFiAzGY4eLFiw0MxIBRhVRRCADsljgKUbBKPgAAAABJRU5ErkJggg==) repeat;*/
+		.cell{
+		  display: inline-block;
+		  width: 30%
 		}
-		img{
-			height: 6in;
+		.cell img{
+			width: 100%;
 		}
-		.diff {
-			width: 4in;
-			height: 6in;
-			background-repeat: none, none;
-			background-size: contain, contain;
-			background-blend-mode: difference;
-			display: inline-block;
+		.diff{
+		  position: relative;
+		  top: 0;
+		  left: 0;
+		}
+		.diff_expected{
+		  position: relative;
+		  top: 0;
+		  left: 0;
+		}
+
+		.diff_actual{
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  mix-blend-mode: difference;
+		}
+		hr{
+			margin-bottom: 50px;
 		}
 
 	</style>
 </head>
 <body>
 
+<h1>Images</h1>
+
 <% images.each_with_index do |(expected, actual), i| %>
 
-	<img src="<%= expected %>"/>
-	<img src="<%= actual %>"/>
-	<style>
-		.mine<%= i %> {
-			background-image: url(<%= expected %>), url(<%= actual %>);"
-		}
-	</style>
-	<div class="diff mine<%= i %>"/>
+	<div class="row">
+		<div class="cell">
+			<b><%=expected %></b><br>
+			<img class="expected" src="file:///<%= expected %>"/>
+		</div>
+		<div class="cell">
+			<b><%=actual %></b><br>
+			<img class="actual" src="file:///<%= actual %>"/>
+		</div>
+		<div class="cell diff">
+			<img class="diff_expected" src="file:///<%= expected %>"/>
+			<img class="diff_actual" src="file:///<%= actual %>"/>
+		</div>
+		<hr>
+	</div>
 
 <% end %>
 
