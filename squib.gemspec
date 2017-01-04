@@ -24,9 +24,9 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.
                        split("\x0").
-                       reject { |f| f.match(%r{^(spec|samples)/}) }
+                       reject { |f| f.match(%r{^(spec|samples|docs|benchmarks)/}) }
   spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(/^(spec|samples)\//)
+  spec.test_files    = spec.files.grep(/^(spec|samples|docs|benchmarks)\//)
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'cairo',                 '~> 1.15.3'

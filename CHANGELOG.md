@@ -11,9 +11,10 @@ Bugs
 * Downgraded Pango et al. back to 3.0.9 from 3.1.0 because there are bugs in the new gobject-introspection library.
 
 Chores:
-* Shrank the gem itself by ignoring test data. From about 5mb to 130kb - yay!
+* Shrank the gem itself by ignoring test data. From about 5mb to 64kb - yay!
 * Bump roo to newest version (2.7.0).
 * Bumped Nokogiri to latest version (1.7.0).
+* Re-organized the samples folder for better regression and sanity testing prior to release.
 
 ## v0.12.0 / 2016-12-02
 
