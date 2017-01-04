@@ -23,7 +23,9 @@ If you're using `Bundler <http://bundler.io>`_, add this line to your applicatio
 
   gem 'squib'
 
-And then execute::
+And then execute:
+
+.. code-block:: none
 
   $ bundle install
 
@@ -36,11 +38,15 @@ At this time we consider Squib to be still in initial development, so we are not
 
 To keep track of when new Squib releases come out, you can watch the `BoardGameGeek thread <https://boardgamegeek.com/thread/1293453>`_ or follow the RSS feed for Squib on its `RubyGems page <https://rubygems.org/gems/squib>`_.
 
-In RubyGems, the command looks like this::
+In RubyGems, the command looks like this:
+
+.. code-block:: none
 
   $ gem up squib
 
-As a quirk of Ruby/RubyGems, sometimes older versions of gems get caught in caches. You can see which versions of Squib are installed and clean them up, use ``gem list`` and ``gem cleanup``::
+As a quirk of Ruby/RubyGems, sometimes older versions of gems get caught in caches. You can see which versions of Squib are installed and clean them up, use ``gem list`` and ``gem cleanup``:
+
+.. code-block:: none
 
   $ gem list squib
 

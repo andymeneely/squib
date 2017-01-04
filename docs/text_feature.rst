@@ -87,14 +87,14 @@ Sample: _text.rb
 Sample: text_options.rb
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../samples/text_options.rb
+.. literalinclude:: ../samples/text/_text_options.rb
   :language: ruby
   :linenos:
 
 Sample: embed_text.rb
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../samples/embed_text.rb
+.. literalinclude:: ../samples/text/_embed_text.rb
   :language: ruby
   :linenos:
 
@@ -102,14 +102,14 @@ Sample: embed_text.rb
 Sample: config_text_markup.rb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. literalinclude:: ../samples/config_text_markup.rb
+.. literalinclude:: ../samples/config/config_text_markup.rb
   :language: ruby
   :linenos:
 
-.. literalinclude:: ../samples/config_text_markup.yml
+.. literalinclude:: ../samples/config/config_text_markup.yml
   :language: ruby
   :linenos:
 
-.. literalinclude:: ../samples/config_disable_quotes.yml
+.. literalinclude:: ../samples/config/config_disable_quotes.yml
   :language: ruby
   :linenos:

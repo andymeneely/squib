@@ -39,7 +39,7 @@ Returns ``true`` if there is column ``name``.
 #row(i)
 -------
 
-Returns a hash of values across all columns in the ``i``th row of the dataframe. Represents a single card.
+Returns a hash of values across all columns in the i-th row of the dataframe. Represents a single card.
 
 #nrows
 ------

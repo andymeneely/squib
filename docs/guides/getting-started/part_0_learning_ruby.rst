@@ -82,7 +82,9 @@ Executing Ruby is usually  done through the command line. Depending on your oper
   * On Windows, there's the Command Prompt (Windows Key, `cmd`). It's a little janky, but it'll do. I've developed Squib primarily in Windows using the Command Prompt.
   * If you're on Linux/BSD/etc, you undoubtedly know what the command line is.
 
-For example::
+For example:
+
+.. code-block:: none
 
   $ cd c:\game-prototypes
   $ gem install squib

@@ -1,9 +1,14 @@
 Get Help and Give Help
 ======================
 
+Show Your Pride
+---------------
+
 .. raw:: html
 
-  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png"></a> and <a href="https://boardgamegeek.com/guilds/2601">joining our guild!</a>
+  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png" style="margin-bottom: 0px"></a> and <a href="https://boardgamegeek.com/guilds/2601">joining our guild!</a>
+
+We would also love to hear about the games you make with Squib!
 
 Get Help
 --------
@@ -33,13 +38,6 @@ You can also watch the project on GitHub, which means you get notified when new 
 Help by Beta Testing
 --------------------
 
-.. Testers needed!! If you want to test new features as I develop them, or make sure I didn't break your code, you can always point your Gemfile to the repository and follow what I'm doing there. Your Gemfile specification looks like this::
-..
-..   gem 'squib', git: 'git://github.com/andymeneely/squib', branch: 'dev'
-..
-.. * The ``dev`` branch is where I am working on features in-process. I have not done much regression testing at this point, but would love testing feedback nonetheless.
-.. * The ``master`` branch is where I consider features and bug that are done and tested, but not released yet.
-
 Squib is a small operation. And programming is hard. So we need testers! In particular, I could use help from people to do the following:
 
   * Test out new features as I write them
@@ -54,7 +52,9 @@ Beta: Using Pre-Builds
 
 The preferred way of doing beta testing is by to get Squib directly from my GitHub repository. Bundler makes this easy.
 
-If you are just starting out you'll need to install bundler::
+If you are just starting out you'll need to install bundler:
+
+.. code-block:: none
 
   $ gem install bundler
 
@@ -64,12 +64,15 @@ Then, in the root of your Squib project, create a file called `Gemfile` (capital
 
   gem 'squib', git: 'git://github.com/andymeneely/squib', branch: 'master'
 
-Then run::
+Then run:
+
+.. code-block:: none
 
   $ bundle install
 
-Your output will look something like this::
+Your output will look something like this:
 
+.. code-block:: none
 
   Fetching git://github.com/andymeneely/squib
   Fetching gem metadata from https://rubygems.org/.........
@@ -100,7 +103,9 @@ To double-check that you're using the test version of Squib, puts this in your c
 
   # Rest of your Squib code...
 
-When you run your code, say ``deck.rb``, you'll need to put ``bundle exec`` in front of it. Otherwise Ruby will just go with full releases (e.g. ``0.8`` instead of pre-releases, e.g. ``0.9a``). That would look like this::
+When you run your code, say ``deck.rb``, you'll need to put ``bundle exec`` in front of it. Otherwise Ruby will just go with full releases (e.g. ``0.8`` instead of pre-releases, e.g. ``0.9a``). That would look like this:
+
+.. code-block:: none
 
   $ bundle exec ruby deck.rb
 

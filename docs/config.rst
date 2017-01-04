@@ -113,7 +113,7 @@ For debugging/sanity purposes, if you want to make sure your configuration optio
 
 These are read-only - you will not be able to change these.
 
-Squib.configure sets options programmatically
+Set options programmatically
 ---------------------------------------------
 
 You can also use :doc:`/dsl/configure` to override anything in the config file. Use it like this:
