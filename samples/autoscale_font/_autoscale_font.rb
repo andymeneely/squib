@@ -25,5 +25,5 @@ Squib::Deck.new(width: 300, height: 100, cards: 3) do
   text str: title, font: 'Arial', font_size: autoscale(title),
        x: 10, y:10, align: :center, width: 280, ellipsize: false, hint: :red
 
-  save_sheet dir: '.', columns: 3
+  save_sheet columns: 3
 end

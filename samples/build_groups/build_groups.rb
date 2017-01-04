@@ -7,16 +7,16 @@ Squib::Deck.new(width: 75, height: 75, cards: 2) do
 
   build :print_n_play do
     rect
-    save_sheet dir: '.', prefix: 'build_groups_bw_'
+    save_sheet prefix: 'build_groups_bw_'
   end
 
   build :color do
     rect stroke_color: :red, dash: '5 5'
-    save_png dir: '.', prefix: 'build_groups_color_'
+    save_png prefix: 'build_groups_color_'
   end
 
   build :test do
-    save_png range: 0, dir: '.', prefix: 'build_groups_'
+    save_png range: 0, prefix: 'build_groups_'
   end
 
 end

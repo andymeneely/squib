@@ -14,7 +14,7 @@ describe Squib::Conf do
   end
 
   it 'parses the sample custom config' do
-    conf = Squib::Conf.load sample_file('custom-config.yml')
+    conf = Squib::Conf.load sample_file('config/custom-config.yml')
     expect(conf.progress_bars).to  be true
     expect(conf.text_hint).to      eq '#FF0000'
     expect(conf.custom_colors).to  eq({ 'foo' => '#ccc' })

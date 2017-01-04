@@ -100,5 +100,5 @@ Squib::Deck.new(width: 1000, height: 3000) do
   end
 
 
-  save_png prefix: '_images_', dir: '.'
+  save_png prefix: '_images_'
 end

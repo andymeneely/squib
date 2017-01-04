@@ -43,5 +43,5 @@ Squib::Deck.new(width: 1000, height: 1250) do
     text str: 'Rotated', hint: :red, x: x, y: y, angle: Math::PI / 6
   end
 
-  save_png prefix: '_text_', dir: '.'
+  save_png prefix: '_text_'
 end

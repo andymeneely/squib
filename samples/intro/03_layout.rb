@@ -7,6 +7,5 @@ Squib::Deck.new cards: 1, layout: 'part3_layout.yml' do
   svg layout: 'drone'
   svg file: 'robot-golem.svg', layout: 'art'
   text str: 'Draw two cards.', layout: 'power'
-  save_png prefix: 'part3_', dir: '.'
+  save_png prefix: 'part3_'
 end
-

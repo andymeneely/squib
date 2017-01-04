@@ -18,7 +18,7 @@ class SanityTest
   end
 
   def images
-    Dir["#{samples_dir}/**/*_expected.png"].map do |expected|
+    Dir["#{samples_dir}/**/*_expected.{png,svg}"].map do |expected|
       actual = [ File.dirname(expected),
                  "/_output/",
                 File.basename(expected).gsub('_expected', '')].join

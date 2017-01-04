@@ -8,8 +8,7 @@ Squib::Deck.new cards: 4, layout: 'part3_layout.yml' do
   svg layout: data['class']
   svg file: data['art'], layout: 'art'
   text str: data['power'], layout: 'power'
-  save_png prefix: 'part5_', dir: '.'
-  hand file: 'part5_hand.png', dir: '.', trim_radius: 38
-  showcase file: 'part5_showcase.png', dir: '.'
+  save_png prefix: 'part5_'
+  hand file: 'part5_hand.png', trim_radius: 38
+  showcase file: 'part5_showcase.png'
 end
-

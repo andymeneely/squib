@@ -20,6 +20,7 @@ end
 
 # This script generates a table of the built-in constants
 Squib::Deck.new(width: 3000, height: 1500) do
+  background color: :white
   colors = (Cairo::Color.constants - %i(HEX_RE Base RGB CMYK HSV X11))
   colors.sort_by! {|c| Cairo::Color.parse(c).to_s}
   x, y, w, h = 0, 0, 300, 50

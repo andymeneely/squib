@@ -11,6 +11,5 @@ Squib::Deck.new cards: 2, layout: 'part3_layout.yml' do
   text str: ['Draw two cards',
              'Use the power of another player'],
        layout: 'power'
-  save_png prefix: 'part4_', dir: '.'
+  save_png prefix: 'part4_'
 end
-

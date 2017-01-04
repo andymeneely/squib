@@ -10,6 +10,5 @@ Squib::Deck.new cards: 1 do
   svg file: 'robot-golem.svg', x: 75, y: 300, width: 675, height: :scale
   text str: 'Draw two cards', font: 'Serif 36',
        align: :center, width: :deck, color: '#DFDFE1', y: 1000
-  save_png prefix: 'part2_', dir: '.'
+  save_png prefix: 'part2_'
 end
-
