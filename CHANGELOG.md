@@ -1,7 +1,12 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.13.0 / Unreleased
+## v0.13.1 / 2017-01-06
+
+Bugs:
+* New Windows installations break because Rubygems looks for 1.15.4 and it's not there (yet). Locking into Cairo 1.15.3 and being more conservative from now on.
+
+## v0.13.0 / 2017-01-04
 
 Features:
 * `save_pdf`'s `crop marks` have a `:full` option that draw lines across the entire page.
