@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.13.2 / 2017-01-27
+
+Bugs:
+* Bump dependencies to latest stable versions. Pango et al. to 3.1.1 and Cairo to 1.15.5. This fixes some compatibility issues we noticed on Linux and Macs.
+
 ## v0.13.1 / 2017-01-06
 
 Bugs:
