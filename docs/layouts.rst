@@ -117,7 +117,7 @@ You can also **modify** data as they get passed through extends::
 The following operators are supported within evaluating ``extends``
   * ``+=`` will add the giuven number to the inherited number
   * ``-=`` will subtract the given number from the inherited number
-  * ``x=`` will multiply the inherited number by the given number
+  * ``*=`` will multiply the inherited number by the given number
   * ``/=`` will divide the inherited number by the given number
 
 ``+=`` and ``-=`` also support :doc:`/units`
@@ -154,7 +154,7 @@ As you might expect, ``extends`` can be composed multiple times::
     x: += 10    # evaluates to 110
   aristotle:
     extends: plato
-    x: x= 2     # evaluates to 220
+    x: "*= 2"     # evaluates to 220, note that YAML requires quotes here
 
 Yes, ``extends`` has Multiple Inheritance
 -----------------------------------------
