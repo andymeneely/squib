@@ -117,8 +117,10 @@ You can also **modify** data as they get passed through extends::
 The following operators are supported within evaluating ``extends``
   * ``+=`` will add the giuven number to the inherited number
   * ``-=`` will subtract the given number from the inherited number
+  * ``x=`` will multiply the inherited number by the given number
+  * ``/=`` will divide the inherited number by the given number
 
-Both operators also support :doc:`/units`
+``+=`` and ``-=`` also support :doc:`/units`
 
 From a design point of view, you can also extract out a base design and have your other layouts extend from them::
 
@@ -149,10 +151,10 @@ As you might expect, ``extends`` can be composed multiple times::
     x: 100
   plato:
     extends: socrates
-    x: += 10    # evaluates to 150
+    x: += 10    # evaluates to 110
   aristotle:
     extends: plato
-    x: += 20    # evaluates to 150
+    x: x= 2     # evaluates to 220
 
 Yes, ``extends`` has Multiple Inheritance
 -----------------------------------------
@@ -167,7 +169,7 @@ If you want to extend multiple parents, it looks like this::
     extends:
       - socrates
       - plato
-    x: += 50    # evaluates to 150
+    x: += 50    # evaluates to 250 from plato
 
 If multiple keys override the same keys in a parent, the later ("younger") child in the ``extends`` list takes precedent. Like this::
 
