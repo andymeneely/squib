@@ -1,8 +1,12 @@
 parent:
-  x: 0.5in
+  x: 100
   y: 1in
+  width: 200
+  height: 1cm
 
 child:
   extends: parent
   x: += 1in
-  y: -= 0.5in
+  y: -= 1cm
+  width: "*= 1.5"
+  height: /= 4
