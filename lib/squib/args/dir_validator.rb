@@ -6,7 +6,7 @@ module Squib
       def ensure_dir_created(dir)
         unless Dir.exists?(dir)
           Squib.logger.warn "Dir '#{dir}' does not exist, creating it."
-          Dir.mkdir dir
+          FileUtils.mkdir_p dir
         end
         return dir
       end
