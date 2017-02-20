@@ -80,7 +80,11 @@ module Squib
 
       def validate_rows(arg)
         raise 'columns must be an integer' unless columns.respond_to? :to_i
-        count = range.to_a.length
+        if range == :all
+          count = @deck_size
+        else
+          count = range.to_a.length
+        end
         return 1 if count <= columns
         return arg if arg.respond_to? :to_i
         (count.to_f / columns.to_f).ceil
