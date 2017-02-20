@@ -40,6 +40,7 @@ module Squib
           trim_radius: 38,
           trim: 0,
           width: 3300,
+          range: :all,
         }
       end
 
@@ -79,9 +80,10 @@ module Squib
 
       def validate_rows(arg)
         raise 'columns must be an integer' unless columns.respond_to? :to_i
-        return 1 if @deck_size < columns
+        count = range.to_a.length
+        return 1 if count <= columns
         return arg if arg.respond_to? :to_i
-        (@deck_size.to_f / columns.to_f).ceil
+        (count.to_f / columns.to_f).ceil
       end
 
       def full_filename
