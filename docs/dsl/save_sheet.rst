@@ -51,5 +51,10 @@ trim
 
   the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports :doc:`/units`.
 
+rtl
+  default ``false``
+
+  whether to render columns right to left, used for duplex printing of card backs
+
 Examples
 --------

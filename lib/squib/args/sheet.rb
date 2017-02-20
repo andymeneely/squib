@@ -40,6 +40,7 @@ module Squib
           trim_radius: 38,
           trim: 0,
           width: 3300,
+          rtl: false,
         }
       end
 
