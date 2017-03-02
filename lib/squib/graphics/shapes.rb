@@ -18,11 +18,10 @@ module Squib
     def circle(box, draw)
       x, y, r = box.x, box.y, box.radius
       use_cairo do |cc|
-        # cc.move_to(x + r, y)
-        if box.arc_ccw
-          cc.arc_negative(x, y, r, box.arc_start, box.arc_end)
+        if box.arc_direction == :clockwise
+          cc.arc(x, y, r, box.arc_start, box.arc_end)          
         else
-          cc.arc(x, y, r, box.arc_start, box.arc_end)
+          cc.arc_negative(x, y, r, box.arc_start, box.arc_end)
         end
         if box.arc_close
           cc.close_path();

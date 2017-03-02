@@ -17,7 +17,7 @@ module Squib
           inner_radius: 50, outer_radius: 100,
           radius: 100,
           n: 5,
-          arc_start: 0, arc_end: 2 * Math::PI, arc_ccw: false, arc_close: false,
+          arc_start: 0, arc_end: 2 * Math::PI, arc_direction: :clockwise, arc_close: false,
        }
       end
 

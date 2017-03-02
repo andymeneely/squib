@@ -24,10 +24,10 @@ arc_end
 
   angle on the circle to end an arc
 
-arc_ccw
-  default: ``false``
+arc_direction
+  default: ``:clockwise``
 
-  draw the arc counterclockwise instead of clockwise
+  draw the arc clockwise or counterclockwise from arc_start to arc_end
 
 arc_close
   default: ``false``
