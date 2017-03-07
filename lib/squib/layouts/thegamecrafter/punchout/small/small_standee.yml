@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Small Standee
+# Image size is 225x525px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 225
+  height: 525
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

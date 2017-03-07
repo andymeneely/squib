@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Square Tuck Box (96 cards)
+# Image size is 3525x2250px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 3525
+  height: 2250
+  stroke_width: 4
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

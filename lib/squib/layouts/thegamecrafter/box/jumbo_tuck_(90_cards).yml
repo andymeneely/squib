@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Jumbo Tuck Box (90 cards)
+# Image size is 3450x2700px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 3450
+  height: 2700
+  stroke_width: 5
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

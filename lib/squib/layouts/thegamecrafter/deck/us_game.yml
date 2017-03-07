@@ -1,0 +1,28 @@
+# Layout for TheGameCrafter.com printed item: US Game Deck
+# Image size is 750x1125px
+#
+deck:
+  dpi: 300
+  width: 750
+  height: 1125
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: rect
+  x: 0.14764in
+  y: 0.1624in
+  width: "-=0.29528in"
+  height: "-=0.3248in"
+  radius: 0.125in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: rect
+  x: 0.29528in
+  y: 0.3248in
+  width: "-=0.59056in"
+  height: "-=0.6496in"
+  radius: 0.125in

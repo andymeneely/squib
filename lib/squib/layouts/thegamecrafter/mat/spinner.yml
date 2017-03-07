@@ -1,0 +1,40 @@
+# Layout for TheGameCrafter.com printed item: Spinner Mat
+# Image size is 2475x2475px
+#
+deck:
+  dpi: 300
+  width: 2475
+  height: 2475
+  stroke_width: 4
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: circle
+  x: 4.125in
+  y: 4.125in
+  radius: 4.0in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: circle
+  x: 4.125in
+  y: 4.125in
+  radius: 3.875in
+template-cut-rivethole:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: circle
+  x: 4.125in
+  y: 4.125in
+  radius: 0.155in
+template-safe-rivethole:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: circle
+  x: 4.125in
+  y: 4.125in
+  radius: 0.28in

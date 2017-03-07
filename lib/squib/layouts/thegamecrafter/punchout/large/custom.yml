@@ -1,0 +1,26 @@
+# Layout for TheGameCrafter.com printed item: Custom Large Punchout
+# Image size is 2475x3150px
+#
+deck:
+  dpi: 300
+  width: 2475
+  height: 3150
+  stroke_width: 4
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: rect
+  x: 0in
+  y: 0in
+  width: "-=0.0in"
+  height: "-=0.0in"
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: rect
+  x: 0.0in
+  y: 0.0in
+  width: "-=0.0in"
+  height: "-=0.0in"

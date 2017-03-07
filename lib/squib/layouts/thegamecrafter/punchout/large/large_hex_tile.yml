@@ -1,0 +1,26 @@
+# Layout for TheGameCrafter.com printed item: Large Hex Tile
+# Image size is 1200x1050px
+#
+deck:
+  dpi: 300
+  width: 1200
+  height: 1050
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: polygon
+  n: 6
+  x: 2.0in
+  y: 1.75in
+  radius: 1.875in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: polygon
+  n: 6
+  x: 2.0in
+  y: 1.75in
+  radius: 1.7113248654051871in

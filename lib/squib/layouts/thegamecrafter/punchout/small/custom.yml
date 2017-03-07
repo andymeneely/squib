@@ -1,0 +1,26 @@
+# Layout for TheGameCrafter.com printed item: Custom Small Punchout
+# Image size is 975x1575px
+#
+deck:
+  dpi: 300
+  width: 975
+  height: 1575
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: rect
+  x: 0in
+  y: 0in
+  width: "-=0.0in"
+  height: "-=0.0in"
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: rect
+  x: 0.0in
+  y: 0.0in
+  width: "-=0.0in"
+  height: "-=0.0in"

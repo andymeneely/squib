@@ -1,0 +1,26 @@
+# Layout for TheGameCrafter.com printed item: Hex Mat
+# Image size is 1650x1425px
+#
+deck:
+  dpi: 300
+  width: 1650
+  height: 1425
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: polygon
+  n: 6
+  x: 2.75in
+  y: 2.375in
+  radius: 2.625in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: polygon
+  n: 6
+  x: 2.75in
+  y: 2.375in
+  radius: 2.461324865405187in

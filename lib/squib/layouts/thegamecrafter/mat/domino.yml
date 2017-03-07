@@ -1,0 +1,26 @@
+# Layout for TheGameCrafter.com printed item: Domino Mat
+# Image size is 1275x2475px
+#
+deck:
+  dpi: 300
+  width: 1275
+  height: 2475
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: rect
+  x: 0.125in
+  y: 0.125in
+  width: "-=0.25in"
+  height: "-=0.25in"
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: rect
+  x: 0.25in
+  y: 0.25in
+  width: "-=0.5in"
+  height: "-=0.5in"
