@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Bridge Tuck Box (108 cards)
+# Image size is 2925x2250px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 2925
+  height: 2250
+  stroke_width: 4
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

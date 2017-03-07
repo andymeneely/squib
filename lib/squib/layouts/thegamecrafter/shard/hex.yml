@@ -1,0 +1,26 @@
+# Layout for TheGameCrafter.com printed item: Hex Shard
+# Image size is 300x300px
+#
+deck:
+  dpi: 300
+  width: 300
+  height: 300
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: polygon
+  n: 6
+  x: 0.5in
+  y: 0.5in
+  radius: 0.375in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: polygon
+  n: 6
+  x: 0.5in
+  y: 0.5in
+  radius: 0.21132486540518708in

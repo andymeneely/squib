@@ -1,0 +1,28 @@
+# Layout for TheGameCrafter.com printed item: Large Ring
+# Image size is 450x450px
+#
+deck:
+  dpi: 300
+  width: 450
+  height: 450
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: circle
+  x: 0.75in
+  y: 0.75in
+  radius: 0.625in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+template-cut-interior:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: circle
+  x: 0.75in
+  y: 0.75in
+  radius: 224.625in

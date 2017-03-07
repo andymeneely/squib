@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Tombstone Shard
+# Image size is 300x450px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 300
+  height: 450
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

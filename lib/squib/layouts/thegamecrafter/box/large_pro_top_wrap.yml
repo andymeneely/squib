@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Large Pro Box Top Wrap
+# Image size is 3225x5025px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 3225
+  height: 5025
+  stroke_width: 6
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

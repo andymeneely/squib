@@ -1,0 +1,17 @@
+# Layout for TheGameCrafter.com printed item: Poker Card Wrap (18 cards)
+# Image size is 1875x2625px
+#
+# WARNING: the code to write this file is not yet complete
+deck:
+  dpi: 300
+  width: 1875
+  height: 2625
+  stroke_width: 3
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue

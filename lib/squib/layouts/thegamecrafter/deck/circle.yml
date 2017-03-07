@@ -1,0 +1,24 @@
+# Layout for TheGameCrafter.com printed item: Circle Deck
+# Image size is 1125x1125px
+#
+deck:
+  dpi: 300
+  width: 1125
+  height: 1125
+  stroke_width: 2
+template-cut-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :red
+  type: circle
+  x: 1.875in
+  y: 1.875in
+  radius: 1.75in
+template-safe-outline:
+  extends: deck
+  dash: 5 5
+  stroke_color: :blue
+  type: circle
+  x: 1.875in
+  y: 1.875in
+  radius: 1.625in
