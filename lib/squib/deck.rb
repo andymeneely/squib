@@ -58,17 +58,21 @@ module Squib
     # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
     # @param block [Block] the main body of the script.
     # @api public
-    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
-      @dpi           = dpi
+    def initialize(width: nil, height: nil, cards: 1, dpi: nil, config: 'config.yml', layout: nil, &block)
       @font          = DEFAULT_FONT
       @cards         = []
       @conf          = Conf.load(config)
       @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
       show_info(config, layout)
-      @width         = Args::UnitConversion.parse width, dpi
-      @height        = Args::UnitConversion.parse height, dpi
-      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
       @layout = LayoutParser.new(dpi).load_layout(layout)
+      @dpi = (dpi || @layout.dig('deck','dpi') || 300).to_f
+      if @dpi == 0.0
+        Squib::logger.error { "Invalid dpi, failed to read from Deck.new() or layout['deck'], skipping deck" }
+        return
+      end
+      @width = Args::UnitConversion.parse (width || @layout.dig('deck','width') || 825), @dpi
+      @height = Args::UnitConversion.parse (height || @layout.dig('deck','height') || 1125), @dpi
+      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
       enable_groups_from_env!
       if block_given?
         instance_eval(&block) # here we go. wheeeee!

@@ -5,8 +5,14 @@ module Squib
   # @api private
   class LayoutParser
 
-    def initialize(dpi = 300)
-      @dpi = dpi
+    def initialize(dpi = nil)
+      if !dpi
+        @dpi = 300
+        @dpi_force = false
+      else
+        @dpi = dpi
+        @dpi_force = true  
+      end
     end
 
     # Load the layout file(s), if exists
@@ -20,6 +26,9 @@ module Squib
         if File.exists? thefile
           # note: YAML.load_file returns false on empty file
           yml = layout.merge(YAML.load_file(thefile) || {})
+          if !@dpi_force and yml.key? 'deck' and yml['deck'].key? 'dpi'
+            @dpi = yml['deck']['dpi'].to_f
+          end
           yml.each do |key, value|
             layout[key] = recurse_extends(yml, key, {})
           end
