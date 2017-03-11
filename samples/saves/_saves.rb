@@ -42,4 +42,10 @@ Squib::Deck.new(width: 825, height: 1125, cards: 16) do
              range: 0..5,
              columns: 2, rows: 2,
              margin: 75, gap: 5, trim: 37
+
+  # Sheets can arrange left-to-right and right-to-left
+  save_sheet prefix: 'save_sheet_rtl_',
+             range: 0..1, rtl: true,
+             columns: 2, rows: 1,
+             margin: 75, gap: 5, trim: 37
 end
