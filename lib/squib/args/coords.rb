@@ -16,7 +16,9 @@ module Squib
           cx2: 0 , cy2: 0,
           inner_radius: 50, outer_radius: 100,
           radius: 100,
-          n: 5, }
+          n: 5,
+          arc_start: 0, arc_end: 2 * Math::PI, arc_direction: :clockwise, arc_close: false,
+       }
       end
 
       def self.expanding_parameters
