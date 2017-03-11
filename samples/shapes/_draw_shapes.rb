@@ -18,7 +18,11 @@ Squib::Deck.new do
   ellipse x: 675, y: 105, width: 65, height: 100,
        stroke_width: 5, stroke_color: :orange, angle: -0.2
 
-  circle x: 600, y: 600, radius: 75,
+  circle x: 450, y: 600, radius: 75,
+         fill_color: :gray, stroke_color: :green, stroke_width: 8.0
+
+  circle x: 600, y: 600, radius: 75, # partial circle
+         arc_start: 1, arc_end: 4, arc_direction: :counter_clockwise,
          fill_color: :gray, stroke_color: :green, stroke_width: 8.0
 
   triangle x1: 50, y1: 50,
