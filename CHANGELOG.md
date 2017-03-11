@@ -1,6 +1,13 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.14.0 / Unreleased
+
+Features:
+* `circle` method now supports various `arc` options, so you can draw partial circles (#211) by @sparr
+
+Special thanks to @sparr for all of his work!!
+
 ## v0.13.2 / 2017-01-27
 
 Bugs:
