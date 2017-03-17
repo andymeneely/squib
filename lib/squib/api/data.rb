@@ -121,5 +121,9 @@ module Squib
       Squib.csv(opts)
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def yaml(opts = {})
+      Squib.yaml(opts)
+    end
   end
 end
