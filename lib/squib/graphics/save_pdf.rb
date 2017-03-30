@@ -15,10 +15,8 @@ module Squib
         cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi) # for bug #62
         card_width   = @deck.width  - 2 * sheet.trim
         card_height  = @deck.height - 2 * sheet.trim
-        columns = ((sheet.width - 2*sheet.trim - 2*sheet.margin ) / (card_width + sheet.gap)).to_i
-        remainx = sheet.width - (sheet.margin + sheet.trim - sheet.gap + columns * (card_width + sheet.gap))
         y = sheet.margin
-        x = sheet.rtl ? remainx : sheet.margin
+        x = sheet.rtl ? sheet.width - sheet.margin - card_width - 2 * sheet.trim : sheet.margin
         track_progress(range, sheet) do |bar|
           range.each do |i|
             card = @deck.cards[i]
@@ -42,14 +40,27 @@ module Squib
             cc.reset_clip
             cc.translate(-x, -y)
             draw_crop_marks(cc, x, y, sheet)
-            x += card.width + sheet.gap - 2 * sheet.trim
-            if x > (sheet.width - card_width - sheet.margin)
-              x = sheet.rtl ? remainx : sheet.margin
-              y += card.height + sheet.gap - 2 * sheet.trim
-              if y > (sheet.height - card_height - sheet.margin)
-                cc.show_page # next page
-                y = sheet.margin
-                x = sheet.rtl ? remainx : sheet.margin
+            if sheet.rtl
+              x -= (card_width + sheet.gap)
+              if x < sheet.margin
+                x = sheet.width - sheet.margin - card_width - 2 * sheet.trim
+                y += card.height + sheet.gap - 2 * sheet.trim
+                if y > (sheet.height - card_height - sheet.margin)
+                  cc.show_page # next page
+                  y = sheet.margin
+                  x = sheet.width - sheet.margin - card_width - 2 * sheet.trim 
+                end
+              end
+            else
+              x += card_width + sheet.gap
+              if x > (sheet.width - card_width - sheet.margin)
+                x = sheet.margin
+                y += card.height + sheet.gap - 2 * sheet.trim
+                if y > (sheet.height - card_height - sheet.margin)
+                  cc.show_page # next page
+                  y = sheet.margin
+                  x = sheet.margin
+                end
               end
             end
           end
