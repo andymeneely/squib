@@ -16,7 +16,7 @@ module Squib
         card_width   = @deck.width  - 2 * sheet.trim
         card_height  = @deck.height - 2 * sheet.trim
         start_x_pos = sheet.rtl ? sheet.width - sheet.margin - card_width - 2 * sheet.trim : sheet.margin
-        x_increment = sheet.rtl ? -(card_width + sheet.gap) : card_width + sheet.gap
+        x_increment = (card_width + sheet.gap) * (sheet.rtl ? -1 : 1)
         y = sheet.margin
         x = start_x_pos
         track_progress(range, sheet) do |bar|
