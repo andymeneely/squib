@@ -172,8 +172,10 @@ module Squib
         end
 
         {
-          'page_width' => '%f%s' % [@option.sheet_width, @option.unit],
-          'page_height' => '%f%s' % [@option.sheet_height, @option.unit],
+          'sheet_width' => '%f%s' % [@option.sheet_width, @option.unit],
+          'sheet_height' => '%f%s' % [@option.sheet_height, @option.unit],
+          'card_width' => '%f%s' % [@option.card_width, @option.unit],
+          'card_height' => '%f%s' % [@option.card_height, @option.unit],
           'cards' => cards
         }
       end
