@@ -2,8 +2,11 @@ require_relative '../args/card_range'
 require_relative '../args/hand_special'
 require_relative '../args/save_batch'
 require_relative '../args/sheet'
+require_relative '../args/input_file'
+require_relative '../args/output_file'
 require_relative '../args/showcase_special'
 require_relative '../graphics/save_pdf'
+require_relative '../graphics/save_templated_sheet'
 
 module Squib
   class Deck
@@ -40,6 +43,17 @@ module Squib
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       sheet = Args::Sheet.new(custom_colors, { margin: 0 }, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       render_sheet(range, batch, sheet)
+    end
+
+    # DSL method. See http://squib.readthedocs.io
+    def save_templated_sheet(opts = {})
+      range = Args::CardRange.new(opts[:range], deck_size: size)
+      sheet = Args::OutputFile.new.load!(opts, expand_by: size)
+      tmpl_file = Args::InputFile.new(file: 'template.yml').load!(
+        {:file => opts[:template_file]})
+
+      tmpl = YAML.load_file(tmpl_file.file[0])
+      Graphics::SaveTemplatedSheet.new(self).render_sheet(range, sheet, tmpl)
     end
 
     # DSL method. See http://squib.readthedocs.io

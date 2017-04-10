@@ -4,6 +4,7 @@ require 'pango'
 require 'rsvg2'
 require_relative 'squib/version'
 require_relative 'squib/commands/new'
+require_relative 'squib/commands/make_template'
 require_relative 'squib/deck'
 require_relative 'squib/card'
 
