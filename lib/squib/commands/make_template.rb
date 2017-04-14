@@ -119,8 +119,13 @@ module Squib
           |q|
           q.validate = lambda do |path_str|
             path = Pathname.new path_str
-            path.writable? and not path.directory?
+            if path.exist?
+              path.writable? and not path.directory?
+            else
+              path.dirname().writable?
+            end
           end
+
           q.responses[:not_valid] = (
             "The filename specified is not a writable file or is a directory.")
           q.default = 'template.yml'
