@@ -2,7 +2,7 @@ require_relative '../args/card_range'
 require_relative '../args/hand_special'
 require_relative '../args/save_batch'
 require_relative '../args/sheet'
-require_relative '../args/input_file'
+require_relative '../args/template_file'
 require_relative '../args/output_file'
 require_relative '../args/showcase_special'
 require_relative '../graphics/save_pdf'
@@ -49,10 +49,9 @@ module Squib
     def save_templated_sheet(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       sheet = Args::OutputFile.new.load!(opts, expand_by: size)
-      tmpl_file = Args::InputFile.new(file: 'template.yml').load!(
-        {:file => opts[:template_file]})
+      tmpl_file = Args::TemplateFile.new.load!(opts, expand_by: size)
 
-      tmpl = YAML.load_file(tmpl_file.file[0])
+      tmpl = YAML.load_file(tmpl_file.template_file)
       Graphics::SaveTemplatedSheet.new(self).render_sheet(range, sheet, tmpl)
     end
 
