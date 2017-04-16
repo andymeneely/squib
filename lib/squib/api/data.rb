@@ -67,19 +67,27 @@ module Squib
     return explode_quantities(hash, import.explode)
   end
   module_function :csv
-  
+
   # DSL method. See http://squib.readthedocs.io
   def yaml(opts = {})
     input = Args::InputFile.new(file: 'deck.yml').load!(opts)
     import = Args::Import.new.load!(opts)
-    s = YAML.load_file(input.file[0])
+    yml = YAML.load_file(input.file[0])
     data = Squib::DataFrame.new
     # Get a universal list of keys to ensure everything is covered.
-    keys = s.map {|c| c.keys}.flatten.uniq
-    # Initialize the data frame; why is [] not the default value?
-    keys.each {|k| data[k] = [] }
-    # Load all cards into the frame, nil value if key isn't set.
-    s.each {|card| keys.each {|k| data[k] << card[k] } }
+    keys = yml.map { |c| c.keys}.flatten.uniq
+    keys.each { |k| data[k] = [] } #init arrays
+    yml.each do |card|
+      # nil value if key isn't set.
+      keys.each { |k| data[k] << card[k] }
+    end
+    if block_given?
+      data.each do |header, col|
+        col.map! do |val|
+          yield(header, val)
+        end
+      end
+    end
     explode_quantities(data, import.explode)
   end
   module_function :yaml

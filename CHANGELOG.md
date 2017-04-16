@@ -6,8 +6,9 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * `circle` method now supports various `arc` options, so you can draw partial circles (#211) by @sparr
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
+* `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
 
-Special thanks to @sparr for all of his work!!
+Special thanks to @sparr and @blinks for all of their work!!
 
 ## v0.13.2 / 2017-01-27
 

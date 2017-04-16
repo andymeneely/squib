@@ -46,6 +46,10 @@ def xlsx_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/xlsx/#{file}"
 end
 
+def yaml_file(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/data/yaml/#{file}"
+end
+
 def project_template(file)
   "#{File.expand_path(File.dirname(__FILE__))}/../lib/squib/project_template/#{file}"
 end
