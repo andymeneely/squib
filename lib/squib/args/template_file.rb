@@ -36,7 +36,7 @@ module Squib
 
       private
       def builtin(file)
-        "#{File.dirname(__FILE__)}/../templates/#{file}"
+        "#{File.dirname(__FILE__)}/../sheet_templates/#{file}"
       end
     end
 
