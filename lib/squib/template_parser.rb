@@ -72,12 +72,25 @@ module Squib
     end
 
     def cards
-      cards = @template_hash['cards'].map(&method(:parse_card))
+      parsed_cards = @template_hash['cards'].map(&method(:parse_card))
       if block_given?
-        cards.each { |v| yield v }
+        parsed_cards.each { |v| yield v }
       else
-        cards
+        parsed_cards
       end
+    end
+
+    def margin
+      parsed_cards = cards
+      left, right = parsed_cards.minmax { |a, b| a['x'] <=> b['x'] }
+      top, bottom = parsed_cards.minmax { |a, b| a['y'] <=> b['y'] }
+
+      {
+        left: left['x'],
+        right: right['x'],
+        top: top['y'],
+        bottom: bottom['y']
+      }
     end
 
     private
@@ -94,7 +107,8 @@ module Squib
         "style" => ClassyHash::G.enum(:solid, :dotted, :dashed),
         "width" => UNIT_REGEX,
         "color" => [ String, Symbol ],
-        "page_style" => ClassyHash::G.enum(:margin_only, :overlay),
+        "page_style" => ClassyHash::G.enum(
+          :margin_only, :overlay_on_cards, :beneath_cards),
         "lines" => [[{
           "type" => ClassyHash::G.enum(:horizontal, :vertical, :custom),
           "position" => UNIT_REGEX,

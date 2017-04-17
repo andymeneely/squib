@@ -1,3 +1,4 @@
+require_relative '../template_parser'
 require_relative '../args/card_range'
 require_relative '../args/hand_special'
 require_relative '../args/save_batch'
@@ -51,7 +52,7 @@ module Squib
       sheet = Args::OutputFile.new.load!(opts, expand_by: size)
       tmpl_file = Args::TemplateFile.new.load!(opts, expand_by: size)
 
-      tmpl = YAML.load_file(tmpl_file.template_file)
+      tmpl = Template.load tmpl_file.template_file
       Graphics::SaveTemplatedSheet.new(self).render_sheet(range, sheet, tmpl)
     end
 

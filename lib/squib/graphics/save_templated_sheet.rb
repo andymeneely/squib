@@ -9,7 +9,8 @@ module Squib
       def render_sheet(range, sheet, tmpl)
         cc = init_cc(sheet, tmpl)
         cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi)  # make it like pixels
-        per_sheet = tmpl['cards'].size
+        card_set = tmpl.cards
+        per_sheet = card_set.size
 
         track_progress(range, sheet) do |bar|
           range.each do |i|
@@ -17,9 +18,9 @@ module Squib
 
             card = @deck.cards[i]
             x = Args::UnitConversion.parse(
-              tmpl['cards'][i % per_sheet]['x'], @deck.dpi)
+              card_set[i % per_sheet]['x'], @deck.dpi)
             y = Args::UnitConversion.parse(
-              tmpl['cards'][i % per_sheet]['y'], @deck.dpi)
+              card_set[i % per_sheet]['y'], @deck.dpi)
             cc.set_source(card.cairo_surface, x, y)
             cc.paint
 
@@ -37,8 +38,8 @@ module Squib
 
         surface = Cairo::PDFSurface.new(
           sheet.full_filename,
-          Args::UnitConversion.parse(tmpl['sheet_width'], @deck.dpi) * ratio,
-          Args::UnitConversion.parse(tmpl['sheet_height'], @deck.dpi) * ratio)
+          Args::UnitConversion.parse(tmpl.sheet_width, @deck.dpi) * ratio,
+          Args::UnitConversion.parse(tmpl.sheet_height, @deck.dpi) * ratio)
 
         Cairo::Context.new(surface)
       end
