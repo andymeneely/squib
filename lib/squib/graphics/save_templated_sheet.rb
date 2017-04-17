@@ -2,15 +2,20 @@ module Squib
   module Graphics
     class SaveTemplatedSheet
 
-      def initialize(deck)
+      def initialize(deck, tmpl)
         @deck = deck
+        @tmpl = tmpl
       end
 
-      def render_sheet(range, sheet, tmpl)
-        cc = init_cc(sheet, tmpl)
+      def render_sheet(range, sheet)
+        cc = init_cc(sheet)
         cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi)  # make it like pixels
-        card_set = tmpl.cards
+        card_set = @tmpl.cards
         per_sheet = card_set.size
+
+        if range.size
+          draw_overlay_below_cards cc
+        end
 
         track_progress(range, sheet) do |bar|
           range.each do |i|
@@ -26,6 +31,8 @@ module Squib
 
             bar.increment
           end
+
+        draw_overlay_below_cards cc
         cc.target.finish
         end
       end
@@ -33,26 +40,54 @@ module Squib
       private
 
       # Initialize the Cairo Context
-      def init_cc(sheet, tmpl)
+      def init_cc(sheet)
         ratio = 72.0 / @deck.dpi
 
         surface = Cairo::PDFSurface.new(
           sheet.full_filename,
-          Args::UnitConversion.parse(tmpl.sheet_width, @deck.dpi) * ratio,
-          Args::UnitConversion.parse(tmpl.sheet_height, @deck.dpi) * ratio)
+          Args::UnitConversion.parse(@tmpl.sheet_width, @deck.dpi) * ratio,
+          Args::UnitConversion.parse(@tmpl.sheet_height, @deck.dpi) * ratio)
 
         Cairo::Context.new(surface)
       end
 
       def next_page_if_needed(cc, i, per_sheet)
         if (i != 0) and (i % per_sheet == 0)
+          draw_overlay_above_cards cc
           cc.show_page
+          draw_overlay_below_cards cc
         end
       end
 
       def track_progress(range, sheet)
         msg = "Saving templated sheet to #{sheet.full_filename}"
         @deck.progress_bar.start(msg, range.size) { |bar| yield(bar) }
+      end
+
+      def draw_overlay_below_cards(cc)
+        if @tmpl.crop_line_overlay == :on_margin
+          draw_crop_line cc
+        else @tmpl.crop_line_overlay == :beneath_cards
+          puts '(II) Draw crop line beneath cards'
+          draw_crop_line cc
+        end
+      end
+
+      def draw_overlay_above_cards(cc)
+        if @tmpl.crop_line_overlay == :overlay_on_cards
+          draw_crop_line cc
+        end
+      end
+
+      def draw_crop_line(cc)
+        @tmpl.crop_lines { |line|
+          cc.move_to(line['line'].x1, line['line'].y1)
+          cc.line_to(line['line'].x2, line['line'].y2)
+          cc.set_source_color(line['color'])
+          cc.set_line_width(line['width'])
+          #cc.set_dash(sheet.crop_stroke_dash)
+          cc.stroke
+        }
       end
     end
   end

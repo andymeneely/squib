@@ -1,10 +1,14 @@
 require "yaml"
 require "classy_hash"
+require_relative 'args/color_validator'
 require_relative 'args/unit_conversion'
 
 
 module Squib
+
   class Template
+    include Args::ColorValidator
+
     # Defaults are set for poker sized deck on a A4 sheet, with no cards
     DEFAULTS = {
       'sheet_width' => '210mm',
@@ -15,8 +19,8 @@ module Squib
       'crop_line' => {
         'style' => :solid,
         'width' => '0.02mm',
-        'color' => :color,
-        'page_style' => :margin_only,
+        'color' => :black,
+        'overlay' => :on_margin,
         'lines' => []
       },
       'cards' => []
@@ -26,7 +30,7 @@ module Squib
     def initialize(template_hash = DEFAULTS)
       ClassyHash.validate(template_hash, SCHEMA)
       @template_hash = template_hash
-      @crop_line_default = @template_hash.select {
+      @crop_line_default = @template_hash['crop_line'].select {
         |k, v| ["style", "width", "color"].include? k}
     end
 
@@ -37,8 +41,15 @@ module Squib
       if File.exists? thefile
         yaml = YAML.load_file(thefile) || {}
       end
+
+      # Bake the default values into our template
+      new_hash = DEFAULTS.merge(yaml)
+      new_hash['crop_line'] = DEFAULTS['crop_line'].merge(
+        new_hash['crop_line'])
+
+      # Create a new template file
       warn_unrecognized(yaml)
-      Template.new(DEFAULTS.merge(yaml))
+      Template.new(new_hash)
     end
 
     def sheet_width
@@ -59,6 +70,10 @@ module Squib
     def card_height
       Args::UnitConversion.parse(
         @template_hash['card_height'], @template_hash['dpi'])
+    end
+
+    def crop_line_overlay
+      @template_hash['crop_line']['overlay']
     end
 
     def crop_lines
@@ -107,10 +122,10 @@ module Squib
         "style" => ClassyHash::G.enum(:solid, :dotted, :dashed),
         "width" => UNIT_REGEX,
         "color" => [ String, Symbol ],
-        "page_style" => ClassyHash::G.enum(
-          :margin_only, :overlay_on_cards, :beneath_cards),
+        "overlay" => ClassyHash::G.enum(
+          :on_margin, :overlay_on_cards, :beneath_cards),
         "lines" => [[{
-          "type" => ClassyHash::G.enum(:horizontal, :vertical, :custom),
+          "type" => ClassyHash::G.enum(:horizontal, :vertical),
           "position" => UNIT_REGEX,
           "style" => [
             :optional, ClassyHash::G.enum(:solid, :dotted, :dashed)],
@@ -140,6 +155,10 @@ module Squib
       new_line = @crop_line_default.merge line
       new_line['width'] = Args::UnitConversion.parse(
         new_line['width'], @template_hash['dpi'])
+      new_line['color'] = colorify new_line['color']
+      new_line['line'] = CropLine.new(
+        new_line['type'], new_line['position'], sheet_width, sheet_height,
+        @template_hash['dpi'])
       new_line
     end
 
@@ -151,6 +170,32 @@ module Squib
       new_card["y"] = Args::UnitConversion.parse(
         card["y"], @template_hash["dpi"])
       new_card
+    end
+  end
+
+
+  class CropLine
+    attr_reader :x1, :y1, :x2, :y2
+
+    def initialize(type, position, sheet_width, sheet_height, dpi)
+      method = "parse_#{type}"
+      send method, position, sheet_width, sheet_height, dpi
+    end
+
+    def parse_horizontal(position, sheet_width, sheet_height, dpi)
+      position = Args::UnitConversion.parse(position, dpi)
+      @x1 = 0
+      @y1 = position
+      @x2 = sheet_width
+      @y2 = position
+    end
+
+    def parse_vertical(position, sheet_width, sheet_height, dpi)
+      position = Args::UnitConversion.parse(position, dpi)
+      @x1 = position
+      @y1 = 0
+      @x2 = position
+      @y2 = sheet_height
     end
   end
 end

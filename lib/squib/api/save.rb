@@ -53,7 +53,7 @@ module Squib
       tmpl_file = Args::TemplateFile.new.load!(opts, expand_by: size)
 
       tmpl = Template.load tmpl_file.template_file
-      Graphics::SaveTemplatedSheet.new(self).render_sheet(range, sheet, tmpl)
+      Graphics::SaveTemplatedSheet.new(self, tmpl).render_sheet(range, sheet)
     end
 
     # DSL method. See http://squib.readthedocs.io
