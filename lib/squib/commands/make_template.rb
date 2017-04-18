@@ -45,12 +45,10 @@ module Squib
         cli = HighLine.new
 
         option.unit = cli.choose do |menu|
-          menu.prompt = "What measure unit should we use? [px] "
+          menu.prompt = "What measure unit should we use? "
           menu.choice(:in)
           menu.choice(:cm)
           menu.choice(:mm)
-          menu.choice(:px)
-          menu.default = :px
         end
 
         cli.choose do |menu|

@@ -22,17 +22,15 @@ module Squib
             next_page_if_needed(cc, i, per_sheet)
 
             card = @deck.cards[i]
-            x = Args::UnitConversion.parse(
-              card_set[i % per_sheet]['x'], @deck.dpi)
-            y = Args::UnitConversion.parse(
-              card_set[i % per_sheet]['y'], @deck.dpi)
+            x = card_set[i % per_sheet]['x']
+            y = card_set[i % per_sheet]['y']
             cc.set_source(card.cairo_surface, x, y)
             cc.paint
 
             bar.increment
           end
 
-        draw_overlay_below_cards cc
+        draw_overlay_above_cards cc
         cc.target.finish
         end
       end
@@ -45,8 +43,8 @@ module Squib
 
         surface = Cairo::PDFSurface.new(
           sheet.full_filename,
-          Args::UnitConversion.parse(@tmpl.sheet_width, @deck.dpi) * ratio,
-          Args::UnitConversion.parse(@tmpl.sheet_height, @deck.dpi) * ratio)
+          @tmpl.sheet_width * ratio,
+          @tmpl.sheet_height * ratio)
 
         Cairo::Context.new(surface)
       end

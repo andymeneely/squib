@@ -52,7 +52,7 @@ module Squib
       sheet = Args::OutputFile.new.load!(opts, expand_by: size)
       tmpl_file = Args::TemplateFile.new.load!(opts, expand_by: size)
 
-      tmpl = Template.load tmpl_file.template_file
+      tmpl = Template.load tmpl_file.template_file, dpi
       Graphics::SaveTemplatedSheet.new(self, tmpl).render_sheet(range, sheet)
     end
 

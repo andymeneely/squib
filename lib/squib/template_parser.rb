@@ -7,9 +7,9 @@ require_relative 'args/unit_conversion'
 module Squib
   class CropLineDash
     VALIDATION_REGEX = %r{
-      ^(\d*[.])?\d+(in|cm|mm)?
+      ^(\d*[.])?\d+(in|cm|mm)
       \s+
-      (\d*[.])?\d+(in|cm|mm)?$
+      (\d*[.])?\d+(in|cm|mm)$
     }x
 
     attr_reader :pattern
@@ -58,16 +58,18 @@ module Squib
       'cards' => []
     }
 
+    attr_reader :dpi
 
-    def initialize(template_hash = DEFAULTS)
+    def initialize(template_hash = DEFAULTS, dpi)
       ClassyHash.validate(template_hash, SCHEMA)
       @template_hash = template_hash
+      @dpi = dpi
       @crop_line_default = @template_hash['crop_line'].select {
         |k, v| ["style", "width", "color"].include? k}
     end
 
     # Load the template definition file
-    def self.load(file)
+    def self.load(file, dpi)
       yaml = {}
       thefile = File.exist?(file) ? file: builtin(file)
       if File.exists? thefile
@@ -81,27 +83,23 @@ module Squib
 
       # Create a new template file
       warn_unrecognized(yaml)
-      Template.new(new_hash)
+      Template.new new_hash, dpi
     end
 
     def sheet_width
-      Args::UnitConversion.parse(
-        @template_hash['sheet_width'], @template_hash['dpi'])
+      Args::UnitConversion.parse @template_hash['sheet_width'], @dpi
     end
 
     def sheet_height
-      Args::UnitConversion.parse(
-        @template_hash['sheet_height'], @template_hash['dpi'])
+      Args::UnitConversion.parse @template_hash['sheet_height'], @dpi
     end
 
     def card_width
-      Args::UnitConversion.parse(
-        @template_hash['card_width'], @template_hash['dpi'])
+      Args::UnitConversion.parse @template_hash['card_width'], @dpi
     end
 
     def card_height
-      Args::UnitConversion.parse(
-        @template_hash['card_height'], @template_hash['dpi'])
+      Args::UnitConversion.parse @template_hash['card_height'], @dpi
     end
 
     def crop_line_overlay
@@ -130,7 +128,7 @@ module Squib
     def margin
       parsed_cards = cards
       crop_line_width = 2 * Args::UnitConversion.parse(
-        @template_hash['crop_line']['width'], @template_hash['dpi'])
+        @template_hash['crop_line']['width'], @dpi)
       left, right = parsed_cards.minmax { |a, b| a['x'] <=> b['x'] }
       top, bottom = parsed_cards.minmax { |a, b| a['y'] <=> b['y'] }
 
@@ -145,13 +143,12 @@ module Squib
     private
 
     # Template file schema
-    UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)?$/
+    UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)$/
     SCHEMA = {
       "sheet_width" => UNIT_REGEX,
       "sheet_height" => UNIT_REGEX,
       "card_width" => UNIT_REGEX,
       "card_height" => UNIT_REGEX,
-      "dpi" => ->(v){ (v.is_a?(Integer) && v > 0) || "a positive number"},
       "position_reference" => ClassyHash::G.enum(:topleft, :center),
       "crop_line" => {
         "style" => [
@@ -191,14 +188,12 @@ module Squib
     # Parse crop line definitions from template.
     def parse_crop_line(line)
       new_line = @crop_line_default.merge line
-      new_line['width'] = Args::UnitConversion.parse(
-        new_line['width'], @template_hash['dpi'])
+      new_line['width'] = Args::UnitConversion.parse(new_line['width'], @dpi)
       new_line['color'] = colorify new_line['color']
-      new_line['style'] = CropLineDash.new(
-        new_line['style'], @template_hash['dpi'])
+      new_line['style'] = CropLineDash.new(new_line['style'], @dpi)
       new_line['line'] = CropLine.new(
         new_line['type'], new_line['position'], sheet_width, sheet_height,
-        @template_hash['dpi'])
+        @dpi)
       new_line
     end
 
@@ -206,8 +201,8 @@ module Squib
     def parse_card(card)
       new_card = card.rehash
 
-      x = Args::UnitConversion.parse(card["x"], @template_hash["dpi"])
-      y = Args::UnitConversion.parse(card["y"], @template_hash["dpi"])
+      x = Args::UnitConversion.parse(card["x"], @dpi)
+      y = Args::UnitConversion.parse(card["y"], @dpi)
       if @template_hash["position_reference"] == :center
         # Normalize it to a top-left positional reference
         x = x - card_width / 2
