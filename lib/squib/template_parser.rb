@@ -97,14 +97,16 @@ module Squib
 
     def margin
       parsed_cards = cards
+      crop_line_width = 1.8 * Args::UnitConversion.parse(
+        @template_hash['crop_line']['width'], @template_hash['dpi'])
       left, right = parsed_cards.minmax { |a, b| a['x'] <=> b['x'] }
       top, bottom = parsed_cards.minmax { |a, b| a['y'] <=> b['y'] }
 
       {
-        left: left['x'],
-        right: right['x'],
-        top: top['y'],
-        bottom: bottom['y']
+        left: left['x'] - crop_line_width,
+        right: right['x'] + card_width + crop_line_width,
+        top: top['y'] - crop_line_width,
+        bottom: bottom['y'] + card_height + crop_line_width
       }
     end
 

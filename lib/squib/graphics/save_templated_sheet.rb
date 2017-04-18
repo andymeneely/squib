@@ -66,9 +66,11 @@ module Squib
 
       def draw_overlay_below_cards(cc)
         if @tmpl.crop_line_overlay == :on_margin
+          set_margin_overlay_clip_mask cc
+          cc.clip
           draw_crop_line cc
+          cc.reset_clip
         else @tmpl.crop_line_overlay == :beneath_cards
-          puts '(II) Draw crop line beneath cards'
           draw_crop_line cc
         end
       end
@@ -79,12 +81,27 @@ module Squib
         end
       end
 
+      def set_margin_overlay_clip_mask(cc)
+        margin = @tmpl.margin
+        cc.new_path
+        cc.rectangle(
+          margin[:left], margin[:top],
+          margin[:right] - margin[:left],
+          margin[:bottom] - margin[:top])
+        cc.new_sub_path
+        cc.move_to @tmpl.sheet_width, 0
+        cc.line_to 0, 0
+        cc.line_to 0, @tmpl.sheet_height
+        cc.line_to @tmpl.sheet_width, @tmpl.sheet_height
+        cc.close_path
+      end
+
       def draw_crop_line(cc)
         @tmpl.crop_lines { |line|
-          cc.move_to(line['line'].x1, line['line'].y1)
-          cc.line_to(line['line'].x2, line['line'].y2)
-          cc.set_source_color(line['color'])
-          cc.set_line_width(line['width'])
+          cc.move_to line['line'].x1, line['line'].y1
+          cc.line_to line['line'].x2, line['line'].y2
+          cc.set_source_color line['color']
+          cc.set_line_width line['width']
           #cc.set_dash(sheet.crop_stroke_dash)
           cc.stroke
         }
