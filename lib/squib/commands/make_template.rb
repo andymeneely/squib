@@ -3,7 +3,7 @@ require 'pathname'
 require 'highline'
 require 'bigdecimal'
 require 'yaml'
-require_relative '../import/template_sheet'
+require_relative 'data/template_option'
 
 module Squib
   # Squib's command-line option
@@ -115,6 +115,13 @@ module Squib
           menu.default = :rows
         end
 
+        option.crop_lines = cli.choose do |menu|
+          menu.prompt = "Generate crop lines? [true]"
+          menu.choice(:true)
+          menu.choice(:false)
+          menu.default = :true
+        end
+
         option.output_file = cli.ask('Output to? ') {
           |q|
           q.validate = lambda do |path_str|
@@ -158,15 +165,26 @@ module Squib
         x = @option.sheet_margin.left
         y = @option.sheet_margin.top
         cards = Array.new
+        horizontal_crop_lines = Set.new
+        vertical_crop_lines = Set.new
 
         while (
             x + @card_iter_x < @printable_edge_right and
             y + @card_iter_y < @printable_edge_bottom)
-
+          xpos = x + @option.card_gap.horizontal
+          ypos = y + @option.card_gap.vertical
           cards.push({
-            'x' => "%f%s" % [(x + @option.card_gap.horizontal), @option.unit],
-            'y' => "%f%s" % [(y + @option.card_gap.vertical), @option.unit]
+            'x' => "#{xpos}#{@option.unit}",
+            'y' => "#{ypos}#{@option.unit}"
           })
+
+          # Append the crop lines
+          vertical_crop_lines.add xpos
+          vertical_crop_lines.add x + @option.card_width
+          horizontal_crop_lines.add ypos
+          horizontal_crop_lines.add y + @option.card_height
+
+          # Calculate the next iterator
           if @option.card_ordering == :rows
             x, y = next_card_pos_row(x, y)
           elsif @option.card_ordering == :columns
@@ -176,13 +194,29 @@ module Squib
           end
         end
 
-        {
-          'sheet_width' => '%f%s' % [@option.sheet_width, @option.unit],
-          'sheet_height' => '%f%s' % [@option.sheet_height, @option.unit],
-          'card_width' => '%f%s' % [@option.card_width, @option.unit],
-          'card_height' => '%f%s' % [@option.card_height, @option.unit],
+        output = {
+          'sheet_width' => "#{@option.sheet_width}#{@option.unit}",
+          'sheet_height' => "#{@option.sheet_height}#{@option.unit}",
+          'card_width' => "#{@option.card_width}#{@option.unit}",
+          'card_height' => "#{@option.card_height}#{@option.unit}",
           'cards' => cards
         }
+
+        if @option.crop_lines == :true
+          lines = Array.new
+          vertical_crop_lines.each { |val|
+            lines.push({
+              'type' => :vertical, 'position' => "#{val}#{@option.unit}"})
+          }
+          horizontal_crop_lines.each { |val|
+            lines.push({
+              'type' => :horizontal, 'position' => "#{val}#{@option.unit}"})
+          }
+          output['crop_line'] = { 'lines' => lines }
+        end
+
+        # Return the output data
+        output
       end
 
       def recalculate_center_align_sheet()

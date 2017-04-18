@@ -88,6 +88,7 @@ module Squib
     attr_writer :card_gap
     attr_accessor :card_ordering
     attr_accessor :output_file
+    attr_accessor :crop_lines
 
     def sheet_margin
       if not @sheet_margin.instance_of? Margin
