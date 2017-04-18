@@ -102,7 +102,9 @@ module Squib
           cc.line_to line['line'].x2, line['line'].y2
           cc.set_source_color line['color']
           cc.set_line_width line['width']
-          #cc.set_dash(sheet.crop_stroke_dash)
+          if line['style'].pattern
+            cc.set_dash(line['style'].pattern)
+          end
           cc.stroke
         }
       end

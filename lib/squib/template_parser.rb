@@ -5,6 +5,37 @@ require_relative 'args/unit_conversion'
 
 
 module Squib
+  class CropLineDash
+    VALIDATION_REGEX = %r{
+      ^(\d*[.])?\d+(in|cm|mm)?
+      \s+
+      (\d*[.])?\d+(in|cm|mm)?$
+    }x
+
+    attr_reader :pattern
+
+    def initialize value, dpi
+      if value == :solid
+        @pattern = nil
+      elsif value == :dotted
+        @pattern = [
+          Args::UnitConversion.parse('0.2mm', dpi),
+          Args::UnitConversion.parse('0.5mm', dpi)
+        ]
+      elsif value == :dashed
+        @pattern = [
+          Args::UnitConversion.parse('2mm', dpi),
+          Args::UnitConversion.parse('2mm', dpi)
+        ]
+      elsif value.is_a? String
+        @pattern = value.split(' ').map{
+          |val| Args::UnitConversion.parse val, dpi}
+      else
+        raise ArgumentError, 'Unsupported dash style'
+      end
+    end
+  end
+
 
   class Template
     include Args::ColorValidator
@@ -97,7 +128,7 @@ module Squib
 
     def margin
       parsed_cards = cards
-      crop_line_width = 1.8 * Args::UnitConversion.parse(
+      crop_line_width = 2 * Args::UnitConversion.parse(
         @template_hash['crop_line']['width'], @template_hash['dpi'])
       left, right = parsed_cards.minmax { |a, b| a['x'] <=> b['x'] }
       top, bottom = parsed_cards.minmax { |a, b| a['y'] <=> b['y'] }
@@ -121,7 +152,10 @@ module Squib
       "card_height" => UNIT_REGEX,
       "dpi" => ->(v){ (v.is_a?(Integer) && v > 0) || "a positive number"},
       "crop_line" => {
-        "style" => ClassyHash::G.enum(:solid, :dotted, :dashed),
+        "style" => [
+          ClassyHash::G.enum(:solid, :dotted, :dashed),
+          CropLineDash::VALIDATION_REGEX
+        ],
         "width" => UNIT_REGEX,
         "color" => [ String, Symbol ],
         "overlay" => ClassyHash::G.enum(
@@ -158,6 +192,8 @@ module Squib
       new_line['width'] = Args::UnitConversion.parse(
         new_line['width'], @template_hash['dpi'])
       new_line['color'] = colorify new_line['color']
+      new_line['style'] = CropLineDash.new(
+        new_line['style'], @template_hash['dpi'])
       new_line['line'] = CropLine.new(
         new_line['type'], new_line['position'], sheet_width, sheet_height,
         @template_hash['dpi'])
