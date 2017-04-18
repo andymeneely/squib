@@ -47,6 +47,7 @@ module Squib
       'card_width' => '63mm',
       'card_height' => '88mm',
       'dpi' => 300,
+      'position_reference' => :topleft,
       'crop_line' => {
         'style' => :solid,
         'width' => '0.02mm',
@@ -151,6 +152,7 @@ module Squib
       "card_width" => UNIT_REGEX,
       "card_height" => UNIT_REGEX,
       "dpi" => ->(v){ (v.is_a?(Integer) && v > 0) || "a positive number"},
+      "position_reference" => ClassyHash::G.enum(:topleft, :center),
       "crop_line" => {
         "style" => [
           ClassyHash::G.enum(:solid, :dotted, :dashed),
@@ -203,10 +205,17 @@ module Squib
     # Parse card definitions from template.
     def parse_card(card)
       new_card = card.rehash
-      new_card["x"] = Args::UnitConversion.parse(
-        card["x"], @template_hash["dpi"])
-      new_card["y"] = Args::UnitConversion.parse(
-        card["y"], @template_hash["dpi"])
+
+      x = Args::UnitConversion.parse(card["x"], @template_hash["dpi"])
+      y = Args::UnitConversion.parse(card["y"], @template_hash["dpi"])
+      if @template_hash["position_reference"] == :center
+        # Normalize it to a top-left positional reference
+        x = x - card_width / 2
+        y = y - card_width / 2
+      end
+
+      new_card["x"] = x
+      new_card["y"] = y
       new_card
     end
   end
