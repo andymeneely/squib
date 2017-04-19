@@ -126,9 +126,14 @@ module Squib
     end
 
     def margin
+      # NOTE: There's a baseline of 0.25mm that we can 100% make sure that we
+      # can overlap really thin lines on the PDF
+      crop_line_width = [
+        Args::UnitConversion.parse(@template_hash['crop_line']['width'], @dpi),
+        Args::UnitConversion.parse('0.25mm', @dpi)
+      ].max
+
       parsed_cards = cards
-      crop_line_width = 2 * Args::UnitConversion.parse(
-        @template_hash['crop_line']['width'], @dpi)
       left, right = parsed_cards.minmax { |a, b| a['x'] <=> b['x'] }
       top, bottom = parsed_cards.minmax { |a, b| a['y'] <=> b['y'] }
 

@@ -5,6 +5,7 @@ module Squib
       def initialize(deck, tmpl)
         @deck = deck
         @tmpl = tmpl
+        @rotated_delta = (@tmpl.card_width - @deck.width).abs / 2
       end
 
       def render_sheet(range, sheet)
@@ -12,6 +13,7 @@ module Squib
         cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi)  # make it like pixels
         card_set = @tmpl.cards
         per_sheet = card_set.size
+        angle = detect_card_orientation
 
         if range.size
           draw_overlay_below_cards cc
@@ -24,7 +26,12 @@ module Squib
             card = @deck.cards[i]
             x = card_set[i % per_sheet]['x']
             y = card_set[i % per_sheet]['y']
-            cc.set_source(card.cairo_surface, x, y)
+
+            if angle
+              draw_rotated_card cc, card, x, y, angle
+            else
+              cc.set_source card.cairo_surface, x, y
+            end
             cc.paint
 
             bar.increment
@@ -105,6 +112,60 @@ module Squib
           end
           cc.stroke
         }
+      end
+
+      def detect_card_orientation
+        clockwise = 1.5 * Math::PI
+        # Simple detection
+        if (
+            @deck.width == @tmpl.card_width and
+            @deck.height == @tmpl.card_height)
+          return false
+        elsif (
+            @deck.width == @tmpl.card_height and
+            @deck.height == @tmpl.card_width)
+          Squib::logger.warn {
+            'Rotating cards to match templated file card orientation.' }
+          return clockwise
+        end
+
+        # Edge case
+        Squib::logger.warn {
+          'Card dimensions of the deck does not match the template.' }
+        is_tmpl_card_landscape = @tmpl.card_width > @tmpl.card_height
+        is_deck_card_landscape = @deck.width > @deck.height
+        if is_tmpl_card_landscape == is_deck_card_landscape
+          clockwise
+        else
+          false
+        end
+      end
+
+      def draw_rotated_card cc, card, x, y, angle
+        # Normalize the angles first
+        angle = angle % (2 * Math::PI)
+        if angle < 0
+          angle = 2 * Math::PI - angle
+        end
+
+        # Determine what's the delta we need to translate our cards
+        delta_shift = (@deck.width < @deck.height)? 1: -1
+        if angle == 0 or angle == Math::PI
+          delta = 0
+        elsif angle < Math::PI
+          delta = -delta_shift * @rotated_delta
+        else
+          delta = delta_shift * @rotated_delta
+        end
+
+        # Perform the actual rotation and drawing
+        mat = cc.matrix  # Save the transformation matrix to revert later
+        cc.translate x, y
+        cc.translate @deck.width/2, @deck.height/2
+        cc.rotate angle
+        cc.translate(-@deck.width/2 + delta, -@deck.height/2 + delta)
+        cc.set_source card.cairo_surface, 0, 0
+        cc.matrix = mat
       end
     end
   end
