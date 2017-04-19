@@ -48,6 +48,7 @@ module Squib
       'card_height' => '88mm',
       'dpi' => 300,
       'position_reference' => :topleft,
+      'rotate' => 0.0,
       'crop_line' => {
         'style' => :solid,
         'width' => '0.02mm',
@@ -145,6 +146,10 @@ module Squib
       }
     end
 
+    def rotate
+      parse_rotate_param @template_hash['rotate']
+    end
+
     private
 
     # Template file schema
@@ -155,6 +160,9 @@ module Squib
       "card_width" => UNIT_REGEX,
       "card_height" => UNIT_REGEX,
       "position_reference" => ClassyHash::G.enum(:topleft, :center),
+      "rotate" => [
+        :optional, Numeric,
+        ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)],
       "crop_line" => {
         "style" => [
           ClassyHash::G.enum(:solid, :dotted, :dashed),
@@ -173,7 +181,15 @@ module Squib
           "color" => [:optional, String, Symbol],
         }]]
       },
-      "cards" => [[{ "x" => UNIT_REGEX, "y" => UNIT_REGEX }]]
+      "cards" => [[{
+        "x" => UNIT_REGEX,
+        "y" => UNIT_REGEX,
+        # NOTE: Don't think that we should specify rotation on a per card
+        # basis, but just included here for now
+        "rotate" => [
+          :optional, Numeric,
+          ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)],
+      }]]
     }
 
     # Return path for built-in sheet templates
@@ -216,7 +232,22 @@ module Squib
 
       new_card["x"] = x
       new_card["y"] = y
+      new_card["rotate"] = parse_rotate_param card["rotate"]
       new_card
+    end
+
+    def parse_rotate_param val
+      if val == :clockwise
+        0.5 * Math::PI
+      elsif val == :counterclockwise
+        1.5 * Math::PI
+      elsif val == :turnaround
+        Math::PI
+      elsif val.nil?
+        0
+      else
+        val
+      end
     end
   end
 

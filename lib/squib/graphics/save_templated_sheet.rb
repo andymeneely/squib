@@ -13,7 +13,8 @@ module Squib
         cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi)  # make it like pixels
         card_set = @tmpl.cards
         per_sheet = card_set.size
-        angle = detect_card_orientation
+        default_angle = (
+          (@tmpl.rotate == 0)? check_card_orientation: @tmpl.rotate)
 
         if range.size
           draw_overlay_below_cards cc
@@ -24,10 +25,12 @@ module Squib
             next_page_if_needed(cc, i, per_sheet)
 
             card = @deck.cards[i]
-            x = card_set[i % per_sheet]['x']
-            y = card_set[i % per_sheet]['y']
+            slot = card_set[i % per_sheet]
+            x = slot['x']
+            y = slot['y']
+            angle = (slot['rotate'] != 0)? slot['rotate']: default_angle
 
-            if angle
+            if angle != 0
               draw_rotated_card cc, card, x, y, angle
             else
               cc.set_source card.cairo_surface, x, y
@@ -114,13 +117,13 @@ module Squib
         }
       end
 
-      def detect_card_orientation
+      def check_card_orientation
         clockwise = 1.5 * Math::PI
         # Simple detection
         if (
             @deck.width == @tmpl.card_width and
             @deck.height == @tmpl.card_height)
-          return false
+          return 0
         elsif (
             @deck.width == @tmpl.card_height and
             @deck.height == @tmpl.card_width)
@@ -137,7 +140,7 @@ module Squib
         if is_tmpl_card_landscape == is_deck_card_landscape
           clockwise
         else
-          false
+          0
         end
       end
 
