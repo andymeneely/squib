@@ -14,7 +14,7 @@ module Squib
         when /in$/ # ends with "in"
           arg.rstrip[0..-2].to_f * dpi
         when /pt$/ # ends with "in"
-          arg.rstrip[0..-2].to_f * dpi / 72
+          arg.rstrip[0..-2].to_f * dpi / POINTS_PER_IN
         when /cm$/ # ends with "cm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
         when /mm$/ # ends with "mm"
