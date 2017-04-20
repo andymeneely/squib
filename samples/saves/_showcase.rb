@@ -7,7 +7,7 @@ Squib::Deck.new(cards: 4) do
   rect fill_color: '#DED4B9', x: 78, y: 78,
        width: '2.25in', height: '3.25in', radius: 32
   text str: %w(Grifter Thief Thug Kingpin),
-       font: 'Helvetica,Sans weight=800 120',
+       font: 'Helvetica,Sans weight=800 40',
        x: 78, y: 78, width: '2.25in', align: :center
   svg file: 'spanner.svg', x: (825 - 500) / 2, y: 500, width: 500, height: 500
 

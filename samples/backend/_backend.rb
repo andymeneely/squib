@@ -5,7 +5,7 @@ Squib::Deck.new(cards: 2, config: '_backend-config.yml') do
 
   # These are all supported by the SVG backend
   background color: :gray
-  text       str: 'Hello, world!', y: 500, width: 825, font: 'Sans bold 72', align: :center
+  text       str: 'Hello, world!', y: 500, width: 825, font: 'Sans bold 24', align: :center
   rect       x: 38, y: 38, width: 750, height: 1050, x_radius: 38, y_radius: 38
   circle     x: 100, y: 400, radius: 25
   triangle   x1: 100, y1: 425, x2: 125, y2: 475, x3: 75, y3: 475

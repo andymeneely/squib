@@ -26,7 +26,7 @@ Squib::Deck.new(width: 3000, height: 1500) do
   x, y, w, h = 0, 0, 300, 50
   colors.each_with_index do |color, i|
     rect x: x, y: y, width: w, height: h, fill_color: color
-    text str: color.to_s, x: x + 5, y: y + 13, font: 'Sans Bold 16',
+    text str: color.to_s, x: x + 5, y: y + 13, font: 'Sans Bold 5',
          color: (Cairo::Color.parse(color).to_hsv.v > 0.9) ? '#000' : '#fff'
     y += h
     if y > @height
