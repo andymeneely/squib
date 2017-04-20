@@ -15,6 +15,11 @@ describe Squib::Args::UnitConversion do
     expect(subject.parse('1 in')).to eq(300)
   end
 
+  it 'does pt' do
+    expect(subject.parse('1pt')).to eq(4.166666666666667)
+    expect(subject.parse('1pt  ')).to eq(4.166666666666667)
+  end
+
   it 'does cm' do
     expect(subject.parse('1cm')).to eq(118.1102361)
     expect(subject.parse('1cm  ')).to eq(118.1102361)

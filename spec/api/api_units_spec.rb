@@ -14,6 +14,16 @@ describe Squib::Deck do
     end
   end
 
+  context '#pt' do
+    it 'converts inches properly' do
+      expect(deck.points(1)).to eq 4.166666666666667
+    end
+
+    it 'handles strings too' do
+      expect(deck.points('1')).to eq 4.166666666666667
+    end
+  end
+
   context '#cm' do
     it 'converts inches properly' do
       expect(deck.cm(1)).to eq 118.1102361
