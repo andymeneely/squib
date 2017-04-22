@@ -26,12 +26,12 @@ module Squib
       end
 
       def validate_template_file(arg)
-        thefile = File.exist?(arg) ? arg: builtin(arg)
-        if arg.nil? or not File.exist?(thefile)
-          raise "File #{File.expand_path(arg)} does not exist!"
-        end
+        return nil if arg.nil?
 
-        thefile
+        thefile = File.exist?(arg) ? arg: builtin(arg)
+        raise "File #{File.expand_path(arg)} does not exist!" unless File.exists? thefile
+
+        File.expand_path(thefile)
       end
 
       private

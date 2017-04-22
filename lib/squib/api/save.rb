@@ -23,7 +23,14 @@ module Squib
     def save_pdf(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       sheet = Args::Sheet.new(custom_colors, { file: 'output.pdf' }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      Graphics::SavePDF.new(self).render_pdf(range, sheet)
+      tmpl_file = Args::TemplateFile.new.load!(opts, expand_by: size)
+
+      if tmpl_file.template_file.nil?
+        Graphics::SavePDF.new(self).render_pdf(range, sheet)
+      else
+        tmpl = Template.load tmpl_file.template_file, dpi
+        Graphics::SaveTemplatedSheet.new(self, tmpl).render_sheet(range, sheet)
+      end
     end
 
     # DSL method. See http://squib.readthedocs.io
@@ -44,16 +51,6 @@ module Squib
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
       sheet = Args::Sheet.new(custom_colors, { margin: 0 }, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
       render_sheet(range, batch, sheet)
-    end
-
-    # DSL method. See http://squib.readthedocs.io
-    def save_templated_sheet(opts = {})
-      range = Args::CardRange.new(opts[:range], deck_size: size)
-      sheet = Args::OutputFile.new.load!(opts, expand_by: size)
-      tmpl_file = Args::TemplateFile.new.load!(opts, expand_by: size)
-
-      tmpl = Template.load tmpl_file.template_file, dpi
-      Graphics::SaveTemplatedSheet.new(self, tmpl).render_sheet(range, sheet)
     end
 
     # DSL method. See http://squib.readthedocs.io
