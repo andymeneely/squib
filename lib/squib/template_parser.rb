@@ -1,20 +1,20 @@
-require "yaml"
-require "classy_hash"
+require 'yaml'
+require 'classy_hash'
 require_relative 'args/color_validator'
 require_relative 'args/unit_conversion'
 
-
 module Squib
+  # Crop line dash definition
   class CropLineDash
-    VALIDATION_REGEX = %r{
+    VALIDATION_REGEX = /%r{
       ^(\d*[.])?\d+(in|cm|mm)
       \s+
       (\d*[.])?\d+(in|cm|mm)$
-    }x
+    }x/
 
     attr_reader :pattern
 
-    def initialize value, dpi
+    def initialize(value, dpi)
       if value == :solid
         @pattern = nil
       elsif value == :dotted
@@ -28,15 +28,16 @@ module Squib
           Args::UnitConversion.parse('2mm', dpi)
         ]
       elsif value.is_a? String
-        @pattern = value.split(' ').map{
-          |val| Args::UnitConversion.parse val, dpi}
+        @pattern = value.split(' ').map do |val|
+          Args::UnitConversion.parse val, dpi
+        end
       else
         raise ArgumentError, 'Unsupported dash style'
       end
     end
   end
 
-
+  # Template file
   class Template
     include Args::ColorValidator
 
@@ -57,30 +58,30 @@ module Squib
         'lines' => []
       },
       'cards' => []
-    }
+    }.freeze
 
     attr_reader :dpi
 
-    def initialize(template_hash = DEFAULTS, dpi)
+    def initialize(template_hash, dpi)
       ClassyHash.validate(template_hash, SCHEMA)
       @template_hash = template_hash
       @dpi = dpi
-      @crop_line_default = @template_hash['crop_line'].select {
-        |k, v| ["style", "width", "color"].include? k}
+      @crop_line_default = @template_hash['crop_line'].select do |k, _|
+        %w[style width color].include? k
+      end
     end
 
     # Load the template definition file
     def self.load(file, dpi)
       yaml = {}
-      thefile = File.exist?(file) ? file: builtin(file)
-      if File.exists? thefile
-        yaml = YAML.load_file(thefile) || {}
-      end
+      thefile = File.exist?(file) ? file : builtin(file)
+      yaml = YAML.load_file(thefile) || {} if File.exist? thefile
 
       # Bake the default values into our template
       new_hash = DEFAULTS.merge(yaml)
       new_hash['crop_line'] = DEFAULTS['crop_line'].merge(
-        new_hash['crop_line'])
+        new_hash['crop_line']
+      )
 
       # Create a new template file
       warn_unrecognized(yaml)
@@ -109,7 +110,8 @@ module Squib
 
     def crop_lines
       lines = @template_hash['crop_line']['lines'].map(
-        &method(:parse_crop_line))
+        &method(:parse_crop_line)
+      )
       if block_given?
         lines.each { |v| yield v }
       else
@@ -150,60 +152,65 @@ module Squib
       parse_rotate_param @template_hash['rotate']
     end
 
+    # Warn unrecognized options in the template sheet
+    def self.warn_unrecognized(yaml)
+      unrec = yaml.keys - DEFAULTS.keys
+      return unless unrec.any?
+
+      Squib.logger.warn(
+        "Unrecognized configuration option(s): #{unrec.join(',')}"
+      )
+    end
+
     private
 
     # Template file schema
     UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)$/
     SCHEMA = {
-      "sheet_width" => UNIT_REGEX,
-      "sheet_height" => UNIT_REGEX,
-      "card_width" => UNIT_REGEX,
-      "card_height" => UNIT_REGEX,
-      "position_reference" => ClassyHash::G.enum(:topleft, :center),
-      "rotate" => [
+      'sheet_width' => UNIT_REGEX,
+      'sheet_height' => UNIT_REGEX,
+      'card_width' => UNIT_REGEX,
+      'card_height' => UNIT_REGEX,
+      'position_reference' => ClassyHash::G.enum(:topleft, :center),
+      'rotate' => [
         :optional, Numeric,
-        ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)],
-      "crop_line" => {
-        "style" => [
+        ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)
+      ],
+      'crop_line' => {
+        'style' => [
           ClassyHash::G.enum(:solid, :dotted, :dashed),
           CropLineDash::VALIDATION_REGEX
         ],
-        "width" => UNIT_REGEX,
-        "color" => [ String, Symbol ],
-        "overlay" => ClassyHash::G.enum(
-          :on_margin, :overlay_on_cards, :beneath_cards),
-        "lines" => [[{
-          "type" => ClassyHash::G.enum(:horizontal, :vertical),
-          "position" => UNIT_REGEX,
-          "style" => [
-            :optional, ClassyHash::G.enum(:solid, :dotted, :dashed)],
-          "width" => [:optional, UNIT_REGEX],
-          "color" => [:optional, String, Symbol],
+        'width' => UNIT_REGEX,
+        'color' => [String, Symbol],
+        'overlay' => ClassyHash::G.enum(
+          :on_margin, :overlay_on_cards, :beneath_cards
+        ),
+        'lines' => [[{
+          'type' => ClassyHash::G.enum(:horizontal, :vertical),
+          'position' => UNIT_REGEX,
+          'style' => [
+            :optional, ClassyHash::G.enum(:solid, :dotted, :dashed)
+          ],
+          'width' => [:optional, UNIT_REGEX],
+          'color' => [:optional, String, Symbol]
         }]]
       },
-      "cards" => [[{
-        "x" => UNIT_REGEX,
-        "y" => UNIT_REGEX,
+      'cards' => [[{
+        'x' => UNIT_REGEX,
+        'y' => UNIT_REGEX,
         # NOTE: Don't think that we should specify rotation on a per card
         # basis, but just included here for now
-        "rotate" => [
+        'rotate' => [
           :optional, Numeric,
-          ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)],
+          ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)
+        ]
       }]]
-    }
+    }.freeze
 
     # Return path for built-in sheet templates
     def builtin(file)
       "#{File.dirname(__FILE__)}/sheet_templates/#{file}"
-    end
-
-    # Warn unrecognized options in the template sheet
-    def self.warn_unrecognized(yaml)
-      unrec = yaml.keys - DEFAULTS.keys
-      if unrec.any?
-        Squib::logger.warn(
-          "Unrecognized configuration option(s): #{unrec.join(',')}")
-      end
     end
 
     # Parse crop line definitions from template.
@@ -213,8 +220,8 @@ module Squib
       new_line['color'] = colorify new_line['color']
       new_line['style'] = CropLineDash.new(new_line['style'], @dpi)
       new_line['line'] = CropLine.new(
-        new_line['type'], new_line['position'], sheet_width, sheet_height,
-        @dpi)
+        new_line['type'], new_line['position'], sheet_width, sheet_height, @dpi
+      )
       new_line
     end
 
@@ -222,21 +229,21 @@ module Squib
     def parse_card(card)
       new_card = card.rehash
 
-      x = Args::UnitConversion.parse(card["x"], @dpi)
-      y = Args::UnitConversion.parse(card["y"], @dpi)
-      if @template_hash["position_reference"] == :center
+      x = Args::UnitConversion.parse(card['x'], @dpi)
+      y = Args::UnitConversion.parse(card['y'], @dpi)
+      if @template_hash['position_reference'] == :center
         # Normalize it to a top-left positional reference
-        x = x - card_width / 2
-        y = y - card_width / 2
+        x -= card_width / 2
+        y -= card_width / 2
       end
 
-      new_card["x"] = x
-      new_card["y"] = y
-      new_card["rotate"] = parse_rotate_param card["rotate"]
+      new_card['x'] = x
+      new_card['y'] = y
+      new_card['rotate'] = parse_rotate_param card['rotate']
       new_card
     end
 
-    def parse_rotate_param val
+    def parse_rotate_param(val)
       if val == :clockwise
         0.5 * Math::PI
       elsif val == :counterclockwise
@@ -251,7 +258,7 @@ module Squib
     end
   end
 
-
+  # Crop line definition
   class CropLine
     attr_reader :x1, :y1, :x2, :y2
 
@@ -260,7 +267,7 @@ module Squib
       send method, position, sheet_width, sheet_height, dpi
     end
 
-    def parse_horizontal(position, sheet_width, sheet_height, dpi)
+    def parse_horizontal(position, sheet_width, _, dpi)
       position = Args::UnitConversion.parse(position, dpi)
       @x1 = 0
       @y1 = position
@@ -268,7 +275,7 @@ module Squib
       @y2 = position
     end
 
-    def parse_vertical(position, sheet_width, sheet_height, dpi)
+    def parse_vertical(position, _, sheet_height, dpi)
       position = Args::UnitConversion.parse(position, dpi)
       @x1 = position
       @y1 = 0

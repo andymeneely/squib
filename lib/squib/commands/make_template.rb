@@ -8,18 +8,16 @@ require_relative 'data/template_option'
 module Squib
   # Squib's command-line option
   module Commands
-
     # Generate a template definition file that can be used for
     # +save_templated_sheet+
     #
     # @api public
     class MakeTemplate
-
       # :nodoc:
       # @api private
       def process(args)
         # Get definitions from the user
-        @option = get_input
+        @option = prompt
 
         @printable_edge_right = (
           @option.sheet_width - @option.sheet_margin.right)
@@ -34,115 +32,125 @@ module Squib
         end
 
         # We would now have to output the file
-        YAML.dump generate_template(), File.new(@option.output_file, 'w')
+        YAML.dump generate_template, File.new(@option.output_file, 'w')
       end
 
       private
 
       # Accept user input that defines the template.
-      def get_input
+      def prompt
         option = TemplateOption.new
         cli = HighLine.new
 
         option.unit = cli.choose do |menu|
-          menu.prompt = "What measure unit should we use? "
+          menu.prompt = 'What measure unit should we use? '
           menu.choice(:in)
           menu.choice(:cm)
           menu.choice(:mm)
         end
 
         cli.choose do |menu|
-          menu.prompt = "What paper size you are using? "
-          menu.choice("A4, portrait") {
+          menu.prompt = 'What paper size you are using? '
+          menu.choice('A4, portrait') do
             option.sheet_width = convert_measurement_value(
-              210, :mm, option.unit)
+              210, :mm, option.unit
+            )
             option.sheet_height = convert_measurement_value(
-              297, :mm, option.unit)
-          }
-          menu.choice("A4, landscape") {
+              297, :mm, option.unit
+            )
+          end
+          menu.choice('A4, landscape') do
             option.sheet_width = convert_measurement_value(
-              297, :mm, option.unit)
+              297, :mm, option.unit
+            )
             option.sheet_height = convert_measurement_value(
-              210, :mm, option.unit)
-          }
-          menu.choice("US letter, portrait") {
+              210, :mm, option.unit
+            )
+          end
+          menu.choice('US letter, portrait') do
             option.sheet_width = convert_measurement_value(
-              8.5, :in, option.unit)
+              8.5, :in, option.unit
+            )
             option.sheet_height = convert_measurement_value(
-              11, :in, option.unit)
-          }
-          menu.choice("US letter, landscape") {
+              11, :in, option.unit
+            )
+          end
+          menu.choice('US letter, landscape') do
             option.sheet_width = convert_measurement_value(
-              11, :in, option.unit)
+              11, :in, option.unit
+            )
             option.sheet_height = convert_measurement_value(
-              8.5, :in, option.unit)
-          }
-          menu.choice("Custom size") {
+              8.5, :in, option.unit
+            )
+          end
+          menu.choice('Custom size') do
             option.sheet_width = cli.ask(
-              "Custom paper width? (#{option.unit}) ", Float)
+              "Custom paper width? (#{option.unit}) ", Float
+            )
             option.sheet_height = cli.ask(
-              "Custom paper height? (#{option.unit}) ", Float)
-          }
+              "Custom paper height? (#{option.unit}) ", Float
+            )
+          end
         end
 
-        option.sheet_margin = cli.ask("Sheet margins? (#{option.unit}) ") {
-          |q|
+        option.sheet_margin = cli.ask(
+          "Sheet margins? (#{option.unit}) "
+        ) do |q|
           q.validate = /^((\d+\.\d+|\d+) ){0,3}(\d+\.\d+|\d+)/
-        }
+        end
         option.sheet_align = cli.choose do |menu|
-          menu.prompt = "How to align cards on sheet? [left] "
+          menu.prompt = 'How to align cards on sheet? [left] '
           menu.choice(:left)
           menu.choice(:right)
           menu.choice(:center)
           menu.default = :left
         end
 
-        option.card_width = cli.ask("Card width? (#{option.unit}) ", Float) {
-          |q| q.above = 0 }
+        option.card_width = cli.ask(
+          "Card width? (#{option.unit}) ", Float
+        ) { |q| q.above = 0 }
         option.card_height = cli.ask(
-          "Card height? (#{option.unit}) ", Float) { |q| q.above = 0 }
-        option.card_gap = cli.ask("Gap between cards? (#{option.unit}) ") {
-          |q|
-          q.validate = /^((\d+\.\d+|\d+))(\s+(\d+\.\d+|\d+))?/
-        }
+          "Card height? (#{option.unit}) ", Float
+        ) { |q| q.above = 0 }
+        option.card_gap = cli.ask(
+          "Gap between cards? (#{option.unit}) "
+        ) { |q| q.validate = /^((\d+\.\d+|\d+))(\s+(\d+\.\d+|\d+))?/ }
 
         option.card_ordering = cli.choose do |menu|
-          menu.prompt = "How to layout your cards? [rows]"
-          menu.choice(:rows, text: "In rows")
-          menu.choice(:columns, text: "In columns")
+          menu.prompt = 'How to layout your cards? [rows]'
+          menu.choice(:rows, text: 'In rows')
+          menu.choice(:columns, text: 'In columns')
           menu.default = :rows
         end
 
         option.crop_lines = cli.choose do |menu|
-          menu.prompt = "Generate crop lines? [true]"
+          menu.prompt = 'Generate crop lines? [true]'
           menu.choice(:true)
           menu.choice(:false)
           menu.default = :true
         end
 
-        option.output_file = cli.ask('Output to? ') {
-          |q|
+        option.output_file = cli.ask('Output to? ') do |q|
           q.validate = lambda do |path_str|
             path = Pathname.new path_str
             if path.exist?
-              path.writable? and not path.directory?
+              path.writable? && !path.directory?
             else
-              path.dirname().writable?
+              path.dirname.writable?
             end
           end
 
           q.responses[:not_valid] = (
-            "The filename specified is not a writable file or is a directory.")
+            'The filename specified is not a writable file or is a directory.'
+          )
           q.default = 'template.yml'
-        }
+        end
 
-        return option
+        option
       end
 
       def convert_measurement_value(val, from_unit, to_unit)
-        if from_unit == to_unit
-          return val
-        end
+        return val if from_unit == to_unit
 
         if from_unit == :in
           val_mm = val * 25.4
@@ -159,22 +167,22 @@ module Squib
         end
       end
 
-      def generate_template()
+      def generate_template
         x = @option.sheet_margin.left
         y = @option.sheet_margin.top
-        cards = Array.new
+        cards = []
         horizontal_crop_lines = Set.new
         vertical_crop_lines = Set.new
 
         while (
-            x + @card_iter_x < @printable_edge_right and
+            x + @card_iter_x < @printable_edge_right &&
             y + @card_iter_y < @printable_edge_bottom)
           xpos = x + @option.card_gap.horizontal
           ypos = y + @option.card_gap.vertical
-          cards.push({
+          cards.push(
             'x' => "#{xpos}#{@option.unit}",
             'y' => "#{ypos}#{@option.unit}"
-          })
+          )
 
           # Append the crop lines
           vertical_crop_lines.add xpos
@@ -201,15 +209,17 @@ module Squib
         }
 
         if @option.crop_lines == :true
-          lines = Array.new
-          vertical_crop_lines.each { |val|
-            lines.push({
-              'type' => :vertical, 'position' => "#{val}#{@option.unit}"})
-          }
-          horizontal_crop_lines.each { |val|
-            lines.push({
-              'type' => :horizontal, 'position' => "#{val}#{@option.unit}"})
-          }
+          lines = []
+          vertical_crop_lines.each do |val|
+            lines.push(
+              'type' => :vertical, 'position' => "#{val}#{@option.unit}"
+            )
+          end
+          horizontal_crop_lines.each do |val|
+            lines.push(
+              'type' => :horizontal, 'position' => "#{val}#{@option.unit}"
+            )
+          end
           output['crop_line'] = { 'lines' => lines }
         end
 
@@ -217,16 +227,16 @@ module Squib
         output
       end
 
-      def recalculate_center_align_sheet()
+      def recalculate_center_align_sheet
         # We will still respect the user specified margins
         printable_width = (
           @option.sheet_width - @option.sheet_margin.left -
           @option.sheet_margin.right)
         num_of_cols, remainder = printable_width.divmod(@card_iter_x)
         if (
-            @option.card_gap.horizontal > 0 and
+            @option.card_gap.horizontal > 0 &&
             remainder < @option.card_gap.horizontal)
-          num_of_cards = num_of_cards - 1
+          num_of_cols -= 1
         end
 
         new_hor_margin = (
@@ -235,29 +245,30 @@ module Squib
         Margin.new [
           @option.sheet_margin.top,
           new_hor_margin,
-          @option.sheet_margin.bottom]
+          @option.sheet_margin.bottom
+        ]
       end
 
       def next_card_pos_row(x, y)
-        x = x + @card_iter_x
+        x += @card_iter_x
 
         if (x + @card_iter_x) > @printable_edge_right
           x = @option.sheet_margin.left
-          y = y + @card_iter_y
+          y += @card_iter_y
         end
 
-        return x, y
+        [x, y]
       end
 
       def next_card_pos_col(x, y)
-        y = y + @card_iter_y
+        y += @card_iter_y
 
         if (y + @card_iter_y) > @printable_edge_bottom
-          x = x + @card_iter_x
+          x += @card_iter_x
           y = @option.sheet_margin.top
         end
 
-        return x, y
+        [x, y]
       end
     end
   end

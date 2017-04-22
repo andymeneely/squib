@@ -29,7 +29,9 @@ module Squib
         Graphics::SavePDF.new(self).render_pdf(range, sheet)
       else
         tmpl = Template.load tmpl_file.template_file, dpi
-        Graphics::SaveTemplatedSheetPDF.new(self, tmpl, sheet).render_sheet(range)
+        Graphics::SaveTemplatedSheetPDF.new(self, tmpl, sheet).render_sheet(
+          range
+        )
       end
     end
 
@@ -57,7 +59,8 @@ module Squib
       else
         tmpl = Template.load tmpl_file.template_file, dpi
         Graphics::SaveTemplatedSheetPNG.new(self, tmpl, batch).render_sheet(
-          range)
+          range
+        )
       end
     end
 
