@@ -2,15 +2,16 @@ module Squib
   module Graphics
     class SaveTemplatedSheet
 
-      def initialize(deck, tmpl)
+      def initialize(deck, tmpl, outfile)
         @deck = deck
         @tmpl = tmpl
+        @page_number = 1
+        @outfile = outfile
         @rotated_delta = (@tmpl.card_width - @deck.width).abs / 2
       end
 
-      def render_sheet(range, sheet)
-        cc = init_cc(sheet)
-        cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi)  # make it like pixels
+      def render_sheet(range)
+        cc = init_cc
         card_set = @tmpl.cards
         per_sheet = card_set.size
         default_angle = (
@@ -20,7 +21,7 @@ module Squib
           draw_overlay_below_cards cc
         end
 
-        track_progress(range, sheet) do |bar|
+        track_progress(range) do |bar|
           range.each do |i|
             next_page_if_needed(cc, i, per_sheet)
 
@@ -41,34 +42,39 @@ module Squib
           end
 
         draw_overlay_above_cards cc
+        draw_page cc
         cc.target.finish
         end
       end
 
-      private
+      protected
 
       # Initialize the Cairo Context
-      def init_cc(sheet)
-        ratio = 72.0 / @deck.dpi
-
-        surface = Cairo::PDFSurface.new(
-          sheet.full_filename,
-          @tmpl.sheet_width * ratio,
-          @tmpl.sheet_height * ratio)
-
-        Cairo::Context.new(surface)
+      def init_cc
+        raise NotImplementedError
       end
+
+      def draw_page(cc)
+        raise NotImplementedError
+      end
+
+      def full_filename
+        raise NotImplementedError
+      end
+
+      private
 
       def next_page_if_needed(cc, i, per_sheet)
         if (i != 0) and (i % per_sheet == 0)
           draw_overlay_above_cards cc
-          cc.show_page
+          cc = draw_page cc
           draw_overlay_below_cards cc
+          @page_number += 1
         end
       end
 
-      def track_progress(range, sheet)
-        msg = "Saving templated sheet to #{sheet.full_filename}"
+      def track_progress(range)
+        msg = "Saving templated sheet to #{full_filename}"
         @deck.progress_bar.start(msg, range.size) { |bar| yield(bar) }
       end
 
@@ -128,13 +134,16 @@ module Squib
             @deck.width == @tmpl.card_height and
             @deck.height == @tmpl.card_width)
           Squib::logger.warn {
-            'Rotating cards to match templated file card orientation.' }
+            'Rotating cards to match card orientation in template.' }
           return clockwise
         end
 
-        # Edge case
+        # If the card dimensions doesn't match, warns the user...
         Squib::logger.warn {
-          'Card dimensions of the deck does not match the template.' }
+          "Card size does not match the template's expected card size. "\
+          "Cards may overlap." }
+
+        # ... but still try to auto-orient the cards anyway
         is_tmpl_card_landscape = @tmpl.card_width > @tmpl.card_height
         is_deck_card_landscape = @deck.width > @deck.height
         if is_tmpl_card_landscape == is_deck_card_landscape
@@ -169,6 +178,47 @@ module Squib
         cc.translate(-@deck.width/2 + delta, -@deck.height/2 + delta)
         cc.set_source card.cairo_surface, 0, 0
         cc.matrix = mat
+      end
+    end
+
+    class SaveTemplatedSheetPDF < SaveTemplatedSheet
+      def init_cc
+        ratio = 72.0 / @deck.dpi
+
+        surface = Cairo::PDFSurface.new(
+          full_filename,
+          @tmpl.sheet_width * ratio,
+          @tmpl.sheet_height * ratio)
+
+        cc = Cairo::Context.new(surface)
+        cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi)  # make it like pixels
+        cc
+      end
+
+      def draw_page(cc)
+        cc.show_page
+        cc
+      end
+
+      def full_filename
+        @outfile.full_filename
+      end
+    end
+
+    class SaveTemplatedSheetPNG < SaveTemplatedSheet
+      def init_cc
+        surface = Cairo::ImageSurface.new(
+          @tmpl.sheet_width, @tmpl.sheet_height)
+        Cairo::Context.new(surface)
+      end
+
+      def draw_page(cc)
+        cc.target.write_to_png(full_filename)
+        init_cc
+      end
+
+      def full_filename
+        @outfile.full_filename @page_number
       end
     end
   end
