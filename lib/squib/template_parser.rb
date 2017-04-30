@@ -43,10 +43,10 @@ module Squib
 
     # Defaults are set for poker sized deck on a A4 sheet, with no cards
     DEFAULTS = {
-      'sheet_width' => '210mm',
-      'sheet_height' => '297mm',
-      'card_width' => '63mm',
-      'card_height' => '88mm',
+      'sheet_width' => nil,
+      'sheet_height' => nil,
+      'card_width' => nil,
+      'card_height' => nil,
       'dpi' => 300,
       'position_reference' => :topleft,
       'rotate' => 0.0,
