@@ -209,7 +209,7 @@ module Squib
     }.freeze
 
     # Return path for built-in sheet templates
-    def builtin(file)
+    def self.builtin(file)
       "#{File.dirname(__FILE__)}/sheet_templates/#{file}"
     end
 
