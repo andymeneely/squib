@@ -1,4 +1,4 @@
-require_relative '../template_parser'
+require_relative '../template'
 require_relative '../args/card_range'
 require_relative '../args/hand_special'
 require_relative '../args/save_batch'
