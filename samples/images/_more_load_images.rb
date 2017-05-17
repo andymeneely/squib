@@ -95,5 +95,8 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1, config: 'load_images_config.
   svg file: 'spanner.svg', width: :deck, height: :deck,
       force_id: true, id: '' # <-- the important part
 
+  # Squib can handle incorrectly formatted svg files
+  svg file: 'bad-svg.svg'
+
   save prefix: 'load_images_', format: :png
 end

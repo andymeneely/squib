@@ -67,7 +67,12 @@ module Squib
       Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? || svg_args.data.to_s.empty?
       return if (file.nil? or file.eql? '') and svg_args.data.nil? # nothing specified TODO Move this out to arg validator
       svg_args.data = File.read(file) if svg_args.data.to_s.empty?
-      svg          = RSVG::Handle.new_from_data(svg_args.data)
+      begin
+        svg = RSVG::Handle.new_from_data(svg_args.data)
+      rescue RSVG::Error::Failed
+        Squib.logger.error "Could not read file '#{file}'. Is this a valid svg file?"
+        return
+      end
       box.width    = svg.width  if box.width == :native
       box.height   = svg.height if box.height == :native
       box.width  = svg.width.to_f * box.height.to_f / svg.height.to_f if box.width == :scale
