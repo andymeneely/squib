@@ -148,10 +148,6 @@ module Squib
       }
     end
 
-    def rotate
-      parse_rotate_param @template_hash['rotate']
-    end
-
     # Warn unrecognized options in the template sheet
     def self.warn_unrecognized(yaml)
       unrec = yaml.keys - DEFAULTS.keys
@@ -166,6 +162,7 @@ module Squib
 
     # Template file schema
     UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)$/
+    ROTATE_REGEX = /^(\d*[.])?\d+(deg|rad)?$/
     SCHEMA = {
       'sheet_width' => UNIT_REGEX,
       'sheet_height' => UNIT_REGEX,
@@ -174,7 +171,8 @@ module Squib
       'position_reference' => ClassyHash::G.enum(:topleft, :center),
       'rotate' => [
         :optional, Numeric,
-        ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)
+        ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),
+        ROTATE_REGEX
       ],
       'crop_line' => {
         'style' => [
@@ -203,7 +201,8 @@ module Squib
         # basis, but just included here for now
         'rotate' => [
           :optional, Numeric,
-          ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround)
+          ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),
+          ROTATE_REGEX
         ]
       }]]
     }.freeze
@@ -240,7 +239,8 @@ module Squib
 
       new_card['x'] = x
       new_card['y'] = y
-      new_card['rotate'] = parse_rotate_param card['rotate']
+      new_card['rotate'] = parse_rotate_param(
+        card['rotate'] ? card['rotate'] : @template_hash['rotate'])
       new_card
     end
 
@@ -251,10 +251,18 @@ module Squib
         1.5 * Math::PI
       elsif val == :turnaround
         Math::PI
+      elsif val.is_a? String
+        if val.end_with? 'deg'
+          val.gsub(/deg$/, '').to_f / 180 * Math::PI
+        elsif val.end_with? 'rad'
+          val.gsub(/rad$/, '').to_f
+        else
+          val.to_f
+        end
       elsif val.nil?
-        0
+        0.0
       else
-        val
+        val.to_f
       end
     end
   end

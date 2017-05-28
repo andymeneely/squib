@@ -12,7 +12,7 @@ describe Squib::Template do
       Squib::Template::DEFAULTS['crop_line']['overlay']
     )
     expect(tmpl.crop_lines).to eq([])
-    expect(tmpl.cards).to eq([{ 'x' => 50, 'y' => 100, 'rotate' => 0 }])
+    expect(tmpl.cards).to eq([{ 'x' => 50, 'y' => 100, 'rotate' => 0.0 }])
   end
 
   it 'loads from the default templates if none exists' do
@@ -130,6 +130,17 @@ describe Squib::Template do
   end
 
   it 'loads a template with rotated cards' do
+    tmpl = Squib::Template.load(template_file('card_rotation.yml'), 100)
+    expect(tmpl.sheet_width).to eq(850)
+    expect(tmpl.sheet_height).to eq(1100)
+    expect(tmpl.card_width).to eq(250)
+    expect(tmpl.card_height).to eq(350)
+    expect(tmpl.dpi).to eq(100)
+
+    expect(tmpl.cards.length).to eq(6)
+    expect(tmpl.cards.map { |card| card['rotate'] }).to eq(
+      [0.5 * Math::PI, 1.5 * Math::PI, Math::PI, 1, Math::PI / 3, 1.25]
+    )
   end
 
   it 'fails when sheet_width is not defined' do
