@@ -1,0 +1,23 @@
+sheet_width: 8.5in
+sheet_height: 11in
+card_width: 2.5in
+card_height: 3.5in
+rotate: :clockwise
+cards:
+- x: 0.5in
+  y: 1in
+- x: 3.0in
+  y: 1in
+  rotate: :counterclockwise
+- x: 3.5in
+  y: 1in
+  rotate: :turnaround
+- x: 0.5in
+  y: 4.5in
+  rotate: 1
+- x: 3.0in
+  y: 4.5in
+  rotate: 60deg
+- x: 3.5in
+  y: 4.5in
+  rotate: 1.25rad
