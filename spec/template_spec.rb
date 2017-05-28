@@ -77,9 +77,56 @@ describe Squib::Template do
   end
 
   it 'loads a template with the coordinates specifying the middle of cards' do
+    tmpl = Squib::Template.load(template_file('card_center_coord.yml'), 100)
+    expect(tmpl.sheet_width).to eq(850)
+    expect(tmpl.sheet_height).to eq(1100)
+    expect(tmpl.card_width).to eq(200)
+    expect(tmpl.card_height).to eq(300)
+    expect(tmpl.dpi).to eq(100)
+
+    expect(tmpl.cards.length).to eq(8)
+    expect(tmpl.cards.map { |card| card['x'] }).to eq(
+      [25.0, 225.0, 425.0, 625.0] * 2
+    )
+    expect(tmpl.cards.map { |card| card['y'] }).to eq(
+      [100.0, 100.0, 100.0, 100.0, 400.0, 400.0, 400.0, 400.0]
+    )
   end
 
   it 'loads a template with customized crop lines' do
+    tmpl = Squib::Template.load(template_file('custom_crop_lines.yml'), 100)
+    expect(tmpl.sheet_width).to eq(850)
+    expect(tmpl.sheet_height).to eq(1100)
+    expect(tmpl.card_width).to eq(200)
+    expect(tmpl.card_height).to eq(300)
+    expect(tmpl.dpi).to eq(100)
+    expect(tmpl.crop_line_overlay).to eq(:overlay_on_cards)
+
+    expect(tmpl.crop_lines.length).to eq(6)
+    expect(tmpl.crop_lines.map { |line| line['type'] }).to eq(
+      %i[horizontal horizontal horizontal horizontal horizontal vertical]
+    )
+    expect(tmpl.crop_lines.map { |line| line['line'].x1 }).to eq(
+      [0, 0, 0, 0, 0, 600]
+    )
+    expect(tmpl.crop_lines.map { |line| line['line'].x2 }).to eq(
+      [850, 850, 850, 850, 850, 600]
+    )
+    expect(tmpl.crop_lines.map { |line| line['line'].y1 }).to eq(
+      [100, 200, 300, 400, 500, 0]
+    )
+    expect(tmpl.crop_lines.map { |line| line['line'].y2 }).to eq(
+      [100, 200, 300, 400, 500, 1100]
+    )
+    expect(tmpl.crop_lines.map { |line| line['style_desc'] }).to eq(
+      %i[dashed dashed dotted dashed solid dashed]
+    )
+    expect(tmpl.crop_lines.map { |line| line['width'] }).to eq(
+      [10, 20, 10, 10, 30, 10]
+    )
+    expect(tmpl.crop_lines.map { |line| line['color'] }).to eq(
+      ['pink', 'pink', 'pink', '#ff0000', 'blue', 'pink']
+    )
   end
 
   it 'loads a template with rotated cards' do
