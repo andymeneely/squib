@@ -14,9 +14,10 @@ module Squib
         cc = init_cc
         card_set = @tmpl.cards
         per_sheet = card_set.size
-        default_angle = (
-          @tmpl.rotate.zero? ? check_card_orientation : @tmpl.rotate
-        )
+        default_angle = @tmpl.card_default_rotation
+        if default_angle.zero?
+          default_angle = check_card_orientation
+        end
 
         draw_overlay_below_cards cc if range.size
 

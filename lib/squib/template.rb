@@ -104,6 +104,10 @@ module Squib
       Args::UnitConversion.parse @template_hash['card_height'], @dpi
     end
 
+    def card_default_rotation
+      parse_rotate_param @template_hash['rotate']
+    end
+
     def crop_line_overlay
       @template_hash['crop_line']['overlay']
     end
@@ -191,7 +195,8 @@ module Squib
             :optional, ClassyHash::G.enum(:solid, :dotted, :dashed)
           ],
           'width' => [:optional, UNIT_REGEX],
-          'color' => [:optional, String, Symbol]
+          'color' => [:optional, String, Symbol],
+          'overlay_on_cards' => [:optional, TrueClass]
         }]]
       },
       'cards' => [[{
