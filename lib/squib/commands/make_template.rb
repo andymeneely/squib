@@ -186,9 +186,9 @@ module Squib
 
           # Append the crop lines
           vertical_crop_lines.add xpos
-          vertical_crop_lines.add x + @option.card_width
+          vertical_crop_lines.add xpos + @option.card_width
           horizontal_crop_lines.add ypos
-          horizontal_crop_lines.add y + @option.card_height
+          horizontal_crop_lines.add ypos + @option.card_height
 
           # Calculate the next iterator
           if @option.card_ordering == :rows
