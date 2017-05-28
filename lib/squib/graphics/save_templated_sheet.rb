@@ -8,6 +8,9 @@ module Squib
         @page_number = 1
         @outfile = outfile
         @rotated_delta = (@tmpl.card_width - @deck.width).abs / 2
+        @overlay_lines = @tmpl.crop_lines.select do |line|
+          line['overlay_on_cards']
+        end
       end
 
       def render_sheet(range)
@@ -82,17 +85,19 @@ module Squib
         if @tmpl.crop_line_overlay == :on_margin
           add_margin_overlay_clip_mask cc
           cc.clip
-          draw_crop_line cc
+          draw_crop_line cc, @tmpl.crop_lines
           cc.reset_clip
         elsif @tmpl.crop_line_overlay == :beneath_cards
-          draw_crop_line cc
+          draw_crop_line cc, @tmpl.crop_lines
         end
       end
 
       def draw_overlay_above_cards(cc)
-        return unless @tmpl.crop_line_overlay == :overlay_on_cards
-
-        draw_crop_line cc
+        if @tmpl.crop_line_overlay == :overlay_on_cards
+          draw_crop_line cc, @tmpl.crop_lines
+        else
+          draw_crop_line cc, @overlay_lines
+        end
       end
 
       def add_margin_overlay_clip_mask(cc)
@@ -111,8 +116,8 @@ module Squib
         cc.close_path
       end
 
-      def draw_crop_line(cc)
-        @tmpl.crop_lines do |line|
+      def draw_crop_line(cc, crop_lines)
+        crop_lines.each do |line|
           cc.move_to line['line'].x1, line['line'].y1
           cc.line_to line['line'].x2, line['line'].y2
           cc.set_source_color line['color']
