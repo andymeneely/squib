@@ -8,6 +8,12 @@ Features:
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
 * `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
 
+Chores:
+* Bumped dependencies for Cairo to 1.15.8,  Pango et al. to 3.1.4, and nokogiri to 1.7.2. Locked in Cairo and Pango deps so we don't have live release issues that we had recently.
+
+Bugs:
+* Fixed some deprecation warnings on `text`
+
 Special thanks to @sparr and @blinks for all of their work!!
 
 ## v0.13.2 / 2017-01-27

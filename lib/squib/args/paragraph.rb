@@ -49,11 +49,11 @@ module Squib
       def validate_align(arg, _i)
         case arg.to_s.downcase.strip
         when 'left'
-          Pango::ALIGN_LEFT
+          Pango::Alignment::LEFT
         when 'right'
-          Pango::ALIGN_RIGHT
+          Pango::Alignment::RIGHT
         when 'center'
-          Pango::ALIGN_CENTER
+          Pango::Alignment::CENTER
         else
           raise ArgumentError, 'align must be one of: center, left, right'
         end
@@ -62,11 +62,11 @@ module Squib
       def validate_wrap(arg, _i)
         case arg.to_s.downcase.strip
         when 'word'
-          Pango::Layout::WRAP_WORD
+          Pango::WrapMode::WORD
         when 'char', 'false'
-          Pango::Layout::WRAP_CHAR
+          Pango::WrapMode::CHAR
         when 'word_char', 'true'
-          Pango::Layout::WRAP_WORD_CHAR
+          Pango::WrapMode::WORD_CHAR
         else
           raise ArgumentError, 'wrap must be one of: word, char, word_char, true, or false'
         end
@@ -75,13 +75,13 @@ module Squib
       def validate_ellipsize(arg, _i)
         case arg.to_s.downcase.strip
         when 'none', 'false'
-          Pango::Layout::ELLIPSIZE_NONE
+          Pango::EllipsizeMode::NONE
         when 'start'
-          Pango::Layout::ELLIPSIZE_START
+          Pango::EllipsizeMode::START
         when 'middle'
-          Pango::Layout::ELLIPSIZE_MIDDLE
+          Pango::EllipsizeMode::MIDDLE
         when 'end', 'true'
-          Pango::Layout::ELLIPSIZE_END
+          Pango::EllipsizeMode::END
         else
           raise ArgumentError, 'ellipsize must be one of: none, start, middle, end, true, or false'
         end
