@@ -33,17 +33,17 @@ describe Squib::Args::Paragraph do
   context 'align validator' do
     it 'converts to pango left' do
       para.load!({ align: :left })
-      expect(para.align).to eq [Pango::ALIGN_LEFT]
+      expect(para.align).to eq [Pango::Alignment::LEFT]
     end
 
     it 'converts to pango right' do
       para.load!({ align: :RIGHT })
-      expect(para.align).to eq [Pango::ALIGN_RIGHT]
+      expect(para.align).to eq [Pango::Alignment::RIGHT]
     end
 
     it 'converts to pango center' do
       para.load!({ align: 'center' })
-      expect(para.align).to eq [Pango::ALIGN_CENTER]
+      expect(para.align).to eq [Pango::Alignment::CENTER]
     end
 
     it 'raises an exception on anything else' do
@@ -54,22 +54,22 @@ describe Squib::Args::Paragraph do
   context 'wrap validator' do
     it 'converts to pango wrap word' do
       para.load!({ wrap: 'word' })
-      expect(para.wrap).to eq [Pango::WRAP_WORD]
+      expect(para.wrap).to eq [Pango::WrapMode::WORD]
     end
 
     it 'converts to pango wrap char' do
       para.load!({ wrap: 'WORD_ChAr' })
-      expect(para.wrap).to eq [Pango::WRAP_WORD_CHAR]
+      expect(para.wrap).to eq [Pango::WrapMode::WORD_CHAR]
     end
 
     it 'converts to pango wrap char on true' do
       para.load!({ wrap: true })
-      expect(para.wrap).to eq [Pango::WRAP_WORD_CHAR]
+      expect(para.wrap).to eq [Pango::WrapMode::WORD_CHAR]
     end
 
     it 'converts to pango wrap char with false' do
       para.load!({ wrap: false })
-      expect(para.wrap).to eq [Pango::WRAP_CHAR]
+      expect(para.wrap).to eq [Pango::WrapMode::CHAR]
     end
 
     it 'raises an exception on anything else' do
@@ -80,22 +80,22 @@ describe Squib::Args::Paragraph do
   context 'ellipsize validator' do
     it 'converts to pango on none and false' do
       para.load!({ ellipsize: 'none' })
-      expect(para.ellipsize).to eq [Pango::Layout::ELLIPSIZE_NONE]
+      expect(para.ellipsize).to eq [Pango::EllipsizeMode::NONE]
     end
 
     it 'converts to pango with start' do
       para.load!({ ellipsize: :StArt })
-      expect(para.ellipsize).to eq [Pango::Layout::ELLIPSIZE_START]
+      expect(para.ellipsize).to eq [Pango::EllipsizeMode::START]
     end
 
     it 'converts to pango middle' do
       para.load!({ ellipsize: 'middle' })
-      expect(para.ellipsize).to eq [Pango::Layout::ELLIPSIZE_MIDDLE]
+      expect(para.ellipsize).to eq [Pango::EllipsizeMode::MIDDLE]
     end
 
     it 'converts to pango end' do
       para.load!({ ellipsize: 'END' })
-      expect(para.ellipsize).to eq [Pango::Layout::ELLIPSIZE_END]
+      expect(para.ellipsize).to eq [Pango::EllipsizeMode::END]
     end
 
     it 'raises an exception on anything else' do
