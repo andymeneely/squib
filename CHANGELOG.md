@@ -14,6 +14,12 @@ Chores:
 Bugs:
 * Fixed some deprecation warnings on `text`
 
+## v0.13.3 / 2017-01-27
+
+Bugs:
+* Fix `undefined method [] for nil:NilClass` error on `svg` (was a regression error in librsvg that we worked around.)
+* Bump dependencies to latest stable versions. Pango et al. to 3.1.6 and Cairo to 1.15.9. This fixes some compatibility issues we noticed on Linux and Macs.
+
 ## v0.13.2 / 2017-01-27
 
 Bugs:
