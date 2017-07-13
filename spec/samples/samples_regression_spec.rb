@@ -62,7 +62,7 @@ describe 'Squib samples' do
       Dir.chdir(File.dirname("#{samples_dir}/#{sample}")) do
         load full_sample_path
       end
-      overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
+      # overwrite_sample(sample, log) # Use TEMPORARILY once happy with the new sample log
       test_file_str = File.open(sample_regression_file(sample), 'r:UTF-8').read
       expect(log.string).to eq(test_file_str)
     end
