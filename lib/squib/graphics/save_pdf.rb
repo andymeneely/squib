@@ -30,7 +30,7 @@ module Squib
               card.cairo_surface.finish
               cc.save
               cc.scale(0.8, 0.8) # I really don't know why I needed to do this at all. But 0.8 is the magic number to get this to scale right
-              cc.render_rsvg_handle(RSVG::Handle.new_from_file(card.svgfile), nil)
+              cc.render_rsvg_handle(RSVG::Handle.new_from_file(card.svgfile))
               cc.restore
             else
               abort "No such back end supported for save_pdf: #{backend}"
