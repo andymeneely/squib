@@ -14,11 +14,13 @@ Chores:
 Bugs:
 * Fixed some deprecation warnings on `text`
 
-## v0.13.3 / 2017-01-27
+## v0.13.3 / 2017-07-15
 
 Bugs:
 * Fix `undefined method [] for nil:NilClass` error on `svg` (was a regression error in librsvg that we worked around.)
-* Bump dependencies to latest stable versions. Pango et al. to 3.1.6 and Cairo to 1.15.9. This fixes some compatibility issues we noticed on Linux and Macs.
+* Bump dependencies to latest stable versions. Pango et al. to 3.1.7 and Cairo to 1.15.9. This fixes some compatibility issues.
+
+Compatibility known issue: if you are using Homebrew on Mac, you may need to set an environment variable for this version. This should be fixed in the upcoming 3.1.8 version of Pango that is forthcoming. See this: https://github.com/ruby-gnome2/ruby-gnome2/issues/1058
 
 ## v0.13.2 / 2017-01-27
 
