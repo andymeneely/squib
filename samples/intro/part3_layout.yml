@@ -6,7 +6,7 @@ backdrop:
     width: 750
     height: 1050
 title:
-    font: 'True Crimes, Sans 72'
+    font: 'True Crimes, Sans 24'
     align: center
     color: '#DFDFE1'
     x: 75
@@ -27,7 +27,7 @@ art:
     width: 675
     height: 675
 power:
-    font: 'Serif 36'
+    font: 'Serif 12'
     align: center
     width: 825
     color: '#DFDFE1'

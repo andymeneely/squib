@@ -7,11 +7,11 @@ def autoscale(str_array)
   str_array.map do | str |
     case str.length
     when 0..15
-      32
+      10.66
     when 16..20
-      18
+      6
     else
-      12
+      4
     end
   end
 end

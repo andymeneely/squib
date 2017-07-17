@@ -8,7 +8,7 @@ subtitle:
   height: 60
   align: left 
   valign: middle
-  font_size: 25
+  font_size: 8
 # This one is completely new
 description: 
   extends: subtitle

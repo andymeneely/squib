@@ -5,8 +5,8 @@ Squib::Deck.new(cards: 2) do
 
   # Outputs a hash of arrays with the header names as keys
   data = csv file: 'sample.csv'
-  text str: data['Type'], x: 250, y: 55, font: 'Arial 54'
-  text str: data['Level'], x: 65, y: 65, font: 'Arial 72'
+  text str: data['Type'], x: 250, y: 55, font: 'Arial 18'
+  text str: data['Level'], x: 65, y: 65, font: 'Arial 24'
 
   save format: :png, prefix: 'sample_csv_'
 
@@ -21,7 +21,7 @@ num_cards = data['Name'].size                        #          ...but 4 cards!
 Squib::Deck.new(cards: num_cards) do
   background color: :white
   rect # card border
-  text str: data['Name'], font: 'Arial 54'
+  text str: data['Name'], font: 'Arial 18'
   save_sheet prefix: 'sample_csv_qty_', columns: 4
 end
 

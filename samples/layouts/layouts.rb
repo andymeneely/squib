@@ -44,8 +44,8 @@ end
 
 # Built-in layouts are easy to use and extend
 Squib::Deck.new(layout: 'playing-card.yml') do
-  text str: "A\u2660",      layout: :bonus_ul, font: 'Sans bold 100', hint: :red
-  text str: "A\u2660",      layout: :bonus_lr, font: 'Sans bold 100', hint: :red
+  text str: "A\u2660",      layout: :bonus_ul, font: 'Sans bold 33', hint: :red
+  text str: "A\u2660",      layout: :bonus_lr, font: 'Sans bold 33', hint: :red
   text str: 'artwork here', layout: :art, hint: :red
   save_png prefix: 'layout_builtin_playing_card_'
 end

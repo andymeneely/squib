@@ -30,7 +30,7 @@ Squib::Deck.new(width: 1000, height: 3000) do
     png file: 'sprites.png', x: x - 50, y: y - 50          # entire sprite sheet
     rect x: x - 50, y: y - 50, width: 100, height: 100,    # draw the crop line
          radius: 15, dash: '3 3', stroke_color: 'red', stroke_width: 3
-    text str: '➜', font: 'Sans Bold 36', x: x + 150, y: y - 35
+    text str: '➜', font: 'Sans Bold 12', x: x + 150, y: y - 35
     png file: 'sprites.png', x: x + 200, y: y - 50,        # just the robot golem image
         crop_x: 0, crop_y: 0, crop_corner_radius: 15,
         crop_width: 100, crop_height: 100
@@ -38,7 +38,7 @@ Squib::Deck.new(width: 1000, height: 3000) do
     png file: 'sprites.png', x: x - 50, y: y + 50     # entire sprite sheet again
     rect x: x + 14, y: y + 50, width: 65, height: 65, # highlight the crop
          radius: 25, dash: '3 3', stroke_color: 'red', stroke_width: 3
-    text str: '➜', font: 'Sans Bold 36', x: x + 150, y: y + 50
+    text str: '➜', font: 'Sans Bold 12', x: x + 150, y: y + 50
     png file: 'sprites.png', x: x + 225, y: y + 50,   # just the drakkar ship image, rotated
         crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
         crop_width: 64, crop_height: 64, angle: Math::PI / 6

@@ -6,7 +6,7 @@ Squib::Deck.new(config: 'custom-config.yml') do
 
   # Hints can be turned on in the config file
   text str: 'The Title', x: 0, y: 78, width: 825,
-       font: 'Arial 72', align: :center
+       font: 'Arial 24', align: :center
 
   # Progress bars are shown for these commands
   # And images are taken from img_dir, not the cwd.

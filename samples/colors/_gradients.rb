@@ -27,7 +27,7 @@ Squib::Deck.new do
        radius: 15, stroke_color: '#0000'
 
   # Alpha transparency can be used too
-  text str: 'Hello, world!', x: 75, y: 700, font: 'Sans Bold 72',
+  text str: 'Hello, world!', x: 75, y: 700, font: 'Sans Bold 24',
        color: '(0,0)(825,0) #000f@0.0 #0000@1.0'
 
   save_png prefix: 'gradient_'

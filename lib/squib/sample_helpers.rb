@@ -24,7 +24,7 @@ module Squib
       text str: str, x: 460, y: @sample_y - 40,
            width: 540, height: 180,
            valign: 'middle', align: 'center',
-           font: 'Times New Roman,Serif 24'
+           font: 'Times New Roman,Serif 8'
       yield @sample_x, @sample_y
       @sample_y += 200
     end

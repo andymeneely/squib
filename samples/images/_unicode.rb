@@ -15,8 +15,8 @@ Squib::Deck.new(height: (game_chars.size / cols + 1) * cell_height,
   game_chars.each_with_index do |c, i|
     rect fill_color: %w(#eeee #ffff)[i % 2],
          width: cell_width, height: cell_height, x: x, y: y
-    text str: c.inspect, font: 'Sans 42',                  x: x, y: y
-    text str: c,         font: 'Sans,Segoe UI Symbol 42',  x: x + 300, y: y
+    text str: c.inspect, font: 'Sans 14',                  x: x, y: y
+    text str: c,         font: 'Sans,Segoe UI Symbol 14',  x: x + 300, y: y
     x += cell_width
     if i % cols == cols - 1
       x = 1
