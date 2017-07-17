@@ -14,6 +14,11 @@ Chores:
 Bugs:
 * Fixed some deprecation warnings on `text`
 
+## v0.13.4 / 2017-07-17
+
+Bugs:
+* Bumped Pango et al. to 3.1.8 to fix the Homebrew/Mac compatibility issue in Squib v0.13.3. Install should be clean on Macs now.
+
 ## v0.13.3 / 2017-07-15
 
 Bugs:

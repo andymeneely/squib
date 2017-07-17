@@ -30,12 +30,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
     spec.add_runtime_dependency 'cairo',                 '1.15.9'
-    spec.add_runtime_dependency 'gio2',                  '3.1.7'
-    spec.add_runtime_dependency 'gobject-introspection', '3.1.7'
+    spec.add_runtime_dependency 'gio2',                  '3.1.8'
+    spec.add_runtime_dependency 'gobject-introspection', '3.1.8'
     spec.add_runtime_dependency 'mercenary',             '0.3.6'
     spec.add_runtime_dependency 'nokogiri',              '1.8.0'
-    spec.add_runtime_dependency 'pango',                 '3.1.7'
-    spec.add_runtime_dependency 'rsvg2',                 '3.1.7'
+    spec.add_runtime_dependency 'pango',                 '3.1.8'
+    spec.add_runtime_dependency 'rsvg2',                 '3.1.8'
     spec.add_runtime_dependency 'roo',                   '2.7.1'
     spec.add_runtime_dependency 'ruby-progressbar',      '1.8.1'
 
