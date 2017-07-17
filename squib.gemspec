@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'cairo',                 '1.15.9'
-  spec.add_runtime_dependency 'classy_hash',           '0.1.5'
+  spec.add_runtime_dependency 'classy_hash',           '0.2.0'
   spec.add_runtime_dependency 'gio2',                  '3.1.8'
   spec.add_runtime_dependency 'gobject-introspection', '3.1.8'
   spec.add_runtime_dependency 'highline',              '1.7.8'

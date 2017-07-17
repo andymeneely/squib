@@ -148,7 +148,7 @@ describe Squib::Sprue do
     expect do
       Squib::Sprue.load(sprue_file('fail_no_sheet_width.yml'), 100)
     end.to raise_error(
-      RuntimeError,
+      ClassyHash::SchemaViolationError,
       '"sheet_width" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/'
     )
   end
@@ -157,7 +157,7 @@ describe Squib::Sprue do
     expect do
       Squib::Sprue.load(sprue_file('fail_no_sheet_height.yml'), 100)
     end.to raise_error(
-      RuntimeError,
+      ClassyHash::SchemaViolationError,
       '"sheet_height" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/'
     )
   end
@@ -166,7 +166,7 @@ describe Squib::Sprue do
     expect do
       Squib::Sprue.load(sprue_file('fail_no_card_width.yml'), 100)
     end.to raise_error(
-      RuntimeError,
+      ClassyHash::SchemaViolationError,
       '"card_width" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/'
     )
   end
@@ -175,7 +175,7 @@ describe Squib::Sprue do
     expect do
       Squib::Sprue.load(sprue_file('fail_no_card_height.yml'), 100)
     end.to raise_error(
-      RuntimeError,
+      ClassyHash::SchemaViolationError,
       '"card_height" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/'
     )
   end

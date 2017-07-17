@@ -4,6 +4,7 @@ require_relative '../args/color_validator'
 require_relative '../args/unit_conversion'
 require_relative 'crop_line'
 require_relative 'crop_line_dash'
+require_relative 'sprue_schema'
 
 module Squib
   class Sprue
@@ -31,7 +32,7 @@ module Squib
     attr_reader :dpi
 
     def initialize(template_hash, dpi)
-      ClassyHash.validate(template_hash, SCHEMA)
+      ClassyHash.validate(template_hash, Sprues::SCHEMA)
       @template_hash = template_hash
       @dpi = dpi
       @crop_line_default = @template_hash['crop_line'].select do |k, _|
@@ -131,54 +132,6 @@ module Squib
     end
 
     private
-
-    # Template file schema
-    UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)$/
-    ROTATE_REGEX = /^(\d*[.])?\d+(deg|rad)?$/
-    SCHEMA = {
-      'sheet_width' => UNIT_REGEX,
-      'sheet_height' => UNIT_REGEX,
-      'card_width' => UNIT_REGEX,
-      'card_height' => UNIT_REGEX,
-      'position_reference' => ClassyHash::G.enum(:topleft, :center),
-      'rotate' => [
-        :optional, Numeric,
-        ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),
-        ROTATE_REGEX
-      ],
-      'crop_line' => {
-        'style' => [
-          ClassyHash::G.enum(:solid, :dotted, :dashed),
-          Sprues::CropLineDash::VALIDATION_REGEX
-        ],
-        'width' => UNIT_REGEX,
-        'color' => [String, Symbol],
-        'overlay' => ClassyHash::G.enum(
-          :on_margin, :overlay_on_cards, :beneath_cards
-        ),
-        'lines' => [[{
-          'type' => ClassyHash::G.enum(:horizontal, :vertical),
-          'position' => UNIT_REGEX,
-          'style' => [
-            :optional, ClassyHash::G.enum(:solid, :dotted, :dashed)
-          ],
-          'width' => [:optional, UNIT_REGEX],
-          'color' => [:optional, String, Symbol],
-          'overlay_on_cards' => [:optional, TrueClass]
-        }]]
-      },
-      'cards' => [[{
-        'x' => UNIT_REGEX,
-        'y' => UNIT_REGEX,
-        # NOTE: Don't think that we should specify rotation on a per card
-        # basis, but just included here for now
-        'rotate' => [
-          :optional, Numeric,
-          ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),
-          ROTATE_REGEX
-        ]
-      }]]
-    }.freeze
 
     # Return path for built-in sheet templates
     def self.builtin(file)
