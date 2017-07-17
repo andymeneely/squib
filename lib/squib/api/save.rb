@@ -7,6 +7,7 @@ require_relative '../args/showcase_special'
 require_relative '../args/sprue_file'
 require_relative '../graphics/save_pdf'
 require_relative '../graphics/save_sprue'
+require_relative '../sprues/sprue'
 
 module Squib
   class Deck
