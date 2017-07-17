@@ -88,11 +88,11 @@ module Squib
 
         cc.operator = paint.blend unless paint.blend == :none
         if paint.mask.to_s.empty?
-          cc.render_rsvg_handle(svg, svg_args.id)
+          cc.render_rsvg_handle(svg, id: svg_args.id)
         else
           tmp = Cairo::ImageSurface.new(box.width / scale_width, box.height / scale_height)
           tmp_cc = Cairo::Context.new(tmp)
-          tmp_cc.render_rsvg_handle(svg, svg_args.id)
+          tmp_cc.render_rsvg_handle(svg, id: svg_args.id)
           cc.set_source_squibcolor(paint.mask)
           cc.mask(tmp, 0, 0)
         end
