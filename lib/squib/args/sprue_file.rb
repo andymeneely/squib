@@ -3,8 +3,7 @@ require_relative 'arg_loader'
 module Squib
   # @api private
   module Args
-    # Template file argument loader
-    class TemplateFile
+    class SprueFile
       include ArgLoader
 
       def initialize(dsl_method_default = {})
@@ -13,7 +12,7 @@ module Squib
 
       def self.parameters
         {
-          template_file: nil
+          sprue: nil
         }
       end
 
@@ -38,7 +37,7 @@ module Squib
       private
 
       def builtin(file)
-        "#{File.dirname(__FILE__)}/../sheet_templates/#{file}"
+        "#{File.dirname(__FILE__)}/../builtin/sprues/#{file}"
       end
     end
   end

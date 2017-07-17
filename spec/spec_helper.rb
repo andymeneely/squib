@@ -50,8 +50,8 @@ def yaml_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/yaml/#{file}"
 end
 
-def template_file(file)
-  "#{File.expand_path(File.dirname(__FILE__))}/data/templates/#{file}"
+def sprue_file(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/data/sprues/#{file}"
 end
 
 def project_template(file)
@@ -127,7 +127,7 @@ def mock_cairo(strio)
     triangle line_to operator= show_page clip transform mask rectangle
     reset_clip antialias= curve_to matrix= pango_layout_path stroke_preserve
     fill_preserve close_path set_dash set_line_cap set_line_join
-    arc arc_negative).each do |m|
+    arc arc_negative new_path new_sub_path).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 

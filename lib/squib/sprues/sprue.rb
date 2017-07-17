@@ -1,44 +1,12 @@
 require 'yaml'
 require 'classy_hash'
-require_relative 'args/color_validator'
-require_relative 'args/unit_conversion'
+require_relative '../args/color_validator'
+require_relative '../args/unit_conversion'
+require_relative 'crop_line'
+require_relative 'crop_line_dash'
 
 module Squib
-  # Crop line dash definition
-  class CropLineDash
-    VALIDATION_REGEX = /%r{
-      ^(\d*[.])?\d+(in|cm|mm)
-      \s+
-      (\d*[.])?\d+(in|cm|mm)$
-    }x/
-
-    attr_reader :pattern
-
-    def initialize(value, dpi)
-      if value == :solid
-        @pattern = nil
-      elsif value == :dotted
-        @pattern = [
-          Args::UnitConversion.parse('0.2mm', dpi),
-          Args::UnitConversion.parse('0.5mm', dpi)
-        ]
-      elsif value == :dashed
-        @pattern = [
-          Args::UnitConversion.parse('2mm', dpi),
-          Args::UnitConversion.parse('2mm', dpi)
-        ]
-      elsif value.is_a? String
-        @pattern = value.split(' ').map do |val|
-          Args::UnitConversion.parse val, dpi
-        end
-      else
-        raise ArgumentError, 'Unsupported dash style'
-      end
-    end
-  end
-
-  # Template file
-  class Template
+  class Sprue
     include Args::ColorValidator
 
     # Defaults are set for poker sized deck on a A4 sheet, with no cards
@@ -85,7 +53,7 @@ module Squib
 
       # Create a new template file
       warn_unrecognized(yaml)
-      Template.new new_hash, dpi
+      Sprue.new new_hash, dpi
     end
 
     def sheet_width
@@ -181,7 +149,7 @@ module Squib
       'crop_line' => {
         'style' => [
           ClassyHash::G.enum(:solid, :dotted, :dashed),
-          CropLineDash::VALIDATION_REGEX
+          Sprues::CropLineDash::VALIDATION_REGEX
         ],
         'width' => UNIT_REGEX,
         'color' => [String, Symbol],
@@ -214,7 +182,7 @@ module Squib
 
     # Return path for built-in sheet templates
     def self.builtin(file)
-      "#{File.dirname(__FILE__)}/sheet_templates/#{file}"
+      "#{File.dirname(__FILE__)}/../builtin/sprues/#{file}"
     end
 
     # Parse crop line definitions from template.
@@ -223,8 +191,8 @@ module Squib
       new_line['width'] = Args::UnitConversion.parse(new_line['width'], @dpi)
       new_line['color'] = colorify new_line['color']
       new_line['style_desc'] = new_line['style']
-      new_line['style'] = CropLineDash.new(new_line['style'], @dpi)
-      new_line['line'] = CropLine.new(
+      new_line['style'] = Sprues::CropLineDash.new(new_line['style'], @dpi)
+      new_line['line'] = Sprues::CropLine.new(
         new_line['type'], new_line['position'], sheet_width, sheet_height, @dpi
       )
       new_line
@@ -269,32 +237,6 @@ module Squib
       else
         val.to_f
       end
-    end
-  end
-
-  # Crop line definition
-  class CropLine
-    attr_reader :x1, :y1, :x2, :y2
-
-    def initialize(type, position, sheet_width, sheet_height, dpi)
-      method = "parse_#{type}"
-      send method, position, sheet_width, sheet_height, dpi
-    end
-
-    def parse_horizontal(position, sheet_width, _, dpi)
-      position = Args::UnitConversion.parse(position, dpi)
-      @x1 = 0
-      @y1 = position
-      @x2 = sheet_width
-      @y2 = position
-    end
-
-    def parse_vertical(position, _, sheet_height, dpi)
-      position = Args::UnitConversion.parse(position, dpi)
-      @x1 = position
-      @y1 = 0
-      @x2 = position
-      @y2 = sheet_height
     end
   end
 end

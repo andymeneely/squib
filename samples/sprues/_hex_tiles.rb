@@ -10,5 +10,6 @@ Squib::Deck.new(width: '65.8mm', height: '76mm', cards: 9) do
     x: '27mm', y: '35mm', width: '11.8mm', height: '6mm',
     align: :center, valign: :middle
   )
-  save_pdf file: 'hex_tiles.pdf', template_file: 'templates/hex_tiles.yml'
+  save_pdf file: 'hex_tiles.pdf',
+           sprue: 'my_sprues/hex_tiles.yml'
 end

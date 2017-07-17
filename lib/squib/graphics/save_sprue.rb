@@ -1,7 +1,7 @@
 module Squib
   module Graphics
     # Helper class to generate templated sheet.
-    class SaveTemplatedSheet
+    class SaveSprue
       def initialize(deck, tmpl, outfile)
         @deck = deck
         @tmpl = tmpl
@@ -184,7 +184,7 @@ module Squib
     end
 
     # Templated sheet renderer in PDF format.
-    class SaveTemplatedSheetPDF < SaveTemplatedSheet
+    class SaveSpruePDF < SaveSprue
       def init_cc
         ratio = 72.0 / @deck.dpi
 
@@ -210,7 +210,7 @@ module Squib
     end
 
     # Templated sheet renderer in PDF format.
-    class SaveTemplatedSheetPNG < SaveTemplatedSheet
+    class SaveSpruePNG < SaveSprue
       def init_cc
         surface = Cairo::ImageSurface.new @tmpl.sheet_width, @tmpl.sheet_height
         Cairo::Context.new(surface)

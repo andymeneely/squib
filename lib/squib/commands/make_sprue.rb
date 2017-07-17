@@ -12,7 +12,7 @@ module Squib
     # +save_templated_sheet+
     #
     # @api public
-    class MakeTemplate
+    class MakeSprue
       # :nodoc:
       # @api private
       def process(args)
