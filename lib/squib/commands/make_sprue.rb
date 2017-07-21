@@ -15,9 +15,9 @@ module Squib
     class MakeSprue
       # :nodoc:
       # @api private
-      def process(args)
+      def process(args, input = $stdin, output = $stdout)
         # Get definitions from the user
-        @option = prompt
+        @option = prompt(input, output)
 
         @printable_edge_right = (
           @option.sheet_width - @option.sheet_margin.right)
@@ -38,9 +38,9 @@ module Squib
       private
 
       # Accept user input that defines the template.
-      def prompt
+      def prompt(input, output)
         option = TemplateOption.new
-        cli = HighLine.new
+        cli = HighLine.new(input, output)
 
         option.unit = cli.choose do |menu|
           menu.prompt = 'What measure unit should we use? '
