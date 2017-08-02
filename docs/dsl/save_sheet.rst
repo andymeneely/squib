@@ -11,6 +11,11 @@ range
 
   the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
 
+sprue
+  default: ``nil``
+
+  the sprue file to use. If ``nil``, then no sprue is used and the cards are laid out automatically using the parameters below. If non-nil, Squib checks for a built-in sprue file of that name. Otherwise, it attempts to open a file relative to the current directory. For more information on Squib Sprues, see :doc:`/sprues`.
+
 columns
   default: ``5``
 

@@ -37,8 +37,6 @@ module Squib
       'cards' => [[{
         'x' => UNIT_REGEX,
         'y' => UNIT_REGEX,
-        # NOTE: Don't think that we should specify rotation on a per card
-        # basis, but just included here for now
         'rotate' => [
           :optional, Numeric,
           ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),
