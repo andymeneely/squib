@@ -82,7 +82,7 @@ module Squib
         raise 'columns must be an integer' unless columns.respond_to? :to_i
         return 1 if @deck_size < columns
         return arg if arg.respond_to? :to_i
-        (@deck_size.to_i / columns.to_i).ceil
+        (@deck_size.to_f / columns.to_f).ceil
       end
 
       def full_filename
