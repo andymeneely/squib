@@ -1,5 +1,6 @@
 require 'roo'
 require 'csv'
+require 'yaml'
 require_relative '../args/input_file'
 require_relative '../args/import'
 require_relative '../args/csv_opts'
@@ -67,6 +68,30 @@ module Squib
   end
   module_function :csv
 
+  # DSL method. See http://squib.readthedocs.io
+  def yaml(opts = {})
+    input = Args::InputFile.new(file: 'deck.yml').load!(opts)
+    import = Args::Import.new.load!(opts)
+    yml = YAML.load_file(input.file[0])
+    data = Squib::DataFrame.new
+    # Get a universal list of keys to ensure everything is covered.
+    keys = yml.map { |c| c.keys}.flatten.uniq
+    keys.each { |k| data[k] = [] } #init arrays
+    yml.each do |card|
+      # nil value if key isn't set.
+      keys.each { |k| data[k] << card[k] }
+    end
+    if block_given?
+      data.each do |header, col|
+        col.map! do |val|
+          yield(header, val)
+        end
+      end
+    end
+    explode_quantities(data, import.explode)
+  end
+  module_function :yaml
+
   # Check if the given CSV table has duplicate columns, and throw a warning
   # @api private
   def check_duplicate_csv_headers(table)
@@ -104,5 +129,9 @@ module Squib
       Squib.csv(opts)
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def yaml(opts = {})
+      Squib.yaml(opts)
+    end
   end
 end

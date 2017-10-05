@@ -1,0 +1,28 @@
+sheet_width: 8.5in
+sheet_height: 11in
+card_width: 2in
+card_height: 3in
+crop_line:
+  style: :dashed
+  width: 0.1in
+  color: :pink
+  overlay: :overlay_on_cards
+  lines:
+    - type: :horizontal
+      position: 1in
+    - type: :horizontal
+      position: 2in
+      width: 0.2in
+    - type: :horizontal
+      position: 3in
+      style: :dotted
+    - type: :horizontal
+      position: 4in
+      color: "#ff0000"
+    - type: :horizontal
+      position: 5in
+      width: 0.3in
+      style: :solid
+      color: :blue
+    - type: :vertical
+      position: 6in

@@ -25,7 +25,7 @@ module Squib
         :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout,
         :antialias=, :curve_to, :matrix, :matrix=, :identity_matrix, :pango_layout_path,
         :stroke_preserve, :target, :new_path, :fill_preserve, :close_path,
-        :set_line_join, :set_line_cap, :set_dash
+        :set_line_join, :set_line_cap, :set_dash, :arc, :arc_negative
 
       # :nodoc:
       # @api private

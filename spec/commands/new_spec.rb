@@ -6,6 +6,8 @@ describe Squib::Commands::New do
   describe '#process' do
     before(:all) do
       @old_stderr = $stderr
+      @old_stdout = $stdout
+      $stdout = StringIO.new
       $stderr = StringIO.new
       @oldpwd = Dir.pwd
       Dir.chdir(output_dir)
@@ -41,6 +43,7 @@ describe Squib::Commands::New do
 
     after(:all) do
       $stderr = @old_stderr
+      $stdout = @old_stdout
       Dir.chdir(@oldpwd)
     end
   end

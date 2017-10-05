@@ -30,7 +30,7 @@ module Squib
               card.cairo_surface.finish
               cc.save
               cc.scale(0.8, 0.8) # I really don't know why I needed to do this at all. But 0.8 is the magic number to get this to scale right
-              cc.render_rsvg_handle(RSVG::Handle.new_from_file(card.svgfile), nil)
+              cc.render_rsvg_handle(Rsvg::Handle.new_from_file(card.svgfile))
               cc.restore
             else
               abort "No such back end supported for save_pdf: #{backend}"
@@ -38,7 +38,7 @@ module Squib
             bar.increment
             cc.reset_clip
             cc.translate(-x, -y)
-            draw_crop_marks(cc, x, y, sheet)
+            draw_crop_marks(cc, x, y, sheet) if sheet.crop_marks
             x += card.width + sheet.gap - 2 * sheet.trim
             if x > (sheet.width - card_width - sheet.margin)
               x = sheet.margin

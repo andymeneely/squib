@@ -9,7 +9,8 @@ module Squib
       cc = Cairo::Context.new(Cairo::ImageSurface.new(sheet_width, sheet_height))
       num_this_sheet = 0
       sheet_num = 0
-      x, y = sheet.margin, sheet.margin
+      y = sheet.margin
+      x = sheet.rtl ? (sheet_width - sheet.margin - sheet.gap - @width) : sheet.margin
       @progress_bar.start("Saving PNG sheet to #{batch.summary}", @cards.size + 1) do |bar|
         range.each do |i|
           if num_this_sheet >= (sheet.columns * sheet.rows) # new sheet
@@ -18,16 +19,17 @@ module Squib
             new_sheet = false
             num_this_sheet = 0
             sheet_num += 1
-            x, y = sheet.margin, sheet.margin
+            y = sheet.margin
+            x = sheet.rtl ? (sheet_width - sheet.margin - sheet.gap - @width) : sheet.margin
             cc = Cairo::Context.new(Cairo::ImageSurface.new(sheet_width, sheet_height))
           end
           surface = trim(@cards[i].cairo_surface, sheet.trim, @width, @height)
           cc.set_source(surface, x, y)
           cc.paint
           num_this_sheet += 1
-          x += surface.width + sheet.gap
+          x += (surface.width + sheet.gap) * (sheet.rtl ? -1 : 1)
           if num_this_sheet % sheet.columns == 0 # new row
-            x = sheet.margin
+            x = sheet.rtl ? (sheet_width - sheet.margin - sheet.gap - @width) : sheet.margin
             y += surface.height + sheet.gap
           end
           bar.increment

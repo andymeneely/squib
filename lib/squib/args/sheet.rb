@@ -41,6 +41,7 @@ module Squib
           trim: 0,
           width: 3300,
           range: :all,
+          rtl: false,
         }
       end
 
