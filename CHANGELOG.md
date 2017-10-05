@@ -8,9 +8,13 @@ Features:
 * `circle` method now supports various `arc` options, so you can draw partial circles (#211) by @sparr
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
 * `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
+* Layouts now support `*=` and `/=` operators in addition to `+=` and `-=` (#200).
 
 Compatibility:
 * DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3. By @felixleong
+
+Bugs:
+* fix save_sheet to calculate rows correctly based on range (#207) by @sparr
 
 Chores:
 * Going back to our policy of locking in our dependencies so that we don't have new gems breaking things.
