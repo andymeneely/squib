@@ -38,7 +38,7 @@ module Squib
             bar.increment
             cc.reset_clip
             cc.translate(-x, -y)
-            draw_crop_marks(cc, x, y, sheet)
+            draw_crop_marks(cc, x, y, sheet) if sheet.crop_marks
             x += card.width + sheet.gap - 2 * sheet.trim
             if x > (sheet.width - card_width - sheet.margin)
               x = sheet.margin
