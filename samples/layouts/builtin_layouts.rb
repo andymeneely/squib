@@ -5,7 +5,7 @@ require 'squib'
 Squib::Deck.new(layout: 'fantasy.yml') do
   background color: 'white'
 
-  set font: 'Times New Roman,Serif 32'
+  set font: 'Times New Roman,Serif 10.5'
   hint text: '#333' # show extents of text boxes to demo the layout
 
   text str: 'fantasy.yml', layout: :title
@@ -26,7 +26,7 @@ end
 Squib::Deck.new(layout: 'economy.yml') do
   background color: 'white'
 
-  set font: 'Times New Roman,Serif 32'
+  set font: 'Times New Roman,Serif 10.5'
   hint text: '#333' # show extents of text boxes to demo the layout
 
   text str: 'economy.yml', layout: :title
@@ -54,8 +54,8 @@ end
 
 Squib::Deck.new(layout: 'playing-card.yml') do
   background color: 'white'
-  text str: "A\u2660", layout: :bonus_ul, font: 'Sans bold 100', hint: :red
-  text str: "A\u2660", layout: :bonus_lr, font: 'Sans bold 100', hint: :red
+  text str: "A\u2660", layout: :bonus_ul, font: 'Sans bold 33', hint: :red
+  text str: "A\u2660", layout: :bonus_lr, font: 'Sans bold 33', hint: :red
   text str: 'artwork here', layout: :art, hint: :red
   save_png prefix: 'layouts_builtin_playing_card_'
 end

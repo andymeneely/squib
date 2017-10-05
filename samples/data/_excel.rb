@@ -7,9 +7,9 @@ Squib::Deck.new(cards: 3) do
   # Outputs a hash of arrays with the header names as keys
   data = xlsx file: 'sample.xlsx'
 
-  text str: data['Name'], x: 250, y: 55, font: 'Arial 54'
-  text str: data['Level'], x: 65, y: 65, font: 'Arial 72'
-  text str: data['Description'], x: 65, y: 600, font: 'Arial 36'
+  text str: data['Name'], x: 250, y: 55, font: 'Arial 18'
+  text str: data['Level'], x: 65, y: 65, font: 'Arial 24'
+  text str: data['Description'], x: 65, y: 600, font: 'Arial 12'
 
   save format: :png, prefix: 'sample_excel_' # save to individual pngs
 end
@@ -21,7 +21,7 @@ num_cards = data['Name'].size                          #          ...but 4 cards
 Squib::Deck.new(cards: num_cards) do
   background color: :white
   rect # card border
-  text str: data['Name'], font: 'Arial 54'
+  text str: data['Name'], font: 'Arial 18'
   save_sheet prefix: 'sample_xlsx_qty_', columns: 4
 end
 

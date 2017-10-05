@@ -17,7 +17,7 @@ module Squib
       embed = TextEmbed.new(size, custom_colors, layout, dpi, img_dir)
       yield(embed) if block_given? # store the opts for later use
       extents = Array.new(@cards.size)
-      range.each { |i| extents[i] = @cards[i].text(embed, para[i], box[i], trans[i], draw[i]) }
+      range.each { |i| extents[i] = @cards[i].text(embed, para[i], box[i], trans[i], draw[i], dpi) }
       return extents
     end
 

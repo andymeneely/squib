@@ -12,7 +12,7 @@ module Squib
       # @api private
       def render_pdf(range, sheet)
         cc = init_cc(sheet)
-        cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi) # for bug #62
+        cc.scale(POINTS_PER_IN / @deck.dpi, POINTS_PER_IN / @deck.dpi) # for bug #62
         x, y         = sheet.margin, sheet.margin
         card_width   = @deck.width  - 2 * sheet.trim
         card_height  = @deck.height - 2 * sheet.trim
@@ -59,8 +59,8 @@ module Squib
       def init_cc(sheet)
         Cairo::Context.new(Cairo::PDFSurface.new(
           "#{sheet.dir}/#{sheet.file}",
-          sheet.width * 72.0 / @deck.dpi,  #PDF thinks in 72 DPI "points"
-          sheet.height * 72.0 / @deck.dpi)
+          sheet.width * POINTS_PER_IN / @deck.dpi,  #PDF thinks in 72 DPI "points"
+          sheet.height * POINTS_PER_IN / @deck.dpi)
         )
       end
 

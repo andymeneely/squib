@@ -17,7 +17,7 @@ module Squib
         args[:layout] = prep_layout_args(args[:layout], expand_by: expand_by)
         expand_and_set_and_defaultify(args: args, by: expand_by, layout: layout)
         validate
-        convert_units
+        convert_units dpi: dpi
         self
       end
 
