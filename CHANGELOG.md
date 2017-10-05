@@ -8,6 +8,7 @@ Features:
 * `circle` method now supports various `arc` options, so you can draw partial circles (#211) by @sparr
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
 * `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
+* `save_pdf` method also supports `rtl` by @vador 
 
 Compatibility:
 * DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3. By @felixleong

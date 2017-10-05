@@ -90,5 +90,10 @@ crop_stroke_width
 
   Width of the crop mark lines. Has no effect if ``crop_marks`` is ``false``.
 
+rtl
+  default ``false``
+
+    whether to render columns right to left, used for duplex printing of card backs
+
 Examples
 --------

@@ -22,4 +22,8 @@ Squib::Deck.new(cards: 8) do
       crop_stroke_dash: '5 5', crop_stroke_color: :red, crop_stroke_width: 4.0,
       crop_margin_left: '0.3in', crop_margin_right: '0.45in',
       crop_margin_top:  '0.4in', crop_margin_bottom: '0.85in'
+
+    # Right to left printing for duplex
+    save_pdf file: 'save_pdf-crops-rtl.pdf', crop_marks: true, rtl: true
+
 end
