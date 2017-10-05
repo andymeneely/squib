@@ -9,6 +9,9 @@ Features:
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
 * `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
 
+Chores:
+* Going back to our policy of locking in our dependencies so that we don't have new gems breaking things.
+
 Special thanks to @sparr, @blinks and @felixleong for all of their work!!
 
 ## v0.13.4 / 2017-07-17
