@@ -20,7 +20,7 @@ Squib::Deck.new(width: '2.5in', height: '3.5in', cards: 8) do
     "Back 4",
   ]
 
-  text str: strings,font: 'Sans 96', align: :center, valign: :middle,
+  text str: strings,font: 'Sans 32', align: :center, valign: :middle,
        height: :deck, width: :deck
   save_sheet prefix: 'foldable_',
              sprue: 'letter_poker_foldable_8up.yml'

@@ -4,7 +4,7 @@ Squib::Deck.new(width: '50mm', height: '70mm', cards: 9) do
   background color: :white
   rect stroke_width: 5, stroke_color: :red
   text str: (0..9).map{ |i| "Card! #{i}\n50x77mm" },
-       font: 'Sans 96', align: :center, valign: :middle,
+       font: 'Sans 32', align: :center, valign: :middle,
        height: :deck, width: :deck
 
   %w(
