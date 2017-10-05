@@ -53,6 +53,10 @@ module Squib
             add_parent_child(parent_val, child_val)
           elsif child_val.to_s.strip.start_with?('-=')
             sub_parent_child(parent_val, child_val)
+          elsif child_val.to_s.strip.start_with?('*=')
+            mul_parent_child(parent_val, child_val)
+          elsif child_val.to_s.strip.start_with?('/=')
+            div_parent_child(parent_val, child_val)
           else
             child_val # child overrides parent when merging, no +=
           end
@@ -74,6 +78,18 @@ module Squib
       parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
       child_pixels = Args::UnitConversion.parse(child.sub('-=', ''), @dpi).to_f
       parent_pixels - child_pixels
+    end
+
+    def mul_parent_child(parent, child)
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
+      child_float = child.sub('*=', '').to_f
+      parent_pixels * child_float
+    end
+
+    def div_parent_child(parent, child)
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
+      child_float = child.sub('/=', '').to_f
+      parent_pixels / child_float
     end
 
     # Does this layout entry have an extends field?

@@ -16,4 +16,13 @@ Mercenary.program(:squib) do |p|
     end
   end
 
+  p.command(:make_sprue) do |c|
+    c.syntax 'make_sprue'
+    c.description 'Creates a sprue definition file.'
+
+    c.action do |args, options|
+      Squib::Commands::MakeSprue.new.process(args)
+    end
+  end
+
 end

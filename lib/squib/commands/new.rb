@@ -27,7 +27,7 @@ module Squib
         raise ArgumentError.new('Please specify a path.') if args.empty?
 
         new_project_path = File.expand_path(args.join(' '), Dir.pwd)
-        template_path = File.expand_path('../project_template', File.dirname(__FILE__))
+        template_path = File.expand_path('../builtin/projects/basic', File.dirname(__FILE__))
 
         FileUtils.mkdir_p new_project_path
         if !Dir["#{new_project_path}/**/*"].empty?
@@ -37,6 +37,7 @@ module Squib
             FileUtils.cp_r template_path + '/.', new_project_path
           end
         end
+        puts "Created basic Squib project in #{new_project_path}."
       end
 
     end

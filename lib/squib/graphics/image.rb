@@ -67,7 +67,12 @@ module Squib
       Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? || svg_args.data.to_s.empty?
       return if (file.nil? or file.eql? '') and svg_args.data.nil? # nothing specified TODO Move this out to arg validator
       svg_args.data = File.read(file) if svg_args.data.to_s.empty?
-      svg          = RSVG::Handle.new_from_data(svg_args.data)
+      begin
+        svg = Rsvg::Handle.new_from_data(svg_args.data)
+      rescue Rsvg::Error::Failed
+        Squib.logger.error "Invalid SVG data. Is '#{file}' a valid svg file?"
+        return
+      end
       box.width    = svg.width  if box.width == :native
       box.height   = svg.height if box.height == :native
       box.width  = svg.width.to_f * box.height.to_f / svg.height.to_f if box.width == :scale
@@ -88,11 +93,11 @@ module Squib
 
         cc.operator = paint.blend unless paint.blend == :none
         if paint.mask.to_s.empty?
-          cc.render_rsvg_handle(svg, svg_args.id)
+          cc.render_rsvg_handle(svg, id: svg_args.id)
         else
           tmp = Cairo::ImageSurface.new(box.width / scale_width, box.height / scale_height)
           tmp_cc = Cairo::Context.new(tmp)
-          tmp_cc.render_rsvg_handle(svg, svg_args.id)
+          tmp_cc.render_rsvg_handle(svg, id: svg_args.id)
           cc.set_source_squibcolor(paint.mask)
           cc.mask(tmp, 0, 0)
         end

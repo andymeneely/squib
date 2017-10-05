@@ -21,6 +21,7 @@ Contents:
    config
    backends
    build_groups
+   sprues
    help
    dsl/index.rst
 

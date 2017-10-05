@@ -4,12 +4,33 @@ Squib follows [semantic versioning](http://semver.org).
 ## v0.14.0 / Unreleased
 
 Features:
+* `save_pdf/save_sheet` method now supports `sprue`, which allows you to define templated layouts and position your cards freely (#217) by @felixleong. See docs for how to use this _very_ powerful feature!
 * `circle` method now supports various `arc` options, so you can draw partial circles (#211) by @sparr
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
 * `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
 * `save_pdf` method also supports `rtl` by @vador 
 
-Special thanks to @sparr and @blinks for all of their work!!
+Compatibility:
+* DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3. By @felixleong
+
+Chores:
+* Going back to our policy of locking in our dependencies so that we don't have new gems breaking things.
+
+Special thanks to @sparr, @blinks and @felixleong for all of their work!!
+
+## v0.13.4 / 2017-07-17
+
+Bugs:
+* Bumped Pango et al. to 3.1.8 to fix the Homebrew/Mac compatibility issue in Squib v0.13.3. Install should be clean on Macs now.
+
+## v0.13.3 / 2017-07-15
+
+Bugs:
+* Fix `undefined method [] for nil:NilClass` error on `svg` (was a regression error in librsvg that we worked around.)
+* Bump dependencies to latest stable versions. Pango et al. to 3.1.7 and Cairo to 1.15.9. This fixes some compatibility issues.
+* Fixed some deprecation warnings on `text`
+
+Compatibility known issue: if you are using Homebrew on Mac, you may need to set an environment variable for this version. This should be fixed in the upcoming 3.1.8 version of Pango that is forthcoming. See this: https://github.com/ruby-gnome2/ruby-gnome2/issues/1058
 
 ## v0.13.2 / 2017-01-27
 

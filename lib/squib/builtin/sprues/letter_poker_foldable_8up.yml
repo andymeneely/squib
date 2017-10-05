@@ -1,0 +1,52 @@
+---
+sheet_width: 11in
+sheet_height: 8.5in
+card_width: 2.5in
+card_height: 3.5in
+cards:
+- x: 0.35in
+  y: 0.225in
+- x: 0.35in
+  y: 4.800in
+  rotate: :turnaround
+- x: 2.95in
+  y: 0.225in
+- x: 2.95in
+  y: 4.800in
+  rotate: :turnaround
+- x: 5.55in
+  y: 0.225in
+- x: 5.55in
+  y: 4.800in
+  rotate: :turnaround
+- x: 8.15in
+  y: 0.225in
+- x: 8.15in
+  y: 4.800in
+  rotate: :turnaround
+crop_line:
+  lines:
+  - type: :vertical
+    position: 0.35in
+  - type: :vertical
+    position: 2.85in
+  - type: :vertical
+    position: 2.95in
+  - type: :vertical
+    position: 5.45in
+  - type: :vertical
+    position: 5.55in
+  - type: :vertical
+    position: 8.05in
+  - type: :vertical
+    position: 8.15in
+  - type: :vertical
+    position: 10.65in
+  - type: :horizontal
+    position: 0.225in
+  - type: :horizontal
+    position: 3.725in
+  - type: :horizontal
+    position: 3.825in
+  - type: :horizontal
+    position: 7.325in

@@ -1,4 +1,5 @@
 # Example Rakefile that makes use of build groups
+require 'squib'
 
 desc 'Build black-and-white by default'
 task default: [:bw]

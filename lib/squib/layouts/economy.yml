@@ -1,4 +1,4 @@
-#This layout inspired by popular fantasy games
+#This layout inspired by popular economy games
 title:
   x: 90
   y: 90
@@ -19,7 +19,7 @@ description:
   height: 275
   valign: middle
   align: center
-  font_size: 18
+  font_size: 6
 desc: # alias
   extends: description
 
@@ -35,7 +35,7 @@ lower_right:
   y: 975
   width: 75
   height: 75
-  font_size: 18
+  font_size: 6
   valign: bottom
   align: right
 lr: #alias
@@ -46,7 +46,7 @@ lower_left:
   y: 975
   width: 75
   height: 75
-  font_size: 18
+  font_size: 6
   valign: bottom
   align: left
 ll: # alias
@@ -57,7 +57,7 @@ copyright:
   y: 1025
   width: 675
   height: 25
-  font_size: 16
+  font_size: 5
   align: center
   valign: bottom
 #aliases for copyright

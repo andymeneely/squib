@@ -50,6 +50,10 @@ def yaml_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/yaml/#{file}"
 end
 
+def sprue_file(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/data/sprues/#{file}"
+end
+
 def project_template(file)
   "#{File.expand_path(File.dirname(__FILE__))}/../lib/squib/project_template/#{file}"
 end
@@ -74,7 +78,7 @@ def scrub_hex(str)
      .gsub(/#<Cairo::LinearPattern:.*>/, 'LinearPattern')
      .gsub(/#<Cairo::RadialPattern:.*>/, 'RadialPattern')
      .gsub(/#<Cairo::Matrix:.*>/, 'Matrix')
-     .gsub(/#<RSVG::Handle.*>/, 'RSVG::Handle')
+     .gsub(/#<Rsvg::Handle.*>/, 'Rsvg::Handle')
      .gsub(/#<RSpec::Mocks::Double:.*>/, 'MockDouble')
      .gsub(/#<Double .*>/, 'MockDouble')
      .gsub(/RGB:\w{1,8}/, 'RGB:')
@@ -105,12 +109,13 @@ def mock_cairo(strio)
   allow(pango).to receive(:index_to_pos).and_return(Pango::Rectangle.new(0, 0, 0, 0))
   allow(pango).to receive(:extents).and_return([Pango::Rectangle.new(0, 0, 0, 0)] * 2)
   allow(pango).to receive(:iter).and_return(iter)
-  allow(pango).to receive(:alignment).and_return(Pango::Layout::Alignment::LEFT)
+  allow(pango).to receive(:alignment).and_return(Pango::Alignment::LEFT)
   allow(pango).to receive(:text).and_return('foo')
   allow(pango).to receive(:context).and_return(pango_cxt)
   allow(pango).to receive(:attributes).and_return(nil)
   allow(pango_cxt).to receive(:set_shape_renderer)
   allow(pango_cxt).to receive(:font_options=)
+  allow(pango_cxt).to receive(:resolution=)
   allow(iter).to receive(:next_char!).and_return(false)
   allow(iter).to receive(:char_extents).and_return(Pango::Rectangle.new(5, 5, 5, 5))
   allow(iter).to receive(:index).and_return(1000)
@@ -123,7 +128,7 @@ def mock_cairo(strio)
     triangle line_to operator= show_page clip transform mask rectangle
     reset_clip antialias= curve_to matrix= pango_layout_path stroke_preserve
     fill_preserve close_path set_dash set_line_cap set_line_join
-    arc arc_negative).each do |m|
+    arc arc_negative new_path new_sub_path).each do |m|
     allow(cxt).to receive(m) { |*args| strio << scrub_hex("cairo: #{m}(#{args})\n") }
   end
 

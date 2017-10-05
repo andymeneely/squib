@@ -139,7 +139,23 @@ But, as a tester, you'll want to have Bundler install Squib from my repository. 
 
 After changing your Gemfile, you'll need to run ``bundle install``. That will generate a ``Gemfile.lock`` file - that's Bundler's way of saying exactly what it's planning on using. You don't modify the Gemfile.lock, but you can look at it to see what version of Squib it's locked onto.
 
+Make a Sprue!
+-------------
 
+Do you have a sprue file that lays out cards in sheets in a way others might use? Perhaps for a specific type of sticker sheet, die cutter, duplex, or other situation. If you think there is *one* other person in the world who would appreciate it, we would love to have it in Squib!
+
+The easiest way to do this to create a new `GitHub Issue <https://github.com/andymeneely/squib/issues/new>`_ and just copy the Sprue file in.
+
+Or, better yet, you can do a pull request! Add the sprue file to the ``/lib/squib/builtin/sprues`` folder.
+
+Make a Layout!
+--------------
+
+Do you have any layouts that others might use? Maybe based on print-on-demand templates. Or take a game that you think has a great card layout and reverse-engineer it for others. Don't be shy!
+
+The easiest way to do this to create a new `GitHub Issue <https://github.com/andymeneely/squib/issues/new>`_ and just copy the layout yaml file in.
+
+Or, better yet, you can do a pull request! Add the file to the ``/lib/squib/layouts`` folder.
 
 Help by Fixing Bugs
 -------------------
