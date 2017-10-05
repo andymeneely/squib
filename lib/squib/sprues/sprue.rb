@@ -4,6 +4,7 @@ require_relative '../args/color_validator'
 require_relative '../args/unit_conversion'
 require_relative 'crop_line'
 require_relative 'crop_line_dash'
+require_relative 'invalid_sprue_definition'
 require_relative 'sprue_schema'
 
 module Squib
@@ -32,7 +33,6 @@ module Squib
     attr_reader :dpi
 
     def initialize(template_hash, dpi)
-      ClassyHash.validate(template_hash, Sprues::SCHEMA)
       @template_hash = template_hash
       @dpi = dpi
       @crop_line_default = @template_hash['crop_line'].select do |k, _|
@@ -54,6 +54,13 @@ module Squib
 
       # Create a new template file
       warn_unrecognized(yaml)
+
+      # Validate
+      begin
+        ClassyHash.validate(new_hash, Sprues::SCHEMA)
+      rescue ClassyHash::SchemaViolationError => e
+        raise Sprues::InvalidSprueDefinition.new(thefile, e)
+      end
       Sprue.new new_hash, dpi
     end
 
