@@ -1,11 +1,27 @@
 require 'squib'
 
-Squib::Deck.new(width: '63mm', height: '88mm', cards: 8) do
-  rect fill_color: :gray
-  text(
-    str: %w[Front_1 Front_2 Front_3 Front_4 Back_1 Back_2 Back_3 Back_4],
-    x: '3mm', y: '3mm'
-  )
-  save_pdf file: 'fold_sheet.pdf',
-           sprue: 'my_sprues/fold_sheet.yml'
+# Note that this sample has no bleed - you might want to have bleed
+# but tighter than usual: 0.1 instead of 0.125in since this sprue is
+# crowded horizontally on US letter
+Squib::Deck.new(width: '2.5in', height: '3.5in', cards: 8) do
+  background color: :white
+  rect stroke_width: 5, stroke_color: :red
+  # Note that we are interleaving strings
+  # This could be used as a secondary Squib script that loads
+  # Squib-generated individual images
+  strings = [
+    "Front 1",
+    "Back 1",
+    "Front 2",
+    "Back 2",
+    "Front 3",
+    "Back 3",
+    "Front 4",
+    "Back 4",
+  ]
+
+  text str: strings,font: 'Sans 96', align: :center, valign: :middle,
+       height: :deck, width: :deck
+  save_sheet prefix: 'foldable_',
+             sprue: 'letter_poker_foldable_8up.yml'
 end

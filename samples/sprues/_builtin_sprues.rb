@@ -1,18 +1,19 @@
 require 'squib'
 
-Squib::Deck.new(cards: 8) do
+Squib::Deck.new(width: '50mm', height: '70mm', cards: 9) do
   background color: :white
-  rect stroke_width: 5, stroke_dash: '7 7'
-  text str: %w(First Second Third Fourth Fifth Sixth Seventh Eighth),
+  rect stroke_width: 5, stroke_color: :red
+  text str: (0..9).map{ |i| "Card! #{i}\n50x77mm" },
        font: 'Sans 96', align: :center, valign: :middle,
        height: :deck, width: :deck
 
   %w(
-    a4_euro_card.yml
     a4_poker_card_8up.yml
+    a4_euro_card.yml
     a4_poker_card_9up.yml
     a4_usa_card.yml
+    letter_poker_card_9up.yml
   ).each do |builtin|
-    save_sheet sprue: builtin, prefix: "sprue_#{builtin}_", dir: '.'
+    save_sheet sprue: builtin, prefix: "sprue_#{builtin}_"
   end
 end

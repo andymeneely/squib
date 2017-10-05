@@ -12,14 +12,32 @@ A `sprue <https://en.wikipedia.org/wiki/Sprue_(manufacturing)>`_ is a Squib feat
 
 Without using a sprue, the :doc:`/dsl/save_sheet` and :doc:`/dsl/save_sheet` will simply lay out your cards one after another with the gap and margins you specify.
 
-Like Layouts, Squib comes with a library of built-in sprues that you can use. You can make a sprue yourself, or you can generate one from the command line.
+.. warning::
+
+  Sprues don't currently support the `trim` and `trim_radius` options. `Stay tuned <https://github.com/andymeneely/squib/issues/235>`_
+
+Using a Sprue
+-------------
+
+The easiest way to get started is to use our library of built-in sprues for various default paper sizes and card sizes. See :ref:`list-of-sprues` below.
+
+Sprues are specified in Yaml, just like layouts. To use a built-in sprue, just specify the name and Squib will use that::
+
+  save_sheet sprue: 'letter_poker_card_9up.yml'
+
+Here's a full example `from here <https://github.com/andymeneely/squib/tree/master/samples/sprues/_sprue_example.rb>`_:
+
+.. literalinclude:: ../samples/sprues/_sprue_example.rb
+  :linenos:
+
+Make Your Own Sprue
+-------------------
+
+Need a special one? You can make a sprue file yourself following the :ref:`sprue-format` below, or you can generate one from the command line.
 
 .. note::
 
   Would someone else find your sprue useful? Contribute one!! This is an easy way to help out the Squib community.
-
-Make Your Own Sprue on Command Line
------------------------------------
 
 Squib comes with a handy little command-line interface that will generate a sprue file based on your own parameters. Of course, you can edit the sprue file once you're done to fix any quirks you like.
 
@@ -99,6 +117,7 @@ Of course, a Squib sprue is just a YAML file with a specific structure. Here's a
     - type: :horizontal
       position: 10.625in
 
+.. _sprue-format:
 
 Sprue Format
 ------------
@@ -115,15 +134,15 @@ sheet_height
   Width of the sheet, supports :doc:`/units`.
 
 card_width
-  Intended width of the card. Sprues will allow any size of card, but if the size of the incoming card does not match this size then a warning will be printed to stdout. Supports :doc:`/units`.
+  Intended width of the card. Sprues will allow any size of card. Squib will check for potential overlaps, and will warn you if the deck card width is greater than the Sprue's expected card width (this option). If there is overlap detected Squib will send out a warning to stdout. Supports :doc:`/units`.
 
 card_height
-  Intended height of the card. Sprues will allow any size of card, but if the size of the incoming card does not match this size then a warning will be printed to stdout. Supports :doc:`/units`.
+  Intended height of the card. Sprues will allow any size of card. Squib will check for potential overlaps, and will warn you if the deck card height is greater than the Sprue's expected card height (this option). If there is overlap detected Squib will send out a warning to stdout. Supports :doc:`/units`.
 
 position_reference
-  Default: ``topleft``
+  Default: ``:topleft``
 
-  Can be ``topleft`` or ``center``. Are the ``card`` coordinates refer to the top-left of the card, or the middle of the card?
+  Can be ``:topleft`` or ``:center``. Are the ``card`` coordinates refer to the top-left of the card, or the middle of the card? (Don't forget that colon!)
 
 cards
 ^^^^^
@@ -169,20 +188,10 @@ type
 position
   The x-position or y-position of the crop line (depending on ``type``)
 
+.. _list-of-sprues:
 
-Front-to-Back Printing
-----------------------
-
-While Squib does not natively support card "fronts" and "backs" (`yet <https://github.com/andymeneely/squib/issues/93>`_), you can use sprues and the ``range`` option (see :doc:`/ranges`).
-
-Consider this sample:
-
-.. warning::
-
-  To be written
-
-Built-in Sprues
----------------
+List of Built-in Sprues
+-----------------------
 
 Here's a list of built-in sprues that come with Squib. You can get the original YAML files `on GitHub here <https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/sprues>`_.
 
@@ -191,5 +200,37 @@ a4_euro_card.yml
 
 .. raw:: html
 
-  <img src="sprues/sprue_a4_euro_card.yml_01.png"
+  <img src="sprues/sprue_a4_euro_card.yml_01_expected.png"
+    class="figure" width=550>
+
+a4_poker_card_8up.yml
+^^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
+
+  <img src="sprues/sprue_a4_poker_card_8up.yml_01_expected.png"
+    class="figure" width=550>
+
+a4_usa_card.yml
+^^^^^^^^^^^^^^^
+.. raw:: html
+
+  <img src="sprues/sprue_a4_usa_card.yml_01_expected.png"
+    class="figure" width=550>
+
+letter_poker_card_9up.yml
+^^^^^^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
+
+  <img src="sprues/sprue_letter_poker_card_9up.yml_01_expected.png"
+    class="figure" width=550>
+
+letter_poker_foldable_8up.yml
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/sprues/_fold_sheet.rb
+  :linenos:
+
+.. raw:: html
+
+  <img src="sprues/foldable_01_expected.png"
     class="figure" width=550>

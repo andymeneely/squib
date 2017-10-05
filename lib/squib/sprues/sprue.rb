@@ -43,20 +43,21 @@ module Squib
     # Load the template definition file
     def self.load(file, dpi)
       yaml = {}
-      thefile = File.exist?(file) ? file : builtin(file)
+      thefile = file if File.exist?(file) # use custom first
+      thefile = builtin(file) if File.exist?(builtin(file)) # then builtin
+      unless File.exist?(thefile)
+        Squib::logger.error("Sprue not found: #{file}. Falling back to defaults.")
+      end
       yaml = YAML.load_file(thefile) || {} if File.exist? thefile
-
-      # Bake the default values into our template
+      # Bake the default values into our sprue
       new_hash = DEFAULTS.merge(yaml)
-      new_hash['crop_line'] = DEFAULTS['crop_line'].merge(
-        new_hash['crop_line']
-      )
-
-      # Create a new template file
+      new_hash['crop_line'] = DEFAULTS['crop_line'].
+                                merge(new_hash['crop_line'])
       warn_unrecognized(yaml)
 
       # Validate
       begin
+        require 'benchmark'
         ClassyHash.validate(new_hash, Sprues::SCHEMA)
       rescue ClassyHash::SchemaViolationError => e
         raise Sprues::InvalidSprueDefinition.new(thefile, e)

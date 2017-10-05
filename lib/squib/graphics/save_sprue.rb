@@ -15,6 +15,8 @@ module Squib
 
       def render_sheet(range)
         cc = init_cc
+        cc.set_source_color(:white) # white backdrop TODO make option
+        cc.paint
         card_set = @tmpl.cards
         per_sheet = card_set.size
         default_angle = @tmpl.card_default_rotation
@@ -26,7 +28,7 @@ module Squib
 
         track_progress(range) do |bar|
           range.each do |i|
-            next_page_if_needed(cc, i, per_sheet)
+            cc = next_page_if_needed(cc, i, per_sheet)
 
             card = @deck.cards[i]
             slot = card_set[i % per_sheet]
@@ -45,7 +47,7 @@ module Squib
           end
 
           draw_overlay_above_cards cc
-          draw_page cc
+          cc = draw_page cc
           cc.target.finish
         end
       end
@@ -68,12 +70,13 @@ module Squib
       private
 
       def next_page_if_needed(cc, i, per_sheet)
-        return unless (i != 0) && (i % per_sheet).zero?
+        return cc unless (i != 0) && (i % per_sheet).zero?
 
         draw_overlay_above_cards cc
         cc = draw_page cc
         draw_overlay_below_cards cc
         @page_number += 1
+        cc
       end
 
       def track_progress(range)
@@ -129,8 +132,8 @@ module Squib
 
       def check_card_orientation
         clockwise = 1.5 * Math::PI
-        # Simple detection
-        if @deck.width == @tmpl.card_width && @deck.height == @tmpl.card_height
+        if @deck.width <= @tmpl.card_width &&
+           @deck.height <= @tmpl.card_height
           return 0
         elsif (
             @deck.width == @tmpl.card_height &&
@@ -141,20 +144,11 @@ module Squib
           return clockwise
         end
 
-        # If the card dimensions doesn't match, warns the user...
         Squib.logger.warn {
-          'Card size does not match the template\'s expected card size. '\
+          'Card size is larger than sprue\'s expected card size. '\
           'Cards may overlap.'
         }
-
-        # ... but still try to auto-orient the cards anyway
-        is_tmpl_card_landscape = @tmpl.card_width > @tmpl.card_height
-        is_deck_card_landscape = @deck.width > @deck.height
-        if is_tmpl_card_landscape == is_deck_card_landscape
-          clockwise
-        else
-          0
-        end
+        return 0
       end
 
       def draw_rotated_card(cc, card, x, y, angle)
@@ -201,6 +195,8 @@ module Squib
 
       def draw_page(cc)
         cc.show_page
+        cc.set_source_color(:white) # white backdrop TODO make option
+        cc.paint
         cc
       end
 
@@ -209,7 +205,7 @@ module Squib
       end
     end
 
-    # Templated sheet renderer in PDF format.
+    # Templated sheet renderer in PNG format.
     class SaveSpruePNG < SaveSprue
       def init_cc
         surface = Cairo::ImageSurface.new @tmpl.sheet_width, @tmpl.sheet_height
@@ -219,6 +215,9 @@ module Squib
       def draw_page(cc)
         cc.target.write_to_png(full_filename)
         init_cc
+        cc.set_source_color(:white) # white backdrop TODO make option
+        cc.paint
+        cc
       end
 
       def full_filename
