@@ -13,9 +13,12 @@ module Squib
       def render_pdf(range, sheet)
         cc = init_cc(sheet)
         cc.scale(POINTS_PER_IN / @deck.dpi, POINTS_PER_IN / @deck.dpi) # for bug #62
-        x, y         = sheet.margin, sheet.margin
         card_width   = @deck.width  - 2 * sheet.trim
         card_height  = @deck.height - 2 * sheet.trim
+        start_x_pos = sheet.rtl ? sheet.width - sheet.margin - card_width - 2 * sheet.trim : sheet.margin
+        x_increment = (card_width + sheet.gap) * (sheet.rtl ? -1 : 1)
+        y = sheet.margin
+        x = start_x_pos
         track_progress(range, sheet) do |bar|
           range.each do |i|
             card = @deck.cards[i]
@@ -38,14 +41,16 @@ module Squib
             bar.increment
             cc.reset_clip
             cc.translate(-x, -y)
-            draw_crop_marks(cc, x, y, sheet) if sheet.crop_marks
-            x += card.width + sheet.gap - 2 * sheet.trim
-            if x > (sheet.width - card_width - sheet.margin)
-              x = sheet.margin
+
+            draw_crop_marks(cc, x, y, sheet)
+            x += x_increment
+            if (x > (sheet.width - card_width - sheet.margin)) or (x < sheet.margin)
+              x = start_x_pos
               y += card.height + sheet.gap - 2 * sheet.trim
               if y > (sheet.height - card_height - sheet.margin)
                 cc.show_page # next page
-                x, y = sheet.margin, sheet.margin
+                y = sheet.margin
+                x = start_x_pos
               end
             end
           end
