@@ -9,7 +9,7 @@ Features:
 * `save_sheet` method now supports `rtl` or "right-to-left", for easier duplex printing of backs (#204, #208) by @sparr
 * `yaml` method for reading in data, much like `csv` and `xlsx` by @blinks
 * Layouts now support `*=` and `/=` operators in addition to `+=` and `-=` (#200).
-* `save_pdf` method also supports `rtl` by @vador 
+* `save_pdf` method also supports `rtl` by @vador
 
 Compatibility:
 * DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3. By @felixleong
@@ -20,7 +20,7 @@ Bugs:
 Chores:
 * Going back to our policy of locking in our dependencies so that we don't have new gems breaking things.
 
-Special thanks to @sparr, @blinks and @felixleong for all of their work!!
+Special thanks to @sparr, @felixleong, @blinks, @vador for all of their work!!
 
 ## v0.13.4 / 2017-07-17
 
