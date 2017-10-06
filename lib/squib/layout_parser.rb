@@ -34,7 +34,7 @@ module Squib
 
     # Determine the file path of the built-in layout file
     def builtin(file)
-      "#{File.dirname(__FILE__)}/layouts/#{file}"
+      "#{File.dirname(__FILE__)}/builtin/layouts/#{file}"
     end
 
     # Process the extends recursively
