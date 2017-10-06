@@ -13,7 +13,7 @@ end
 Squib::Deck.new(width:'2in', height: '1in')do
   background color: :white
   safe_zone stroke_color: :purple, margin: '0.1in'
-  safe_zone stroke_color: :purple, margin: '0.05in'
+  cut_zone stroke_color: :purple, margin: '0.05in'
 
   text str: 'Small card with proof lines', x: '0.1in', y: '0.1in',
        font: 'Arial 10'
