@@ -1,6 +1,5 @@
 require_relative '../args/card_range'
 require_relative '../args/hand_special'
-require_relative '../args/output_file'
 require_relative '../args/save_batch'
 require_relative '../args/sheet'
 require_relative '../args/showcase_special'
