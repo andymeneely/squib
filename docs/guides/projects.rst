@@ -10,6 +10,7 @@ My Projects
 
 Here are some of my own board and card games that use Squib. They are all under "active" development, which means that sometimes I leave them alone for long periods of time ;)
 
+  * `Escape from Scrapland <http://github.com/andymeneely/project-timber-wolf>`_ is a 9-card nano-game solo roguelike that I started July 2017. I'm also doing some video on it, `found here <https://www.youtube.com/playlist?list=PLLcm4ZswgXFYk6KKW_ISd8Kf9UGTV9Cfj>`_.
   * `Your Last Heist <http://github.com/andymeneely/project-timber-wolf>`_ is a big-box cooperative game. Lots of really cool Squib things in here, including lots of Rake features, color+bw, and showing how skills can "level up" on their backs by diff'ing the stats in Squib. You can see what the components look like at `the game website <http://yourlastheist.com>`_. Also: the best game I've ever made.
   * `Victory Point Salad <https://github.com/andymeneely/victory-point-salad>`_. A card-only game with lots and lots and lots of cards. Pretty straightforward as far as Squib usage goes, but it's a good peek into how I like to use Squib. Also: the funniest game I've made.
   * `Junk Land <https://github.com/andymeneely/junk-land>`_ A game I made prior to making starting Squib, but then ported over to Squib while developing Squib. Uses some strange features of SVG, but also a good intro. Also: the scrappiest game I've made.
