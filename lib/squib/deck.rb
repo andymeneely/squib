@@ -8,8 +8,8 @@ require_relative 'constants'
 require_relative 'graphics/hand'
 require_relative 'graphics/showcase'
 require_relative 'layout_parser'
+require_relative 'presets/tgc_poker'
 require_relative 'progress'
-
 
 # The project module
 #
@@ -58,7 +58,9 @@ module Squib
     # @param layout [String, Array] load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.
     # @param block [Block] the main body of the script.
     # @api public
-    def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
+    def initialize(width: 825, height: 1125, cards: 1, dpi: 300,
+                   config: 'config.yml', layout: nil, preset: :none,
+                   &block)
       @dpi           = dpi
       @font          = DEFAULT_FONT
       @cards         = []
@@ -68,11 +70,14 @@ module Squib
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
       cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
+      # presetter = apply_preset!(preset) unless preset == :none # just sketching code for now
       @layout = LayoutParser.new(dpi).load_layout(layout)
       enable_groups_from_env!
+      # presetter.before(self) # just sketching code for now
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
       end
+      # presetter.after(self) # just sketching code for now
       @cards.each { |c| c.finish! }
     end
 
@@ -98,6 +103,24 @@ module Squib
       Squib::logger.info "  building #{@cards.size} #{@width}x#{@height} cards"
       Squib::logger.info "  using #{@backend}"
     end
+
+    # Load the preset template
+    # @api private
+    #
+    def apply_preset!(file)
+      Preset.new()
+    end
+
+    # DSL method
+    def safe # delegate to presetter
+    end
+
+    def cut # delegate to presetter
+    end
+
+    def proof # delegate to presetter
+    end
+
 
     ##################
     ### PUBLIC API ###
