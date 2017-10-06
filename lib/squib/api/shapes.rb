@@ -83,5 +83,42 @@ module Squib
       range.each { |i| @cards[i].polygon(coords[i], trans[i], draw[i]) }
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def safe_zone(opts = {})
+      safe_defaults = {
+        margin: '0.25in',
+        radius: '0.125in',
+        stroke_color: :blue,
+        fill_color: '#0000',
+        stroke_width: 1.0,
+        dash: '3 3',
+      }
+      new_opts = safe_defaults.merge(opts)
+      margin = Args::UnitConversion.parse new_opts[:margin]
+      new_opts[:x] = margin
+      new_opts[:y] = margin
+      new_opts[:width] = width - (2 * margin)
+      new_opts[:height] = height - (2 * margin)
+      rect new_opts
+    end
+
+    # DSL method. See http://squib.readthedocs.io
+    def cut_zone(opts = {})
+      safe_defaults = {
+        margin: '0.125in',
+        radius: '0.125in',
+        stroke_color: :red,
+        fill_color: '#0000',
+        stroke_width: 2.0,
+      }
+      new_opts = safe_defaults.merge(opts)
+      margin = Args::UnitConversion.parse new_opts[:margin]
+      new_opts[:x] = margin
+      new_opts[:y] = margin
+      new_opts[:width] = width - (2 * margin)
+      new_opts[:height] = height - (2 * margin)
+      rect new_opts
+    end
+
   end
 end
