@@ -1,0 +1,27 @@
+name:
+  x: 90
+  y: 90
+  width: 500
+  height: 50
+  font: Arial 18
+  valign: middle
+  align: left
+  ellipsize: false
+
+ATK:
+  x: 90
+  y: 190
+  width: 200
+  height: 50
+  font: Arial 12
+  valign: middle
+  align: left
+  ellipsize: false
+DEF:
+  extends: ATK
+  y: += 75
+
+version:
+  font: Arial 6
+  x: 725
+  y: 45

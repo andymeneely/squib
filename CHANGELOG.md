@@ -11,6 +11,7 @@ Features:
 * Layouts now support `*=` and `/=` operators in addition to `+=` and `-=` (#200).
 * `save_pdf` method also supports `rtl` by @vador
 * New DSL methods `safe_zone` and `cut_zone` will draw a rectangle inset from the margins for quick proof checking
+* New "advanced layout" option if you do `squib new --advanced yourgame` (@andymeneely)
 
 Compatibility:
 * DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3. By @felixleong

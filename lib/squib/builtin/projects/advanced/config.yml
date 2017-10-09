@@ -1,0 +1,49 @@
+# Settings in the config.yml are overriding Squib's defaults. Anything in the main script will override this.
+
+# DPI is used in making PDFs and in unit conversions
+# Default: 300
+#dpi: 72
+
+#antialias: best #recommended. Only about 10% slower than fast
+#antialias: default # set the anti-aliasing algorithm. default defers to the underlying graphics device. See http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t
+
+# Text hints are used to show the boundaries of text boxes.
+# Can be enabled/disabled at the command-level, or set globally with `set`
+#text_hint: '#F00'
+
+# Show progress bars on the command line for potentially long-running operations
+progress_bars: true
+
+#Enable some custom colors that can be used in any color
+#custom_colors:
+#  foo: '#abc'
+
+#For reading image file command (e.g. png and svg), read from this directory instead
+img_dir: img
+#img_dir: img-bw
+
+# Use a SVG cairo back end, instead of an in-memory buffer
+# backend: :memory # default
+# backend: :svg    # can create scalable pdfs, but rendering done at the printer level is not as good as Cairo.
+
+# Configure what text markup uses replace characters
+# Below are the defaults
+# lsquote: "\u2018" #note that Yaml wants double quotes here to use escape chars
+# rsquote: "\u2019"
+# ldquote: "\u201C"
+# rdquote: "\u201D"
+# em_dash: "\u2014"
+# en_dash: "\u2013"
+# ellipsis: "\u2026"
+
+# We can also disallow smart quotes and only allow explicit replacements with ``LaTeX-style'' quotes.
+# smart_quotes: false
+
+# By default, Squib warns when a text box is ellipsized. This can get verbose
+# and can be turned off here
+warn_ellipsize: true # default
+# warn_ellipsize: false # turn off entirely
+
+# By default, Squib will warn if a PNG is being up-scaled.
+warn_png_scale: true # default
+# warn_png_scale: false # turn off entirely
