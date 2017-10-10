@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
 require 'squib'
-require 'mercenary'
 
 Squib::CLI.new.run
