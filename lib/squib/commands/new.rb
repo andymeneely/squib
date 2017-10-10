@@ -55,7 +55,7 @@ module Squib
       end
 
       def advanced_message
-        <<~EOS
+        <<-EOS
 
 This is the advanced layout designed for larger games. Everything is
 organized into separate directories and the workflow is all based on
