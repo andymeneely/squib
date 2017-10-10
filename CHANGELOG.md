@@ -14,7 +14,7 @@ Features:
 * New "advanced layout" option if you do `squib new --advanced yourgame` (@andymeneely)
 
 Compatibility:
-* DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3. By @felixleong
+* DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3 (precisely, 300/96=3.125). By @felixleong
 
 Bugs:
 * fix save_sheet to calculate rows correctly based on range (#207) by @sparr
