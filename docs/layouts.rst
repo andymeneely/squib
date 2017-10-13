@@ -277,6 +277,17 @@ hand.yml
 
 https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/hand.yml
 
+
+party.yml
+~~~~~~~~~
+
+.. raw:: html
+
+  <img src="layouts/expected_layouts_builtin_party_00.png"
+    class="figure" width=350>
+
+https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/party.yml
+
 playing_card.yml
 ~~~~~~~~~~~~~~~~
 

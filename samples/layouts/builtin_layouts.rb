@@ -72,3 +72,26 @@ Squib::Deck.new(layout: 'tuck_box.yml', width: 2325, height: 1950) do
 
   save_png prefix: 'layouts_builtin_tuck_box_'
 end
+
+Squib::Deck.new(layout: 'party.yml') do
+  background color: 'white'
+  # hint text: :black # uncomment to see the text box boundaries
+
+  rect layout: :title_box,
+       fill_color: :deep_sky_blue, stroke_width: 0
+  text str: "A SILLY NAME",  layout: :title
+  text str: '✔',             layout: :type_icon
+  text str: 'TYPE',          layout: :type
+  text str: 'A Silly Name',  layout: :title_middle
+  rect fill_color: :black,   layout: :middle_rect
+
+  str = 'Rule or story text. Be funny ha ha ha this is a party.'
+  text str: str, layout: :rule_top
+  text str: str, layout: :rule_bottom
+
+  text str: 'Tiny text', layout: :copyright
+
+  rect layout: :safe
+  rect layout: :cut
+  save_png prefix: 'layouts_builtin_party_'
+end
