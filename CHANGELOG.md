@@ -11,11 +11,15 @@ Features:
 * Layouts now support `*=` and `/=` operators in addition to `+=` and `-=` (#200).
 * `save_pdf` method also supports `rtl` by @vador
 * New DSL methods `safe_zone` and `cut_zone` will draw a rectangle inset from the margins for quick proof checking
-* New "advanced" option for creating new projects, if you do `squib new --advanced yourgame` (@andymeneely)
+* New "advanced" option for creating new projects, if you do `squib new --advanced yourgame` (@andymeneely).
 * New built-in layout: `party.yml`. (@andymeneely)
 
 Compatibility:
 * DPI is correctly respected with font sizes now. To convert to Squib v0.14+, divide your old font sizes by 3 (precisely, 300/96=3.125). By @felixleong
+
+Docs:
+* Command-line is better documented now
+* Some more examples included in various places
 
 Bugs:
 * fix save_sheet to calculate rows correctly based on range (#207) by @sparr
