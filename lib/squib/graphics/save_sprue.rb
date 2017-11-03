@@ -2,12 +2,11 @@ module Squib
   module Graphics
     # Helper class to generate templated sheet.
     class SaveSprue
-      def initialize(deck, tmpl, outfile)
+      def initialize(deck, tmpl, save_args)
         @deck = deck
         @tmpl = tmpl
         @page_number = 1
-        @outfile = outfile
-        @rotated_delta = (@tmpl.card_width - @deck.width).abs / 2
+        @save_args = save_args #might be Args::Sheet or Args::SaveBatch
         @overlay_lines = @tmpl.crop_lines.select do |line|
           line['overlay_on_cards']
         end
@@ -17,12 +16,9 @@ module Squib
         cc = init_cc
         cc.set_source_color(:white) # white backdrop TODO make option
         cc.paint
-        card_set = @tmpl.cards
-        per_sheet = card_set.size
-        default_angle = @tmpl.card_default_rotation
-        if default_angle.zero?
-          default_angle = check_card_orientation
-        end
+        slots = @tmpl.cards
+        per_sheet = slots.size
+        check_oversized_card
 
         draw_overlay_below_cards cc if range.size
 
@@ -31,17 +27,12 @@ module Squib
             cc = next_page_if_needed(cc, i, per_sheet)
 
             card = @deck.cards[i]
-            slot = card_set[i % per_sheet]
-            x = slot['x']
-            y = slot['y']
-            angle = slot['rotate'] != 0 ? slot['rotate'] : default_angle
+            slot = slots[i % per_sheet]
 
-            if angle != 0
-              draw_rotated_card cc, card, x, y, angle
-            else
-              cc.set_source card.cairo_surface, x, y
-            end
-            cc.paint
+            draw_card cc, card, 
+                      slot['x'], slot['y'], 
+                      slot['rotate'], 
+                      @save_args.trim[i], @save_args.trim_radius[i]
 
             bar.increment
           end
@@ -130,50 +121,40 @@ module Squib
         end
       end
 
-      def check_card_orientation
-        clockwise = 1.5 * Math::PI
-        if @deck.width <= @tmpl.card_width &&
-           @deck.height <= @tmpl.card_height
-          return 0
-        elsif (
-            @deck.width == @tmpl.card_height &&
-            @deck.height == @tmpl.card_width)
-          Squib.logger.warn {
-            'Rotating cards to match card orientation in template.'
-          }
-          return clockwise
+      def check_oversized_card
+        all_fit = @save_args.trim.inject(true) do |fits, trim|
+          fits &&
+          (@deck.width - 2.0 * trim)  <= @tmpl.card_width &&
+          (@deck.height - 2.0 * trim) <= @tmpl.card_height
         end
-
         Squib.logger.warn {
           'Card size is larger than sprue\'s expected card size. '\
           'Cards may overlap.'
-        }
-        return 0
+        } unless all_fit
       end
 
-      def draw_rotated_card(cc, card, x, y, angle)
+      def draw_card(cc, card, x, y, angle, trim, trim_radius)
+        # Compute the true size of the card after trimming
+        w = @deck.width - 2.0 * trim
+        h = @deck.height - 2.0 * trim
+
         # Normalize the angles first
+        # TODO do this in the args class
         angle = angle % (2 * Math::PI)
         angle = 2 * Math::PI - angle if angle < 0
-
-        # Determine what's the delta we need to translate our cards
-        delta_shift = @deck.width < @deck.height ? 1 : -1
-        if angle.zero? || angle == Math::PI
-          delta = 0
-        elsif angle < Math::PI
-          delta = -delta_shift * @rotated_delta
-        else
-          delta = delta_shift * @rotated_delta
-        end
 
         # Perform the actual rotation and drawing
         mat = cc.matrix # Save the transformation matrix to revert later
         cc.translate x, y
-        cc.translate @deck.width / 2, @deck.height / 2
+        cc.translate @deck.width / 2.0, @deck.height / 2.0
         cc.rotate angle
-        cc.translate(-@deck.width / 2 + delta, -@deck.height / 2 + delta)
+        cc.translate -@deck.width / 2.0, -@deck.height / 2.0
+        cc.rounded_rectangle(trim, trim, w, h, trim_radius, trim_radius) # clip
+        cc.clip
         cc.set_source card.cairo_surface, 0, 0
         cc.matrix = mat
+        cc.paint
+        cc.reset_clip
       end
     end
 
@@ -201,7 +182,7 @@ module Squib
       end
 
       def full_filename
-        @outfile.full_filename
+        @save_args.full_filename
       end
     end
 
@@ -221,7 +202,7 @@ module Squib
       end
 
       def full_filename
-        @outfile.full_filename @page_number
+        @save_args.full_filename @page_number
       end
     end
   end

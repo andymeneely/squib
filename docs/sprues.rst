@@ -12,10 +12,6 @@ A `sprue <https://en.wikipedia.org/wiki/Sprue_(manufacturing)>`_ is a Squib feat
 
 Without using a sprue, the :doc:`/dsl/save_sheet` and :doc:`/dsl/save_sheet` will simply lay out your cards one after another with the gap and margins you specify.
 
-.. warning::
-
-  Sprues don't currently support the `trim` and `trim_radius` options. `Stay tuned <https://github.com/andymeneely/squib/issues/235>`_
-
 Using a Sprue
 -------------
 

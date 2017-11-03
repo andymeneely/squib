@@ -1,0 +1,17 @@
+---
+sheet_width: 5in
+sheet_height: 4.5in
+card_width: 2in
+card_height: 2in
+position_reference: :center
+cards:
+- x: 1.1in
+  y: 1.1in
+- x: 3.1in
+  y: 1.1in
+  rotate: 3.14159
+- x: 1.1in
+  y: 3.1in
+- x: 3.1in
+  y: 3.1in
+  rotate: 2 # 2 radians?? ew.
