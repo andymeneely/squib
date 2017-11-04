@@ -1,4 +1,4 @@
-require_relative '../../lib/squib'
+require 'squib'
 
 # This is a more advanced example of Sprues
 # (mostly so we can have a torturous regression test)
