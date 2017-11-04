@@ -21,6 +21,7 @@ module Squib
 
       def self.parameters
         {
+          count_format: '%02d',
           crop_margin_bottom: 0,
           crop_margin_left: 0,
           crop_margin_right: 0,
@@ -35,6 +36,7 @@ module Squib
           gap: 0,
           height: 2550,
           margin: 75,
+          prefix: 'sheet_',
           rows: :infinite,
           columns: 5,
           trim_radius: 38,
@@ -91,8 +93,12 @@ module Squib
         (count.to_f / columns.to_f).ceil
       end
 
-      def full_filename
-        "#{dir}/#{file}"
+      def full_filename(i=nil)
+        if i.nil?
+          "#{dir}/#{file}"
+        else
+          "#{dir}/#{prefix}#{count_format % i}.png"
+        end
       end
 
       def crop_coords(x, y, deck_w, deck_h)

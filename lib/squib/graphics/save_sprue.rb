@@ -2,11 +2,11 @@ module Squib
   module Graphics
     # Helper class to generate templated sheet.
     class SaveSprue
-      def initialize(deck, tmpl, save_args)
+      def initialize(deck, tmpl, sheet_args)
         @deck = deck
         @tmpl = tmpl
         @page_number = 1
-        @save_args = save_args #might be Args::Sheet or Args::SaveBatch
+        @sheet_args = sheet_args # might be Args::Sheet or Args::SaveBatch
         @overlay_lines = @tmpl.crop_lines.select do |line|
           line['overlay_on_cards']
         end
@@ -32,7 +32,7 @@ module Squib
             draw_card cc, card, 
                       slot['x'], slot['y'], 
                       slot['rotate'], 
-                      @save_args.trim[i], @save_args.trim_radius[i]
+                      @sheet_args.trim, @sheet_args.trim_radius
 
             bar.increment
           end
@@ -122,15 +122,11 @@ module Squib
       end
 
       def check_oversized_card
-        all_fit = @save_args.trim.inject(true) do |fits, trim|
-          fits &&
-          (@deck.width - 2.0 * trim)  <= @tmpl.card_width &&
-          (@deck.height - 2.0 * trim) <= @tmpl.card_height
-        end
         Squib.logger.warn {
-          'Card size is larger than sprue\'s expected card size. '\
-          'Cards may overlap.'
-        } unless all_fit
+          "Card size is larger than sprue's expected card size "\
+          "of #{@tmpl.card_width}x#{@tmpl.card_height}. Cards may overlap."
+        } if (@deck.width - 2.0 * @sheet_args.trim)  > @tmpl.card_width ||
+             (@deck.height - 2.0 * @sheet_args.trim) > @tmpl.card_height
       end
 
       def draw_card(cc, card, x, y, angle, trim, trim_radius)
@@ -182,7 +178,7 @@ module Squib
       end
 
       def full_filename
-        @save_args.full_filename
+        @sheet_args.full_filename
       end
     end
 
@@ -202,7 +198,7 @@ module Squib
       end
 
       def full_filename
-        @save_args.full_filename @page_number
+        @sheet_args.full_filename @page_number
       end
     end
   end

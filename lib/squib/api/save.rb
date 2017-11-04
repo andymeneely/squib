@@ -58,7 +58,7 @@ module Squib
       else
         tmpl = Sprue.load sprue_file.sprue, dpi
         Graphics::SaveSpruePNG.
-          new(self, tmpl, batch).
+          new(self, tmpl, sheet).
           render_sheet(range)
       end
     end
