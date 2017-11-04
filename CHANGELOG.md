@@ -26,6 +26,7 @@ Bugs:
 
 Chores:
 * Going back to our policy of locking in our dependencies so that we don't have new gems breaking things.
+* Bumped deps, Cairo to 1.15.10 and Pango et al. to 3.1.9
 
 Special thanks to @sparr, @felixleong, @blinks, @vador for all of their work!!
 
