@@ -51,5 +51,5 @@ Squib::Deck.new(cards: resource_data['Name'].size) do
   rect width: :deck, height: :deck
   text str: resource_data['Name'], align: :center, width: :deck, hint: 'red'
   text str: resource_data['Cost'], align: :right, width: :deck, hint: 'red'
-  save_sheet prefix: 'sample_excel_resources_' # save to a whole sheet
+  save_sheet prefix: 'sample_excel_resources_', columns: 3
 end
