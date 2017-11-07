@@ -1,6 +1,8 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.15.0 / Unreleased
+
 ## v0.14.0 / 2017-11-06
 
 Features:
