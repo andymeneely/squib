@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.14.0 / Unreleased
+## v0.14.0 / 2017-11-06
 
 Features:
 * `save_pdf/save_sheet` method now supports `sprue`, which allows you to define templated layouts and position your cards freely (#217) by @felixleong. See docs for how to use this _very_ powerful feature!
