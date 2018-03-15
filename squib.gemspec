@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(spec|samples|docs|benchmarks)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cairo',                 '1.15.11'
+  spec.add_runtime_dependency 'cairo',                 '1.15.12'
   spec.add_runtime_dependency 'classy_hash',           '0.2.1'
   spec.add_runtime_dependency 'gio2',                  '3.2.1'
   spec.add_runtime_dependency 'gobject-introspection', '3.2.1'

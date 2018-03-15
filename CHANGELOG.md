@@ -1,10 +1,10 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.15.0 / Unreleased
+## v0.14.1 / 2018-03-15
 
 Chores:
-* Bumped deps: Pango et al. to 3.2.0
+* Bumped deps: Pango et al. to 3.2.1, Cairo to 1.15.12. (Fixes an issue with Ruby 2.5 and Windows)
 
 ## v0.14.0 / 2017-11-06
 
