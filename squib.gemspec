@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'ruby-progressbar',      '1.9.0'
 
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'coveralls', '>= 0.8.21'
   spec.add_development_dependency 'game_icons'
   spec.add_development_dependency 'launchy'
   spec.add_development_dependency 'rake'
