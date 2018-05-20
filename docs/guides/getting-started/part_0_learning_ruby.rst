@@ -128,9 +128,6 @@ Ruby Learning Resources
 
 Here are some of my favorite resources for getting started with Ruby. A lot of them assume you are also new to programming in general. They do cover material that isn't very relevant to Squib, but that's okay - learning is never wasted, only squandered.
 
-`CodeSchool's TryRuby <https://www.codeschool.com/courses/try-ruby>`_
-  This is one of my favorites. It's pretty basic but it walks you through the exercises interactively and makes good use of challenges.
-
 `RubyMonk.com <https://rubymonk.com/>`_
   An interactive explanation through Ruby. Gets a bit philosophical, but hey, what else would you expect from a monk?
 
