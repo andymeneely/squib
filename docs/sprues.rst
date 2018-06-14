@@ -10,7 +10,7 @@ A `sprue <https://en.wikipedia.org/wiki/Sprue_(manufacturing)>`_ is a Squib feat
   * Printing to specific sticker sheets
   * Making an A4 version and a US Letter version for i18n
 
-Without using a sprue, the :doc:`/dsl/save_sheet` and :doc:`/dsl/save_sheet` will simply lay out your cards one after another with the gap and margins you specify.
+Without using a sprue, :doc:`/dsl/save_pdf` and :doc:`/dsl/save_sheet` will simply lay out your cards one after another with the gap and margins you specify.
 
 Using a Sprue
 -------------
