@@ -169,7 +169,8 @@ If you want to extend multiple parents, it looks like this::
     extends:
       - socrates
       - plato
-    x: += 50    # evaluates to 250 from plato
+    x: += 50    # evaluates to 150 from socrates
+    # y is going to be 200 too from Plato
 
 If multiple keys override the same keys in a parent, the later ("younger") child in the ``extends`` list takes precedent. Like this::
 

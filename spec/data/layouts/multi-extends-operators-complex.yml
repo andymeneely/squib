@@ -1,0 +1,12 @@
+# Here's a complex test case inspired by bug 244
+socrates:
+  x: 100
+  y: 1000
+plato:
+  y: 2000
+aristotle:
+  extends:
+    - socrates
+    - plato
+  x: += 0.1in    # 0.1in -> 30.0, so 100 + 30 = 130.0
+  y: += 18       # From Plato, 2000 + 18

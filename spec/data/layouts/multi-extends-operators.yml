@@ -1,0 +1,9 @@
+socrates:
+  x: 100
+plato:
+  y: 200
+aristotle:
+  extends:
+    - socrates
+    - plato
+  x: += 50    # evaluates to 150 from socrates

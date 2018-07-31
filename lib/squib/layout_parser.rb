@@ -49,23 +49,35 @@ module Squib
       h = {}
       parent_keys.each do |parent_key|
         from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
-          if child_val.to_s.strip.start_with?('+=')
-            add_parent_child(parent_val, child_val)
-          elsif child_val.to_s.strip.start_with?('-=')
-            sub_parent_child(parent_val, child_val)
-          elsif child_val.to_s.strip.start_with?('*=')
-            mul_parent_child(parent_val, child_val)
-          elsif child_val.to_s.strip.start_with?('/=')
-            div_parent_child(parent_val, child_val)
-          else
-            child_val # child overrides parent when merging, no +=
-          end
+          handle_relative_operators(parent_val, child_val)
         end
         h = h.merge(from_extends) do |key, older_sibling, younger_sibling|
-          younger_sibling # when two siblings have the same entry, the "younger" (lower one) overrides
+          # In general, go with the younger sibling.
+          # UNLESS that younger sibling had a relative operator, in which use the
+          # (already computed) relative operator applied, which lands in older_sibling
+          # See bug 244.
+          sibling = younger_sibling
+          %w(+= -= *= /=).each do |op|
+            sibling = older_sibling if younger_sibling.to_s.strip.start_with? op
+          end
+          sibling
         end
       end
       return h
+    end
+
+    def handle_relative_operators(parent_val, child_val)
+      if child_val.to_s.strip.start_with?('+=')
+        add_parent_child(parent_val, child_val)
+      elsif child_val.to_s.strip.start_with?('-=')
+        sub_parent_child(parent_val, child_val)
+      elsif child_val.to_s.strip.start_with?('*=')
+        mul_parent_child(parent_val, child_val)
+      elsif child_val.to_s.strip.start_with?('/=')
+        div_parent_child(parent_val, child_val)
+      else
+        child_val # child overrides parent when merging, no +=
+      end
     end
 
     def add_parent_child(parent, child)

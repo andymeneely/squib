@@ -92,6 +92,57 @@ describe Squib::LayoutParser do
         )
   end
 
+  it 'applies multiple extends with relative operators' do
+    layout = subject.load_layout(layout_file('multi-extends-operators.yml'))
+    expect(layout).to eq({
+      'socrates' => {
+        'x' => 100,
+      },
+      'plato' => {
+        'y' => 200,
+      },
+      'aristotle' => {
+        'extends' => ['socrates', 'plato'],
+        'x' => 150.0, # do the += 50 on socrates
+        'y' => 200,
+      },
+    })
+  end
+
+  it 'applies multiple extends with relative operators on same key' do
+    layout = subject.load_layout(layout_file('multi-extends-operators-same.yml'))
+    expect(layout).to eq({
+      'socrates' => {
+        'x' => 100,
+      },
+      'plato' => {
+        'x' => 200,
+      },
+      'aristotle' => {
+        'extends' => ['socrates', 'plato'],
+        'x' => 250, # do the += 50 from plato, NOT socrates
+      },
+    })
+  end
+
+  it 'applies multiple extends with relative operators with ' do
+    layout = subject.load_layout(layout_file('multi-extends-operators-complex.yml'))
+    expect(layout).to eq({
+      'socrates' => {
+        'x' => 100,
+        'y' => 1000,
+      },
+      'plato' => {
+        'y' => 2000,
+      },
+      'aristotle' => {
+        'extends' => ['socrates', 'plato'],
+        'x' => 130.0, # 0.1in -> 30.0, so 100 + 30 = 130.0
+        'y' => 2018.0, # From Plato, 2000 + 18
+      },
+    })
+  end
+
   it 'applies multi-level extends' do
     layout = subject.load_layout(layout_file('multi-level-extends.yml'))
     expect(layout).to eq({ 'frame' => {
