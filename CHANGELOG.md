@@ -6,7 +6,7 @@ Squib follows [semantic versioning](http://semver.org).
 ## v0.14.2 / Unreleased
 
 Features:
-* Sprues for DriveThruCards! (#247, from @blinks)
+* Sprues for DriveThruCards and printandplaygames!! (#247, from @blinks)
 
 Bugs:
 * Fixed bug on circle and other shapes that had an extra stroke from a previous text call (#248)

@@ -230,3 +230,19 @@ letter_poker_foldable_8up.yml
 
   <img src="sprues/foldable_01_expected.png"
     class="figure" width=550>
+
+printplaygames_18up.yml
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+  <img src="sprues/sprue_printplaygames_18up.yml_01_expected.png"
+    class="figure" width=550>
+
+drivethrucards_1up.yml
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+  <img src="sprues/sprue_drivethrucards_1up.yml_01_expected.png"
+    class="figure" width=550>

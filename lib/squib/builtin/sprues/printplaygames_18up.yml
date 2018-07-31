@@ -1,4 +1,4 @@
---- # Cards laid out for https://www.printplaygames.com/product/poker-cards
+# Cards laid out for https://www.printplaygames.com/product/poker-cards
 # Make sure the range is alternating 18 fronts / 18 backs.
 # save_pdf sprue: 'printplaygames_18up.yml', file: 'pnp_output.pdf'
 sheet_width: 12.0in

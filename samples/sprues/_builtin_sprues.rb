@@ -13,6 +13,8 @@ Squib::Deck.new(width: '50mm', height: '70mm', cards: 9) do
     a4_poker_card_9up.yml
     a4_usa_card.yml
     letter_poker_card_9up.yml
+    printplaygames_18up.yml
+    drivethrucards_1up.yml
   ).each do |builtin|
     save_sheet sprue: builtin, prefix: "sprue_#{builtin}_"
   end

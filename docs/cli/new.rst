@@ -22,7 +22,7 @@ This kit includes the following:
   * **Git files**, such as ``.gitignore``, and ``gitkeep.txt``. These are helpful because *every* coding project should use version control.
   * **Markdown files**, e.g. ``IDEAS.md``, ``RULES.md``, ``PLAYTESTING.md``, and ``ABOUT.md``, to write notes in and organize your ideas.
 
-You can see the basic files here `on GitHub <https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/projects/basic>`_
+You can see `the basic files here on GitHub <https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/projects/basic>`_
 
 ``--advanced``
 ~~~~~~~~~~~~~~
