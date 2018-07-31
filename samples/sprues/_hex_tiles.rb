@@ -7,7 +7,7 @@ Squib::Deck.new(width: '65.8mm', height: '76mm', cards: 9) do
   )
   text(
     str: %w[One Two Three Four Five Six Seven Eight Nine],
-    x: '27mm', y: '35mm', width: '11.8mm', height: '6mm',
+    x: '22mm', y: '35mm', width: '21.8mm', height: '6mm',
     align: :center, valign: :middle
   )
   save_pdf file: 'hex_tiles.pdf',

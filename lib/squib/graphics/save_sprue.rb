@@ -29,16 +29,15 @@ module Squib
             card = @deck.cards[i]
             slot = slots[i % per_sheet]
 
-            draw_card cc, card, 
-                      slot['x'], slot['y'], 
-                      slot['rotate'], 
+            draw_card cc, card,
+                      slot['x'], slot['y'],
+                      slot['rotate'],
                       @sheet_args.trim, @sheet_args.trim_radius
 
             bar.increment
           end
 
           draw_overlay_above_cards cc
-          cc = draw_page cc
           cc.target.finish
         end
       end
@@ -61,7 +60,7 @@ module Squib
       private
 
       def next_page_if_needed(cc, i, per_sheet)
-        return cc unless (i != 0) && (i % per_sheet).zero?
+        return cc unless (i != 0) && (i % per_sheet) == 0
 
         draw_overlay_above_cards cc
         cc = draw_page cc

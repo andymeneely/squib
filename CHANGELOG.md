@@ -7,6 +7,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Bugs:
 * Fixed bug on circle and other shapes that had an extra stroke from a previous text call (#248)
+* Fixed extra page on all sprue saves (#246)
 
 Chores:
 * Bumped deps: Pango et al. to 3.2.7, Cairo to 1.15.13.
