@@ -18,6 +18,8 @@ Squib::Deck.new do
   ellipse x: 675, y: 105, width: 65, height: 100,
        stroke_width: 5, stroke_color: :orange, angle: -0.2
 
+  text str: 'Shapes!' # regression test for bug 248
+
   circle x: 450, y: 600, radius: 75,
          fill_color: :gray, stroke_color: :green, stroke_width: 8.0
 

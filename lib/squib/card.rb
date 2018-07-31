@@ -47,6 +47,7 @@ module Squib
   # @api private
     def use_cairo(&block)
       @cairo_context.save
+      @cairo_context.new_path # see bug 248
       block.yield(@cairo_context)
       @cairo_context.restore
     end

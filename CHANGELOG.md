@@ -3,6 +3,11 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.15.0 / Unreleased
 
+## v0.14.2 / Unreleased
+
+Bugs:
+* Fixed bug on circle and other shapes that had an extra stroke from a previous text call (#248)
+
 Chores:
 * Bumped deps: Pango et al. to 3.2.7, Cairo to 1.15.13.
 
