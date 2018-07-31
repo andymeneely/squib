@@ -5,6 +5,9 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.14.2 / Unreleased
 
+Features:
+* Sprues for DriveThruCards! (#247, from @blinks)
+
 Bugs:
 * Fixed bug on circle and other shapes that had an extra stroke from a previous text call (#248)
 * Fixed extra page on all sprue saves (#246)
@@ -12,6 +15,8 @@ Bugs:
 
 Chores:
 * Bumped deps: Pango et al. to 3.2.7, Cairo to 1.15.13.
+
+Special thanks to @blinks
 
 ## v0.14.1 / 2018-03-15
 
