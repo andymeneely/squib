@@ -1,0 +1,68 @@
+--- # Cards laid out for https://www.printplaygames.com/product/poker-cards
+# Make sure the range is alternating 18 fronts / 18 backs.
+# save_pdf sprue: 'printplaygames_18up.yml', file: 'pnp_output.pdf'
+sheet_width: 12.0in
+sheet_height: 18.0in
+card_width: 2.75in
+card_height: 3.75in
+position_reference: :center
+cards:
+  # Column 1
+- x: 2.3in
+  y: 2.165in
+  rotate: :counterclockwise
+- x: 2.3in
+  y: 4.915in
+  rotate: :counterclockwise
+- x: 2.3in
+  y: 7.665in
+  rotate: :counterclockwise
+- x: 2.3in
+  y: 10.415in
+  rotate: :counterclockwise
+- x: 2.3in
+  y: 13.165in
+  rotate: :counterclockwise
+- x: 2.3in
+  y: 15.915in
+  rotate: :counterclockwise
+
+  # Column 2
+- x: 6in
+  y: 2.165in
+  rotate: :counterclockwise
+- x: 6in
+  y: 4.915in
+  rotate: :counterclockwise
+- x: 6in
+  y: 7.665in
+  rotate: :counterclockwise
+- x: 6in
+  y: 10.415in
+  rotate: :counterclockwise
+- x: 6in
+  y: 13.165in
+  rotate: :counterclockwise
+- x: 6in
+  y: 15.915in
+  rotate: :counterclockwise
+
+  # Column 3
+- x: 9.7in
+  y: 2.165in
+  rotate: :counterclockwise
+- x: 9.7in
+  y: 4.915in
+  rotate: :counterclockwise
+- x: 9.7in
+  y: 7.665in
+  rotate: :counterclockwise
+- x: 9.7in
+  y: 10.415in
+  rotate: :counterclockwise
+- x: 9.7in
+  y: 13.165in
+  rotate: :counterclockwise
+- x: 9.7in
+  y: 15.915in
+  rotate: :counterclockwise

@@ -1,0 +1,10 @@
+--- # Cards laid out for https://www.drivethrucards.com/
+# Make sure the cards being saved alternate back/front, back/front.
+# save_pdf sprue: 'drivethrucards_1up.yml', file: 'dtc_output.pdf'
+sheet_width: 2.75in
+sheet_height: 3.75in
+card_width: 2.75in
+card_height: 3.75in
+cards:
+- x: 0.0in
+  y: 0.0in
