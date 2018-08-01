@@ -46,6 +46,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'game_icons'
   spec.add_development_dependency 'launchy'
   spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'rspec', '~> 3.3'
 
 end
