@@ -7,6 +7,11 @@ Options
 ^^^^^^^
 .. include:: /args/expansion.rst
 
+n
+  default: 5
+
+  the number of sides on the polygon
+
 .. include:: /args/xy.rst
 
 radius

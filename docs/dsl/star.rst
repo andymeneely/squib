@@ -7,6 +7,11 @@ Options
 ^^^^^^^
 .. include:: /args/expansion.rst
 
+n
+  default: 5
+
+  the number of points on the star
+
 .. include:: /args/xy.rst
 
 inner_radius
