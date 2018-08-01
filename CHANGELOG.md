@@ -14,7 +14,7 @@ Bugs:
 * Fixed layout parsing issue with multiple inheritance (#244)
 
 Chores:
-* Bumped deps: Pango et al. to 3.2.7, Cairo to 1.15.13.
+* Bumped deps: Pango et al. to 3.2.7, Cairo to 1.15.13, Nokogiri to 1.8.4
 
 Special thanks to @blinks
 

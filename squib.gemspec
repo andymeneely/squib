@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'gobject-introspection', '3.2.7'
   spec.add_runtime_dependency 'highline',              '1.7.10'
   spec.add_runtime_dependency 'mercenary',             '0.3.6'
-  spec.add_runtime_dependency 'nokogiri',              '1.8.2'
+  spec.add_runtime_dependency 'nokogiri',              '1.8.4'
   spec.add_runtime_dependency 'pango',                 '3.2.7'
   spec.add_runtime_dependency 'roo',                   '2.7.1'
   spec.add_runtime_dependency 'rsvg2',                 '3.2.7'
