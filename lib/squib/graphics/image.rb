@@ -6,9 +6,24 @@ module Squib
   # @api private
   def cache_load_image(file)
     @img_cache ||= {}
-    @img_cache[file] || @img_cache[file] = Cairo::ImageSurface.from_png(file)
+    @img_cache[file] ||= open_png file
   end
   module_function :cache_load_image
+
+  # Open a PNG file, checking magic bytes if it's a real PNG
+  # Magic bytes taken from:
+  # https://en.wikipedia.org/wiki/List_of_file_signatures
+  # :nodoc:
+  # @api private
+  PNG_MAGIC = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]
+  def open_png(file)
+    if PNG_MAGIC == File.read(file, 8).bytes
+      return Cairo::ImageSurface.from_png(file)
+    else
+      raise ArgumentError.new("ERROR: #{file} is not a PNG file")
+    end
+  end
+  module_function :open_png
 
   class Card
 

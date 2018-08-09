@@ -42,6 +42,10 @@ def csv_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/csv/#{file}"
 end
 
+def image_file(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/data/images/#{file}"
+end
+
 def xlsx_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/xlsx/#{file}"
 end

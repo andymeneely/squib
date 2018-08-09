@@ -3,7 +3,15 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.15.0 / Unreleased
 
-## v0.14.2 / Unreleased
+Features:
+* Added check for malformed PNG files (#250, #218)
+
+Docs:
+* Documented the n-sided-ness of polygons and stars
+
+Special thanks to @lcarlsen
+
+## v0.14.2 / 2018-08-01
 
 Features:
 * Sprues for DriveThruCards and printandplaygames!! (#247, from @blinks)
