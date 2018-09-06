@@ -7,8 +7,8 @@ Parsing uses Ruby's built-in Yaml package.
 
 The ``yaml`` method is a member of ``Squib::Deck``, but it is also available outside of the Deck DSL with ``Squib.yaml()``. This allows a construction like::
 
-  data = Squib.Yaml file: 'data.yml'
-    Squib::Deck.new(cards: data['name'].size) do
+  data = Squib.yaml file: 'data.yml'
+  Squib::Deck.new(cards: data['name'].size) do
   end
 
 The Yaml file format assumes that the entire deck is an array, then each element of the array is a hash. Every key encountered in that hash will translate to a "column" in the data frame. If a key exists in one card and not in another, then it defaults to ``nil``.
@@ -53,21 +53,14 @@ The ``yaml`` method also takes in a block that will be executed for each cell in
 Examples
 --------
 
+To get the sample Yaml files, go to `its source <https://github.com/andymeneely/squib/tree/dev/samples/data>`_
 
-To get the sample Excel files, go to `its source <https://github.com/andymeneely/squib/tree/dev/samples/data>`_
-
-.. literalinclude:: ../../samples/data/_csv.rb
+.. literalinclude:: ../../samples/data/_yaml.rb
   :language: ruby
   :linenos:
 
-Here's the sample.csv
+Here's the sample.yaml
 
-.. literalinclude:: ../../samples/data/sample.csv
-  :language: text
-  :linenos:
-
-Here's the quantity_explosion.csv
-
-.. literalinclude:: ../../samples/data/quantity_explosion.csv
+.. literalinclude:: ../../samples/data/sample.yaml
   :language: text
   :linenos:
