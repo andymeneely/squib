@@ -8,6 +8,7 @@ Features:
 
 Docs:
 * Documented the n-sided-ness of polygons and stars
+* svg: document rasterization on mask (#192)
 
 Special thanks to @lcarlsen
 

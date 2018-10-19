@@ -66,6 +66,11 @@ mask
 
   if specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
 
+.. warning::
+
+    For implementation reasons, your vector image will be rasterized when mask is applied. If you use this with, say, PDF, the images will be embedded as rasters, not vectors.
+
+
 crop_x
   default: ``0``
 
