@@ -156,6 +156,8 @@ module Squib
           val_mm = val * 25.4
         elsif from_unit == :cm
           val_mm = val * 10.0
+        else
+          val_mm = val
         end
 
         if to_unit == :in
