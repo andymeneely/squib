@@ -2,13 +2,13 @@
 require 'squib'
 
 desc 'Build black-and-white by default'
-task default: [:bw]
+task default: [:pnp]
 
 desc 'Build both bw and color'
-task both: [:bw, :color]
+task both: [:pnp, :color]
 
 desc 'Build black-and-white only'
-task :bw do
+task :pnp do
   Squib.enable_build_globally :print_n_play
   load 'build_groups.rb'
 end
@@ -20,7 +20,7 @@ task :color do
 end
 
 desc 'Build a test card'
-task :color do
+task :test do
   Squib.enable_build_globally :test
   load 'build_groups.rb'
 end
