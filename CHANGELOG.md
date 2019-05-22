@@ -12,7 +12,7 @@ Docs:
 * Document how to run the code (#186)
 
 Chores:
-* Bumped deps: Pango et al. to 3.3.6, Cairo to 1.16.4, Nokogiri to 1.10.3
+* Bumped deps: Pango et al. to 3.3.6, Cairo to 1.16.4, Nokogiri to 1.10.3, Highline to 2.0.2
 
 Compatibility:
 * A LOT more pre-defined colors built into Cairo. Some of the named colors got redefined with the upgrade to the latest Cairo. This means that named colors like `:gray` and `:green` may look slightly different.

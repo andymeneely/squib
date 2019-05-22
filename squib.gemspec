@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'classy_hash',           '0.2.1'
   spec.add_runtime_dependency 'gio2',                  '3.3.6'
   spec.add_runtime_dependency 'gobject-introspection', '3.3.6'
-  spec.add_runtime_dependency 'highline',              '1.7.10'
+  spec.add_runtime_dependency 'highline',              '2.0.2'
   spec.add_runtime_dependency 'mercenary',             '0.3.6'
   spec.add_runtime_dependency 'nokogiri',              '1.10.3'
   spec.add_runtime_dependency 'pango',                 '3.3.6'
