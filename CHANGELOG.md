@@ -13,6 +13,9 @@ Docs:
 Chores:
 * Bumped deps: Pango et al. to 3.3.6, Cairo to 1.16.4, Nokogiri to 1.10.3
 
+Compatibility:
+* A LOT more pre-defined colors built into Cairo. Some of the named colors got redefined with the upgrade to the latest Cairo. This means that named colors like `:gray` and `:green` may look slightly different.
+
 Special thanks to @lcarlsen
 
 ## v0.14.2 / 2018-08-01
