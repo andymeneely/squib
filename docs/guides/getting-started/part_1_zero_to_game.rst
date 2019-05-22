@@ -29,6 +29,7 @@ See :doc:`/install` for more details.
 
 This guide also assumes you've got some basic Ruby experience, and you've got your tools set up (i.e. text editor, command line, image preview, etc). See :doc:`part_0_learning_ruby` to see my recommendations.
 
+
 Our Idea: Familiar Fights
 -------------------------
 Let's start with an idea for a game: Familiar Fights. Let's say we want to have players fight each other based on collecting cards that represent their familiars, each with different abilities. We'll have two factions: drones and humans. Each card will have some artwork in it, and some text describing their powers.
@@ -45,6 +46,28 @@ First thing: the title. It stinks, I know. It's gonna change. So instead of nami
 Go ahead and put "Familiar Fights" as an idea for a title in the ``IDEAS.md`` file.
 
 If you're using Git or other version control, now's a good time to commit. See :doc:`/guides/git`.
+
+Running Your Squib Build
+------------------------
+
+The simplest way to build with Squib is to run this command line:
+
+.. code-block:: none
+
+  $ ruby deck.rb
+
+Squib cares about which directory you are currently in. For example, it will create that ``_output`` directory in the current directory, and it will look up files according to your current directory.
+
+An alternative to running the ruby command directly is to use Ruby's Rake build system.
+Rakefiles are designed for building projects that have lots of files (that's us!).
+The default Rakefile that Squib generates simply runs the ``deck.rb``. To use Rake, you run this from this directory or any subdirectory.
+
+.. code-block:: none
+
+  $ rake
+
+We'll discuss Rake and various other workflow things like auto-building in the :doc:`/guides/getting-started/part_3_workflows`.
+
 
 Data or Layout?
 ---------------
