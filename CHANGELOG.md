@@ -10,6 +10,9 @@ Docs:
 * Documented the n-sided-ness of polygons and stars
 * svg: document rasterization on mask (#192)
 
+Chores:
+* Bumped deps: Pango et al. to 3.3.6, Cairo to 1.16.4, Nokogiri to 1.10.3
+
 Special thanks to @lcarlsen
 
 ## v0.14.2 / 2018-08-01
