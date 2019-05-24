@@ -6,6 +6,9 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * Added check for malformed PNG files (#250, #218)
 
+Bugs
+* `trim_radius` now defaults to 0 on `save_pdf`, not 38. (#270)
+
 Docs:
 * Documented the n-sided-ness of polygons and stars
 * svg: document rasterization on mask (#192)
@@ -18,7 +21,7 @@ Chores:
 Compatibility:
 * A LOT more pre-defined colors built into Cairo. Some of the named colors got redefined with the upgrade to the latest Cairo. This means that named colors like `:gray` and `:green` may look slightly different.
 
-Special thanks to @lcarlsen
+Special thanks to @lcarlsen, @Karneades
 
 ## v0.14.2 / 2018-08-01
 
