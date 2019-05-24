@@ -39,7 +39,7 @@ describe Squib::Deck do
     it 'explodes quantities' do
       expect(Squib.csv(file: csv_file('qty.csv')).to_h).to eq({
         'Name' => %w(Ha Ha Ha Ho),
-        'Qty' => [3, 3, 3, 1],
+        'qty' => [3, 3, 3, 1],
         })
     end
 
@@ -162,9 +162,9 @@ describe Squib::Deck do
     end
 
     it 'explodes quantities' do
-       expect(Squib.xlsx(explode: 'Qty', file: xlsx_file('explode_quantities.xlsx')).to_h).to eq({
+       expect(Squib.xlsx(explode: 'Quantity', file: xlsx_file('explode_quantities.xlsx')).to_h).to eq({
         'Name' => ['Zergling', 'Zergling', 'Zergling', 'High Templar'],
-        'Qty'  => %w(3 3 3 1),
+        'Quantity'  => %w(3 3 3 1),
         })
     end
 

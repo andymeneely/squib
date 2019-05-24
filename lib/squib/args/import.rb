@@ -9,7 +9,7 @@ module Squib
 
       def self.parameters
         { strip: true,
-          explode: 'Qty'
+          explode: 'qty'
         }
       end
 

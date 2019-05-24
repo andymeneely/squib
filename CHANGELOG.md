@@ -8,6 +8,7 @@ Features:
 
 Bugs
 * `trim_radius` now defaults to 0 on `save_pdf`, not 38. (#270)
+* `explode` on `xlsx` and `csv` now defaults to `qty`, not `Qty` (#262)
 
 Docs:
 * Documented the n-sided-ness of polygons and stars
