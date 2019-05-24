@@ -14,6 +14,7 @@ Docs:
 * svg: document rasterization on mask (#192)
 * Document how to run the code (#186)
 * Document some ways of using `prefix` in `save_png` (#268)
+* `showcase` option `trim_radius` defaults to 38, not 0
 
 Chores:
 * Bumped deps: Pango et al. to 3.3.6, Cairo to 1.16.4, Nokogiri to 1.10.3, Highline to 2.0.2
