@@ -10,6 +10,7 @@ Contents:
 
    install
    learning
+   advanced
    parameters
    arrays
    layouts
@@ -25,6 +26,7 @@ Contents:
    help
    cli/index.rst
    dsl/index.rst
+   projects
 
 Indices and tables
 ==================

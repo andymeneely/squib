@@ -5,6 +5,8 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * Added check for malformed PNG files (#250, #218)
+* Docker! We've got a "squib" image on Dockerhub now that you can run anywhere with Docker to get repeatable results on various machines. `squib new --advanced` includes a Dockerfile that references this. We've also documented using Docker.
+* `squib new --advanced` also includes a `fonts` folder, for custom fonts
 
 Bugs
 * `trim_radius` now defaults to 0 on `save_pdf`, not 38. (#270)
