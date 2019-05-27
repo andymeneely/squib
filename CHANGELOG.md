@@ -22,6 +22,7 @@ Chores:
 
 Compatibility:
 * A LOT more pre-defined colors built into Cairo. Some of the named colors got redefined with the upgrade to the latest Cairo. This means that named colors like `:gray` and `:green` may look slightly different.
+* Dropped support for EOL'd Rubies. Minimum support is 2.4
 
 Special thanks to @lcarlsen, @Karneades
 
