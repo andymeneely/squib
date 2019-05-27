@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.specification_version = 2 if spec.respond_to? :specification_version=
   spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.rubygems_version = '2.2.2'
-  spec.required_ruby_version = '>= 2.2.0'
+  spec.required_ruby_version = '>= 2.4.0'
 
   spec.name          = 'squib'
   spec.version       = Squib::VERSION
