@@ -39,7 +39,7 @@ module Squib
           prefix: 'sheet_',
           rows: :infinite,
           columns: 5,
-          trim_radius: 38,
+          trim_radius: 0,
           trim: 0,
           width: 3300,
           range: :all,

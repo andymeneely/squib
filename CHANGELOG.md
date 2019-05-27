@@ -6,11 +6,25 @@ Squib follows [semantic versioning](http://semver.org).
 Features:
 * Added check for malformed PNG files (#250, #218)
 
+Bugs
+* `trim_radius` now defaults to 0 on `save_pdf`, not 38. (#270)
+* `explode` on `xlsx` and `csv` now defaults to `qty`, not `Qty` (#262)
+
 Docs:
 * Documented the n-sided-ness of polygons and stars
 * svg: document rasterization on mask (#192)
+* Document how to run the code (#186)
+* Document some ways of using `prefix` in `save_png` (#268)
+* `showcase` option `trim_radius` defaults to 38, not 0
 
-Special thanks to @lcarlsen
+Chores:
+* Bumped deps: Pango et al. to 3.3.6, Cairo to 1.16.4, Nokogiri to 1.10.3, Highline to 2.0.2
+
+Compatibility:
+* A LOT more pre-defined colors built into Cairo. Some of the named colors got redefined with the upgrade to the latest Cairo. This means that named colors like `:gray` and `:green` may look slightly different.
+* Dropped support for EOL'd Rubies. Minimum support is 2.4
+
+Special thanks to @lcarlsen, @Karneades
 
 ## v0.14.2 / 2018-08-01
 

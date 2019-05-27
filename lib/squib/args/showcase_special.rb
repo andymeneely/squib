@@ -11,7 +11,10 @@ module Squib
       include DirValidator
 
       def self.parameters
-        { scale: 0.85,
+        {
+          scale: 0.85,
+          trim: 0,
+          trim_radius: 38,
           offset: 1.1,
           reflect_offset: 15,
           reflect_percent: 0.25,

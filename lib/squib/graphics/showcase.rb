@@ -21,7 +21,7 @@ module Squib
 
       cards = range.collect { |i| @cards[i] }
       cards.each_with_index do |card, i|
-        trimmed = trim_rounded(card.cairo_surface, sheet.trim, sheet.trim_radius)
+        trimmed = trim_rounded(card.cairo_surface, showcase.trim, showcase.trim_radius)
         reflected = reflect(trimmed, showcase.reflect_offset, showcase.reflect_percent, showcase.reflect_strength)
         perspectived = perspective(reflected, showcase.scale, showcase.face_right?)
         out_cc.set_source(perspectived, sheet.margin + i * perspectived.width * showcase.offset, sheet.margin)

@@ -6,7 +6,15 @@ Renders a range of cards in a showcase as if they are sitting in 3D on a reflect
 Options
 -------
 
-.. include:: /args/trim.rst
+trim
+  default: ``0``
+
+  the margin around the card to trim before putting into the image
+
+trim_radius
+  default: ``38``
+
+  the rounded rectangle radius around the card to trim before putting into the image. Defaults to 1/8in rounded corners (38px).
 
 scale
   default: ``0.8``

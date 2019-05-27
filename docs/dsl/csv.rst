@@ -12,6 +12,14 @@ The ``csv`` method is a member of ``Squib::Deck``, but it is also available outs
   Squib::Deck.new(cards: data['name'].size) do
   end
 
+If you have multiple source files which you would like to concatenate use the following::
+
+  cards1 = Squib.csv file: 'cards1.tsv', col_sep: "\t"
+  cards2 = Squib.csv file: 'cards2.tsv', col_sep: "\t"
+
+  all_cards = cards1
+  all_cards['column1'] += cards2['column1']
+  all_cards['column2'] += cards2['column2']
 
 Options
 -------

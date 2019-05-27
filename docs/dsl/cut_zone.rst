@@ -10,9 +10,9 @@ Options
 .. include:: /args/expansion.rst
 
 margin
-  default: '0.25in'
+  default: '0.125in'
 
-  The distance from the edge of the card to the safe zone. Supports :doc:`/units`.
+  The distance from the edge of the card to the cut zone. Supports :doc:`/units`.
 
 width
   default: ``width - margin`` (the width of the deck minus the margin)

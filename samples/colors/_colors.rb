@@ -19,17 +19,23 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1) do
 end
 
 # This script generates a table of the built-in constants
-Squib::Deck.new(width: 3000, height: 1500) do
+colors = (Cairo::Color.constants - %i(HEX_RE Base RGB CMYK HSV X11))
+colors.sort_by! do |c|
+  hsv = Cairo::Color.parse(c).to_hsv
+  [(hsv.hue / 16.0).to_i, hsv.value, hsv.saturation]
+end
+w, h = 300, 50
+deck_height = 4000
+deck_width = (colors.size / ((deck_height / h) + 1)) * w
+Squib::Deck.new(width: deck_width, height: deck_height) do
   background color: :white
-  colors = (Cairo::Color.constants - %i(HEX_RE Base RGB CMYK HSV X11))
-  colors.sort_by! {|c| Cairo::Color.parse(c).to_s}
-  x, y, w, h = 0, 0, 300, 50
+  x, y = 0, 0
   colors.each_with_index do |color, i|
     rect x: x, y: y, width: w, height: h, fill_color: color
     text str: color.to_s, x: x + 5, y: y + 13, font: 'Sans Bold 5',
          color: (Cairo::Color.parse(color).to_hsv.v > 0.9) ? '#000' : '#fff'
     y += h
-    if y > @height
+    if y > deck_height
       x += w
       y = 0
     end
