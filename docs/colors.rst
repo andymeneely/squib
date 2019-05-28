@@ -119,7 +119,7 @@ It's possible to use that for e.g. background color, text color or to choose the
 
   text str: all_cards['Type'], layout: 'title', color: text_color
 
-  svg file: all_cards['Type'].map { |t|
+  svg layout: 'illustration', file: all_cards['Type'].map do |t|
       if color == 'black' && t == "Type1" then
           "icons/#{t.downcase}-white.svg"
       else
