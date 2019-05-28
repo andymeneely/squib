@@ -115,7 +115,7 @@ It's possible to use that for e.g. background color, text color or to choose the
       else
           "black"
       end
-  }
+  end
 
   text str: all_cards['Type'], layout: 'title', color: text_color
 
