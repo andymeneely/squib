@@ -96,34 +96,17 @@ Say you have different card types with different colors or themes but you would 
 
 You could use something like the following snippet to have one place to define the color/theme and use that in all map functions. The example inverts the color from white to black for one card type. Use a switch-statement inside the map function to differentiate multiple types.
 
-It's possible to use that for e.g. background color, text color or to choose the correct SVG for that color scheme (e.g. use the white or the black version of an image). The sample shows how to define the color at one place, e.g. choose between white and black, to quickly change the color scheme for the cards::
+It's possible to use that for e.g. background color, text color or to choose the correct SVG for that color scheme (e.g. use the white or the black version of an image). The sample shows how to define the color at one place, e.g. choose between white and black, to quickly change the color scheme for the cards:
 
-  color = 'black'
+Here's the data or see the tab-separated file in the sample directory:
 
-  background_color = all_cards['Type'].map do |t|
-      if color == 'black' && t == "Type1" then
-          "black"
-      else
-          "white"
-      end
-  end
-  background color: background_color
+=====  ======================
+Type   Text
+=====  ======================
+Snake  This is a snake.
+Lion   This is a lion.
+=====  ======================
 
-  text_color = all_cards['Type'].map do |t|
-      if color == 'black' && t == "Type1" then
-          "white"
-      else
-          "black"
-      end
-  end
-
-  text str: all_cards['Type'], layout: 'title', color: text_color
-
-  svg layout: 'illustration', file: all_cards['Type'].map do |t|
-      if color == 'black' && t == "Type1" then
-          "icons/#{t.downcase}-white.svg"
-      else
-          "icons/#{t.downcase}.svg"
-      end
-  end
-
+.. literalinclude:: ../samples/colors/_switch_color.rb
+  :language: ruby
+  :linenos:
