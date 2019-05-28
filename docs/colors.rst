@@ -109,7 +109,7 @@ It's possible to use that for e.g. background color, text color or to choose the
   end
   background color: background_color
 
-  text_color = all_cards['Type'].map { |t|
+  text_color = all_cards['Type'].map do |t|
       if color == 'black' && t == "Type1" then
           "white"
       else
