@@ -1,16 +1,17 @@
-dist: trusty
 language: ruby
+cache:
+  - bundler
+  - directories:
+    - /home/travis/.rvm/
 sudo: true # need this for libgirepository1.0-dev
-# sudo: false # taking advantage of container-based infrastructure
-# cache: bundler # cache bundled gems from build to build
 addons:
   apt:
     packages:
       - libgirepository1.0-dev # for gobject-introspection
 rvm:
   - 2.4.2
-  - 2.5.0
-  - 2.6.0
+  - 2.5.3
+  - 2.6.3
   - ruby-head
 matrix:
   allow_failures:
