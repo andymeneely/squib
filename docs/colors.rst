@@ -106,7 +106,7 @@ It's possible to use that for e.g. background color, text color or to choose the
       else
           "white"
       end
-  }
+  end
   background color: background_color
 
   text_color = all_cards['Type'].map { |t|
