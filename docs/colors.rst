@@ -100,7 +100,7 @@ It's possible to use that for e.g. background color, text color or to choose the
 
   color = 'black'
 
-  background_color = all_cards['Type'].map { |t|
+  background_color = all_cards['Type'].map do |t|
       if color == 'black' && t == "Type1" then
           "black"
       else
