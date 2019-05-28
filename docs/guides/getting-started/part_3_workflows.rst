@@ -7,7 +7,7 @@ The Squib Way pt 3: Workflows
 
 As we mentioned at the end :doc:`/guides/getting-started/part_2_iconography`, we've pretty much got most of what we need to prototype a game through completion. From here on out, the :doc:`/dsl/index` will be your best resource for getting things done.
 
-What follows from here out is optional, but useful. As you explore Squib's features and work away at your games, you'll pick up a few tricks and conventions to follow that makes your time easier. For me personally, I've been using Squib from the beginning side-by-side with developing my own games. After 3+ years of developing games with Squib, here are some helpful ways of improving your workflow.
+What follows from here out is optional, but useful. As you explore Squib's features and work away at your games, you'll pick up a few tricks and conventions to follow that makes your time easier. For me personally, I've been using Squib from the beginning side-by-side with developing my own games. After 5+ years of developing games with Squib, here are some helpful ways of improving your workflow.
 
 Improving your workflow comes down to a few principles:
 
