@@ -1,6 +1,5 @@
 language: ruby
 cache:
-  - bundler
   - directories:
     - /home/travis/.rvm/
 sudo: true # need this for libgirepository1.0-dev
