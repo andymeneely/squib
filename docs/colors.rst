@@ -125,5 +125,5 @@ It's possible to use that for e.g. background color, text color or to choose the
       else
           "icons/#{t.downcase}.svg"
       end
-  }, layout: 'illustration'
+  end
 
