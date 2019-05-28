@@ -39,7 +39,7 @@ Rakefile: Your Project's Butler
 
 Programming is more than simply writing and executing one a program at a time. It's about managing lots of files and programs at once so that you can do whatever you want, whenever you want. "Building" is the software development word for this, and every programming language has some version of this tool.
 
-In Ruby, this tool is called ``rake``. (A pun on the popular tool for C, called ``make``.) The way that ``rake`` is configured is by executing a special Ruby file called a ``Rakefile`` at the root of your repository.
+In Ruby, this tool is called ``rake``. (A pun on the popular tool for C, called ``make``.) The way that ``rake`` is configured is by executing a special Ruby file called a ``Rakefile`` at the root of your repository. Use ``rake -T`` or ``rake -T [pattern]`` to quickly list available rake tasks.
 
 Consider the following example from our built-in advanced project generator:
 
