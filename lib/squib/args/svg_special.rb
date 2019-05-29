@@ -20,7 +20,7 @@ module Squib
       end
 
       def validate_id(arg, _i)
-        return nil if arg.nil?
+        return nil if arg.to_s.empty?
         arg = '#' << arg unless arg.start_with? '#'
         arg
       end
