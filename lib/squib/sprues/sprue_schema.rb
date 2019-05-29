@@ -41,8 +41,10 @@ module Squib
           :optional, Numeric,
           ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),
           ROTATE_REGEX
-        ]
-      }]]
+        ],
+        'flip_vertical' => [ :optional, FalseClass ],
+        'flip_horizontal' => [ :optional, FalseClass ],
+        }]]
     }.freeze
   end
 end

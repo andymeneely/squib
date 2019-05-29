@@ -199,5 +199,6 @@ module Squib
         val.to_f
       end
     end
+
   end
 end
