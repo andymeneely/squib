@@ -32,7 +32,7 @@ module Squib
             draw_card cc, card,
                       slot['x'], slot['y'],
                       slot['rotate'],
-                      false, false, 
+                      slot['flip_vertical'], slot['flip_horizontal'], 
                       @sheet_args.trim, @sheet_args.trim_radius
 
             bar.increment
