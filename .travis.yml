@@ -1,12 +1,10 @@
 language: ruby
-cache:
-  - directories:
-    - /home/travis/.rvm/
 sudo: true # need this for libgirepository1.0-dev
 addons:
   apt:
     packages:
       - libgirepository1.0-dev # for gobject-introspection
+      - ruby-pango
 rvm:
   - 2.4.2
   - 2.5.3
