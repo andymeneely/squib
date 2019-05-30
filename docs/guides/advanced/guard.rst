@@ -1,9 +1,9 @@
-Autobuild with Guard
-====================
+Guard: Autobuild As You Code
+============================
 
 .. warning::
 
-  Under construction - going to fold this into the Workflow guide. For now, you can see my samples. This is mostly just a brain dump.
+  Still under construction
 
 Throughout your prototyping process, you'll be making small adjustments and then examining the graphical output. Re-running your code can get tedious, because you're cognitively switching from one context to another, e.g. editing x-y coordinates to running your code.
 

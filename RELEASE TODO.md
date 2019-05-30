@@ -13,6 +13,7 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Merge master branch
  - [ ] Merge release branch
  - [ ] Push master and release branches
+ - [ ] Build latest docker image and push it to Dockerhub
  - [ ] Create GitHub release tag
  - [ ] `gem push pkg/squib-x.y.z.gem`
  - [ ] Github milestone closed
