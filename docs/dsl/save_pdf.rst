@@ -19,7 +19,7 @@ dir
 sprue
   default: ``nil``
 
-  the sprue file to use. If ``nil``, then no sprue is used and the cards are laid out automatically using the parameters below. If non-nil, Squib checks for a built-in sprue file of that name. Otherwise, it attempts to open a file relative to the current directory. For more information on Squib Sprues, see :doc:`/sprues`.
+  the sprue file to use. If ``nil``, then no sprue is used and the cards are laid out automatically using the parameters below. If non-nil, Squib checks for a built-in sprue file of that name. Otherwise, it attempts to open a file relative to the current directory. For more information on Squib Sprues, see :doc:`/sprues`. If you use the trim function (see trim option below) the cards are placed considering coordinates reduced by the trim value. A special case is a sprue file which defines one card per sheet: If you use the trim option then the sheet size will be trimmed as well to remove the otherwise added white border in the PDF.
 
 width
   default: ``3300``
