@@ -30,11 +30,11 @@ module Squib
             slot = slots[i % per_sheet]
 
             draw_card cc, card,
-                      slot['x'], slot['y'],
+                      slot['x'] - @sheet_args.trim,
+                      slot['y']  - @sheet_args.trim,
                       slot['rotate'],
-                      slot['flip_vertical'], slot['flip_horizontal'], 
+                      slot['flip_vertical'], slot['flip_horizontal'],
                       @sheet_args.trim, @sheet_args.trim_radius
-
             bar.increment
           end
 
@@ -160,11 +160,22 @@ module Squib
       def init_cc
         ratio = 72.0 / @deck.dpi
 
-        surface = Cairo::PDFSurface.new(
-          full_filename,
-          @tmpl.sheet_width * ratio,
-          @tmpl.sheet_height * ratio
-        )
+        slots = @tmpl.cards
+        per_sheet = slots.size
+
+        surface = if per_sheet == 1
+            Cairo::PDFSurface.new(
+                full_filename,
+                (@tmpl.sheet_width - 2 * @sheet_args.trim) * ratio,
+                (@tmpl.sheet_height - 2 *@sheet_args.trim) * ratio
+            )
+        else
+            Cairo::PDFSurface.new(
+                full_filename,
+                @tmpl.sheet_width * ratio,
+                @tmpl.sheet_height * ratio
+            )
+        end
 
         cc = CairoContextWrapper.new(Cairo::Context.new(surface))
         # cc = Cairo::Context.new(surface)
