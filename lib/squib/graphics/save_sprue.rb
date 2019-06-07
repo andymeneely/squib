@@ -32,6 +32,7 @@ module Squib
             draw_card cc, card,
                       slot['x'], slot['y'],
                       slot['rotate'],
+                      slot['flip_vertical'], slot['flip_horizontal'], 
                       @sheet_args.trim, @sheet_args.trim_radius
 
             bar.increment
@@ -128,7 +129,7 @@ module Squib
              (@deck.height - 2.0 * @sheet_args.trim) > @tmpl.card_height
       end
 
-      def draw_card(cc, card, x, y, angle, trim, trim_radius)
+      def draw_card(cc, card, x, y, angle, flip_v, flip_h, trim, trim_radius)
         # Compute the true size of the card after trimming
         w = @deck.width - 2.0 * trim
         h = @deck.height - 2.0 * trim
@@ -142,6 +143,7 @@ module Squib
         mat = cc.matrix # Save the transformation matrix to revert later
         cc.translate x, y
         cc.translate @deck.width / 2.0, @deck.height / 2.0
+        cc.flip(flip_v, flip_h, 0, 0)
         cc.rotate angle
         cc.translate -@deck.width / 2.0, -@deck.height / 2.0
         cc.rounded_rectangle(trim, trim, w, h, trim_radius, trim_radius) # clip
@@ -164,7 +166,8 @@ module Squib
           @tmpl.sheet_height * ratio
         )
 
-        cc = Cairo::Context.new(surface)
+        cc = CairoContextWrapper.new(Cairo::Context.new(surface))
+        # cc = Cairo::Context.new(surface)
         cc.scale(72.0 / @deck.dpi, 72.0 / @deck.dpi) # make it like pixels
         cc
       end
@@ -185,7 +188,8 @@ module Squib
     class SaveSpruePNG < SaveSprue
       def init_cc
         surface = Cairo::ImageSurface.new @tmpl.sheet_width, @tmpl.sheet_height
-        Cairo::Context.new(surface)
+        CairoContextWrapper.new(Cairo::Context.new(surface))
+        # Cairo::Context.new(surface)
       end
 
       def draw_page(cc)

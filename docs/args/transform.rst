@@ -48,4 +48,4 @@ flip_horiztonal
 flip_vertical
   default: ``false``
 
-  Flip this image about its center verticall (i.e. top becomes bottom and vice versa).
+  Flip this image about its center vertical (i.e. top becomes bottom and vice versa).

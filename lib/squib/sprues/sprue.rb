@@ -175,6 +175,8 @@ module Squib
       new_card['y'] = y
       new_card['rotate'] = parse_rotate_param(
         card['rotate'] ? card['rotate'] : @template_hash['rotate'])
+      new_card['flip_vertical'] = card['flip_vertical'] == true
+      new_card['flip_horizontal'] = card['flip_horizontal'] == true
       new_card
     end
 
@@ -199,5 +201,6 @@ module Squib
         val.to_f
       end
     end
+
   end
 end

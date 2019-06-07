@@ -156,6 +156,16 @@ rotate
 
   Rotate the card around its position_reference. Allows ``clockwise``, ``counterclockwise``, or ``turnaround``, or numerical angle.
 
+flip_vertical
+  Default: ``false``
+
+  Determine whether or not to flip the card vertically about the vertical line through the card's its position reference. Works most intuitively with ``position_reference: :center``
+
+flip_horizontal
+  Default: ``false``
+
+  Determine whether or not to flip the card vertically about the horizontal line through the card's its position reference. Works most intuitively with ``position_reference: :center``
+
 crop_line
 ^^^^^^^^^
 

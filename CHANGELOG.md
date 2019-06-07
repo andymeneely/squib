@@ -5,6 +5,7 @@ Squib follows [semantic versioning](http://semver.org).
 
 Features:
 * Added check for malformed PNG files (#250, #218)
+* Sprues: you can now flip individual cards (#251)
 
 Bugs
 * `trim_radius` now defaults to 0 on `save_pdf`, not 38. (#270)

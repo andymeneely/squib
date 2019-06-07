@@ -144,6 +144,15 @@ describe Squib::Sprue do
     )
   end
 
+  it 'loads a template with flipped cards' do
+    tmpl = Squib::Sprue.load(sprue_file('card_flip.yml'), 100)
+    expect(tmpl.cards.length).to eq(3)
+    expect(tmpl.cards.map { |card| card['flip_vertical'] })
+      .to eq( [false, true, false] )
+    expect(tmpl.cards.map { |card| card['flip_horizontal'] })
+      .to eq( [false, false, true] )
+  end
+
   it 'fails when sheet_width is not defined' do
     expect do
       Squib::Sprue.load(sprue_file('fail_no_sheet_width.yml'), 100)
