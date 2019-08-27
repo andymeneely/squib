@@ -1,7 +1,12 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.15.0 / Unreleased
+## v0.15.1 / 2019-08-27
+
+Chores:
+* Bumped Pango et al. to 3.3.7 (#286)
+
+## v0.15.0 / 2019-08-06
 
 Features:
 * Added check for malformed PNG files (#250, #218)
