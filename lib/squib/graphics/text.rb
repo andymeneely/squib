@@ -123,14 +123,33 @@ module Squib
 
     # @api private
     def text(embed, para, box, trans, draw, dpi)
-
+        
+        # This should come from the API, but I can't get it to work..
+        para.ellipsize = [24, 16, 8, 4] # Setting ellipsize to an enumerable will try each size, taking the largest that fits
+        para.ellipsize = 'auto' # Setting to 'auto' tries to go down in 1pt steps from the font size specified for the text
+        
         font_desc = Pango::FontDescription.new(para.font)
         font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
-        font_desc.size += 10
-        begin
-            font_desc.size -= 10
-            extents = render_text(embed, para, box, trans, draw, dpi, font_desc, true)
-        end while extents[:ellipsized] && font_desc.size > 0
+        
+        if para.ellipsize == 'auto'
+            para.ellipsize = (1 .. (font_desc.size / Pango::SCALE))
+        end
+        
+        if para.ellipsize.respond_to?('find')
+            sizes = para.ellipsize.map{ |sz| sz * Pango::SCALE }.sort.reverse
+            para.ellipsize = Pango::EllipsizeMode::END
+            
+            sz = sizes.find{ |font_size| 
+                font_desc.size = font_size
+                extents = render_text(embed, para, box, trans, draw, dpi, font_desc, true)
+                !extents[:ellipsized]
+            }
+            
+            if sz.nil?
+                sz = sizes.last
+                Squib.logger.warn{"Could not autosize for Card \##{@index}. Text:  \"#{para.str.to_s}\". Ellipsizing at end with smalles specified size #{sz} instead."}
+            end
+        end
 
         render_text(embed, para, box, trans, draw, dpi, font_desc, false)
     end
