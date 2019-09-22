@@ -121,19 +121,32 @@ module Squib
        end
     end
 
-    # :nodoc:
     # @api private
     def text(embed, para, box, trans, draw, dpi)
+
+        font_desc = Pango::FontDescription.new(para.font)
+        font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
+        font_desc.size += 10
+        begin
+            font_desc.size -= 10
+            extents = render_text(embed, para, box, trans, draw, dpi, font_desc, true)
+        end while extents[:ellipsized] && font_desc.size > 0
+
+        render_text(embed, para, box, trans, draw, dpi, font_desc, false)
+    end
+
+    # :nodoc:
+    # @api private
+    def render_text(embed, para, box, trans, draw, dpi, font_desc, dummy_draw)
       Squib.logger.debug {"Rendering text with: \n#{para} \nat:\n #{box} \ndraw:\n #{draw} \ntransform: #{trans}"}
       extents = nil
       use_cairo do |cc|
         cc.set_source_squibcolor(draw.color)
         cc.translate(box.x, box.y)
+        cc.translate(-10000, -10000) if dummy_draw
         cc.rotate(trans.angle)
         cc.move_to(0, 0)
 
-        font_desc      = Pango::FontDescription.new(para.font)
-        font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
         layout.text = para.str.to_s
@@ -164,8 +177,9 @@ module Squib
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :fill_first
         draw_text_hint(cc, box.x, box.y, layout, para.hint)
         extents = { width: layout.extents[1].width / Pango::SCALE,
-                    height: layout.extents[1].height / Pango::SCALE }
-        warn_if_ellipsized layout
+                    height: layout.extents[1].height / Pango::SCALE,
+                    ellipsized: layout.ellipsized?}
+        warn_if_ellipsized layout unless dummy_draw
       end
       return extents
     end
