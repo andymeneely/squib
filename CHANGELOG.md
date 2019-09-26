@@ -3,6 +3,12 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.16.0 / Unreleased
 
+## v0.15.2 / 2019-09-26
+
+Chores:
+* Bump nokogiri to 1.10.4
+
+
 ## v0.15.1 / 2019-08-27
 
 Chores:
