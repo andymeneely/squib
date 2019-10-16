@@ -129,11 +129,10 @@ module Squib
         # If text autoscaling is enabled, find the largest text size (smaller or equal to the set text size) that fits
         if para.ellipsize == :autoscale
             para.ellipsize = Pango::EllipsizeMode::END
-            step_size = 0.1 * Pango::SCALE;
-            sizes = sizes = (1 .. (font_desc.size / step_size)).to_a.map{|sz| sz*step_size}.reverse
+            sizes = sizes = (1 .. font_desc.size).to_a.map{|sz| sz*Pango::SCALE}.reverse
             
             # Dummy render to an area outside the card with decreasing font sizes until text no longer ellipsizes
-            max_fitting_size = sizes.find{ |sz| 
+            max_fitting_size = sizes.bsearch{ |sz|
                 font_desc.size = sz
                 extents = render_text(embed, para, box, trans, draw, dpi, font_desc, true)
                 !extents[:ellipsized]
