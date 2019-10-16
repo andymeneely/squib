@@ -125,7 +125,7 @@ module Squib
     def text(embed, para, box, trans, draw, dpi)
         font_desc = Pango::FontDescription.new(para.font)
         font_desc.size = para.font_size * Pango::SCALE if para.font_size.is_a? Numeric
-        orig_font_size = font_desc.size;
+        orig_font_size = font_desc.size
         
         # If text autoscaling is enabled, find the largest text size (smaller or equal to the set text size) that fits
         if para.ellipsize == :autoscale
