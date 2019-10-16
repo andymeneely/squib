@@ -126,9 +126,13 @@ module Squib
         font_desc = Pango::FontDescription.new(para.font)
         font_desc.size = para.font_size * Pango::SCALE if para.font_size.is_a? Numeric
         
-        if para.font_size.respond_to?('find')
-            sizes = para.font_size.map{ |sz| sz * Pango::SCALE }.sort.reverse
+        # If text autoscaling is enabled, find the largest text size (smaller or equal to the set text size) that fits
+        if para.ellipsize == :autoscale
+            para.ellipsize = Pango::EllipsizeMode::END
+            step_size = 0.1 * Pango::SCALE;
+            sizes = sizes = (1 .. (font_desc.size / step_size)).to_a.map{|sz| sz*step_size}.reverse
             
+            # Dummy render to an area outside the card with decreasing font sizes until text no longer ellipsizes
             max_fitting_size = sizes.find{ |sz| 
                 font_desc.size = sz
                 extents = render_text(embed, para, box, trans, draw, dpi, font_desc, true)
