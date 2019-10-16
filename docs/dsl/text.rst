@@ -70,7 +70,7 @@ valign
 ellipsize
   default: ``:end``
 
-  When width and height are set, determines the behavior of overflowing text. Also: `true` maps to `:end` and `false` maps to `:none`. Default `:end` [:none, :start, :middle, :end, true, false]. Also, as mentioned in :doc:`/config`, if text is ellipsized a warning is thrown.
+  When width and height are set, determines the behavior of overflowing text. If set to ``:autoscale``, text is automatically scaled down from the set font size to the largest size that does no longer ellipsize. Also: `true` maps to `:end` and `false` maps to `:none`. Also, as mentioned in :doc:`/config`, if text is ellipsized a warning is thrown. [:none, :start, :middle, :end, true, false]
 
 angle
   default: ``0``
