@@ -76,7 +76,7 @@ module Squib
 
     # # :nodoc:
     # # @api private
-    def embed_images!(embed, str, layout, valign)
+    def embed_images!(embed, str, layout, valign, scale)
       return [] unless embed.rules.any?
       layout.markup = str
       clean_str     = layout.text
@@ -84,7 +84,7 @@ module Squib
       EmbeddingUtils.indices(clean_str, embed.rules.keys).each do |key, ranges|
         rule = embed.rules[key]
         ranges.each do |range|
-          carve = Pango::Rectangle.new(0, 0, compute_carve(rule, range), 0)
+          carve = Pango::Rectangle.new(0, 0, compute_carve(rule, range) * scale, 0)
           att = Pango::AttrShape.new(carve, carve, rule)
           att.start_index = range.first
           att.end_index = range.last
@@ -100,7 +100,7 @@ module Squib
           y = Pango.pixels(layout.index_to_pos(att.start_index).y) +
                 rule[:adjust].dy[@index] +
                 compute_valign(layout, valign, rule[:box].height[@index])
-          rule[:draw].call(self, x, y)
+          rule[:draw].call(self, x, y, scale)
           cxt.reset_clip
           [cxt, att, do_path]
         end
@@ -125,6 +125,7 @@ module Squib
     def text(embed, para, box, trans, draw, dpi)
         font_desc = Pango::FontDescription.new(para.font)
         font_desc.size = para.font_size * Pango::SCALE if para.font_size.is_a? Numeric
+        orig_font_size = font_desc.size;
         
         # If text autoscaling is enabled, find the largest text size (smaller or equal to the set text size) that fits
         if para.ellipsize == :autoscale
@@ -134,7 +135,7 @@ module Squib
             # Dummy render to an area outside the card with decreasing font sizes until text no longer ellipsizes
             max_fitting_size = sizes.bsearch{ |sz|
                 font_desc.size = sz
-                extents = render_text(embed, para, box, trans, draw, dpi, font_desc, true)
+                extents = render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, true)
                 !extents[:ellipsized]
             }
             
@@ -145,12 +146,12 @@ module Squib
             font_desc.size = max_fitting_size
         end
 
-        render_text(embed, para, box, trans, draw, dpi, font_desc, false)
+        render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, false)
     end
 
     # :nodoc:
     # @api private
-    def render_text(embed, para, box, trans, draw, dpi, font_desc, dummy_draw)
+    def render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, dummy_draw)
       Squib.logger.debug {"Rendering text with: \n#{para} \nat:\n #{box} \ndraw:\n #{draw} \ntransform: #{trans}"}
       extents = nil
       use_cairo do |cc|
@@ -178,7 +179,7 @@ module Squib
         layout.justify = para.justify unless para.justify.nil?
         layout.spacing = para.spacing unless para.spacing.nil?
 
-        embed_images!(embed, para.str, layout, para.valign)
+        embed_images!(embed, para.str, layout, para.valign, font_desc.size / orig_font_size.to_f)
 
         vertical_start = compute_valign(layout, para.valign, 0)
         cc.move_to(0, vertical_start)

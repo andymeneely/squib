@@ -35,10 +35,12 @@ module Squib
       svg_args = Args::SvgSpecial.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       rule = { type: :svg, file: ifile, box: box, paint: paint, trans: trans,
                adjust: adjust, svg_args: svg_args }
-      rule[:draw] = Proc.new do |card, x, y|
+      rule[:draw] = Proc.new do |card, x, y, scale|
         i = card.index
         b = box[i]
         b.x, b.y = x, y
+        b.width = b.width * scale if b.width.is_a? Numeric
+        b.height = b.height * scale if b.height.is_a? Numeric
         Dir.chdir(@img_dir) do
           card.svg(ifile[i].file, svg_args[i], b, paint[i], trans[i])
         end
@@ -56,10 +58,12 @@ module Squib
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }
-      rule[:draw] = Proc.new do |card, x, y|
+      rule[:draw] = Proc.new do |card, x, y, scale|
         i = card.index
         b = box[i]
         b.x, b.y = x, y
+        b.width = b.width * scale if b.width.is_a? Numeric
+        b.height = b.height * scale if b.height.is_a? Numeric
         Dir.chdir(@img_dir) do
           card.png(ifile[i].file, b, paint[i], trans[i])
         end
