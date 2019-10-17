@@ -76,7 +76,7 @@ module Squib
 
     # # :nodoc:
     # # @api private
-    def embed_images!(embed, str, layout, valign)
+    def embed_images!(embed, str, layout, valign, scale)
       return [] unless embed.rules.any?
       layout.markup = str
       clean_str     = layout.text
@@ -84,7 +84,7 @@ module Squib
       EmbeddingUtils.indices(clean_str, embed.rules.keys).each do |key, ranges|
         rule = embed.rules[key]
         ranges.each do |range|
-          carve = Pango::Rectangle.new(0, 0, compute_carve(rule, range), 0)
+          carve = Pango::Rectangle.new(0, 0, compute_carve(rule, range) * scale, 0)
           att = Pango::AttrShape.new(carve, carve, rule)
           att.start_index = range.first
           att.end_index = range.last
@@ -100,7 +100,7 @@ module Squib
           y = Pango.pixels(layout.index_to_pos(att.start_index).y) +
                 rule[:adjust].dy[@index] +
                 compute_valign(layout, valign, rule[:box].height[@index])
-          rule[:draw].call(self, x, y)
+          rule[:draw].call(self, x, y, scale)
           cxt.reset_clip
           [cxt, att, do_path]
         end
@@ -121,19 +121,46 @@ module Squib
        end
     end
 
-    # :nodoc:
     # @api private
     def text(embed, para, box, trans, draw, dpi)
+        font_desc = Pango::FontDescription.new(para.font)
+        font_desc.size = para.font_size * Pango::SCALE if para.font_size.is_a? Numeric
+        orig_font_size = font_desc.size
+        
+        # If text autoscaling is enabled, find the largest text size (smaller or equal to the set text size) that fits
+        if para.ellipsize == :autoscale
+            para.ellipsize = Pango::EllipsizeMode::END
+            sizes = sizes = (1 .. font_desc.size).to_a.reverse
+            
+            # Dummy render to an area outside the card with decreasing font sizes until text no longer ellipsizes
+            max_fitting_size = sizes.bsearch{ |sz|
+                font_desc.size = sz
+                extents = render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, true)
+                !extents[:ellipsized]
+            }
+            
+            if max_fitting_size.nil?
+                max_fitting_size = sizes.last
+                Squib.logger.warn{"Could not autosize for Card \##{@index} as minimum specified size #{max_fitting_size} still ellipsizes."}
+            end
+            font_desc.size = max_fitting_size
+        end
+
+        render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, false)
+    end
+
+    # :nodoc:
+    # @api private
+    def render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, dummy_draw)
       Squib.logger.debug {"Rendering text with: \n#{para} \nat:\n #{box} \ndraw:\n #{draw} \ntransform: #{trans}"}
       extents = nil
       use_cairo do |cc|
         cc.set_source_squibcolor(draw.color)
         cc.translate(box.x, box.y)
+        cc.translate(-10000, -10000) if dummy_draw
         cc.rotate(trans.angle)
         cc.move_to(0, 0)
 
-        font_desc      = Pango::FontDescription.new(para.font)
-        font_desc.size = para.font_size * Pango::SCALE unless para.font_size.nil?
         layout         = cc.create_pango_layout
         layout.font_description = font_desc
         layout.text = para.str.to_s
@@ -152,7 +179,7 @@ module Squib
         layout.justify = para.justify unless para.justify.nil?
         layout.spacing = para.spacing unless para.spacing.nil?
 
-        embed_images!(embed, para.str, layout, para.valign)
+        embed_images!(embed, para.str, layout, para.valign, font_desc.size / orig_font_size.to_f)
 
         vertical_start = compute_valign(layout, para.valign, 0)
         cc.move_to(0, vertical_start)
@@ -164,8 +191,9 @@ module Squib
         stroke_outline!(cc, layout, draw) if draw.stroke_strategy == :fill_first
         draw_text_hint(cc, box.x, box.y, layout, para.hint)
         extents = { width: layout.extents[1].width / Pango::SCALE,
-                    height: layout.extents[1].height / Pango::SCALE }
-        warn_if_ellipsized layout
+                    height: layout.extents[1].height / Pango::SCALE,
+                    ellipsized: layout.ellipsized?}
+        warn_if_ellipsized layout unless dummy_draw
       end
       return extents
     end

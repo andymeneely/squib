@@ -97,9 +97,14 @@ describe Squib::Args::Paragraph do
       para.load!({ ellipsize: 'END' })
       expect(para.ellipsize).to eq [Pango::EllipsizeMode::END]
     end
+    
+    it 'converts to autoscale' do
+        para.load!({ ellipsize: :autoscale})
+        expect(para.ellipsize).to eq [:autoscale]
+    end
 
     it 'raises an exception on anything else' do
-      expect { para.load!({ ellipsize: 'foo' }) }.to raise_error(ArgumentError, 'ellipsize must be one of: none, start, middle, end, true, or false')
+      expect { para.load!({ ellipsize: 'foo' }) }.to raise_error(ArgumentError, 'ellipsize must be one of: none, start, middle, end, true, false or autoscale')
     end
   end
 

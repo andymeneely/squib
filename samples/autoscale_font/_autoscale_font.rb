@@ -16,14 +16,20 @@ def autoscale(str_array)
   end
 end
 
-Squib::Deck.new(width: 300, height: 100, cards: 3) do
+Squib::Deck.new(width: 300, height: 200, cards: 3) do
   background color: :white
   rect
   title = ['Short & Big',
            'Medium Length & Size',
            'Super duper long string here, therefore a smaller font.']
+  
+  # Scale text based on the string length
   text str: title, font: 'Arial', font_size: autoscale(title),
        x: 10, y:10, align: :center, width: 280, ellipsize: false, hint: :red
+  
+  # Automatically scale the text down from the specified font_size to the largest size that fits
+  text str: title, font: 'Arial', font_size: 10,
+       x: 10, y:100, align: :center, width: 280, height: 50, ellipsize: :autoscale, hint: :red
 
   save_sheet columns: 3
 end

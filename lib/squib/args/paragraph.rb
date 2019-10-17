@@ -82,8 +82,10 @@ module Squib
           Pango::EllipsizeMode::MIDDLE
         when 'end', 'true'
           Pango::EllipsizeMode::END
+        when 'autoscale'
+          :autoscale
         else
-          raise ArgumentError, 'ellipsize must be one of: none, start, middle, end, true, or false'
+          raise ArgumentError, 'ellipsize must be one of: none, start, middle, end, true, false or autoscale'
         end
       end
 

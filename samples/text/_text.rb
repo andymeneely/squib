@@ -1,7 +1,7 @@
 require 'squib'
 require 'squib/sample_helpers'
 
-Squib::Deck.new(width: 1000, height: 1250) do
+Squib::Deck.new(width: 1000, height: 1450) do
   draw_graph_paper width, height
 
   sample 'Font strings are quite expressive. Specify family, modifiers, then size. Font names with spaces in them should end with a comma to help with parsing.' do |x, y|
@@ -19,6 +19,11 @@ Squib::Deck.new(width: 1000, height: 1250) do
   sample 'If you specify the width only, the text will ellipsize.' do |x, y|
     text str: 'The meaning of life is 42', x: x - 50, y: y,
          hint: :red, width: 350, font: 'Serif bold 7'
+  end
+
+  sample 'If you specify ellipsize: :autosize, the font size will autoscale.' do |x, y|
+    text str: 'This text doeas not fit with font size 7. It is autoscaled to the largest size that fits instead.', x: x - 50, y: y,
+         hint: :red, width: 350, height: 100, ellipsize: :autoscale, font: 'Serif bold 7'
   end
 
   sample 'If you specify the width only, and turn off ellipsize, the height will auto-stretch.' do |x, y|

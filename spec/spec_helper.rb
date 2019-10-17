@@ -123,6 +123,7 @@ def mock_cairo(strio)
   allow(iter).to receive(:next_char!).and_return(false)
   allow(iter).to receive(:char_extents).and_return(Pango::Rectangle.new(5, 5, 5, 5))
   allow(iter).to receive(:index).and_return(1000)
+  allow(font).to receive(:size).and_return(1000)
   allow(Pango::FontDescription).to receive(:new).and_return(font)
   allow(Cairo::PDFSurface).to receive(:new).and_return(nil)
 
