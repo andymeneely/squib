@@ -3,6 +3,9 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.16.0 / Unreleased
 
+Features:
+* Autscaling text! `ellipsize: :autoscale` will now downscale your `font_size` if the text ellipsized. Thanks @Qgel! (#288, #111). 
+
 ## v0.15.3 / 2019-10-17
 
 Chores:
