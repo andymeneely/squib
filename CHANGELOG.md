@@ -3,6 +3,11 @@ Squib follows [semantic versioning](http://semver.org).
 
 ## v0.16.0 / Unreleased
 
+## v0.15.3 / 2019-10-17
+
+Chores:
+* Bump pango et al to `~> 3.4`, cairo to `~ 1.16`. Fixes Ruby 2.6 Windows install issues (#287)
+
 ## v0.15.2 / 2019-09-26
 
 Chores:
