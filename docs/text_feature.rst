@@ -35,6 +35,10 @@ Width and Height
 
 By default, Pango text boxes will scale the text box to whatever you need, hence the ``:native`` default. However, for most of the other customizations to work (e.g. center-aligned) you'll need to specify the width. If both the width and the height are specified and the text overflows, then the ``ellipsize`` option is consulted to figure out what to do with the overflow. Also, the ``valign`` will only work if ``height`` is also set to something other than ``:native``.
 
+Autoscaling Font Size
+---------------------
+See our sample below `Sample: _autoscale_font.rb`_
+
 Hints
 -----
 
@@ -111,5 +115,12 @@ Sample: config_text_markup.rb
   :linenos:
 
 .. literalinclude:: ../samples/config/config_disable_quotes.yml
+  :language: ruby
+  :linenos:
+
+Sample: _autoscale_font.rb
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. literalinclude:: ../samples/autoscale_font/_autoscale_font.rb
   :language: ruby
   :linenos:
