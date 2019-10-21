@@ -6,7 +6,7 @@ Show Your Pride
 
 .. raw:: html
 
-  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png" style="margin-bottom: 0px"></a> and <a href="https://boardgamegeek.com/guilds/2601">joining our guild!</a>
+  On BoardGameGeek.com? Show your Squib pride by <a href="https://boardgamegeek.com/microbadge/37841">getting the microbadge <img src="https://cdn.rawgit.com/andymeneely/squib/gh-pages/images/microbadge.png" style="margin-bottom: 0px"></a> and <a href="https://boardgamegeek.com/guild/2601">joining our guild!</a>
 
 We would also love to hear about the games you make with Squib!
 
