@@ -18,4 +18,19 @@ describe Squib::Args::InputFile do
     end
 
   end
+
+  context 'layouts' do
+    let(:layout) do
+      { 'attack' => { 'file' => __FILE__ },
+        'defend' => { 'file' => 'lib/squib.rb' } } #these files DEFINITELY exist
+    end
+
+    it 'allows layout expansion' do
+      args = { layout: ['attack', 'defend'] }
+      ifile.load!(args, expand_by: 2, layout: layout)
+      expect(ifile[0].file).to end_with(__FILE__)
+      expect(ifile[1].file).to end_with('lib/squib.rb')
+    end
+  end
+
 end
