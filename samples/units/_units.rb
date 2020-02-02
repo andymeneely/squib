@@ -15,8 +15,8 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
   cm(2)             # We can also use cm this way
   cm(2) + inches(2) # We can mix units too
 
-  # you can use a coordinate-system; default cell_size is 37.5px
-  # TODO: link to Wiki article
+  # If using a coordinate system, you can specify how many cells
+  # https://github.com/andymeneely/squib/pull/295
   rect x: cells(2), y: cells(2),
        width: cell(1), height: cell(1)
 
