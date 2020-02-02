@@ -23,5 +23,10 @@ module Squib
       @dpi * Squib::INCHES_IN_CM * n.to_f / 10.0
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def cells(n)
+      @cell_size * n.to_f
+    end
+
   end
 end

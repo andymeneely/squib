@@ -19,6 +19,8 @@ module Squib
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
         when /mm$/ # ends with "mm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM / 10.0
+        when /cells$/ # ends with "cell"
+          arg.rstrip[0..-5].to_f * @cell_size # don't have access to @cell_size set in deck.rb :\
         else
           arg
         end

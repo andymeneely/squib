@@ -14,4 +14,9 @@ module Squib
     # :nodoc:
     # @api private
     POINTS_PER_IN = 72.0
+
+    # TODO: Add comment or link to Wiki article
+    # :nodoc:
+    # @api private
+    DEFAULT_CELL_SIZE = 37.5
 end
