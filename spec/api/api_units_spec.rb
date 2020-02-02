@@ -44,4 +44,24 @@ describe Squib::Deck do
     end
   end
 
+  context '#cell(s)' do
+    context 'when cell_size is not set' do
+      it 'uses the default cell size' do
+        expect(deck.cell(1)).to eq Squib::DEFAULT_CELL_SIZE
+      end
+
+      it 'handles strings too' do
+        expect(deck.cells('2')).to eq 2 * Squib::DEFAULT_CELL_SIZE
+      end
+    end
+
+    context 'when cell_size is set' do
+      let(:cell_size) { 50 }
+      let(:deck) { Squib::Deck.new(cell_size: cell_size) }
+
+      it 'uses the configured cell size' do
+        expect(deck.cell(1)).to eq(cell_size)
+      end
+    end
+  end
 end

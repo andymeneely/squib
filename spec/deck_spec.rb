@@ -16,6 +16,11 @@ describe Squib::Deck do
     expect(d.height).to eq(600)
   end
 
+  it 'stores a configured cell_size' do
+    d = Squib::Deck.new(cell_size: 50)
+    expect(d.cell_size).to eq(50)
+  end
+
   context 'in dealing with ranges' do
     it 'calls text on all cards by default' do
       card1 = instance_double(Squib::Card)

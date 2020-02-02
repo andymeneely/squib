@@ -33,7 +33,7 @@ module Squib
                           :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
-    attr_reader :layout, :conf, :dpi, :font
+    attr_reader :layout, :conf, :dpi, :font, :cell_size
 
     #
     # deck.size is really just @cards.size

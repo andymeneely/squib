@@ -15,9 +15,10 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
   cm(2)             # We can also use cm this way
   cm(2) + inches(2) # We can mix units too
 
-  # if you are using a coordinate system, there are two options
-  # [link to wiki article]
-  rect x: cells(1), y: cells(2)
+  # you can use a coordinate-system; default cell_size is 37.5px
+  # TODO: link to Wiki article
+  rect x: cells(2), y: cells(2),
+       width: cell(1), height: cell(1)
 
   # Or we can use a string ending with cm or in
   safe_margin = '0.25 in' #you can have a space too

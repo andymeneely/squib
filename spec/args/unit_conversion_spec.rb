@@ -30,5 +30,8 @@ describe Squib::Args::UnitConversion do
     expect(subject.parse('1mm  ')).to eq(11.81102361)
   end
 
-
+  it 'does cell(s)' do
+    expect(subject.parse('1cell')).to eq(Squib::DEFAULT_CELL_SIZE)
+    expect(subject.parse('2cells')).to eq(2 * Squib::DEFAULT_CELL_SIZE)
+  end
 end

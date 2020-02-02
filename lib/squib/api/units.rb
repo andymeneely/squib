@@ -27,6 +27,7 @@ module Squib
     def cells(n)
       @cell_size * n.to_f
     end
+    alias_method :cell, :cells
 
   end
 end
