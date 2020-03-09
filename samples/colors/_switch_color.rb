@@ -1,4 +1,4 @@
-require 'squib'
+require_relative '../../lib/squib'
 
 # Choose between black and white color theme for type snake
 #   * Allow using white snake cards with black text or
@@ -16,7 +16,7 @@ Squib::Deck.new cards: cards['Type'].size do
             "white"
         end
     end
-    background color: background_color
+    background color: background_color, foo: 'hi'
 
     text_color = cards['Type'].map do |t|
         if color == 'black' && t == "Snake" then
