@@ -1,14 +1,13 @@
-require_relative 'error_context'
 require 'rainbow/refinement'
 
-module Squib::WarnUnexpectedParam
+module Squib::WarnUnexpectedParams
   using Rainbow # we can colorize strings now!
-  def warn_unexpected_params(opts)
+
+  def warn_if_unexpected(opts, uplevel: 5)
     unexpected = opts.keys - accepted_params
     unexpected.each do |key|
-      Squib.logger.warn do
-        "Unexpected option '#{key.to_s.yellow}' #{@error_cxt} ...ignoring"
-      end
+      warn "Unexpected parameter '#{key.to_s.yellow}:' to #{dsl_method.to_s.cyan}(), ignoring...",
+           uplevel: uplevel
     end
   end
 end
