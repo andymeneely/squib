@@ -2,12 +2,14 @@ require 'logger'
 require 'cairo'
 require 'pango'
 require 'rsvg2'
+require 'rainbow/refinement'
 require_relative 'squib/version'
 require_relative 'squib/commands/cli'
 require_relative 'squib/deck'
 require_relative 'squib/card'
 
 module Squib
+  using Rainbow # we can colorize strings now!
 
   # Access the internal logger that Squib uses. By default, Squib configure the logger to the WARN level
   # Use this to suppress or increase output levels.
@@ -22,7 +24,7 @@ module Squib
       @logger = Logger.new($stdout)
       @logger.level = Logger::WARN
       @logger.formatter = proc do |severity, datetime, m_progname, msg|
-        "#{datetime} #{severity}: #{msg}\n"
+        "[#{datetime.strftime('%F %H:%M:%S')} #{severity.red}] #{msg}\n"
       end
     end
     @logger
