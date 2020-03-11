@@ -33,7 +33,7 @@ module Squib
                           :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
-    attr_reader :layout, :conf, :dpi, :font, :caller_loc
+    attr_reader :layout, :conf, :dpi, :font
 
     #
     # deck.size is really just @cards.size
@@ -69,7 +69,6 @@ module Squib
       @height        = Args::UnitConversion.parse height, dpi
       cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
       @layout = LayoutParser.new(dpi).load_layout(layout)
-      @caller_loc = caller_locations[0] # useful for error messages
       enable_groups_from_env!
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
