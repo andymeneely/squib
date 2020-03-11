@@ -16,7 +16,7 @@ Squib::Deck.new cards: cards['Type'].size do
             "white"
         end
     end
-    background color: background_color, foo: 'hi'
+    background color: background_color
 
     text_color = cards['Type'].map do |t|
         if color == 'black' && t == "Snake" then
