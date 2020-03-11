@@ -6,7 +6,7 @@ describe Squib.logger do
     oldstdout = $stdout
     $stdout = StringIO.new
     Squib::logger.warn 'Test warn'
-    expect($stdout.string).to match /WARN: Test warn/
+    expect($stdout.string).to match /\[.+WARN.*\] Test warn/
     $stdout = oldstdout
   end
 end
