@@ -6,7 +6,7 @@ module Squib::WarnUnexpectedParams
   def warn_if_unexpected(opts, uplevel: 5)
     unexpected = opts.keys - accepted_params
     unexpected.each do |key|
-      warn "Unexpected parameter '#{key.to_s.yellow}:' to #{dsl_method.to_s.cyan}(), ignoring...",
+      warn "Unexpected parameter '#{key.to_s.yellow}:' to #{dsl_method.to_s.cyan}(). Accepted parameters: #{accepted_params}",
            uplevel: uplevel
     end
   end
