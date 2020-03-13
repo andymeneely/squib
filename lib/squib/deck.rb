@@ -112,5 +112,11 @@ module Squib
     require_relative 'api/text'
     require_relative 'api/units'
 
+    ###################
+    ### DSL METHODS ###
+    ###################
+    require_relative 'dsl/background'
+    require_relative 'dsl/grid'
+
   end
 end

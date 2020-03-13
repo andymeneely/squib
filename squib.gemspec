@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rsvg2',                 '~> 3.4'
   spec.add_runtime_dependency 'ruby-progressbar',      '~> 1.10'
 
+  spec.add_development_dependency 'activesupport'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'coveralls', '>= 0.8.21'
   spec.add_development_dependency 'game_icons'

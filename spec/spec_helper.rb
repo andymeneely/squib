@@ -62,8 +62,12 @@ def project_template(file)
   "#{File.expand_path(File.dirname(__FILE__))}/../lib/squib/project_template/#{file}"
 end
 
-def doc(file)
-  "#{File.expand_path(File.dirname(__FILE__))}/../docs/#{file}"
+def doc_dsl_rst(name)
+  File.read("#{File.expand_path(File.dirname(__FILE__))}/../docs/dsl/#{name}.rst")
+end
+
+def doc_args_rst(name)
+  File.read("#{File.expand_path(File.dirname(__FILE__))}/../docs/args/#{name}.rst")
 end
 
 def conf(file)

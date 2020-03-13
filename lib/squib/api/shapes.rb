@@ -34,12 +34,12 @@ module Squib
     end
 
     # DSL method. See http://squib.readthedocs.io
-    def grid(opts = {})
-      range = Args::CardRange.new(opts[:range], deck_size: size)
-      draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      range.each { |i| @cards[i].grid(box[i], draw[i]) }
-    end
+    # def grid(opts = {})
+    #   range = Args::CardRange.new(opts[:range], deck_size: size)
+    #   draw  = Args::Draw.new(custom_colors).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+    #   box   = Args::Box.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+    #   range.each { |i| @cards[i].grid(box[i], draw[i]) }
+    # end
 
     # DSL method. See http://squib.readthedocs.io
     def triangle(opts = {})
