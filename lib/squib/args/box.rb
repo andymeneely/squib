@@ -2,8 +2,7 @@ require_relative 'arg_loader'
 
 module Squib::Args
 
-  module_function
-  def extract_box(opts, deck, dsl_method_defaults = {})
+  module_function def extract_box(opts, deck, dsl_method_defaults = {})
     Box.new(deck, dsl_method_defaults).extract!(opts, deck)
   end
 

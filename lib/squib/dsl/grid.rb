@@ -25,9 +25,9 @@ module Squib
 
       def run(opts)
         warn_if_unexpected opts
-        range = Args::CardRange.new(opts[:range], deck_size: deck.size)
-        draw  = Args::Draw.new(@deck.custom_colors).extract!(opts, deck)
-        box   = Args.extract_box(opts, deck)
+        range = Args.extract_range opts, deck
+        draw  = Args.extract_draw opts, deck
+        box   = Args.extract_box opts, deck
         range.each { |i| deck.cards[i].grid(box[i], draw[i]) }
       end
     end
