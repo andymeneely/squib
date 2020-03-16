@@ -6,6 +6,7 @@ module Squib::Args
   module_function def extract_paint(opts, deck)
     Paint.new(deck.custom_colors).extract!(opts, deck)
   end
+  
   class Paint
     include ArgLoader
     include ColorValidator
