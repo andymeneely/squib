@@ -40,7 +40,7 @@ crop_height
 
   Height of the cropped image. Supports :doc:`/units`.
 
-flip_horiztonal
+flip_horizontal
   default: ``false``
 
   Flip this image about its center horizontally (i.e. left becomes right and vice versa).

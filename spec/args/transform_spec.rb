@@ -8,15 +8,16 @@ describe Squib::Args::Box do
   context 'validation' do
     it 'replaces with deck width and height' do
       args  = { crop_width: :deck, crop_height: :deck }
-      deck  = OpenStruct.new(width: 123, height: 456)
-      trans = Squib::Args::Transform.new(deck)
-      trans.load!(args, expand_by: 1)
+      deck  = OpenStruct.new(width: 123, height: 456, size: 1)
+      trans = Squib::Args::Transform.new
+      trans.extract! args, deck
       expect(trans).to have_attributes(crop_width: [123], crop_height: [456])
     end
 
     it 'has radius override x_radius and y_radius' do
       args = { crop_corner_x_radius: 1, crop_corner_y_radius: 2, crop_corner_radius: 3 }
-      trans.load!(args, expand_by: 2)
+      deck  = OpenStruct.new(width: 123, height: 456, size: 2)
+      trans.extract! args, deck
       expect(trans).to have_attributes(crop_corner_x_radius: [3, 3], crop_corner_y_radius: [3, 3])
     end
 

@@ -21,7 +21,7 @@ module Squib
     # DSL method. See http://squib.readthedocs.io
     def save_pdf(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
-      sheet = Args::Sheet.new(custom_colors, { file: 'output.pdf' }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      sheet = Args::Sheet.new({ file: 'output.pdf' }).extract!(opts, self)
       sprue_file = Args::SprueFile.new.load!(opts, expand_by: size)
 
       if sprue_file.sprue.nil?
@@ -50,7 +50,7 @@ module Squib
     def save_sheet(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       batch = Args::SaveBatch.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      sheet = Args::Sheet.new(custom_colors, { margin: 0 }, size).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      sheet = Args::Sheet.new({ margin: 0 }).extract! opts, self
       sprue_file = Args::SprueFile.new.load!(opts, expand_by: size)
 
       if sprue_file.sprue.nil?
@@ -64,18 +64,10 @@ module Squib
     end
 
     # DSL method. See http://squib.readthedocs.io
-    def showcase(opts = {})
-      range    = Args::CardRange.new(opts[:range], deck_size: size)
-      showcase = Args::ShowcaseSpecial.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      sheet    = Args::Sheet.new(custom_colors, { file: 'showcase.png' }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      render_showcase(range, sheet, showcase)
-    end
-
-    # DSL method. See http://squib.readthedocs.io
     def hand(opts = {})
       range = Args::CardRange.new(opts[:range], deck_size: size)
       hand  = Args::HandSpecial.new(height).load!(opts, expand_by: size, layout: layout, dpi: dpi)
-      sheet = Args::Sheet.new(custom_colors, { file: 'hand.png', trim_radius: 0 }).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+      sheet = Args::Sheet.new({ file: 'hand.png', trim_radius: 0 }).extract!(opts, self)
       render_hand(range, sheet, hand)
     end
 

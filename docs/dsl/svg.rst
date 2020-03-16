@@ -19,11 +19,6 @@ file
 
 .. include:: /args/xy.rst
 
-range
-  default: ``all``
-
-  the range of cards over which this will be rendered. See :doc:`/arrays`
-
 data
   default: ``nil``
 
@@ -106,7 +101,7 @@ crop_height
 
   ive): Height of the cropped image. Supports :doc:`/units`
 
-flip_horiztonal
+flip_horizontal
   default: ``false``
 
   Flip this image about its center horizontally (i.e. left becomes right and vice versa).

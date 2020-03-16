@@ -107,18 +107,19 @@ describe Squib::Args::Box do
   end
 
   context 'validation' do
+    let(:deck) { OpenStruct.new(width: 123, height: 456, size: 1) }
+
     it 'replaces with deck width and height' do
       args = { width: :deck, height: :deck }
-      deck = OpenStruct.new(width: 123, height: 456)
-      box = Squib::Args::Box.new(deck)
-      box.load!(args, expand_by: 1)
+      box = Squib::Args::Box.new
+      box.extract! args, deck
       expect(box).to have_attributes(width: [123], height: [456])
     end
 
     it 'has radius override x_radius and y_radius' do
       args = { x_radius: 1, y_radius: 2, radius: 3 }
-      box.load!(args, expand_by: 2)
-      expect(box).to have_attributes(x_radius: [3, 3], y_radius: [3, 3])
+      box.extract! args, deck
+      expect(box).to have_attributes(x_radius: [3], y_radius: [3])
     end
 
   end

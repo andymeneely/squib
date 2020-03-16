@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'squib/args/box'
+require 'squib/args/svg_special'
 
 describe Squib::Args::SvgSpecial do
   subject(:svgargs) { Squib::Args::SvgSpecial.new }

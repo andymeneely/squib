@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'squib/args/scale_box'
 
 describe Squib::Args::ScaleBox do
-  subject(:box) { Squib::Args::ScaleBox.new({}) }
+  subject(:box) { Squib::Args::ScaleBox.new }
 
   context 'unit conversion' do
     it 'converts units on all args' do

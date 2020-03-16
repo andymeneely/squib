@@ -5,9 +5,10 @@ require 'ostruct'
 # Intended to be used a a mix-in,
 # For example use see Box as an example
 module Squib::Args::ArgLoader
-  
+
   # wrapper for compatibility
   def extract!(args, deck)
+    @deck = deck
     load!(args, expand_by: deck.size, layout: deck.layout, dpi: deck.dpi)
   end
 
