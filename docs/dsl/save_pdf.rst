@@ -100,5 +100,7 @@ rtl
 
     whether to render columns right to left, used for duplex printing of card backs
 
+.. include:: /args/range.rst
+
 Examples
 --------

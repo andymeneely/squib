@@ -1,6 +1,9 @@
 require 'cairo'
 
 module Squib::Args
+  module_function def extract_hand_special(opts, deck)
+    HandSpecial.new(deck.height).extract! opts, deck
+  end
 
   class HandSpecial
     include ArgLoader

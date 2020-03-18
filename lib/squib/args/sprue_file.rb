@@ -1,6 +1,9 @@
 require_relative 'arg_loader'
 
 module Squib::Args
+  module_function def extract_sprue_file(opts, deck, dsl_method_default = {})
+    SprueFile.new.extract! opts, deck
+  end
   class SprueFile
     include ArgLoader
 

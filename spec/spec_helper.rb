@@ -9,6 +9,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
 SimpleCov.start
 
 require 'squib'
+require 'rainbow/refinement'
 
 RSpec.configure do |config|
   config.mock_with :rspec do |mocks|

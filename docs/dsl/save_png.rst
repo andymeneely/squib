@@ -6,12 +6,6 @@ Saves the given range of cards to a PNG
 Options
 -------
 
-
-range
-  default ``:all``
-
-  the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-
 dir
   default: ``'_output'``
 
@@ -41,6 +35,8 @@ trim_radius
   default: ``0``
 
   the rounded rectangle radius around the card to trim before saving.
+
+.. include:: /args/range.rst
 
 Examples
 --------

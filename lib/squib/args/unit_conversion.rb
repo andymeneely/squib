@@ -2,14 +2,8 @@ require_relative '../constants'
 
 module Squib
   module Args
-    # :nodoc:
-    # @api private
     module UnitConversion
-
-      # :nodoc:
-      # @api private
-      module_function
-      def parse(arg, dpi=300)
+      module_function def parse(arg, dpi=300)
         case arg.to_s.rstrip
         when /in$/ # ends with "in"
           arg.rstrip[0..-2].to_f * dpi
@@ -23,7 +17,6 @@ module Squib
           arg
         end
       end
-
     end
   end
 end

@@ -2,6 +2,10 @@ require_relative 'arg_loader'
 require_relative 'dir_validator'
 
 module Squib::Args
+  module_function def extract_save_batch(opts, deck)
+    SaveBatch.new.extract! opts, deck
+  end
+
   class SaveBatch
     include ArgLoader
     include DirValidator

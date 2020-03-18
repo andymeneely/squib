@@ -105,7 +105,6 @@ module Squib
     require_relative 'dsl/background'
     require_relative 'api/data'
     require_relative 'api/groups'
-    require_relative 'api/save'
     require_relative 'api/settings'
     require_relative 'api/shapes'
     require_relative 'api/text'
@@ -116,7 +115,12 @@ module Squib
     ###################
     require_relative 'dsl/background'
     require_relative 'dsl/grid'
+    require_relative 'dsl/hand'
     require_relative 'dsl/png'
+    require_relative 'dsl/save_pdf'
+    require_relative 'dsl/save_png'
+    require_relative 'dsl/save_sheet'
+    require_relative 'dsl/save'
     require_relative 'dsl/showcase'
     require_relative 'dsl/svg'
 
