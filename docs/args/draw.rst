@@ -34,3 +34,8 @@ cap
   default: ``:butt``
 
   Define how the end of the stroke is drawn. Options are ``:square``, ``:butt``, and ``:round`` (or string equivalents of those).
+
+join
+  default: ``:mitre``
+
+  Specifies how to render the junction of two lines when stroking. Options are ``:mitre``, ``:round``, and ``:bevel``.

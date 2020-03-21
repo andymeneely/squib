@@ -59,6 +59,6 @@ Squib::Deck.new(width: 825, height: 1125, cards: 3) do
     end
   end
 
-  rect color: 'black' # just a border
+  rect stroke_color: 'black' # just a border
   save_sheet prefix: 'ranges_', columns: 3
 end

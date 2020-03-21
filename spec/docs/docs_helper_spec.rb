@@ -8,9 +8,9 @@ describe 'docs spec helper' do
     expect(options.sort).to eq(%i(color range))
   end
 
-  it 'gets all documented options for grid' do
+  it 'gets all documented options for grid.rst' do
     expected = %i(x y width height fill_color stroke_color stroke_width
-      stroke_strategy dash cap range layout)
+      stroke_strategy join dash cap range layout)
     options = documented_options(:Grid)
     expect(options.sort).to eq(expected.sort)
   end

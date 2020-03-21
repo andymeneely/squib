@@ -1,7 +1,7 @@
 require_relative 'arg_loader'
 
 module Squib::Args
-  module_function def extract_coord(opts, deck)
+  module_function def extract_coords(opts, deck)
     Coords.new.extract!(opts, deck)
   end
 

@@ -2,13 +2,13 @@ require_relative '../errors_warnings/warn_unexpected_params'
 
 module Squib
   class Deck
-    def grid(opts = {})
-      DSL::Grid.new(self, __callee__).run(opts)
+    def rect(opts = {})
+      DSL::Rect.new(self, __callee__).run(opts)
     end
   end
 
   module DSL
-    class Grid
+    class Rect
       include WarnUnexpectedParams
       attr_reader :dsl_method, :deck
 
@@ -18,7 +18,8 @@ module Squib
       end
 
       def self.accepted_params
-        %i(x y width height
+        %i(x y width height angle
+           x_radius y_radius radius
            fill_color stroke_color stroke_width stroke_strategy join dash cap
            range layout)
       end
@@ -28,7 +29,8 @@ module Squib
         range = Args.extract_range opts, deck
         draw  = Args.extract_draw opts, deck
         box   = Args.extract_box opts, deck
-        range.each { |i| deck.cards[i].grid(box[i], draw[i]) }
+        trans   = Args.extract_transform opts, deck
+        range.each { |i| deck.cards[i].rect(box[i], draw[i], trans[i]) }
       end
     end
   end

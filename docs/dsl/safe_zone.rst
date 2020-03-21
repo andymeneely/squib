@@ -42,6 +42,20 @@ stroke_width
 
   the width of the outside stroke. Supports :doc:`/units`.
 
+x_radius
+  default: ``0.125in``
+
+  The x radius of the rounded corners. Supports :doc:`/units`.
+
+y_radius
+  default: ``0.125in``
+
+  The y radius of the rounded corners. Supports :doc:`/units`.
+
+radius
+  default: ``nil``
+
+  The x and y radius of the rounded corners. If specified, overrides x_radius and y_radius. Supports :doc:`/units`.
 
 stroke_strategy
   default:  ``:fill_first``
@@ -50,6 +64,11 @@ stroke_strategy
 
   Must be either ``:fill_first`` or ``:stroke_first`` (or their string equivalents).
 
+join
+  default: ``:mitre``
+
+  Specifies how to render the junction of two lines when stroking. Options are ``:mitre``, ``:round``, and ``:bevel``.
+  
 dash
   default: ``'3 3'`` (no dash pattern set)
 

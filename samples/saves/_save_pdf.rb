@@ -3,7 +3,7 @@ require 'squib'
 Squib::Deck.new(cards: 8) do
   background color: :gray
   rect x: 37.5, y: 37.5, width: 750, height: 1050,
-       x_radius: 37.5, y_radius: 37.5, stroke: 3.0, dash: '4 4'
+       x_radius: 37.5, y_radius: 37.5, stroke_width: 2.0, dash: '4 4'
 
    # Tests for crop marks
    save_pdf file: 'crops-default.pdf', crop_marks: true

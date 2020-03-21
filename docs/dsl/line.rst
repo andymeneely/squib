@@ -30,20 +30,6 @@ y2
 
   the y-coordinate to place. Supports :doc:`/units/`
 
-
-x3
-  default: ``0``
-
-  the x-coordinate to place. Supports :doc:`/units/`
-
-
-y3
-  default: ``50``
-
-  the y-coordinate to place. Supports :doc:`/units/`
-
-
-
 .. include:: /args/draw.rst
 .. include:: /args/range.rst
 .. include:: /args/layout.rst

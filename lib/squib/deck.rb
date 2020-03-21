@@ -102,11 +102,9 @@ module Squib
     ##################
     ### PUBLIC API ###
     ##################
-    require_relative 'dsl/background'
     require_relative 'api/data'
     require_relative 'api/groups'
     require_relative 'api/settings'
-    require_relative 'api/shapes'
     require_relative 'api/text'
     require_relative 'api/units'
 
@@ -114,15 +112,25 @@ module Squib
     ### DSL METHODS ###
     ###################
     require_relative 'dsl/background'
+    require_relative 'dsl/circle'
+    require_relative 'dsl/curve'
+    require_relative 'dsl/cut_zone'
+    require_relative 'dsl/ellipse'
     require_relative 'dsl/grid'
     require_relative 'dsl/hand'
+    require_relative 'dsl/line'
     require_relative 'dsl/png'
+    require_relative 'dsl/polygon'
+    require_relative 'dsl/rect'
+    require_relative 'dsl/safe_zone'
     require_relative 'dsl/save_pdf'
     require_relative 'dsl/save_png'
     require_relative 'dsl/save_sheet'
     require_relative 'dsl/save'
     require_relative 'dsl/showcase'
+    require_relative 'dsl/star'
     require_relative 'dsl/svg'
+    require_relative 'dsl/triangle'
 
   end
 end
