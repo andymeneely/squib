@@ -31,7 +31,7 @@ Wanna see more? Check out the website: http://andymeneely.github.io/squib/
 
 ## Installation
 
-Squib requires Ruby 2.2 or later.
+Squib requires Ruby 2.4 or later.
 
 Install it yourself with:
 
@@ -105,6 +105,30 @@ Using SublimeText? I like you already. I've written up some Squib snippets to ea
 
 ![Sublime Squib Snippets](https://raw.githubusercontent.com/andymeneely/squib/screencasts/sublime-squib-snippets.gif)
 
+
+## Docker
+
+Want to run in a controlled environment? We've got a [Docker image on DockerHub](https://cloud.docker.com/u/andymeneely/repository/docker/andymeneely/squib)
+
+Here's one way to run it. On the command line, go to the root of your repository. With these commands, we'll map the current directory to the `/usr/src/app` directory in the Docker image. When squib-in-docker read & writes files from there, it'll write it back out to your current directory.
+
+Assuming you have a script called hello.rb:
+
+On Windows:
+
+```
+docker run --rm -v "%cd%":/usr/src/app andymeneely/squib ruby hello.rb
+```
+
+On Macs:
+
+```
+docker run --rm -v "$PWD":/usr/src/app andymeneely/squib ruby hello.rb
+```
+
+This will create a folder called `_output` in your current directory and write the output of the script there.
+
+We're still working on ways to customize your own Docker build (e.g. document building, custom fonts, etc.) with your own Dockerfile. Pull requests and ideas welcome!
 
 
 # Get Help and Give Help

@@ -13,7 +13,13 @@ describe Squib::Sprue do
       Squib::Sprue::DEFAULTS['crop_line']['overlay']
     )
     expect(tmpl.crop_lines).to eq([])
-    expect(tmpl.cards).to eq([{ 'x' => 50, 'y' => 100, 'rotate' => 0 }])
+    expect(tmpl.cards).to eq([{
+      'x' => 50,
+      'y' => 100,
+      'rotate' => 0,
+      'flip_horizontal' => false,
+      'flip_vertical' => false,
+      }])
   end
 
   it 'loads from the default templates if none exists' do
@@ -142,6 +148,15 @@ describe Squib::Sprue do
     expect(tmpl.cards.map { |card| card['rotate'] }).to eq(
       [0.5 * Math::PI, 1.5 * Math::PI, Math::PI, 1, Math::PI / 3, 1.25]
     )
+  end
+
+  it 'loads a template with flipped cards' do
+    tmpl = Squib::Sprue.load(sprue_file('card_flip.yml'), 100)
+    expect(tmpl.cards.length).to eq(3)
+    expect(tmpl.cards.map { |card| card['flip_vertical'] })
+      .to eq( [false, true, false] )
+    expect(tmpl.cards.map { |card| card['flip_horizontal'] })
+      .to eq( [false, false, true] )
   end
 
   it 'fails when sheet_width is not defined' do

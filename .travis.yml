@@ -1,19 +1,17 @@
-dist: trusty
 language: ruby
 sudo: true # need this for libgirepository1.0-dev
-# sudo: false # taking advantage of container-based infrastructure
-# cache: bundler # cache bundled gems from build to build
 addons:
   apt:
     packages:
       - libgirepository1.0-dev # for gobject-introspection
 rvm:
-  - 2.2
-  - 2.3.3
-  - 2.4.1
   - 2.4.2
-  - 2.5.0
+  - 2.5.3
+  - 2.6.3
   - ruby-head
+before_install:
+  - gem update --system
+  - gem install bundler
 matrix:
   allow_failures:
     - rvm: ruby-head

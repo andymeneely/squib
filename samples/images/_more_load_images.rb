@@ -93,7 +93,7 @@ Squib::Deck.new(width: 825, height: 1125, cards: 1, config: 'load_images_config.
   # but sometimes want to use none.
   # e.g. id: [:attack, :defend, nil]
   svg file: 'spanner.svg', width: :deck, height: :deck,
-      force_id: true, id: '' # <-- the important part
+      force_id: true, id: nil # <-- the important part
 
   # Squib can handle incorrectly formatted svg files
   svg file: 'bad-svg.svg'

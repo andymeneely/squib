@@ -4,21 +4,22 @@ skip_tags: true
 
 environment:
   matrix:
-    - ruby_version: "23"
-    - ruby_version: "23-x64"
+    - ruby_version: "24"
+    - ruby_version: "24-x64"
+    - ruby_version: "25"
+    - ruby_version: "25-x64"
+    - ruby_version: "26"
+    - ruby_version: "26-x64"
 
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
   - ruby --version
   - gem --version
-  - gem install bundler --quiet --no-ri --no-rdoc
+  - gem install bundler
   - bundler --version
   - bundle install
 
 test_script:
   - rake
-
-artifacts:
-  - path: pkg\*.gem
 
 build: off

@@ -88,3 +88,25 @@ Sample: gradients
 .. raw:: html
 
   <img src="colors/gradient_00_expected.png" width=600 class="figure">
+
+Sample: Switch color based on variable
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Say you have different card types with different colors or themes but you would like to change the theme quickly without changing all parameters for each method inside ``Squib::Deck.new()``.
+
+You could use something like the following snippet to have one place to define the color/theme and use that in all map functions. The example inverts the color from white to black for one card type. Use a switch-statement inside the map function to differentiate multiple types.
+
+It's possible to use that for e.g. background color, text color or to choose the correct SVG for that color scheme (e.g. use the white or the black version of an image). The sample shows how to define the color at one place, e.g. choose between white and black, to quickly change the color scheme for the cards:
+
+Here's the data or see the tab-separated file in the sample directory:
+
+=====  ======================
+Type   Text
+=====  ======================
+Snake  This is a snake.
+Lion   This is a lion.
+=====  ======================
+
+.. literalinclude:: ../samples/colors/_switch_color.rb
+  :language: ruby
+  :linenos:
