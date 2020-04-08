@@ -39,7 +39,7 @@ module Squib
     file = Args::InputFile.new(file: 'deck.csv').load!(opts).file[0]
     data = opts.key?(:data) ? opts[:data] : File.read(file)
     csv_opts = Args::CSV_Opts.new(opts)
-    table = CSV.parse(data, csv_opts.to_hash)
+    table = CSV.parse(data, **csv_opts.to_hash)
     check_duplicate_csv_headers(table)
     hash = Squib::DataFrame.new
     table.headers.each do |header|
