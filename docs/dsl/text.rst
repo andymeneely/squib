@@ -27,7 +27,7 @@ font_size
 
 .. include:: /args/xy.rst
 
-markup:
+markup
   default: ``false``
 
   When set to true, various extra styles are allowed. See :ref:`Markup <text-markup>`.
@@ -156,6 +156,11 @@ file
 
   file(s) to read in, relative to the root directory or ``img_dir`` if set in the config.
 
+data
+  default: ``nil``
+
+  render from an SVG XML string. Overrides ``file`` if both are specified (a warning is shown).
+
 id
   default: ``nil``
 
@@ -192,7 +197,7 @@ dy
 
   "delta y", or adjust the icon vertically by y pixels
 
-flip_horiztonal
+flip_horizontal
   default: ``false``
 
   Flip this image about its center horizontally (i.e. left becomes right and vice versa).
@@ -252,7 +257,7 @@ dy
 
   "delta y", or adjust the icon vertically by y pixels
 
-flip_horiztonal
+flip_horizontal
   default: ``false``
 
   Flip this image about its center horizontally (i.e. left becomes right and vice versa).

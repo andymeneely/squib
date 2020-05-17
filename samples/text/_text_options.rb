@@ -1,5 +1,6 @@
 # encoding: UTF-8
-require 'squib'
+# require 'squib'
+require_relative '../../lib/squib'
 
 data = { 'name' => ['Thief', 'Grifter', 'Mastermind'],
         'level' => [1, 2, 3] }

@@ -3,6 +3,10 @@ require_relative 'arg_loader'
 
 module Squib::Args
 
+  module_function def extract_para(opts, deck, dsl_method_defaults = {})
+    Paragraph.new(deck.font).extract!(opts, deck)
+  end
+
   class Paragraph
     include ArgLoader
 
