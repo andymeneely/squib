@@ -85,7 +85,7 @@ Go [read the docs!](http://squib.readthedocs.org/)
 
 Also:
 * The `samples` directory in the [source repository](https://github.com/andymeneely/squib) has lots of examples.
-* [Your Last Heist](http://yourlastheist.com) is my own creation, and it was made with Squib. Go through the repository and watch how it evolved!
+* [Masters of the Heist](http://mastersoftheheist.com) is my own creation, and it was made with Squib. Go through the repository and watch how it evolved!
 * [Junk Land](https://github.com/andymeneely/junk-land) is my own creation that's uses Squib for full-color rendering, and makes use of Ruby in a lot of interesting ways. The port is still in process.
 * [Project Spider Monkey](https://github.com/andymeneely/project-spider-monkey) is another of my own creations. This one was started from scratch with Squib, but it's still in its early stages.
 
