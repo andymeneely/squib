@@ -33,10 +33,11 @@ module Squib
           range = Args.extract_range opts, deck
           batch = Args.extract_save_batch opts, deck
           @bar.start("Saving PNGs to #{batch.summary}", deck.size) do |bar|
-            range.each do |i|
+            range.map do |i|
               deck.cards[i].save_png(batch[i])
               bar.increment
             end
+
           end
         end
 
