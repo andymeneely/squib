@@ -5,7 +5,7 @@ require 'squib'
 #     black snake cards with white text
 color = 'white'
 
-cards = Squib.csv file: '_switch_color_data.csv', col_sep: "\t"
+cards = Squib.csv file: '_switch_color_data.csv'
 
 Squib::Deck.new cards: cards['Type'].size do
 
