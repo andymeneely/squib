@@ -6,6 +6,9 @@ require 'benchmark'
 desc 'install + spec'
 task default: ['install:local', :spec]
 
+desc 'test => spec'
+task test: [:spec]
+
 # Useful for hooking up with SublimeText.
 # e.g. rake sample[basic.rb]
 desc 'Run a specific sample'

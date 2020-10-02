@@ -1,13 +1,6 @@
-require 'simplecov'
-require 'coveralls'
 require 'byebug'
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
-])
-SimpleCov.start
-
+require 'coveralls'
+Coveralls.wear!
 require 'squib'
 require 'rainbow/refinement'
 

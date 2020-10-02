@@ -1,25 +1,31 @@
-FROM ruby:2.5-alpine
+# This is the official Squib Docker image. 
+# 
+FROM ruby:2.6-alpine
 WORKDIR /usr/src/app
 
 LABEL org.squib.url=http://squib.rocks \
       org.squib.github=https://github.com/andymeneely/squib
 
-RUN apk --no-cache add --update \
-    ruby-dev \
+# This works, but it really bloats the image
+RUN apk --no-cache --update --upgrade add  \
     build-base \
-    libxml2-dev \
-    libxslt-dev \
-    pcre-dev \
-    libffi-dev \
-    cairo
+    cairo-dev \
+    pango-dev \
+    gobject-introspection-dev \
+    gdk-pixbuf-dev \
+    librsvg-dev
+
+RUN gem install squib
+
+# Remove some of the dev tools
+RUN apk del build-base
+
+RUN apk --no-cache --update --upgrade add \
+    ttf-opensans
 
 # Just for devving on
-COPY . /app
+# CMD ["sh"]
+# RUN apk --no-cache add ncdu
 
-CMD ["sh"]
 
-# RUN gem install \
-#     squib \
-#     -- --use-system-libraries
 
-# NOTE: STILL UNDER DEVELOPMENT! Don't use this just yet.
