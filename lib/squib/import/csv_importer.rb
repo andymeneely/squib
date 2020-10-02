@@ -1,3 +1,4 @@
+require 'csv'
 require_relative 'quantity_exploder'
 
 module Squib::Import

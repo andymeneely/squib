@@ -1,4 +1,5 @@
 require_relative '../args/import'
+require_relative '../args/csv_opts'
 require_relative '../import/csv_importer'
 require_relative '../errors_warnings/warn_unexpected_params'
 

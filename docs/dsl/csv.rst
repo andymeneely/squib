@@ -49,6 +49,11 @@ col_sep
 
   Column separator. One of the CSV custom options in Ruby. See next option below.
 
+quote_char
+  default: ``'"'``
+
+  Character used to quote strings that have a comma in them. One of the CSV custom options in Ruby. See next option below.
+
 CSV custom options in Ruby standard lib.
   All of the options in Ruby's std lib version of CSV are supported **except** ``headers`` is always ``true`` and ``converters`` is always set to ``:numeric``. See the `Ruby Docs <http://ruby-doc.org/stdlib-2.2.0/libdoc/csv/rdoc/CSV.html#method-c-new>`_ for information on the options.
 

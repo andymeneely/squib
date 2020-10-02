@@ -1,3 +1,4 @@
+require 'roo'
 require_relative 'quantity_exploder'
 
 module Squib::Import
