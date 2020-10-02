@@ -35,6 +35,8 @@ explode
 
   Quantity explosion will be applied to the column this name. For example, rows in the csv with a ``'qty'`` of 3 will be duplicated 3 times.
 
+.. warning::
+  Data import methods such as ``xlsx`` and ``csv`` will not consult your layout file or follow the :doc:`/arrays` feature.
 
 Individual Pre-processing
 -------------------------

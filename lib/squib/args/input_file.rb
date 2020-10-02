@@ -13,9 +13,7 @@ module Squib::Args
     end
 
     def self.parameters
-      { file: nil,
-        sheet: 0,
-      }
+      { file: nil }
     end
 
     def self.expanding_parameters

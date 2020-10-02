@@ -12,7 +12,7 @@ module Squib::Args::ArgLoader
     load!(args, expand_by: deck.size, layout: deck.layout, dpi: deck.dpi)
   end
 
-  # Main class invoked by the client (i.e. api/ methods)
+  # Main class invoked by the client (i.e. dsl/ methods)
   def load!(args, expand_by: 1, layout: {}, dpi: 300)
     @dpi = dpi
     args[:layout] = prep_layout_args(args[:layout], expand_by: expand_by)

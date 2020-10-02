@@ -131,5 +131,6 @@ module Squib
     require_relative 'dsl/text'
     require_relative 'dsl/triangle'
     require_relative 'dsl/units'
+    require_relative 'dsl/xlsx'
   end
 end
