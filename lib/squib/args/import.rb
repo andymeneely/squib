@@ -10,10 +10,12 @@ module Squib::Args
   class Import
     
     def self.parameters
-      { strip: true,
+      { 
+        data: nil,
         explode: 'qty',
         file: nil,
-        sheet: 0
+        sheet: 0,
+        strip: true,
       }
     end
 
@@ -31,6 +33,7 @@ module Squib::Args
       @strip   = validate_strip   opts[:strip]
       @explode = validate_explode opts[:explode]
       @file    = validate_file    opts[:file]
+      @data    = validate_data    opts[:data]
       @sheet   = opts[:sheet]
       return self
     end
@@ -45,13 +48,18 @@ module Squib::Args
     end
 
     def validate_file(arg)
-      raise 'file argument not provided.' if arg.nil?
+      return nil if arg.nil?
       raise "File #{File.expand_path(arg)} does not exist!" unless File.exists?(arg)
       File.expand_path(arg)
     end
 
     def strip?
       strip
+    end
+
+    def validate_data(arg)
+      return nil if arg.nil?
+      arg.to_s
     end
 
   end

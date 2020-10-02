@@ -102,7 +102,6 @@ module Squib
     ##################
     ### PUBLIC API ###
     ##################
-    require_relative 'api/data'
     require_relative 'api/settings'
 
     ###################
@@ -110,6 +109,7 @@ module Squib
     ###################
     require_relative 'dsl/background'
     require_relative 'dsl/circle'
+    require_relative 'dsl/csv'
     require_relative 'dsl/curve'
     require_relative 'dsl/cut_zone'
     require_relative 'dsl/ellipse'
@@ -132,5 +132,6 @@ module Squib
     require_relative 'dsl/triangle'
     require_relative 'dsl/units'
     require_relative 'dsl/xlsx'
+    require_relative 'dsl/yaml'
   end
 end
