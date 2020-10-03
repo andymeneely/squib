@@ -37,7 +37,7 @@ end
 #     from each value. This is the default behavior in Squib, but the options
 #     are here just to make sure.
 
-resource_data = Squib.xlsx(file: 'sample.xlsx', sheet: 2, strip: true) do |header, value|
+resource_data = Squib.xlsx(file: 'sample.xlsx', explode: 'Qty', sheet: 2, strip: true) do |header, value|
   case header
   when 'Cost'
     "$#{value}k" # e.g. "3" becomes "$3k"
