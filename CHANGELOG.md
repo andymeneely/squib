@@ -4,7 +4,22 @@ Squib follows [semantic versioning](http://semver.org).
 ## v0.16.0 / Unreleased
 
 Features:
-* Autscaling text! `ellipsize: :autoscale` will now downscale your `font_size` if the text ellipsized. Thanks @Qgel! (#288, #111). 
+* Autoscaling text! `ellipsize: :autoscale` will now downscale your `font_size` if the text ellipsized. Thanks @Qgel! (#288, #111). 
+* Option checking!! Completely reworked the way we handle arguments in Squib internally (no external behavioral differences). Now, when you give an option to Squib that is not expected. Since every DSL method "knows" what options it takes, that also means we have EVERY option properly documented (missed a few...) AND we have an automated test that will tell us if we forget to document it.
+
+Compatibility:
+* When saving PNGs with sprues, outputs start counting at zero - which is more consistent with the rest of Squib.
+
+Bugs:
+* Extra page/no page issue with sprues (#320)
+* Fix Ruby 2.7+ deprecations with CSV arguments (#303)
+
+Chores:
+* Reorganized the code internally. (#298) Every DSL method now has its own file.
+* Moved to Github Actions
+* Bump pango et al
+
+
 
 ## v0.15.3 / 2019-10-17
 

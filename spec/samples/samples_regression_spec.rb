@@ -68,5 +68,4 @@ describe 'Squib samples' do
       expect(log.string).to eq(test_file_str)
     end
   end
-
 end

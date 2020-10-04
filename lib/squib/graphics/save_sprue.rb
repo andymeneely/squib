@@ -5,7 +5,7 @@ module Squib
       def initialize(deck, tmpl, sheet_args)
         @deck = deck
         @tmpl = tmpl
-        @page_number = 1
+        @page_number = 0
         @sheet_args = sheet_args # might be Args::Sheet or Args::SaveBatch
         @overlay_lines = @tmpl.crop_lines.select do |line|
           line['overlay_on_cards']
@@ -39,7 +39,7 @@ module Squib
           end
 
           draw_overlay_above_cards cc
-          cc.target.finish
+          draw_final_page cc # See bug #320
         end
       end
 
@@ -190,6 +190,11 @@ module Squib
         cc
       end
 
+      def draw_final_page(cc)
+        # PDF doesn't need to create a last page. See bug #320
+        cc.target.finish
+      end 
+
       def full_filename
         @sheet_args.full_filename
       end
@@ -209,6 +214,13 @@ module Squib
         cc.set_source_color(:white) # white backdrop TODO make option
         cc.paint
         cc
+      end
+
+      # The last page always gets written out for PNGs because they are separate
+      # files and don't get "flushed" automatically. See bug #320.
+      def draw_final_page(cc)
+        draw_page cc
+        cc.target.finish
       end
 
       def full_filename

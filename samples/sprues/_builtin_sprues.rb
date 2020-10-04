@@ -17,5 +17,6 @@ Squib::Deck.new(width: '50mm', height: '70mm', cards: 9) do
     drivethrucards_1up.yml
   ).each do |builtin|
     save_sheet sprue: builtin, prefix: "sprue_#{builtin}_"
+    save_pdf sprue: builtin, file: "sprue_#{builtin}_"
   end
 end
