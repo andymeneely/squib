@@ -1,0 +1,7 @@
+example: 
+  x: 0.15in
+  y: middle
+  stroke_color: blue
+  width: 30
+  height: 30
+

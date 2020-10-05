@@ -13,6 +13,8 @@ module Squib
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM
         when /mm$/ # ends with "mm"
           arg.rstrip[0..-2].to_f * dpi * INCHES_IN_CM / 10.0
+        when /deg$/ # ends with "deg"
+          arg.rstrip[0..-3].to_f * (Math::PI / 180.0)
         else
           arg
         end

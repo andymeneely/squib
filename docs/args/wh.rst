@@ -9,4 +9,4 @@ width
 height
   default: ``:deck`` (the height of the deck)
 
-  the height of the box. Supports :doc:`/units`.
+  the height of the box. Supports :doc:`/units`. Also can be ``:center`` or ``:middle`` for half the height of the deck. Supports :doc:`/units`.

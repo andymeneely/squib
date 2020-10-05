@@ -23,5 +23,10 @@ module Squib
       @dpi * Squib::INCHES_IN_CM * n.to_f / 10.0
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def deg(n)
+      n.to_f * (Math::PI / 180.0)
+    end
+
   end
 end

@@ -8,3 +8,10 @@ example:
   y: -= 5mm
   width: 1.25in
   height: 300   # pixels
+
+angled:
+  x: 220
+  y: 300
+  width: 30
+  height: 30
+  angle: 100deg

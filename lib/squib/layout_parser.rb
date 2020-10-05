@@ -1,9 +1,11 @@
 require 'yaml'
+require_relative 'args/xywh_shorthands'
 
 module Squib
   # Internal class for handling layouts
   # @api private
   class LayoutParser
+    include Args::XYWHShorthands
 
     def initialize(dpi = 300)
       @dpi = dpi
@@ -67,6 +69,9 @@ module Squib
     end
 
     def handle_relative_operators(parent_val, child_val)
+      unless has_digits?(parent_val) && has_digits?(child_val)
+        raise "Layout parse error: can't combine #{parent_val} and #{child_val}"
+      end
       if child_val.to_s.strip.start_with?('+=')
         add_parent_child(parent_val, child_val)
       elsif child_val.to_s.strip.start_with?('-=')
@@ -102,6 +107,13 @@ module Squib
       parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
       child_float = child.sub('/=', '').to_f
       parent_pixels / child_float
+    end
+
+    # For relative operators, it's difficult for us to handle 
+    # some of the shorthands - so let's just freak out if you're trying to use 
+    # relative operators with words, e.g. "middle += 0.5in"
+    def has_digits?(str)
+      str.match? /.*\d.*/
     end
 
     # Does this layout entry have an extends field?

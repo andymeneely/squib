@@ -23,10 +23,15 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
   	   width: safe_width, height: safe_height,
        radius: '2 mm '
 
+  # Angles are also automatically converted to radians if you use deg
+  svg file: '../spanner.svg',
+      x: 100, y: 100, width: 40, height: 40, angle: '30deg'
+
   # We can also do stuff in layout. Check out the yml file...
   #  (even cleaner in Yaml since we don't need quotes!)
   use_layout file: 'using_units.yml'
   text str: 'Hello.', layout: :example
+  svg file: '../spanner.svg', layout: :angled
 
   save prefix: 'units_', format: :png
 end

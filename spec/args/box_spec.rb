@@ -122,6 +122,19 @@ describe Squib::Args::Box do
       expect(box).to have_attributes(x_radius: [3], y_radius: [3])
     end
 
+    it 'listens to middle' do 
+      args = { width: :middle, height: 'middle' }
+      box = Squib::Args::Box.new
+      box.extract! args, deck
+      expect(box).to have_attributes(width: [61.5], height: [228.0])
+    end
+    it 'listens to center' do 
+      args = { width: 'center', height: :center }
+      box = Squib::Args::Box.new
+      box.extract! args, deck
+      expect(box).to have_attributes(width: [61.5], height: [228.0])
+    end
+
   end
 
 

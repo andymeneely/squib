@@ -30,5 +30,9 @@ describe Squib::Args::UnitConversion do
     expect(subject.parse('1mm  ')).to eq(11.81102361)
   end
 
+  it 'does deg' do
+    expect(subject.parse('30deg')).to be_within(0.0001).of(0.523599)
+  end
+
 
 end
