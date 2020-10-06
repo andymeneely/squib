@@ -69,7 +69,7 @@ module Squib
     end
 
     def handle_relative_operators(parent_val, child_val)
-      unless has_digits?(parent_val) && has_digits?(child_val)
+      if uses_operator?(child_val) && !has_digits?(parent_val) && !has_digits?(child_val)
         raise "Layout parse error: can't combine #{parent_val} and #{child_val}"
       end
       if child_val.to_s.strip.start_with?('+=')
@@ -112,8 +112,12 @@ module Squib
     # For relative operators, it's difficult for us to handle 
     # some of the shorthands - so let's just freak out if you're trying to use 
     # relative operators with words, e.g. "middle += 0.5in"
-    def has_digits?(str)
-      str.match? /.*\d.*/
+    def has_digits?(arg)
+      /.*\d.*/ === arg.to_s
+    end
+
+    def uses_operator?(arg)
+      /^[+=|\-=|\/=|*=].*/ === arg.to_s
     end
 
     # Does this layout entry have an extends field?

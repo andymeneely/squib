@@ -1,4 +1,5 @@
 require_relative 'arg_loader'
+require_relative 'xywh_shorthands'
 
 module Squib::Args
   module_function def extract_coords(opts, deck)
@@ -7,6 +8,7 @@ module Squib::Args
 
   class Coords
     include ArgLoader
+    include XYWHShorthands
 
     def self.parameters
       { x: 0,    y: 0,
@@ -30,6 +32,18 @@ module Squib::Args
       parameters.keys # all of them
     end
 
+    def validate_x(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_y(arg,_i) apply_shorthands(arg, @deck, axis: :y) end
+    def validate_x1(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_y1(arg,_i) apply_shorthands(arg, @deck, axis: :y) end
+    def validate_x2(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_y2(arg,_i) apply_shorthands(arg, @deck, axis: :y)end
+    def validate_x3(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_y3(arg,_i) apply_shorthands(arg, @deck, axis: :y) end
+    def validate_cx1(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_cy1(arg,_i) apply_shorthands(arg, @deck, axis: :y) end
+    def validate_cx2(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_cy2(arg,_i) apply_shorthands(arg, @deck, axis: :y) end
   end
 
 end

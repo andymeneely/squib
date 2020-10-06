@@ -4,17 +4,16 @@ require_relative 'xywh_shorthands'
 module Squib::Args
 
   module_function def extract_box(opts, deck, dsl_method_defaults = {})
-    Box.new(deck, dsl_method_defaults, opts).extract!(opts, deck)
+    Box.new(deck, dsl_method_defaults).extract!(opts, deck)
   end
 
   class Box
     include ArgLoader
     include XYWHShorthands
 
-    def initialize(deck = nil, dsl_method_defaults = {}, opts = {})
+    def initialize(deck = nil, dsl_method_defaults = {})
       @deck = deck
       @dsl_method_defaults = dsl_method_defaults
-      @opts = opts # e.g. value of x can depend on the value of width
     end
 
     def self.parameters
@@ -32,22 +31,17 @@ module Squib::Args
       parameters.keys # all of them
     end
 
-    def validate_x(arg, i)
-      apply_x_shorthands(arg, @deck.width)
-    end
-
-    def validate_y(arg,_i)
-      apply_y_shorthands(arg, @deck.height)
-    end
+    def validate_x(arg, i) apply_shorthands(arg, @deck, axis: :x) end
+    def validate_y(arg,_i) apply_shorthands(arg, @deck, axis: :y) end
 
     def validate_width(arg, _i)
       return arg if @deck.nil?
-      apply_x_shorthands(arg, @deck.width)
+      apply_shorthands(arg, @deck, axis: :x)
     end
 
     def validate_height(arg, _i)
       return arg if @deck.nil?
-      apply_y_shorthands(arg, @deck.height)
+      apply_shorthands(arg, @deck, axis: :y)
     end
 
     def validate_x_radius(arg, i)
