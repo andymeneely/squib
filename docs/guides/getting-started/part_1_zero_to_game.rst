@@ -146,7 +146,7 @@ There are a few key decisions I've made here:
   * **Black-and-white**. We're now only using black or white so that we can be printer-friendly.
   * **Safe and Cut**. We added two rectangles for guides based on the poker card template from `TheGameCrafter.com <http://www.thegamecrafter.com>`_. This is important to do now and not later. In most print-on-demand templates, we have a 1/8-inch border that is larger than what is to be used, and will be cut down (called a *bleed*). Rather than have to change all our coordinates later, let's build that right into our prototype. Squib can trim around these bleeds for things like :doc:`/dsl/showcase`, :doc:`/dsl/hand`, :doc:`/dsl/save_sheet`, :doc:`/dsl/save_png`, and :doc:`/dsl/save_pdf`. See :doc:`/bleed`.
   * **Title**. We added a title based on our data.
-  * **layout: 'foo'**. Each command references a "layout" rule. These can be seen in our layout file, which is a built-in layout called ``economy.yml`` (see `ours on GitHub <https://github.com/andymeneely/squib/blob/master/lib/squib/layouts/economy.yml>`_ ). Later on, we can define our own layout rules in our own file, but for now we just want to get our work done as fast as possible and make use of the stock layout. See :doc:`/layouts`.
+  * **layout: 'foo'**. Each command references a "layout" rule. These can be seen in our layout file, which is a built-in layout called ``economy.yml`` (see `ours on GitHub <https://github.com/andymeneely/squib/tree/dev/lib/squib/builtin/layouts>`_ ). Later on, we can define our own layout rules in our own file, but for now we just want to get our work done as fast as possible and make use of the stock layout. See :doc:`/layouts`.
 
 Multiple Cards
 --------------
