@@ -1,0 +1,13 @@
+example:
+  x: 2c
+  y: middle + 0.25 cells
+  width: 2 cell
+  height: 0.75cell
+  fill_color: cyan
+
+extends_example:
+  extends: example
+  x: += 2c
+  height: -= 0.25c
+  fill_color: yellow
+

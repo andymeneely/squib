@@ -28,5 +28,10 @@ module Squib
       n.to_f * (Math::PI / 180.0)
     end
 
+    # DSL method. See http://squib.readthedocs.io
+    def cells(n)
+      n.to_f * @cell_px
+    end
+
   end
 end

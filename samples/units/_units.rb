@@ -34,4 +34,6 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
   svg file: '../spanner.svg', layout: :angled
 
   save prefix: 'units_', format: :png
+
+  # But wait... there's more! See _shorthands.rb for more fanciness with units
 end
