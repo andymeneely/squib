@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'squib/args/box'
 
 describe Squib::Args::Box do
-  let(:deck) { OpenStruct.new(width: 123, height: 456, size: 1, dpi: 300.0) }
+  let(:deck) { OpenStruct.new(width: 123, height: 456, size: 1, dpi: 300.0, cell_px: 37.5) }
   let(:expected_defaults) { { x: [0], y: [0], width: [123], height: [456] } }
 
   it 'intitially has no params set' do
@@ -33,7 +33,7 @@ describe Squib::Args::Box do
     let(:args)      { { x: [1, 2], y: 3 } }
     let(:deck_of_2) { OpenStruct.new(width: 123, height: 456, size: 2) }
     let(:box)       { Squib::Args.extract_box args, deck_of_2 }
-    
+
     it 'expands box' do
       expect(box).to have_attributes({
           x: [1, 2],
@@ -55,11 +55,11 @@ describe Squib::Args::Box do
 
   context 'layouts' do
     let(:deck_of_2) do
-      OpenStruct.new(width: 123, height: 456, size: 2, layout: { 
+      OpenStruct.new(width: 123, height: 456, size: 2, layout: {
         'attack' => { 'x' => 50 },
         'defend' => { 'x' => 60 },
       })
-    end 
+    end
 
     it 'are used when not specified' do
       args = { layout: ['attack', 'defend'] }
@@ -113,6 +113,17 @@ describe Squib::Args::Box do
       )
     end
 
+    it 'handles cells' do
+      args = {x: '1c', y: '1c', width: '1c', height: '1c'}
+      box = Squib::Args.extract_box args, deck
+      expect(box).to have_attributes(
+        x: [37.5],
+        width: [37.5],
+        y: [37.5],
+        height: [37.5],
+      )
+    end
+
   end
 
   context 'validation' do
@@ -128,25 +139,25 @@ describe Squib::Args::Box do
       expect(box).to have_attributes(x_radius: [3], y_radius: [3])
     end
 
-    it 'listens to middle' do 
+    it 'listens to middle' do
       args = { width: :middle, height: 'middle' }
       box = Squib::Args.extract_box args, deck
       expect(box).to have_attributes(width: [61.5], height: [228.0])
     end
 
-    it 'listens to center' do 
+    it 'listens to center' do
       args = { width: 'center', height: :center }
       box = Squib::Args.extract_box args, deck
       expect(box).to have_attributes(width: [61.5], height: [228.0])
     end
 
-    it 'listens to height/2' do 
+    it 'listens to height/2' do
       args = { width: 'height / 2', height: :deck }
       box = Squib::Args.extract_box args, deck
       expect(box).to have_attributes(width: [228.0], height: [456])
     end
 
-    it 'listens to width - 0.5in' do 
+    it 'listens to width - 0.5in' do
       args = { x: 'width - 0.5in'}
       box = Squib::Args.extract_box args, deck
       expect(box).to have_attributes(x: [ 123 - 150 ])
@@ -154,5 +165,24 @@ describe Squib::Args::Box do
 
   end
 
+  context 'xywh shorthands' do
+
+    it 'handles shorthands' do
+      args = {
+        x: 'middle + 1c',
+        y: 'middle',
+        width: 'width - 2c',
+        height: 'height / 3'
+      }
+      box = Squib::Args.extract_box args, deck
+      expect(box).to have_attributes(
+        x: [99.0],
+        y: [228.0],
+        width: [48.0],
+        height: [152.0]
+      )
+    end
+
+  end
 
 end

@@ -4,7 +4,7 @@ require_relative '../constants'
 module Squib
   module Args
     module UnitConversion
-      module_function def parse(arg, dpi=300, cell_px=75)
+      module_function def parse(arg, dpi=300, cell_px=37.5)
         case arg.to_s.rstrip
         when /in$/ # ends with "in"
           arg.rstrip[0..-2].to_f * dpi

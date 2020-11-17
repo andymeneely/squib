@@ -6,7 +6,7 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
   background color: :white
 
   # Squib has a custom unit, called "cell"
-  # A "cell" unit defaults to 75px, which at 300dpi is 1/8in or 3.175mm
+  # A "cell" unit defaults to 37.5px, which at 300dpi is 1/8in or 3.175mm
   # This is a very common multiple for layouts.
   # This helps us lay things out in grids without doing much math in our heads
   # Here's an example... with grid!

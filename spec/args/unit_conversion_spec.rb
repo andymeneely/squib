@@ -34,5 +34,25 @@ describe Squib::Args::UnitConversion do
     expect(subject.parse('30deg')).to be_within(0.0001).of(0.523599)
   end
 
+  it 'does cells' do
+    expect(subject.parse('1c')).to eq(37.5)
+    expect(subject.parse('1cell')).to eq(37.5)
+    expect(subject.parse('1cells')).to eq(37.5)
+    expect(subject.parse('1 cells')).to eq(37.5)
+    expect(subject.parse('1 cells ')).to eq(37.5)
+    expect(subject.parse('2c')).to eq(75)
+    expect(subject.parse('  0.5c')).to eq(18.75)
+    expect(subject.parse(' -0.5 c  ')).to eq(-18.75)
+  end
+
+  context 'when configured' do
+    it 'does mm @ dpi=100' do
+      expect(subject.parse('3.175mm', 100)).to be_within(0.001).of(12.5)
+    end
+
+    it 'does cell @ cell_px=75' do
+      expect(subject.parse('1c', 100, 75)).to be_within(0.001).of(75)
+    end
+  end
 
 end
