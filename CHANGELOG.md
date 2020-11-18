@@ -11,6 +11,7 @@ Features:
 
 Compatibility:
 * When saving PNGs with sprues, outputs start counting at zero - which is more consistent with the rest of Squib.
+* Minimum Ruby is now 2.5. NOTE: Ruby 3.0 is coming Christmas 2020!! Check it out.
 
 Bugs:
 * Extra page/no page issue with sprues (#320)
