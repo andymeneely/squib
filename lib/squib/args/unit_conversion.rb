@@ -17,7 +17,7 @@ module Squib
         when /deg$/ # ends with "deg"
           arg.rstrip[0..-3].to_f * (Math::PI / 180.0)
         when /c(ell)?[s]?$/ # ends with 'c', 'cell', or 'cells'
-          arg.rstrip[0..-2].to_f * cell_px
+          arg.sub(/c(ell)?[s]?$/, '').to_f * cell_px
         else
           arg
         end

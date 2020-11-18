@@ -25,10 +25,14 @@ Squib::Deck.new(width: '0.5in', height: '0.25in') do
   rect x: 10, y: 50, width: 10, height: 'height / 3',
        stroke_color: :purple
 
+  # And middle+/-
+
+  rect x: 'middle + 0.1in', y: 'middle - 0.1in',
+       width: '0.1in', height: '0.1in', fill_color: :blue
+
   # Layouts apply this too.
   use_layout file: 'shorthands.yml'
   rect layout: :example
-  # The x and y coordinates can also be "centered", assuming the
 
   # HOWEVER! Shorthands don't combine in an "extends" situation,
   # e.g. this won't work:
@@ -38,10 +42,8 @@ Squib::Deck.new(width: '0.5in', height: '0.25in') do
   #   extends: parent
   #   x: += 0.5in
 
-  # These shorthands are not intended for every xywh parameter or length parameter
-  # e.g. this won't work
-
-
+  # These shorthands are not intended for every xywh parameter or
+  # length parameter, see docs for when they do or do not apply.
 
   save_png prefix: 'shorthand_'
 end

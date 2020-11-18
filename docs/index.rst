@@ -15,6 +15,7 @@ Contents:
    layouts
    data
    units
+   shorthands
    colors
    text_feature
    bleed
