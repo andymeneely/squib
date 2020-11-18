@@ -15,9 +15,11 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'A Ruby DSL for prototyping card games'
   spec.description   = 'Squib is a Ruby DSL for prototyping card games'
+  spec.post_install_message   = 'Happy Squibbing!'
   spec.authors       = ['Andy Meneely']
   spec.email         = 'andy.meneely@gmail.com'
   spec.homepage      = 'https://github.com/andymeneely/squib'
+  spec.requirements << 'On Windows, you need the Ruby+DevKit. See https://rubyinstaller.org/downloads'
 
   spec.rdoc_options = ['--charset=UTF-8']
   spec.extra_rdoc_files = Dir['README.md', 'samples/**/*.rb']
