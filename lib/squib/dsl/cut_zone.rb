@@ -34,7 +34,7 @@ module Squib
           stroke_width: 2.0,
         }
         new_opts = cut_defaults.merge(opts)
-        margin = Args::UnitConversion.parse new_opts[:margin]
+        margin = Args::UnitConversion.parse new_opts[:margin], @deck.dpi, @deck.cell_px
         new_opts[:x] = margin
         new_opts[:y] = margin
         new_opts[:width] = deck.width - (2 * margin)

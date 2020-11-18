@@ -17,6 +17,7 @@ module Squib
     DEFAULTS = {
       'antialias'     => 'best',
       'backend'       => 'memory',
+      'cell_px'       => 37.5,
       'count_format'  => '%02d',
       'custom_colors' => {},
       'dir'           => '_output',
@@ -87,6 +88,10 @@ module Squib
 
     def typographer
       @typographer
+    end
+
+    def cell_px
+      @config_hash['cell_px'].to_f
     end
 
     def dir

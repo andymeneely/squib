@@ -1,0 +1,2 @@
+# Defaults to 37.5, but we'll go with 50 for this example
+cell_px: 50

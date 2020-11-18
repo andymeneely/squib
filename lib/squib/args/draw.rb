@@ -61,7 +61,7 @@ module Squib::Args
 
     def validate_dash(arg, _i)
       arg.to_s.split.collect do |x|
-        UnitConversion.parse(x, @dpi).to_f
+        UnitConversion.parse(x, @dpi, @cell_px).to_f
       end
     end
 

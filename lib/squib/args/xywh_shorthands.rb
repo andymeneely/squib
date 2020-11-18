@@ -24,27 +24,27 @@ module Squib
           dimension
         when WIDTH_MINUS_REGEX # e.g. width - 1.5in
           n = arg_s.sub WIDTH_MINUS_REGEX, ''
-          n = UnitConversion.parse(n)
+          n = UnitConversion.parse(n, deck.dpi, deck.cell_px)
           deck.width - n
         when HEIGHT_MINUS_REGEX # e.g. height - 1.5in
           n = arg_s.sub HEIGHT_MINUS_REGEX, ''
-          n = UnitConversion.parse(n)
+          n = UnitConversion.parse(n, deck.dpi, deck.cell_px)
           deck.height - n
         when WIDTH_DIV_REGEX # e.g. width / 3
           n = arg_s.sub WIDTH_DIV_REGEX, ''
-          n = UnitConversion.parse(n).to_f
+          n = UnitConversion.parse(n, deck.dpi, deck.cell_px).to_f
           deck.width / n
         when HEIGHT_DIV_REGEX # e.g. height / 3
           n = arg_s.sub HEIGHT_DIV_REGEX, ''
-          n = UnitConversion.parse(n).to_f
+          n = UnitConversion.parse(n, deck.dpi, deck.cell_px).to_f
           deck.height / n
         when MIDDLE_PLUS_REGEX # e.g. middle + 1.5in
           n = arg_s.sub MIDDLE_PLUS_REGEX, ''
-          n = UnitConversion.parse(n)
+          n = UnitConversion.parse(n, deck.dpi, deck.cell_px)
           dimension / 2.0 + n
         when MIDDLE_MINUS_REGEX # e.g. middle - 1.5in
           n = arg_s.sub MIDDLE_MINUS_REGEX, ''
-          n = UnitConversion.parse(n)
+          n = UnitConversion.parse(n, deck.dpi, deck.cell_px)
           dimension / 2.0 - n
         else
           arg

@@ -50,7 +50,7 @@ describe Squib::Args::Draw do
 
     it 'does unit conversion on dash options' do
       args = { dash: '3in  4in 5in' }
-      draw.load!(args)
+      draw.load!(args, dpi: 300)
       expect(draw).to have_attributes(dash: [[900, 1200, 1500]])
     end
 

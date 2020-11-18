@@ -7,8 +7,9 @@ module Squib
   class LayoutParser
     include Args::XYWHShorthands
 
-    def initialize(dpi = 300)
+    def initialize(dpi = 300, cell_px = 37.5)
       @dpi = dpi
+      @cell_px = cell_px
     end
 
     # Load the layout file(s), if exists
@@ -86,31 +87,31 @@ module Squib
     end
 
     def add_parent_child(parent, child)
-      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
-      child_pixels = Args::UnitConversion.parse(child.sub('+=', ''), @dpi).to_f
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi, @cell_px).to_f
+      child_pixels = Args::UnitConversion.parse(child.sub('+=', ''), @dpi, @cell_px).to_f
       parent_pixels + child_pixels
     end
 
     def sub_parent_child(parent, child)
-      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
-      child_pixels = Args::UnitConversion.parse(child.sub('-=', ''), @dpi).to_f
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi, @cell_px).to_f
+      child_pixels = Args::UnitConversion.parse(child.sub('-=', ''), @dpi, @cell_px).to_f
       parent_pixels - child_pixels
     end
 
     def mul_parent_child(parent, child)
-      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi, @cell_px).to_f
       child_float = child.sub('*=', '').to_f
       parent_pixels * child_float
     end
 
     def div_parent_child(parent, child)
-      parent_pixels = Args::UnitConversion.parse(parent, @dpi).to_f
+      parent_pixels = Args::UnitConversion.parse(parent, @dpi, @cell_px).to_f
       child_float = child.sub('/=', '').to_f
       parent_pixels / child_float
     end
 
-    # For relative operators, it's difficult for us to handle 
-    # some of the shorthands - so let's just freak out if you're trying to use 
+    # For relative operators, it's difficult for us to handle
+    # some of the shorthands - so let's just freak out if you're trying to use
     # relative operators with words, e.g. "middle += 0.5in"
     def has_digits?(arg)
       /.*\d.*/ === arg.to_s

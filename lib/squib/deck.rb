@@ -33,7 +33,7 @@ module Squib
                           :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
-    attr_reader :layout, :conf, :dpi, :font
+    attr_reader :layout, :conf, :dpi, :font, :cell_px
 
     #
     # deck.size is really just @cards.size
@@ -63,12 +63,13 @@ module Squib
       @font          = DEFAULT_FONT
       @cards         = []
       @conf          = Conf.load(config)
+      @cell_px       = @conf.cell_px
       @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
       show_info(config, layout)
-      @width         = Args::UnitConversion.parse width, dpi
-      @height        = Args::UnitConversion.parse height, dpi
+      @width         = Args::UnitConversion.parse width, dpi, @cell_px
+      @height        = Args::UnitConversion.parse height, dpi, @cell_px
       cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
-      @layout = LayoutParser.new(dpi).load_layout(layout)
+      @layout = LayoutParser.new(dpi, @cell_px).load_layout(layout)
       enable_groups_from_env!
       if block_given?
         instance_eval(&block) # here we go. wheeeee!

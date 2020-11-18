@@ -18,6 +18,7 @@ module Squib
       'card_width' => nil,
       'card_height' => nil,
       'dpi' => 300,
+      'cell_px' => 37.5,
       'position_reference' => :topleft,
       'rotate' => 0.0,
       'crop_line' => {
@@ -32,16 +33,17 @@ module Squib
 
     attr_reader :dpi
 
-    def initialize(template_hash, dpi)
+    def initialize(template_hash, dpi, cell_px)
       @template_hash = template_hash
       @dpi = dpi
+      @cell_px = cell_px
       @crop_line_default = @template_hash['crop_line'].select do |k, _|
         %w[style width color].include? k
       end
     end
 
     # Load the template definition file
-    def self.load(file, dpi)
+    def self.load(file, dpi, cell_px)
       yaml = {}
       thefile = file if File.exist?(file) # use custom first
       thefile = builtin(file) if File.exist?(builtin(file)) # then builtin
@@ -62,23 +64,23 @@ module Squib
       rescue ClassyHash::SchemaViolationError => e
         raise Sprues::InvalidSprueDefinition.new(thefile, e)
       end
-      Sprue.new new_hash, dpi
+      Sprue.new new_hash, dpi, cell_px
     end
 
     def sheet_width
-      Args::UnitConversion.parse @template_hash['sheet_width'], @dpi
+      Args::UnitConversion.parse @template_hash['sheet_width'], @dpi, @cell_px
     end
 
     def sheet_height
-      Args::UnitConversion.parse @template_hash['sheet_height'], @dpi
+      Args::UnitConversion.parse @template_hash['sheet_height'], @dpi, @cell_px
     end
 
     def card_width
-      Args::UnitConversion.parse @template_hash['card_width'], @dpi
+      Args::UnitConversion.parse @template_hash['card_width'], @dpi, @cell_px
     end
 
     def card_height
-      Args::UnitConversion.parse @template_hash['card_height'], @dpi
+      Args::UnitConversion.parse @template_hash['card_height'], @dpi, @cell_px
     end
 
     def card_default_rotation
@@ -113,8 +115,8 @@ module Squib
       # NOTE: There's a baseline of 0.25mm that we can 100% make sure that we
       # can overlap really thin lines on the PDF
       crop_line_width = [
-        Args::UnitConversion.parse(@template_hash['crop_line']['width'], @dpi),
-        Args::UnitConversion.parse('0.25mm', @dpi)
+        Args::UnitConversion.parse(@template_hash['crop_line']['width'], @dpi, @cell_px),
+        Args::UnitConversion.parse('0.25mm', @dpi, @cell_px)
       ].max
 
       parsed_cards = cards
@@ -149,12 +151,12 @@ module Squib
     # Parse crop line definitions from template.
     def parse_crop_line(line)
       new_line = @crop_line_default.merge line
-      new_line['width'] = Args::UnitConversion.parse(new_line['width'], @dpi)
+      new_line['width'] = Args::UnitConversion.parse(new_line['width'], @dpi, @cell_px)
       new_line['color'] = colorify new_line['color']
       new_line['style_desc'] = new_line['style']
-      new_line['style'] = Sprues::CropLineDash.new(new_line['style'], @dpi)
+      new_line['style'] = Sprues::CropLineDash.new(new_line['style'], @dpi, @cell_px)
       new_line['line'] = Sprues::CropLine.new(
-        new_line['type'], new_line['position'], sheet_width, sheet_height, @dpi
+        new_line['type'], new_line['position'], sheet_width, sheet_height, @dpi, @cell_px
       )
       new_line
     end
@@ -163,8 +165,8 @@ module Squib
     def parse_card(card)
       new_card = card.clone
 
-      x = Args::UnitConversion.parse(card['x'], @dpi)
-      y = Args::UnitConversion.parse(card['y'], @dpi)
+      x = Args::UnitConversion.parse(card['x'], @dpi, @cell_px)
+      y = Args::UnitConversion.parse(card['y'], @dpi, @cell_px)
       if @template_hash['position_reference'] == :center
         # Normalize it to a top-left positional reference
         x -= card_width / 2

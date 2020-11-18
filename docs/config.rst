@@ -101,6 +101,11 @@ smart_quotes
 
   When ``markup: true``, the ``text`` method will convert quotes. With ``smart_quotes: false``, explicit replacements like em-dashes and en-dashes will be replaced but not smart quotes.
 
+cell_px
+  default: ``37.5``
+
+  The number of pixels that the "cell" custom unit is set to. See :doc:`/units`
+
 
 Options are available as methods
 --------------------------------

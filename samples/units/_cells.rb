@@ -43,3 +43,11 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
 
   save_png prefix: 'cells_'
 end
+
+
+# You can customize this with the cell_px configuration option
+Squib::Deck.new(width: 100, height: 100, config: 'cell_config.yml') do
+  background color: :white
+  rect x: '1c', y: '1c', width: '1c', height: '1c', fill_color: :purple
+  save_png prefix: 'custom_cell_'
+end

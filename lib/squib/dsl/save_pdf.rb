@@ -40,7 +40,7 @@ module Squib
         if sprue_file.sprue.nil?
           Graphics::SavePDF.new(deck).render_pdf(range, sheet)
         else
-          tmpl = Sprue.load sprue_file.sprue, deck.dpi
+          tmpl = Sprue.load sprue_file.sprue, deck.dpi, deck.cell_px
           Graphics::SaveSpruePDF.new(deck, tmpl, sheet).render_sheet(range)
         end
 

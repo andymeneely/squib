@@ -55,7 +55,8 @@ describe Squib::Args::Box do
 
   context 'layouts' do
     let(:deck_of_2) do
-      OpenStruct.new(width: 123, height: 456, size: 2, layout: {
+      OpenStruct.new(width: 123, height: 456, size: 2,
+        dpi: 300, cell_px: 37.5, layout: {
         'attack' => { 'x' => 50 },
         'defend' => { 'x' => 60 },
       })
@@ -100,7 +101,7 @@ describe Squib::Args::Box do
   end
 
   context 'unit conversion' do
-    let(:deck_of_2) { OpenStruct.new(width: 123, height: 456, size: 2, dpi: 300) }
+    let(:deck_of_2) { OpenStruct.new(width: 123, height: 456, size: 2, dpi: 300, cell_px: 37.5) }
 
     it 'converts units on all args' do
       args = { x: ['1in', '2in'], y: 300, width: '1in', height: '1in' }

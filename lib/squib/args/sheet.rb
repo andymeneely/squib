@@ -58,7 +58,7 @@ module Squib::Args
 
     def validate_crop_stroke_dash(arg)
       arg.to_s.split.collect do |x|
-        UnitConversion.parse(x, @deck.dpi).to_f
+        UnitConversion.parse(x, @deck.dpi, @deck.cell_px).to_f
       end
     end
 

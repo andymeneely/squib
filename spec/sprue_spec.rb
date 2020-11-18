@@ -3,7 +3,7 @@ require 'squib/sprues/sprue'
 
 describe Squib::Sprue do
   it 'loads a sprue' do
-    tmpl = Squib::Sprue.load(sprue_file('basic.yml'), 100)
+    tmpl = Squib::Sprue.load(sprue_file('basic.yml'), 100, 37.5)
     expect(tmpl.sheet_width).to eq(850)
     expect(tmpl.sheet_height).to eq(1100)
     expect(tmpl.card_width).to eq(250)
@@ -23,7 +23,7 @@ describe Squib::Sprue do
   end
 
   it 'loads from the default templates if none exists' do
-    tmpl = Squib::Sprue.load('a4_poker_card_9up.yml', 100)
+    tmpl = Squib::Sprue.load('a4_poker_card_9up.yml', 100, 37.5)
     expect(tmpl.sheet_width).to eq(826.7716527)
     expect(tmpl.sheet_height).to eq(1169.2913373899999)
     expect(tmpl.card_width).to eq(248.03149580999997)
@@ -84,7 +84,7 @@ describe Squib::Sprue do
   end
 
   it 'loads a template with the coordinates specifying the middle of cards' do
-    tmpl = Squib::Sprue.load(sprue_file('card_center_coord.yml'), 100)
+    tmpl = Squib::Sprue.load(sprue_file('card_center_coord.yml'), 100, 37.5)
     expect(tmpl.sheet_width).to eq(850)
     expect(tmpl.sheet_height).to eq(1100)
     expect(tmpl.card_width).to eq(200)
@@ -101,7 +101,7 @@ describe Squib::Sprue do
   end
 
   it 'loads a template with customized crop lines' do
-    tmpl = Squib::Sprue.load(sprue_file('custom_crop_lines.yml'), 100)
+    tmpl = Squib::Sprue.load(sprue_file('custom_crop_lines.yml'), 100, 37.5)
     expect(tmpl.sheet_width).to eq(850)
     expect(tmpl.sheet_height).to eq(1100)
     expect(tmpl.card_width).to eq(200)
@@ -137,7 +137,7 @@ describe Squib::Sprue do
   end
 
   it 'loads a template with rotated cards' do
-    tmpl = Squib::Sprue.load(sprue_file('card_rotation.yml'), 100)
+    tmpl = Squib::Sprue.load(sprue_file('card_rotation.yml'), 100, 37.5)
     expect(tmpl.sheet_width).to eq(850)
     expect(tmpl.sheet_height).to eq(1100)
     expect(tmpl.card_width).to eq(250)
@@ -151,7 +151,7 @@ describe Squib::Sprue do
   end
 
   it 'loads a template with flipped cards' do
-    tmpl = Squib::Sprue.load(sprue_file('card_flip.yml'), 100)
+    tmpl = Squib::Sprue.load(sprue_file('card_flip.yml'), 100, 37.5)
     expect(tmpl.cards.length).to eq(3)
     expect(tmpl.cards.map { |card| card['flip_vertical'] })
       .to eq( [false, true, false] )
@@ -161,7 +161,7 @@ describe Squib::Sprue do
 
   it 'fails when sheet_width is not defined' do
     expect do
-      Squib::Sprue.load(sprue_file('fail_no_sheet_width.yml'), 100)
+      Squib::Sprue.load(sprue_file('fail_no_sheet_width.yml'), 100, 37.5)
     end.to raise_error(
       Squib::Sprues::InvalidSprueDefinition,
       include('"sheet_width" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/')
@@ -170,7 +170,7 @@ describe Squib::Sprue do
 
   it 'fails when sheet_height is not defined' do
     expect do
-      Squib::Sprue.load(sprue_file('fail_no_sheet_height.yml'), 100)
+      Squib::Sprue.load(sprue_file('fail_no_sheet_height.yml'), 100, 37.5)
     end.to raise_error(
       Squib::Sprues::InvalidSprueDefinition,
       include('"sheet_height" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/')
@@ -179,7 +179,7 @@ describe Squib::Sprue do
 
   it 'fails when card_width is not defined' do
     expect do
-      Squib::Sprue.load(sprue_file('fail_no_card_width.yml'), 100)
+      Squib::Sprue.load(sprue_file('fail_no_card_width.yml'), 100, 37.5)
     end.to raise_error(
       Squib::Sprues::InvalidSprueDefinition,
       include('"card_width" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/')
@@ -188,7 +188,7 @@ describe Squib::Sprue do
 
   it 'fails when card_height is not defined' do
     expect do
-      Squib::Sprue.load(sprue_file('fail_no_card_height.yml'), 100)
+      Squib::Sprue.load(sprue_file('fail_no_card_height.yml'), 100, 37.5)
     end.to raise_error(
       Squib::Sprues::InvalidSprueDefinition,
       include('"card_height" is not a String matching /^(\d*[.])?\d+(in|cm|mm)$/')

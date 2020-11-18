@@ -9,16 +9,21 @@ module Squib::Args::ArgLoader
   # wrapper for compatibility
   def extract!(args, deck)
     @deck = deck
-    load!(args, expand_by: deck.size, layout: deck.layout, dpi: deck.dpi)
+    load!(args,
+          expand_by: deck.size,
+          layout: deck.layout,
+          dpi: deck.dpi,
+          cell_px: deck.cell_px)
   end
 
   # Main class invoked by the client (i.e. dsl/ methods)
-  def load!(args, expand_by: 1, layout: {}, dpi: 300)
+  def load!(args, expand_by: 1, layout: {}, dpi: 300, cell_px: 37.5)
     @dpi = dpi
+    @cell_px = cell_px
     args[:layout] = prep_layout_args(args[:layout], expand_by: expand_by)
     expand_and_set_and_defaultify(args: args, by: expand_by, layout: layout)
     validate
-    convert_units dpi: dpi
+    convert_units dpi: dpi, cell_px: cell_px
     self
   end
 
@@ -107,15 +112,15 @@ module Squib::Args::ArgLoader
   end
 
   # Convert units
-  def convert_units(dpi: 300)
+  def convert_units(dpi: 300, cell_px: 37.5)
     self.class.params_with_units.each do |p|
       p_str = "@#{p}"
       p_val = instance_variable_get(p_str)
       if p_val.respond_to? :each
-        arr = p_val.map { |x| Squib::Args::UnitConversion.parse(x, dpi) }
+        arr = p_val.map { |x| Squib::Args::UnitConversion.parse(x, dpi, cell_px) }
         instance_variable_set p_str, arr
       else
-        instance_variable_set p_str, Squib::Args::UnitConversion.parse(p_val, dpi)
+        instance_variable_set p_str, Squib::Args::UnitConversion.parse(p_val, dpi, cell_px)
       end
     end
     self
