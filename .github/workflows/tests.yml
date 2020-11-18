@@ -1,18 +1,22 @@
- 
+
 name: Squib Unit Tests
 
 on: [push]
 
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos]
+        ruby: [2.5, 2.6, 2.7, head, debug, jruby, jruby-head, truffleruby, truffleruby-head]
+    runs-on: ${{ matrix.os }}-latest
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }}
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Ruby 2.6
-      uses: ruby/setup-ruby@v1
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
-        # bundler-cache: true
+        ruby-version: ${{ matrix.ruby }}
+        # bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: bundle install
     - run: bundle exec rake
-    
