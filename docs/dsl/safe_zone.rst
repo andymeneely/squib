@@ -17,13 +17,13 @@ margin
 width
   default: ``width - margin`` (the width of the deck minus the margin)
 
-  the width of the box. Supports :doc:`/units`.
+  the width of the box. Supports :doc:`/units` and :doc:`/shorthands`.
 
 
 height
   default: ``height - margin`` (the height of the deck minus the margin)
 
-  the height of the box. Supports :doc:`/units`.
+  the height of the box. Supports :doc:`/units` and :doc:`/shorthands`.
 
 fill_color
   default: ``'#0000'`` (fully transparent)
@@ -68,7 +68,7 @@ join
   default: ``:mitre``
 
   Specifies how to render the junction of two lines when stroking. Options are ``:mitre``, ``:round``, and ``:bevel``.
-  
+
 dash
   default: ``'3 3'`` (no dash pattern set)
 
@@ -82,12 +82,12 @@ cap
 x
   default: ``margin`` (whatever the margin was set to)
 
-  the x-coordinate to place, relative to the upper-left corner of the card and moving right as it increases. Supports :doc:`/units`.
+  the x-coordinate to place, relative to the upper-left corner of the card and moving right as it increases. Supports :doc:`/units` and :doc:`/shorthands`.
 
 y
   default: ``margin`` (whatever the margin was set to)
 
-  the y-coordinate to place, relative to the upper-left corner of the card and moving downward as it increases. Supports :doc:`/units`.
+  the y-coordinate to place, relative to the upper-left corner of the card and moving downward as it increases. Supports :doc:`/units` and :doc:`/shorthands`.
 
 .. include:: /args/range.rst
 .. include:: /args/layout.rst

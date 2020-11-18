@@ -14,13 +14,13 @@ Options
 width
   default: ``:deck`` (the width of the deck)
 
-  the spacing between vertical gridlines. Supports :doc:`/units`.
+  the spacing between vertical gridlines. Supports :doc:`/units` and :doc:`/shorthands`.
 
 
 height
   default: ``:deck`` (the height of the deck)
 
-  the spacing between horizontal gridlines. Supports :doc:`/units`.
+  the spacing between horizontal gridlines. Supports :doc:`/units` and :doc:`/shorthands`.
 
 
 .. include:: /args/draw.rst

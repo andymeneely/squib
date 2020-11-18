@@ -37,12 +37,12 @@ force_id
 width
   default: ``native``
 
-  the pixel width that the image should scale to. Setting this to ``:deck`` will scale to the deck height. ``:scale`` will use the width to scale and keep native the aspect ratio. SVG scaling is done with vectors, so the scaling should be smooth. When set to ``:native``, uses the DPI and units of the loaded SVG document.
+  the pixel width that the image should scale to. Setting this to ``:deck`` will scale to the deck height. ``:scale`` will use the width to scale and keep native the aspect ratio. SVG scaling is done with vectors, so the scaling should be smooth. When set to ``:native``, uses the DPI and units of the loaded SVG document. Supports :doc:`/units` and :doc:`/shorthands`.
 
 height
   default: ``:native``
 
-  the pixel width that the image should scale to. ``:deck`` will scale to the deck height. ``:scale`` will use the width to scale and keep native the aspect ratio. SVG scaling is done with vectors, so the scaling should be smooth. When set to ``:native``, uses the DPI and units of the loaded SVG document.
+  the pixel width that the image should scale to. ``:deck`` will scale to the deck height. ``:scale`` will use the width to scale and keep native the aspect ratio. SVG scaling is done with vectors, so the scaling should be smooth. When set to ``:native``, uses the DPI and units of the loaded SVG document. Supports :doc:`/units` and :doc:`/shorthands`.
 
 blend
   default: ``:none``

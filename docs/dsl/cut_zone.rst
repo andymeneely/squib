@@ -68,12 +68,12 @@ cap
 x
   default: ``margin`` (whatever the margin was set to)
 
-  the x-coordinate to place, relative to the upper-left corner of the card and moving right as it increases. Supports :doc:`/units`.
+  the x-coordinate to place, relative to the upper-left corner of the card and moving right as it increases. Supports :doc:`/units`and :doc:`/shorthands`.
 
 y
   default: ``margin`` (whatever the margin was set to)
 
-  the y-coordinate to place, relative to the upper-left corner of the card and moving downward as it increases. Supports :doc:`/units`.
+  the y-coordinate to place, relative to the upper-left corner of the card and moving downward as it increases. Supports :doc:`/units`and :doc:`/shorthands`.
 
 .. include:: /args/range.rst
 .. include:: /args/layout.rst

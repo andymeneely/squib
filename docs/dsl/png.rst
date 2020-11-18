@@ -17,12 +17,12 @@ file
 width
   default: ``:native``
 
-  the pixel width that the image should scale to. Supports :doc:`/units`. When set to ``:native``, uses the DPI and units of the loaded SVG document. Using ``:deck`` will scale to the deck width. Using ``:scale`` will use the ``height`` to scale and keep native the aspect ratio. Scaling PNGs is not recommended for professional-looking cards, and up-scaling a PNG will throw a warning in the console (see :doc:`/config`).
+  the pixel width that the image should scale to. Supports :doc:`/units`. When set to ``:native``, uses the DPI and units of the loaded SVG document. Using ``:deck`` will scale to the deck width. Using ``:scale`` will use the ``height`` to scale and keep native the aspect ratio. Scaling PNGs is not recommended for professional-looking cards, and up-scaling a PNG will throw a warning in the console (see :doc:`/config`). Supports :doc:`/units` and :doc:`/shorthands`.
 
 height
   default: ``:native``
 
-  the pixel height that the image should scale to. Supports :doc:`/units`. When set to ``:native``, uses the DPI and units of the loaded SVG document. Using ``:deck`` will scale to the deck height. Using ``:scale`` will use the ``width`` to scale and keep native the aspect ratio. Scaling PNGs is not recommended for professional-looking cards, and up-scaling a PNG will throw a warning in the console (see :doc:`/config`).
+  the pixel height that the image should scale to. Supports :doc:`/units`. When set to ``:native``, uses the DPI and units of the loaded SVG document. Using ``:deck`` will scale to the deck height. Using ``:scale`` will use the ``width`` to scale and keep native the aspect ratio. Scaling PNGs is not recommended for professional-looking cards, and up-scaling a PNG will throw a warning in the console (see :doc:`/config`). Supports :doc:`/units` and :doc:`/shorthands`.
 
 alpha
   default: 1.0

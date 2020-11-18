@@ -35,12 +35,12 @@ markup
 width
   default: ``:auto``
 
-  the width of the box the string will be placed in. Stretches to the content by default.. Supports :doc:`/units`.
+  the width of the box the string will be placed in. Stretches to the content by default.. Supports :doc:`/units` and :doc:`/shorthands`.
 
 height
   default: ``:auto``
 
-  the height of the box the string will be placed in. Stretches to the content by default. Supports :doc:`/units`.
+  the height of the box the string will be placed in. Stretches to the content by default. Supports :doc:`/units` and :doc:`/shorthands`.
 
 wrap
   default: ``:word_char``
