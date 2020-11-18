@@ -99,12 +99,6 @@ Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 * Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into `config.yml` file.
 * Plus, you know, Ruby.
 
-## SublimeText
-
-Using SublimeText? I like you already. I've written up some Squib snippets to ease remembering Squib commands. It's called `Squib Snippets` on Package Control. Compatible with SublimeText 3. Source code is also [on Github](https://github.com/andymeneely/sublime-squib) (contributions welcome!). Check it out:
-
-![Sublime Squib Snippets](https://raw.githubusercontent.com/andymeneely/squib/screencasts/sublime-squib-snippets.gif)
-
 
 ## Docker
 
