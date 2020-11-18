@@ -1,5 +1,5 @@
 require_relative '../args/import'
-require_relative '../import/Yaml_importer'
+require_relative '../import/yaml_importer'
 require_relative '../errors_warnings/warn_unexpected_params'
 
 module Squib
