@@ -18,7 +18,7 @@ RUN apt-get update && \
 
 # Build the current directory of Squib
 COPY . /usr/src/app
-RUN rm /usr/src/app/Gemfile.lock
+RUN rm -f /usr/src/app/Gemfile.lock
 RUN gem install bundler
 RUN bundle install
 RUN bundle exec rake install
