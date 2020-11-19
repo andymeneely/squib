@@ -10,7 +10,7 @@ module Squib
                 else
                   @cairo_surface
                 end
-      write_png(surface, index, batch.dir, batch.prefix, batch.count_format)
+      write_png(surface, index, batch)
     end
 
     # :nodoc:
@@ -44,8 +44,8 @@ module Squib
       return new_cc.target
     end
 
-    def write_png(surface, i, dir, prefix, count_format)
-      surface.write_to_png("#{dir}/#{prefix}#{count_format % i}.png")
+    def write_png(surface, i, b)
+      surface.write_to_png("#{b.dir}/#{b.prefix}#{b.count_format % i}#{b.suffix}.png")
     end
 
   end

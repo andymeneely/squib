@@ -20,6 +20,7 @@ module Squib::Args
         dir: '_output',
         prefix: 'card_',
         rotate: false,
+        suffix: '',
         trim_radius: 0,
         trim: 0,
       }
@@ -53,11 +54,11 @@ module Squib::Args
     end
 
     def full_filename(i)
-      "#{dir[i]}/#{prefix[i]}#{count_format[i] % i}.png"
+      "#{dir[i]}/#{prefix[i]}#{count_format[i] % i}#{suffix[i]}.png"
     end
 
     def summary
-      "#{dir[0]}/#{prefix[0]}_*"
+      "#{dir[0]}/#{prefix[0]}_*#{suffix[0]}"
     end
 
   end

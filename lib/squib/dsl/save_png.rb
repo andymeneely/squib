@@ -22,7 +22,7 @@ module Squib
       def self.accepted_params
         %i(
           range
-          dir prefix count_format
+          dir prefix suffix count_format
           rotate trim trim_radius
          )
       end

@@ -16,6 +16,10 @@ Squib::Deck.new(width: 50, height: 50, cards: 2) do
   # bar.png
   save_png prefix: ['foo', 'bar'], count_format: ''
 
+  # foo_00_bar.png
+  # foo_01_bar.png
+  save_png prefix: 'foo_', suffix: '_bar'
+
   # thief.png
   # thug.png
   data = csv data: "filename\nthief\nthug"

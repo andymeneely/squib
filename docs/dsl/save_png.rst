@@ -14,12 +14,17 @@ dir
 prefix
   default ``'card_'``
 
-  the prefix of the file name to be printed.
+  the prefix of all the filenames saved
 
 count_format
   default: ``'%02d'``
 
   the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for ``Kernel::sprintf`` for specifics)
+
+suffix
+  default: ``''``
+
+  the suffix of all the filenames saved, just before the `.png` extension.
 
 rotate
   default: ``false``

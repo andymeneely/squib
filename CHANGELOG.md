@@ -8,6 +8,7 @@ Features:
 * Shorthands for `x`, `y`, `width`, and `height`! The words `x: 'middle'` and `x: 'middle + 1in'` will get interpreted. See the docs for details.
 * Autoscaling text! `ellipsize: :autoscale` will now downscale your `font_size` if the text ellipsized. Thanks @Qgel! (#288, #111).
 * Option checking!! Completely reworked the way we handle arguments in Squib internally (no external behavioral differences). Now, when you give an option to Squib that is not expected. Since every DSL method "knows" what options it takes, that also means we have EVERY option properly documented (missed a few...) AND we have an automated test that will tell us if we forget to document it.
+* `save_png` and `save_sheet` now have a `suffix` option which defaults to `''`. So now you can customize the filenames with `prefix`, `count_format`, and `suffix`.
 
 Compatibility:
 * When saving PNGs with sprues, outputs start counting at zero - which is more consistent with the rest of Squib.

@@ -36,6 +36,11 @@ count_format
 
   the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for ``Kernel::sprintf`` for specifics)
 
+suffix
+  default: ``''``
+
+  the suffix of all the filenames saved, just before the `.png` extension.
+
 dir
   default: ``'_output'``
 

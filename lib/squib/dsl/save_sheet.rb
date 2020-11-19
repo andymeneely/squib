@@ -29,7 +29,7 @@ module Squib
         %i(
           range sprue
           columns rows rtl
-          prefix count_format dir
+          dir prefix count_format suffix
           margin gap trim trim_radius
          )
       end

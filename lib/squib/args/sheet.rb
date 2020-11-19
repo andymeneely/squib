@@ -35,6 +35,7 @@ module Squib::Args
         height: 2550,
         margin: 75,
         prefix: 'sheet_',
+        suffix: '',
         rows: :infinite,
         columns: 5,
         trim_radius: 0,
@@ -95,7 +96,7 @@ module Squib::Args
       if i.nil?
         "#{dir}/#{file}"
       else
-        "#{dir}/#{prefix}#{count_format % i}.png"
+        "#{dir}/#{prefix}#{count_format % i}#{suffix}.png"
       end
     end
 
