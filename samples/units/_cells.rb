@@ -1,6 +1,4 @@
-require_relative '../../lib/squib'
-# Use the following header instead if you are copy-pasta'ing
-# require 'squib'
+require 'squib'
 
 Squib::Deck.new(width: '1.5in', height: '1.5in') do
   background color: :white
