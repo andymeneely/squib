@@ -29,19 +29,16 @@ module Squib
 
       def run(opts)
         warn_if_unexpected opts
-        Dir.chdir(deck.img_dir) do
-          range = Args.extract_range opts, deck
-          batch = Args.extract_save_batch opts, deck
-          @bar.start("Saving PNGs to #{batch.summary}", deck.size) do |bar|
-            range.map do |i|
-              deck.cards[i].save_png(batch[i])
-              bar.increment
-            end
-
+        range = Args.extract_range opts, deck
+        batch = Args.extract_save_batch opts, deck
+        @bar.start("Saving PNGs to #{batch.summary}", deck.size) do |bar|
+          range.map do |i|
+            deck.cards[i].save_png(batch[i])
+            bar.increment
           end
         end
-
       end
     end
+
   end
 end
