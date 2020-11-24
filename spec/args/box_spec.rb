@@ -152,14 +152,14 @@ describe Squib::Args::Box do
       expect(box).to have_attributes(width: [61.5], height: [228.0])
     end
 
-    it 'listens to height/2' do
-      args = { width: 'height / 2', height: :deck }
+    it 'listens to deck/2' do
+      args = { width: 'deck / 2', height: :deck }
       box = Squib::Args.extract_box args, deck
-      expect(box).to have_attributes(width: [228.0], height: [456])
+      expect(box).to have_attributes(width: [61.5], height: [456])
     end
 
-    it 'listens to width - 0.5in' do
-      args = { x: 'width - 0.5in'}
+    it 'listens to deck - 0.5in' do
+      args = { x: 'deck - 0.5in'}
       box = Squib::Args.extract_box args, deck
       expect(box).to have_attributes(x: [ 123 - 150 ])
     end
@@ -172,8 +172,8 @@ describe Squib::Args::Box do
       args = {
         x: 'middle + 1c',
         y: 'middle',
-        width: 'width - 2c',
-        height: 'height / 3'
+        width: 'deck - 2c',
+        height: 'deck / 3'
       }
       box = Squib::Args.extract_box args, deck
       expect(box).to have_attributes(

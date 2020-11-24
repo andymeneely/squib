@@ -20,14 +20,13 @@ Squib::Deck.new(width: '0.5in', height: '0.25in') do
 
   # We can also do width-, height-, width/, height/
   rect x: 20, y: 5, stroke_color: :green,
-  width: 'width - 0.1in', height: 10
+  width: 'deck - 0.1in', height: 10
 
-  rect x: 10, y: 50, width: 10, height: 'height / 3',
+  rect x: 10, y: 50, width: 10, height: 'deck / 3',
        stroke_color: :purple
 
   # And middle+/-
-
-  rect x: 'middle + 0.1in', y: 'middle - 0.1in',
+  rect x: 'middle + 0.1in', y: 'center - 0.1in',
        width: '0.1in', height: '0.1in', fill_color: :blue
 
   # Layouts apply this too.

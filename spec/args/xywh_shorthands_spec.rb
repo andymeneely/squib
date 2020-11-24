@@ -9,8 +9,8 @@ describe Squib::Args::XYWHShorthands do
     args = {
       x: 'middle',
       y: 'middle + 1in',
-      width: 'width / 2',
-      height: 'height - 1in',
+      width: 'deck / 2',
+      height: 'deck - 1in',
     }
     box = Squib::Args.extract_box args, deck
     expect(box).to have_attributes({
