@@ -15,8 +15,9 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Push master and release branches
  - [ ] Create GitHub release tag
  - [ ] `gem push pkg/squib-x.y.z.gem`
- - [ ] `gem push --key github --host https://rubygems.pkg.github.com/andymeneely pkg/squib-x.y.z.gem`
  - [ ] Github milestone closed
- - [ ] Activate version on squib.readthedocs.org
+ - [ ] Activate version on squib.readthedocs.org (Versions)
+ - [ ] Set default version on squib.readthedocs.org (Advanced Settings)
  - [ ] Bump version.rb to the next alpha
+ - [ ] Check Docker build
  - [ ] Publish on BoardGameGeek thread
