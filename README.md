@@ -102,8 +102,6 @@ Squib tries to keep you DRY (Don't Repeat Yourself) with the following features:
 
 ## Docker
 
-BROKEN AT THE MOMENT (2020-11-24)
-
 Want to run in a controlled environment? We've got a [Docker image on DockerHub](https://cloud.docker.com/u/andymeneely/repository/docker/andymeneely/squib)
 
 Here's one way to run it. On the command line, go to the root of your repository. With these commands, we'll map the current directory to the `/usr/src/app` directory in the Docker image. When squib-in-docker read & writes files from there, it'll write it back out to your current directory.
