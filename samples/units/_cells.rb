@@ -19,7 +19,7 @@ Squib::Deck.new(width: '1.5in', height: '1.5in') do
   # Technically, the "cell" is actually a "unit", so you can even combine
   # with xywh shorhands!!
   rect fill_color: :red,
-       x: 'middle + 0.5c', y: 'height - 1.5c',
+       x: 'middle + 0.5c', y: 'deck - 1.5c',
        width: '1c', height: '1c'
 
   # And, unlike xywh shorthands, this applies basically everywhere we support

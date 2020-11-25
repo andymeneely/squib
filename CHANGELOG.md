@@ -1,7 +1,7 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.16.0 / Unreleased
+## v0.16.0 / 2020-11-24
 
 Features:
 * Special custom unit: cells. A "cell" defaults to 37.5px, or 1/8in, e.g. `x: '1 cell'` means `x: 37.5`. See the docs for details.

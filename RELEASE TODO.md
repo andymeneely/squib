@@ -9,7 +9,7 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Bump docs/conf.py versions
  - [ ] Do a full rake locally
  - [ ] `rake sanity`, and check visually
- - [ ] Travis is passing on dev branch
+ - [ ] GitHub Actions is passing on dev branch
  - [ ] Merge master branch
  - [ ] Merge release branch
  - [ ] Push master and release branches
