@@ -82,14 +82,9 @@ module Squib::Args
 
     def validate_rows(arg)
       raise 'columns must be an integer' unless columns.respond_to? :to_i
-      count = if range == :all
-                @deck.size
-              else
-                count = range.to_a.length
-              end
-      return 1 if count <= columns
-      return arg if arg.respond_to? :to_i
-      (count.to_f / columns.to_f).ceil
+      count = (range == :all) ? @deck.size : count = range.to_a.length
+      return arg.to_i if arg.respond_to? :to_i
+      (count.to_f / columns.to_f).ceil # e.g. :infinite
     end
 
     def full_filename(i=nil)

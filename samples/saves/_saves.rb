@@ -50,3 +50,13 @@ Squib::Deck.new(width: 825, height: 1125, cards: 16) do
              columns: 2, rows: 1,
              margin: 75, gap: 5, trim: 37
 end
+
+Squib::Deck.new(width: 100, height: 100, cards: 3) do
+  background color: :grey
+  text str: 'Hi', font: 'Arial 18'
+
+  # Test bug 332.
+  # When we only have 3 cards but want a 2x4 grid with lots of empty spaces.
+  # Buggy behavior was to revert to 1 row and not respect the rows arg.
+  save_sheet prefix: 'save_sheet_bug332_', rows: 2, columns: 4
+end

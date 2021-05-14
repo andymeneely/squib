@@ -1,6 +1,12 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.16.1 / Unreleased
+
+Bugs:
+* The `rows` argument is always respected in `save_sheet` (#332).
+
+
 ## v0.16.0 / 2020-11-24
 
 Features:
