@@ -6,6 +6,9 @@ Squib follows [semantic versioning](http://semver.org).
 Bugs:
 * The `rows` argument is always respected in `save_sheet` (#332).
 
+Chores:
+* Bump cairo to ~1.17
+* Bump classy_hash to 1.0
 
 ## v0.16.0 / 2020-11-24
 
