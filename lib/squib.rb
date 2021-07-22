@@ -7,6 +7,8 @@ require_relative 'squib/version'
 require_relative 'squib/commands/cli'
 require_relative 'squib/deck'
 require_relative 'squib/card'
+require_relative 'squib/system_fonts'
+
 
 module Squib
   using Rainbow # we can colorize strings now!

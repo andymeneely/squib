@@ -1,7 +1,10 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.16.1 / Unreleased
+## v0.16.1 / 2021-07-22
+
+Features:
+* Added debug methods for checking font access. `Squib.system_fonts` and `Squib.print_system_fonts` (#334)
 
 Bugs:
 * The `rows` argument is always respected in `save_sheet` (#332).
