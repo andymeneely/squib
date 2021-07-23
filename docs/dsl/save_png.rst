@@ -46,32 +46,36 @@ shadow_radius
 
   adds a drop shadow behind the card just before rendering, when non-nil. Does nothing when set to nil.
 
-  `Drop Shadows`. A larger radius extends the blur's reach. A radius of ``0`` will enable the feature but not do any blurring (which can still look good!).
-  The final image will have a new width of: ``w + shadow_offset_x + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``, and similar for height.
-  The image will be painted at ``shadow_radius, shadow_radius`` in the new image.
-  This drop shadow happens before rendering and does not alter the original card graphic.
-  At this stage, the feature will just draw a rectangle and blur from there. So if your card has transparency (other than from ``trim_radius``), from, say, a circular chit, then this won't work. We're working on a better implementation.
-  See [blur algorithm](https://github.com/rcairo/rcairo/blob/master/lib/cairo/context/blur.rb) for details on blur implementation. Recommended range: 3-10 pixels. Supports :doc:`/units`.
+  A larger radius extends the blur's spread, making it softer. A radius of 0 still enables the shadow, but has no blur.
+
+  See section below for details about drop shadows.
 
 shadow_offset_x
   default: ``3``
 
   the horizontal distance that the drop shadow will be shifted beneath the final image.
-  Ignored when ``shadow_radius`` is ``nil``. See ``shadow_radius`` above for drop shadow details.
+  Ignored when ``shadow_radius`` is ``nil``.
+
+  See section below for details about drop shadows.
+
   Supports :doc:`/units`.
 
 shadow_offset_y
   default: ``3``
 
   Ignored when `shadow_radius` is ``nil``. See ``shadow_radius`` above for drop shadow details.
+
+  See section below for details about drop shadows.
+
   Supports :doc:`/units`.
 
 shadow_trim
   default: ``0``
 
-  the space around the edge of the output image trimmed when a drop shadow is drawn.
-  A negative number here would enlarge the margin on the right and bottom only.
-  Ignored when `shadow_radius` is ``nil``. See ``shadow_radius`` above for drop shadow details.
+  the space around the lower right and bottom edge of the output image to be trimmed when a drop shadow is drawn. Can also enlarge the image if it is negative.
+
+  Ignored when `shadow_radius` is ``nil``. See section below for details about drop shadows.
+
   Supports :doc:`/units`.
 
 shadow_color
@@ -79,10 +83,24 @@ shadow_color
 
   the color or gradient of the drop shadow. See :doc:`/colors`.
 
-  `Note about gradients:` while gradients are technically supported here, Squib will do the blurring for you. But, using a gradient here does give you enormous control over the softness of the shadow. See example below of doing a custom gradient for customizing your look.
+  `Note about gradients:` Squib still does blurring, but gradients give you fine control over the softness of the shadow. See example below of doing a custom gradient for customizing your look.
 
+  See section below for details about drop shadows.
 
 .. include:: /args/range.rst
+
+Drop Shadow
+-----------
+
+Drop shadows don't modify the original image. Instead, this will paint your existing card images onto a shadow of themselves. The final image will have the following dimensions:
+  * ``final_width  = card_w + shadow_offset_x + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``
+  * ``final_height = card_h + shadow_offset_y + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``
+
+
+The image will be painted at ``shadow_radius, shadow_radius`` in the new image.
+This drop shadow happens before rendering and does not alter the original card graphic.
+At this stage, the feature will just draw a rectangle and blur from there. So if your card has transparency (other than from ``trim_radius``), from, say, a circular chit, then this won't work. We're working on a better implementation.
+See [blur algorithm](https://github.com/rcairo/rcairo/blob/master/lib/cairo/context/blur.rb) for details on blur implementation. Recommended range: 3-10 pixels. Supports :doc:`/units`.
 
 Examples
 --------
@@ -93,7 +111,15 @@ This sample `lives here <https://github.com/andymeneely/squib/tree/master/sample
   :language: ruby
   :linenos:
 
-.. raw:: html
+.. image:: ../../samples/shadows/with_shadow_00_expected.png
+``with_shadow_00.png``
 
-  <img src="../saves/with_shadow_00_expected.png" class="figure">
-  <img src="../saves/with_shadow_test_00_expected.png" class="figure">
+.. image:: ../../samples/shadows/no_blur_00_expected.png
+``no_blur_00.png``
+
+.. image:: ../../samples/shadows/gradient_blur_00_expected.png
+``gradient_blur_00.png``
+
+
+.. image:: ../../samples/shadows/transparent_bg_shadow_00_expected.png
+``transparent_bg_shadow_00.png``

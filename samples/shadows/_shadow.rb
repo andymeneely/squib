@@ -1,5 +1,4 @@
-require_relative '../../lib/squib'
-# require 'squib'
+require 'squib'
 # The save_png method supports drop shadows on the final save
 # This is useful for when you want to generate images for your rulebook
 
@@ -62,9 +61,6 @@ Squib::Deck.new(width:50, height: 50) do
   # Like chits or something
 
   # background defaults to fully transparent here
-
-  # star x: 50, y: 50, inner_radius: 15, outer_radius: 35,
-  #      fill_color: :red, stroke_color: :red
 
   png file: 'doodle.png'
 
