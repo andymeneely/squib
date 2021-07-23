@@ -93,6 +93,7 @@ Drop Shadow
 -----------
 
 Drop shadows don't modify the original image. Instead, this will paint your existing card images onto a shadow of themselves. The final image will have the following dimensions:
+
   * ``final_width  = card_w + shadow_offset_x + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``
   * ``final_height = card_h + shadow_offset_y + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``
 
