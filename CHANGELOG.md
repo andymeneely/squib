@@ -1,9 +1,9 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.16.1 / 2021-07-22
-
+## v0.17.0 / 2021-07-23
 Features:
+* Drop shadows! The `save_png` method now supports a bunch of `shadow_` arguments that will add a drop shadow just before rendering. This is intended for using in rulebooks or marketing. Try it out by adding `shadow_radius: 8` to your save_png (#306, #264)
 * Added debug methods for checking font access. `Squib.system_fonts` and `Squib.print_system_fonts` (#334)
 
 Bugs:

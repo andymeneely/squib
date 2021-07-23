@@ -1,5 +1,7 @@
 require_relative '../errors_warnings/warn_unexpected_params'
-
+require_relative '../args/card_range'
+require_relative '../args/save_batch'
+require_relative '../args/drop_shadow'
 
 module Squib
   class Deck
@@ -24,6 +26,7 @@ module Squib
           range
           dir prefix suffix count_format
           rotate trim trim_radius
+          shadow_offset_x shadow_offset_y shadow_radius shadow_color shadow_trim
          )
       end
 
@@ -31,9 +34,10 @@ module Squib
         warn_if_unexpected opts
         range = Args.extract_range opts, deck
         batch = Args.extract_save_batch opts, deck
+        shadow = Args.extract_drop_shadow opts, deck
         @bar.start("Saving PNGs to #{batch.summary}", deck.size) do |bar|
           range.map do |i|
-            deck.cards[i].save_png(batch[i])
+            deck.cards[i].save_png(batch[i], shadow[i])
             bar.increment
           end
         end
