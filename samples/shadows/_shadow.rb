@@ -64,7 +64,6 @@ Squib::Deck.new(width:50, height: 50) do
 
   png file: 'doodle.png'
 
-  # save_png prefix: 'no_bg_shadow_', shadow_radius: 8, shadow_offset_x: 3, shadow_offset_y: 3
   save_png prefix: 'transparent_bg_shadow_',
            shadow_radius: 2,
            shadow_offset_x: 2, shadow_offset_y: 2,

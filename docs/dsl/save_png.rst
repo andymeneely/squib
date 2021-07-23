@@ -48,7 +48,9 @@ shadow_radius
 
   A larger radius extends the blur's spread, making it softer. A radius of 0 still enables the shadow, but has no blur.
 
-  See section below for details about drop shadows.
+  Recommended range: 3-10 pixels.
+
+  See :ref:`shadow` section below for more details.
 
 shadow_offset_x
   default: ``3``
@@ -56,7 +58,7 @@ shadow_offset_x
   the horizontal distance that the drop shadow will be shifted beneath the final image.
   Ignored when ``shadow_radius`` is ``nil``.
 
-  See section below for details about drop shadows.
+  See :ref:`shadow` section below for more details.
 
   Supports :doc:`/units`.
 
@@ -65,7 +67,7 @@ shadow_offset_y
 
   Ignored when `shadow_radius` is ``nil``. See ``shadow_radius`` above for drop shadow details.
 
-  See section below for details about drop shadows.
+  See :ref:`shadow` section below for more details.
 
   Supports :doc:`/units`.
 
@@ -74,7 +76,7 @@ shadow_trim
 
   the space around the lower right and bottom edge of the output image to be trimmed when a drop shadow is drawn. Can also enlarge the image if it is negative.
 
-  Ignored when `shadow_radius` is ``nil``. See section below for details about drop shadows.
+  Ignored when `shadow_radius` is ``nil``. See :ref:`shadow` section below for more details.
 
   Supports :doc:`/units`.
 
@@ -85,9 +87,11 @@ shadow_color
 
   `Note about gradients:` Squib still does blurring, but gradients give you fine control over the softness of the shadow. See example below of doing a custom gradient for customizing your look.
 
-  See section below for details about drop shadows.
+  See :ref:`shadow` section below for more details.
 
 .. include:: /args/range.rst
+
+.. _shadow:
 
 Drop Shadow
 -----------
@@ -97,11 +101,9 @@ Drop shadows don't modify the original image. Instead, this will paint your exis
   * ``final_width  = card_w + shadow_offset_x + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``
   * ``final_height = card_h + shadow_offset_y + (3 * shadow_radius) - (2 * shadow_trim) - (2 * trim)``
 
+A shadow of your card graphic is created using your ``shadow_color``.
 
-The image will be painted at ``shadow_radius, shadow_radius`` in the new image.
-This drop shadow happens before rendering and does not alter the original card graphic.
-At this stage, the feature will just draw a rectangle and blur from there. So if your card has transparency (other than from ``trim_radius``), from, say, a circular chit, then this won't work. We're working on a better implementation.
-See [blur algorithm](https://github.com/rcairo/rcairo/blob/master/lib/cairo/context/blur.rb) for details on blur implementation. Recommended range: 3-10 pixels. Supports :doc:`/units`.
+See https://github.com/rcairo/rcairo/blob/master/lib/cairo/context/blur.rb for details on blur implementation. Supports :doc:`/units`.
 
 Examples
 --------
