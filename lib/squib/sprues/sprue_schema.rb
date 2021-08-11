@@ -1,7 +1,8 @@
 module Squib
   module Sprues
     UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)$/
-    ROTATE_REGEX = /^(\d*[.])?\d+(deg|rad)?$/
+    COORD_REGEX = /^\-?(\d*[.])?\d+(in|cm|mm)$/
+    ROTATE_REGEX = /^\-?(\d*[.])?\d+(deg|rad)?$/
     SCHEMA = {
       'sheet_width' => UNIT_REGEX,
       'sheet_height' => UNIT_REGEX,
@@ -35,8 +36,8 @@ module Squib
         }]]
       },
       'cards' => [[{
-        'x' => UNIT_REGEX,
-        'y' => UNIT_REGEX,
+        'x' => COORD_REGEX,
+        'y' => COORD_REGEX,
         'rotate' => [
           :optional, Numeric,
           ClassyHash::G.enum(:clockwise, :counterclockwise, :turnaround),

@@ -158,6 +158,13 @@ describe Squib::Sprue do
     expect(tmpl.cards.map { |card| card['flip_horizontal'] })
       .to eq( [false, false, true] )
   end
+  
+  it 'parses negative coordinates' do
+    tmpl = Squib::Sprue.load(sprue_file('negatives.yml'), 100, 37.5)
+    expect(tmpl.cards.length).to eq(1)
+    expect(tmpl.cards.map { |card| card['x'] }) .to eq( [-50] )
+    expect(tmpl.cards.map { |card| card['y'] }) .to eq( [-100] )
+  end
 
   it 'fails when sheet_width is not defined' do
     expect do
