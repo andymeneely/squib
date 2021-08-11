@@ -32,7 +32,7 @@ id
 force_id
   default: ``false``
 
-  if set to ``true``, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered. Useful for putting multple icons in a single SVG file.
+  if set to ``true``, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered. Useful for putting multiple icons in a single SVG file.
 
 width
   default: ``native``
@@ -48,7 +48,7 @@ blend
   default: ``:none``
 
   the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators.
-  The possibilties include :none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity. String versions of these options are accepted too.
+  The possibilties include ``:none``, ``:multiply``, ``:screen``, ``:overlay``, ``:darken``, ``:lighten``, ``:color_dodge``, ``:color_burn``, ``:hard_light``, ``:soft_light``, ``:difference``, ``:exclusion``, ``:hsl_hue``, ``:hsl_saturation``, ``:hsl_color``, ``:hsl_luminosity``. String versions of these options are accepted too.
 
 
 angle
