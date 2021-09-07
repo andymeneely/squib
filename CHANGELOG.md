@@ -1,6 +1,11 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.17.1 / 2021-09-07
+
+Bugs:
+* Fix frozen string error on `Squib.xlsx` import when stripping newlines is enabled
+
 ## v0.17.1 / 2021-08-11
 
 Bugs:
