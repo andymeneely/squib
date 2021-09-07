@@ -19,5 +19,8 @@ Be sure to remember to do the following for releases. (Copy into a GitHub issue)
  - [ ] Activate version on squib.readthedocs.org (Versions)
  - [ ] Set default version on squib.readthedocs.org (Advanced Settings)
  - [ ] Bump version.rb to the next alpha
- - [ ] Check Docker build
  - [ ] Publish on BoardGameGeek thread
+ - [ ] Check Docker build on Dockerhub: https://hub.docker.com/repository/docker/andymeneely/squib
+ - [ ] Check Docker docker pull: docker pull andymeneely/squib:latest
+ - [ ] Check Docker build locally in samples: docker run --rm -v "%cd%":/usr/src/app andymeneely/squib:latest ruby basic
+ - [ ] Anything else to add to this checklist?
