@@ -50,6 +50,19 @@ img_dir
 
   For reading image file command (e.g. png and svg), read from this directory instead
 
+img_missing:
+  default: ``:warn``
+
+  Log a warning if an image file is missing. This option is only consulted if the following are true:
+
+    * If the ``file`` specified for an input image (e.g. :doc:`/dsl/png` or :doc:`/dsl/svg`) does not exist,
+    * AND a ``placeholder`` image does not exist
+
+  Other options:
+    * ``error`` - raise a ``RuntimeError`` and halt the entire build.
+    * ``silent`` - do nothing, log nothing, and act as if the ``file`` was ``nil``
+
+
 warn_ellipsize
   default: true
 

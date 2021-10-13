@@ -33,12 +33,23 @@ blend
   default: ``:none``
 
   the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators.
-  The possibilties include :none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity. String versions of these options are accepted too.
+  The possibilties include: :none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity. String versions of these options are accepted too.
 
 mask
   default: ``nil``
 
   Accepts a color (see :doc:`/colors`). If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color. Note: the origin for gradient coordinates is at the given x,y, not at 0,0 as it is most other places.
+
+placeholder
+  default: ``nil``
+
+  if ``file`` does not exist, but the file pointed to by this string does, then draw this image instead.
+
+  No warning is thrown when a placeholder is used.
+
+  If this is non-nil, but the placeholder file does not exist, then a warning is thrown and no image is drawn.
+
+  Examples of how to use placeholders are below.
 
 .. include:: /args/transform.rst
 
@@ -47,3 +58,27 @@ mask
 
 Examples
 --------
+
+These examples live here: https://github.com/andymeneely/squib/tree/dev/samples/images
+
+.. literalinclude:: ../../samples/images/_images.rb
+  :linenos:
+
+.. raw:: html
+
+  <img src="../images/_images_00_expected.png" width=600 class="figure">
+
+.. literalinclude:: ../../samples/images/_placeholders.rb
+  :linenos:
+
+First placeholder expected output.
+
+.. raw:: html
+
+  <img src="../images/placeholder_sheet_00_expected.png" width=100 class="figure">
+
+Second placeholder expected output.
+
+.. raw:: html
+
+  <img src="../images/multi_placeholder_sheet_00_expected.png" width=100 class="figure">

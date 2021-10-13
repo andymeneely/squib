@@ -278,6 +278,14 @@ blend
   the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators.
   The possibilties include :none, :multiply, :screen, :overlay, :darken, :lighten, :color_dodge, :color_burn, :hard_light, :soft_light, :difference, :exclusion, :hsl_hue, :hsl_saturation, :hsl_color, :hsl_luminosity. String versions of these options are accepted too.
 
+placeholder
+  default: ``nil``
+
+  if ``file`` does not exist, but the file pointed to by this string does, then draw this image instead.
+
+  No warning is thrown when a placeholder is used.
+
+  If this is non-nil, but the placeholder file does not exist, then a warning is thrown and no image is drawn.
 
 mask
   default: ``nil``

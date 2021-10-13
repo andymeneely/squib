@@ -1,8 +1,8 @@
-*.png
+!*_expected.png
 !ball.png
 !grit.png
 !sprites.png
 !with-alpha.png
-!_images_00_expected.png
 !shiny-purse.png
 !angler-fish.png
+*.png

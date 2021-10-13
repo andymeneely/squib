@@ -17,6 +17,8 @@ file
 
   file(s) to read in. As in :doc:`/arrays`, if this a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done for that card.
 
+  By default, if ``file`` is not found, a warning is logged. This behavior can be configured in :doc:`/config`
+
 .. include:: /args/xy.rst
 
 data
@@ -65,6 +67,16 @@ mask
 
     For implementation reasons, your vector image will be rasterized when mask is applied. If you use this with, say, PDF, the images will be embedded as rasters, not vectors.
 
+placeholder
+  default: ``nil``
+
+  if ``file`` does not exist, but the file pointed to by this string does, then draw this image instead.
+
+  No warning is thrown when a placeholder is used.
+
+  If this is non-nil, but the placeholder file does not exist, then a warning is thrown and no image is drawn.
+
+  Examples of how to use placeholders are below.
 
 crop_x
   default: ``0``
@@ -117,3 +129,27 @@ flip_vertical
 
 Examples
 --------
+
+These examples live here: https://github.com/andymeneely/squib/tree/dev/samples/images
+
+.. literalinclude:: ../../samples/images/_images.rb
+  :linenos:
+
+.. raw:: html
+
+  <img src="../images/_images_00_expected.png" width=600 class="figure">
+
+.. literalinclude:: ../../samples/images/_placeholders.rb
+  :linenos:
+
+First placeholder expected output.
+
+.. raw:: html
+
+  <img src="../images/placeholder_sheet_00_expected.png" width=100 class="figure">
+
+Second placeholder expected output.
+
+.. raw:: html
+
+  <img src="../images/multi_placeholder_sheet_00_expected.png" width=100 class="figure">

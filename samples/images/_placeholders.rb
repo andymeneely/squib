@@ -24,6 +24,12 @@ Squib::Deck.new(width: 100, height: 100, cards: 4) do
   files =        %w(angler-fish.png does-not-exist.png does-not-exist.png does-not-exist.png)
   placeholders = %w(grit.png        does-not-exist.png grit.png                             )
   png file: files, placeholder: placeholders
+
+  # text embeds can have placeholders too
+  text(str: 'A', color: :red) do |embed|
+    embed.png key: 'A', file: files, placeholder: placeholders, width: 30, height: 30
+  end
+
   save_sheet columns: 1, prefix: 'multi_placeholder_sheet_'
 end
 
