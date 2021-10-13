@@ -1,6 +1,15 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
+## v0.18.0 / Unreleased
+
+Features:
+* Missing images to `svg` and `png` can be replaced by a `placeholder` (#339)
+* New config option: `img_missing`. When an image is missing, warn or error to the console
+
+Compatibility:
+* Because of `, the new default behavior is to warn instead of errors on a missing file
+
 ## v0.17.1 / 2021-09-07
 
 Bugs:
