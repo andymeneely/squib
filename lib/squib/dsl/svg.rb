@@ -33,6 +33,7 @@ module Squib
           flip_horizontal flip_vertical angle
           id force_id data
           range layout
+          placeholder
          )
       end
 

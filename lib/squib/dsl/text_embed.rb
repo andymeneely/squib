@@ -23,6 +23,7 @@ module Squib
         id force_id data
         flip_horizontal flip_vertical
         alpha angle blend mask
+        placeholder
       )
     end
 

@@ -23,6 +23,7 @@ module Squib
       'dir'           => '_output',
       'hint'          => :none,
       'img_dir'       => '.',
+      'img_missing'   => :warn,
       'progress_bars' => false,
       'prefix'        => 'card_',
       'ldquote'       => "\u201C", # UTF8 chars
@@ -72,6 +73,10 @@ module Squib
 
     def img_dir
       @config_hash['img_dir']
+    end
+
+    def img_missing
+      @config_hash['img_missing'].to_sym
     end
 
     def text_hint

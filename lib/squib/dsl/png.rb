@@ -31,6 +31,7 @@ module Squib
           crop_corner_radius crop_corner_x_radius crop_corner_y_radius
           flip_horizontal flip_vertical
           range layout
+          placeholder
          )
       end
 
