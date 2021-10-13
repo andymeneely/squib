@@ -30,9 +30,9 @@ module Squib::Args
     def validate_file(arg, i)
       return nil if arg.nil?
       return File.expand_path(arg) if File.exists?(arg)
-      return File.expand_path(placeholder[i]) if File.exists?(placeholder[i])
+      return File.expand_path(placeholder[i]) if File.exists?(placeholder[i].to_s)
 
-      case @deck.conf.img_missing.to_sym
+      case deck_conf.img_missing.to_sym
       when :error
         raise "File #{File.expand_path(arg)} does not exist!"
       when :warn

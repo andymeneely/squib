@@ -126,4 +126,13 @@ module Squib::Args::ArgLoader
     self
   end
 
+  # Return the deck's configuration
+  # This keeps the @deck local to this mixin instead of forcing args classes
+  # to "know" that @deck works.
+  #
+  # It also makes unit testing easier. Sue me.
+  def deck_conf
+    @deck.conf
+  end
+
 end

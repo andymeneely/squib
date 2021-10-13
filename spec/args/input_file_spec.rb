@@ -9,12 +9,24 @@ describe Squib::Args::InputFile do
     it 'allows a file if it exists' do
       args = { file: __FILE__ } # I code therefore I am.
       ifile.load!(args, expand_by: 1)
-      expect(ifile).to have_attributes(file: [File.expand_path(__FILE__)])
+      expect(ifile.file).to eq([File.expand_path(__FILE__)])
     end
 
-    it 'raises on non-existent file' do
+    it 'warns on non-existent file by default' do
       args = { file: 'foo.rb' }
-      expect { ifile.load!(args, expand_by: 1) }.to raise_error("File #{File.expand_path('foo.rb')} does not exist!")
+
+      conf = double("conf", conf: Squib::Conf.new)
+      expect(conf).to receive(:img_missing).and_return(:warn)
+      expect(ifile).to receive(:deck_conf).and_return(conf)
+      expect(Squib.logger).to receive(:warn).once
+
+      expect(ifile.load!(args, expand_by: 1)).to have_attributes(file: [nil])
+    end
+
+    it 'uses placeholder when file does not exist but placeholder is non-nil and does exist' do
+      args = { file: 'foo.rb', placeholder: __FILE__ }
+      expect(Squib.logger).not_to receive(:warn)
+      expect(ifile.load!(args, expand_by: 1).file).to eq([File.expand_path(__FILE__)])
     end
 
   end
