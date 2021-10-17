@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'fileutils'
 require 'pathname'
 require 'highline'
@@ -199,7 +199,7 @@ module Squib
           elsif @option.card_ordering == :columns
             x, y = next_card_pos_col(x, y)
           else
-            raise RunTimeException, 'Invalid card ordering value received'
+            raise 'Invalid card ordering value received'
           end
         end
 
