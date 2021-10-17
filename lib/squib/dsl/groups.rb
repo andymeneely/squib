@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'set'
 
 module Squib
@@ -46,7 +46,7 @@ module Squib
     # Not a DSL method, but initialized from Deck.new
     def enable_groups_from_env!
       return if ENV['SQUIB_BUILD'].nil?
-      ENV['SQUIB_BUILD'].split(',').each do |grp|
+      ENV['SQUIB_BUILD'].to_s.split(',').each do |grp|
         enable_build grp.strip.to_sym
       end
     end
