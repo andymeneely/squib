@@ -1,11 +1,11 @@
-# typed: false
+# typed: true
 require_relative 'arg_loader'
 
 module Squib::Args
   module_function def extract_svg_special(opts, deck)
     SvgSpecial.new.extract! opts, deck
   end
-  
+
   class SvgSpecial
     include ArgLoader
 

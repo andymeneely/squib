@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require_relative 'arg_loader'
 require_relative 'dir_validator'
 
