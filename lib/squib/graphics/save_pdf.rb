@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require_relative '../args/sheet'
 
 module Squib
@@ -37,7 +37,7 @@ module Squib
               cc.render_rsvg_handle(Rsvg::Handle.new_from_file(card.svgfile))
               cc.restore
             else
-              abort "No such back end supported for save_pdf: #{backend}"
+              abort "No such back end supported for save_pdf: #{card.backend}"
             end
             bar.increment
             cc.reset_clip
