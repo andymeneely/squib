@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require 'yaml'
 require_relative 'args/xywh_shorthands'
 
@@ -50,7 +50,7 @@ module Squib
       return yml[key] unless parents_exist?(yml, key)
       visited[key] = key
       parent_keys = [yml[key]['extends']].flatten
-      h = {}
+      h = Hash.new
       parent_keys.each do |parent_key|
         from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
           handle_relative_operators(parent_val, child_val)
@@ -133,14 +133,9 @@ module Squib
     # Checks if we have any absentee parents
     # @api private
     def parents_exist?(yml, key)
-      exists = true
-      Array(yml[key]['extends']).each do |parent|
-        unless yml.key?(parent)
-          exists = false unless
-          Squib.logger.error "Processing layout: '#{key}' attempts to extend a missing '#{yml[key]['extends']}'"
-        end
-      end
-      return exists
+      parented = Array(yml[key]['extends']).all? { |parent| yml.key? parent }
+      Squib.logger.error "Processing layout: '#{key}' attempts to extend a missing '#{yml[key]['extends']}'" unless parented
+      return parented
     end
 
     # Safeguard against malformed circular extends
