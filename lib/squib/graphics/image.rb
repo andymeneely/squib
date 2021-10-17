@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module Squib
 
   # Cache all pngs we've already loaded
@@ -31,7 +31,6 @@ module Squib
     # :nodoc:
     # @api private
     def png(file, box, paint, trans)
-      Squib.logger.debug {"RENDERING PNG: \n  file: #{file}\n  box: #{box}\n  paint: #{paint}\n  trans: #{trans}"}
       return if file.nil? or file.eql? ''
       png = Squib.cache_load_image(file)
       use_cairo do |cc|
@@ -79,7 +78,6 @@ module Squib
     # :nodoc:
     # @api private
     def svg(file, svg_args, box, paint, trans)
-      Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
       Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? || svg_args.data.to_s.empty?
       return if (file.nil? or file.eql? '') and svg_args.data.nil? # nothing specified TODO Move this out to arg validator
       svg_args.data = File.read(file) if svg_args.data.to_s.empty?
