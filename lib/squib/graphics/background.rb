@@ -1,3 +1,4 @@
+# typed: true
 module Squib
   class Card
 

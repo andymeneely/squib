@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../errors_warnings/warn_unexpected_params'
 require_relative '../args/card_range'
 require_relative '../args/showcase_special'

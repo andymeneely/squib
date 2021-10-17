@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # An example deck that uses "mint" sized cards (e.g. Altoids).

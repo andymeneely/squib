@@ -1,3 +1,4 @@
+# typed: true
 require 'csv'
 
 module Squib::Args

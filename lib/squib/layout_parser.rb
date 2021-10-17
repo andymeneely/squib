@@ -1,3 +1,4 @@
+# typed: false
 require 'yaml'
 require_relative 'args/xywh_shorthands'
 

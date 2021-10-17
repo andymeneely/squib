@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 Squib::Deck.new(width: '65.8mm', height: '76mm', cards: 9) do

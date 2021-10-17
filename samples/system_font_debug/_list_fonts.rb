@@ -1,3 +1,4 @@
+# typed: strict
 # require 'squib'
 require_relative '../../lib/squib'
 

@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../lib/squib'
 
 # Lots of DSL methods have shorthands that are accepted for

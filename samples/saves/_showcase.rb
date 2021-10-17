@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # Showcases are a neat way to show off your cards in a modern way, using a

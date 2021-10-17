@@ -1,3 +1,4 @@
+# typed: strict
 module Squib
 
   # The next version to be released.

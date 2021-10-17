@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../args/sheet'
 
 module Squib

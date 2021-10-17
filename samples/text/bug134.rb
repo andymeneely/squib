@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 require 'game_icons'
 

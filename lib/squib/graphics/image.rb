@@ -1,3 +1,4 @@
+# typed: false
 module Squib
 
   # Cache all pngs we've already loaded

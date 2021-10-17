@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../errors_warnings/warn_unexpected_params'
 require_relative '../graphics/save_pdf'
 require_relative '../graphics/save_sprue'

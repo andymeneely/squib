@@ -1,3 +1,4 @@
+# typed: true
 require 'mercenary'
 require_relative 'make_sprue'
 require_relative 'new'

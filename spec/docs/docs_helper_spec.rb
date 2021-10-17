@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 require_relative 'docs_helper'
 

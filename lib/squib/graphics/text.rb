@@ -1,3 +1,4 @@
+# typed: false
 require 'pango'
 require_relative '../args/typographer'
 require_relative 'embedding_utils'

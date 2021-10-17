@@ -1,3 +1,4 @@
+# typed: false
 require 'rainbow/refinement'
 require_relative 'save_png'
 require_relative 'save_pdf'

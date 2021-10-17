@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 data = { 'name' => ['Thief', 'Grifter', 'Mastermind'],

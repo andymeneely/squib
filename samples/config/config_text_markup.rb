@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 Squib::Deck.new(config: 'config_text_markup.yml') do

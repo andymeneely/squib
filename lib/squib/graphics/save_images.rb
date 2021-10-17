@@ -1,3 +1,4 @@
+# typed: true
 require_relative 'cairo_context_wrapper'
 
 module Squib

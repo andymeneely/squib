@@ -1,3 +1,4 @@
+# typed: true
 require 'forwardable'
 require 'yaml'
 require_relative 'args/typographer'

@@ -1,3 +1,4 @@
+# typed: strict
 module Squib
 
     # System-wide default font

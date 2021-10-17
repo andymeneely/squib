@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # Note that this sample has no bleed - you might want to have bleed

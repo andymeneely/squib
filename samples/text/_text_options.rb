@@ -1,3 +1,4 @@
+# typed: false
 # encoding: UTF-8
 # require 'squib'
 require_relative '../../lib/squib'

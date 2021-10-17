@@ -1,3 +1,4 @@
+# typed: true
 module Squib::Args
   module_function def extract_import(opts)
     # note how we don't use ArgLoader here because it's way more complex than

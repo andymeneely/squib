@@ -1,3 +1,4 @@
+# typed: true
 require_relative 'unit_conversion'
 
 module Squib

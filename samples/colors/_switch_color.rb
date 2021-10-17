@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../lib/squib'
 
 # Choose between black and white color theme for type snake

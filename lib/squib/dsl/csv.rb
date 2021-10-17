@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../args/import'
 require_relative '../args/csv_opts'
 require_relative '../import/csv_importer'

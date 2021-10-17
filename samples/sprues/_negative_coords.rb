@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../lib/squib'
 
 Squib::Deck.new(width: 100, height: 100, cards: 3) do 

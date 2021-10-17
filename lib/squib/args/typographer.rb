@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../constants'
 
 module Squib::Args

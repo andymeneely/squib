@@ -1,3 +1,4 @@
+# typed: false
 require 'rainbow/refinement'
 
 module Squib::WarnUnexpectedParams

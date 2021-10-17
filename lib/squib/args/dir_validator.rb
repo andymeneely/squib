@@ -1,3 +1,4 @@
+# typed: true
 module Squib::Args::DirValidator
 
   def ensure_dir_created(dir)

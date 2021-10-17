@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # This sample demonstrates the built-in layouts for Squib.

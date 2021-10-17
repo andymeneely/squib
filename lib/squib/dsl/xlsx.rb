@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../args/import'
 require_relative '../import/xlsx_importer'
 require_relative '../errors_warnings/warn_unexpected_params'

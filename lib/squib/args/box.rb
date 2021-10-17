@@ -1,3 +1,4 @@
+# typed: false
 require_relative 'arg_loader'
 require_relative 'xywh_shorthands'
 

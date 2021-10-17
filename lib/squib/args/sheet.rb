@@ -1,3 +1,4 @@
+# typed: false
 require 'cairo'
 require_relative 'arg_loader'
 require_relative 'color_validator'

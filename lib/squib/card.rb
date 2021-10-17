@@ -1,3 +1,4 @@
+# typed: true
 require 'cairo'
 require_relative 'graphics/cairo_context_wrapper'
 

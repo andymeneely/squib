@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 require 'squib/args/xywh_shorthands'
 

@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # Our SVGs are auto-saved after each step using the configuration parameters

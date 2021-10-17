@@ -1,3 +1,4 @@
+# typed: strict
 require 'spec_helper'
 
 describe Squib::Deck do

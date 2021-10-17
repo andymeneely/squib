@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # This sample demonstrates how to use the various save methods

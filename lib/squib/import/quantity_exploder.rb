@@ -1,3 +1,4 @@
+# typed: true
 module Squib
   module Import
     module QuantityExploder

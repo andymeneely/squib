@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../args/box'
 require_relative '../args/card_range'
 require_relative '../args/embed_adjust'

@@ -1,3 +1,4 @@
+# typed: false
 require 'fileutils'
 require 'pathname'
 require 'highline'

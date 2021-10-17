@@ -1,3 +1,4 @@
+# typed: true
 require_relative 'color_validator'
 
 module Squib::Args

@@ -1,3 +1,4 @@
+# typed: false
 require 'spec_helper'
 require 'squib/args/paragraph'
 require 'squib/constants'

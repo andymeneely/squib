@@ -1,3 +1,4 @@
+# typed: false
 require 'highline'
 require 'spec_helper'
 require 'squib'

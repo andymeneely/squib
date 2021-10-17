@@ -1,3 +1,4 @@
+# typed: false
 require 'byebug'
 require 'coveralls'
 Coveralls.wear!

@@ -1,3 +1,4 @@
+# typed: true
 module Squib::Args::ColorValidator
 
   def colorify(color, custom_colors = {})

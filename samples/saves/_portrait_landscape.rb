@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # For decks with both landscape and portrait orientations,

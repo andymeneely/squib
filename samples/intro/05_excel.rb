@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 Squib::Deck.new cards: 4, layout: 'part3_layout.yml' do

@@ -1,3 +1,4 @@
+# typed: false
 require 'logger'
 require 'cairo'
 require 'pango'

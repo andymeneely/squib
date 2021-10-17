@@ -1,3 +1,4 @@
+# typed: true
 module Squib
   # @api private
   class Card

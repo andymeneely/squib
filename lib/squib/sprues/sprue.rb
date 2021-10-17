@@ -1,3 +1,4 @@
+# typed: true
 require 'yaml'
 require 'classy_hash'
 require_relative '../args/color_validator'

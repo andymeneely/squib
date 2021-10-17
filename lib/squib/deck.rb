@@ -1,3 +1,4 @@
+# typed: true
 require 'forwardable'
 require 'pp'
 require_relative '../squib'

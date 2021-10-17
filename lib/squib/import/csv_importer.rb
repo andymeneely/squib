@@ -1,3 +1,4 @@
+# typed: false
 require 'csv'
 require_relative 'quantity_exploder'
 

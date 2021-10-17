@@ -1,3 +1,4 @@
+# typed: false
 require_relative 'docs_helper'
 
 describe Squib::DSL do

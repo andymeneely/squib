@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 require_relative 'version'
 

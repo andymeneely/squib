@@ -1,3 +1,4 @@
+# typed: strict
 module Squib
   # @api private
   module Graphics

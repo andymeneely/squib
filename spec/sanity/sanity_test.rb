@@ -1,3 +1,4 @@
+# typed: true
 require 'launchy'
 require 'erb'
 require 'yaml'

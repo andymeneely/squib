@@ -1,3 +1,4 @@
+# typed: true
 module Squib::Args
 
   module_function def extract_range(opts, deck)

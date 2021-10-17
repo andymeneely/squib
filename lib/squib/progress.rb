@@ -1,3 +1,4 @@
+# typed: true
 require 'ruby-progressbar'
 
 module Squib

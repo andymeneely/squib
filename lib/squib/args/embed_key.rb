@@ -1,3 +1,4 @@
+# typed: true
 require_relative 'arg_loader'
 
 module Squib::Args

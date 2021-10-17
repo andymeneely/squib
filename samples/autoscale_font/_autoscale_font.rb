@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # Autoscaling font is handy for a bunch of things:

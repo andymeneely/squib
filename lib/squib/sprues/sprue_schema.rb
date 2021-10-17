@@ -1,3 +1,4 @@
+# typed: true
 module Squib
   module Sprues
     UNIT_REGEX = /^(\d*[.])?\d+(in|cm|mm)$/

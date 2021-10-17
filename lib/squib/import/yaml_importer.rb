@@ -1,3 +1,4 @@
+# typed: true
 require 'yaml'
 require_relative 'data_frame'
 require_relative 'quantity_exploder'

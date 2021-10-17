@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../errors_warnings/warn_unexpected_params'
 
 module Squib

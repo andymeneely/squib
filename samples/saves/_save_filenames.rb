@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 
 # This demonstrates the many ways you can save file to save_png and the like

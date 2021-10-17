@@ -1,3 +1,4 @@
+# typed: false
 module Squib
   module Graphics
     # Helper class to generate templated sheet.
@@ -123,8 +124,10 @@ module Squib
 
       def check_oversized_card
         Squib.logger.warn {
-          "Card size is larger than sprue's expected card size "\
-          "of #{@tmpl.card_width}x#{@tmpl.card_height}. Cards may overlap."
+          <<-EOS
+          Card size is larger than sprue's expected card size of
+          #{@tmpl.card_width}x#{@tmpl.card_height}. Cards may overlap.
+          EOS
         } if (@deck.width - 2.0 * @sheet_args.trim)  > @tmpl.card_width ||
              (@deck.height - 2.0 * @sheet_args.trim) > @tmpl.card_height
       end
@@ -193,7 +196,7 @@ module Squib
       def draw_final_page(cc)
         # PDF doesn't need to create a last page. See bug #320
         cc.target.finish
-      end 
+      end
 
       def full_filename
         @sheet_args.full_filename

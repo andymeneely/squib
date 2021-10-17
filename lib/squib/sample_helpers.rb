@@ -1,3 +1,4 @@
+# typed: true
 module Squib
 
   # Some helper methods specifically for samples

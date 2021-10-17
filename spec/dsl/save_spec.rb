@@ -1,3 +1,4 @@
+# typed: false
 require 'squib/deck'
 require 'spec_helper'
 

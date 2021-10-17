@@ -1,3 +1,4 @@
+# typed: false
 require 'squib'
 # The save_png method supports drop shadows on the final save
 # This is useful for when you want to generate images for your rulebook
