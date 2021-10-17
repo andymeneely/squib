@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module Squib
   module Graphics
     # Helper class to generate templated sheet.
