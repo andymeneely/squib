@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require_relative 'arg_loader'
 require_relative 'xywh_shorthands'
 
@@ -53,7 +53,7 @@ module Squib::Args
     def validate_y_radius(arg, i)
       return radius[i] unless radius[i].nil?
       arg
-    end   
+    end
 
   end
 
