@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require_relative '../constants'
 require_relative '../conf'
 require 'ostruct'
