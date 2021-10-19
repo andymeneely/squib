@@ -19,4 +19,4 @@ A clear and concise description of any alternative solutions or features you've 
 **Additional context**
 Add any other context or screenshots about the feature request here.
 
- - [] I might be interested in implementing this myself
+ - [ ] I might be interested in implementing this myself

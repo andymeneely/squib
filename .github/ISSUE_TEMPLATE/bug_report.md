@@ -20,7 +20,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
-We love screenshots! 
+We love screenshots!
   * Windows: `Print Screen` key and then `ctrl+v` directly into GitHub issues here.
   * Shift + Command + 3, then `command+v` directly into GitHub issues here.
 
@@ -33,7 +33,7 @@ Add any other context about the problem here.
 
 **Check the following:**
 
-- [] I have updated Squib to the latest version. 
-- [] I have checked the Squib issues backlog for something similar
-- [] I have attempted to make a minimal script demonstrating my problem
-- [] I have reviewed the [Squib Docs](https://squib.readthedocs.io/) and there's still a problem
+- [ ] I have updated Squib to the latest version.
+- [ ] I have checked the Squib issues backlog for something similar
+- [ ] I have attempted to make a minimal script demonstrating my problem
+- [ ] I have reviewed the [Squib Docs](https://squib.readthedocs.io/) and there's still a problem
