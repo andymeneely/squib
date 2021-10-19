@@ -26533,6 +26533,7 @@
 # uninitialized constant Newton
 # wrong constant name to_d
 # wrong constant name <static-init>
+# wrong constant name <Class:HTML>
 # uninitialized constant Nokogiri::CSS::Parser::Racc_Main_Parsing_Routine
 # uninitialized constant Nokogiri::CSS::Parser::Racc_Runtime_Core_Id_C
 # Did you mean?  Nokogiri::CSS::Parser::Racc_Runtime_Core_Version_C
@@ -26553,6 +26554,7 @@
 # uninitialized constant Nokogiri::CSS::Parser::Racc_Runtime_Version
 # Did you mean?  Nokogiri::CSS::Parser::Racc_Runtime_Core_Version
 # uninitialized constant Nokogiri::CSS::Parser::Racc_YY_Parse_Method
+# wrong constant name <Class:ElementDescription>
 # wrong constant name <Class:Element>
 # uninitialized constant Nokogiri::XML::Document::ATTRIBUTE_DECL
 # Did you mean?  Nokogiri::XML::AttributeDecl

@@ -20,7 +20,7 @@ class GdkPixbuf::Loader < GObjectIntrospection::Loader
   def rubyish_method_name(function_info, options = nil); end
 end
 class GdkPixbuf::Pixbuf < GLib::Object
-  def __deprecatable_78240_composite__(options); end
+  def __deprecatable_78260_composite__(options); end
   def add_alpha(*arguments, &block); end
   def apply_embedded_orientation(*arguments, &block); end
   def bits_per_sample(*arguments, &block); end

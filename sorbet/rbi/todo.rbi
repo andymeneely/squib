@@ -3,7 +3,6 @@
 
 # typed: strong
 module Pango::EllipsizeMode::END; end
-module Squib::Commands::MakeSprue::RunTimeException; end
 module T::CompatibilityPatches::RSpecCompatibility::MethodDoubleExtensions; end
 module T::CompatibilityPatches::RSpecCompatibility::RecorderExtensions; end
 module Zip::CompressionMethodError; end
