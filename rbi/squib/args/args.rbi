@@ -1,5 +1,4 @@
 # typed: strict
-
 class Squib::Args::Box
 
   def radius; end

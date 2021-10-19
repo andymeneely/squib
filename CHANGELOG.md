@@ -10,6 +10,9 @@ Features:
 Compatibility:
 * Because of `, the new default behavior is to warn instead of errors on a missing file
 
+Bugs:
+* Introduced [Sorbet](https://sorbet.org/)! Found some minor bugs and refactored some ugly code in converting to `# typed: true`
+
 ## v0.17.1 / 2021-09-07
 
 Bugs:
