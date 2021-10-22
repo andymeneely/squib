@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     continue-on-error: |
       ${{ endsWith(matrix.ruby, 'head')
-          || (matrix.ruby == '3.0' && matrix.os == 'macos')}}
+          || (matrix.ruby == '3.0' && matrix.os == 'macos')
           || (matrix.ruby == 'mingw')}}
     steps:
     - uses: actions/checkout@v2
