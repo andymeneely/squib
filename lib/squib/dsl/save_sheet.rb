@@ -30,7 +30,7 @@ module Squib
           range sprue
           columns rows rtl
           dir prefix count_format suffix
-          margin gap trim trim_radius
+          margin gap trim trim_radius rotate
          )
       end
 

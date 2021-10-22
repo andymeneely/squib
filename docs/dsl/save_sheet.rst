@@ -41,6 +41,11 @@ suffix
 
   the suffix of all the filenames saved, just before the `.png` extension.
 
+rotate
+  default: ``false``
+
+  If ``true``, the saved cards will be rotated 90 degrees clockwise. Or, rotate by the number of radians. Intended to rendering landscape instead of portrait. Possible values: ``true``, ``false``, ``:clockwise``, ``:counterclockwise``
+
 dir
   default: ``'_output'``
 

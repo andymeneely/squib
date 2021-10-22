@@ -4,16 +4,18 @@ Squib follows [semantic versioning](http://semver.org).
 ## v0.18.0 / Unreleased
 
 Features:
-* Missing images to `svg` and `png` can be replaced by a `placeholder` (#339)
-* New config option: `img_missing`. When an image is missing, warn or error to the console
+* Placeholders! Missing images to `svg` and `png` can be replaced by a `placeholder` (#339)
+* New config option: `img_missing`. When an image is missing, warn or error to the console (#339)
+* `save_sheet` learned how to `rotate` individual images! (#301)
 
 Compatibility:
-* Because of `, the new default behavior is to warn instead of errors on a missing file
+* Because of the features above, the new default behavior is to warn instead of errors on a missing file
 
 ## v0.17.1 / 2021-09-07
 
 Bugs:
 * Fix frozen string error on `Squib.xlsx` import when stripping newlines is enabled
+* `save_sheet` works with `rtl` and `trim` altogether properly now.
 
 ## v0.17.1 / 2021-08-11
 
