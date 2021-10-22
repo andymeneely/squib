@@ -7,10 +7,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos]
-        ruby: [2.5, 2.6, 2.7, 3.0, head]
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+        ruby:
+        - 2.7
+        - 3.0
+        - head
+        - mingw
     runs-on: ${{ matrix.os }}-latest
-    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug'  || (matrix.ruby == '3.0' && matrix.os == 'macos')}}
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || (matrix.ruby == '3.0' && matrix.os == 'macos') || (matrix.ruby == 'mingw') }}
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1

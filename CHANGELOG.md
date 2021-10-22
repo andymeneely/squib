@@ -9,6 +9,7 @@ Features:
 
 Compatibility:
 * Because of `, the new default behavior is to warn instead of errors on a missing file
+* Squib's official support for Ruby 2.5, 2.6 support is dropped.
 
 ## v0.17.1 / 2021-09-07
 
