@@ -2,7 +2,6 @@
 require_relative '../../lib/squib'
 
 # This sample demonstrates how to use the various save methods
-
 Squib::Deck.new(width: 825, height: 1125, cards: 16) do
   background color: :gray
   rect x: 38, y: 38, width: 750, height: 1050,
@@ -60,15 +59,4 @@ Squib::Deck.new(width: 100, height: 100, cards: 3) do
   # When we only have 3 cards but want a 2x4 grid with lots of empty spaces.
   # Buggy behavior was to revert to 1 row and not respect the rows arg.
   save_sheet prefix: 'save_sheet_bug332_', rows: 2, columns: 4
-end
-
-# Allow rotating
-Squib::Deck.new(width: 100, height: 50, cards: 8) do
-  background color: :white
-  rect x: 10, y: 10, width: 80, height: 30
-  rect x: 5, y: 5, width: 90, height: 40, stroke_width: 5, stroke_color: :blue
-  text y: 2, str: 0..7, font: 'Open Sans Bold 8', align: :center, width: 100
-  save_sheet prefix: 'save_sheet_rotated_', rows: 2, columns: 3, rotate: true
-  save_sheet prefix: 'save_sheet_rotated_trimmed_', rows: 2, columns: 3, rotate: true, trim: 5
-  save_sheet prefix: 'save_sheet_rotated_trimmed_rtl_', rows: 2, columns: 3, rotate: true, trim: 5, rtl: true
 end

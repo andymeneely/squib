@@ -44,7 +44,9 @@ suffix
 rotate
   default: ``false``
 
-  If ``true``, the saved cards will be rotated 90 degrees clockwise. Or, rotate by the number of radians. Intended to rendering landscape instead of portrait. Possible values: ``true``, ``false``, ``:clockwise``, ``:counterclockwise``
+  if ``true``, all saved cards will be rotated 90 degrees clockwise. Possible values: ``true``, ``false``, ``:clockwise``, ``:counterclockwise``
+
+  Supports arrays so you can rotate individual cards different ways if that's how you want to roll, e.g. ``rotate: [:clockwise, :counterclockwise]``
 
 dir
   default: ``'_output'``
@@ -78,3 +80,7 @@ rtl
 
 Examples
 --------
+
+.. literalinclude:: ../../samples/saves/_saves.rb
+  :language: ruby
+  :linenos:
