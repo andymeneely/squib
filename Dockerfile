@@ -1,6 +1,6 @@
 # This is the official Squib Docker image.
 #
-FROM ruby:2.7-slim
+FROM ruby:3.0-slim
 WORKDIR /usr/src/app
 
 LABEL org.squib.url=http://squib.rocks \
