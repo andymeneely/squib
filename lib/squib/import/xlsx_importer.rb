@@ -1,4 +1,4 @@
-require 'roo'
+autoload :Roo, 'roo'
 require_relative 'quantity_exploder'
 
 module Squib::Import

@@ -17,6 +17,9 @@ Bugs:
 * Fix frozen string error on `Squib.xlsx` import when stripping newlines is enabled
 * `save_sheet` works with `rtl` and `trim` altogether properly now.
 
+Chores:
+* Added autoloading for various slow-loading libraries, speeding up initial `require`
+
 ## v0.17.1 / 2021-08-11
 
 Bugs:

@@ -1,14 +1,13 @@
+autoload :Cairo, 'cairo'
+autoload :Pango, 'pango'
+autoload :Rsvg,  'rsvg2'
 require 'logger'
-require 'cairo'
-require 'pango'
-require 'rsvg2'
 require 'rainbow/refinement'
 require_relative 'squib/version'
 require_relative 'squib/commands/cli'
 require_relative 'squib/deck'
 require_relative 'squib/card'
 require_relative 'squib/system_fonts'
-
 
 module Squib
   using Rainbow # we can colorize strings now!
