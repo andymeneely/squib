@@ -6,6 +6,6 @@ module Squib
   # Most of the time this is in the alpha of the next release.
   # e.g. v0.0.5a is on its way to becoming v0.0.5
   #
-  VERSION = '0.18.0a'
+  VERSION = '0.18.0'
 end
 
