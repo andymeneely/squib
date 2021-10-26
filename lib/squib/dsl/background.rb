@@ -1,9 +1,12 @@
 require_relative '../errors_warnings/warn_unexpected_params'
+require_relative '../errors_warnings/error_informant'
 
 module Squib
   class Deck
+    include ErrorInformant
+
     def background(opts = {})
-      DSL::Background.new(self, __callee__).run(opts)
+      attempt { DSL::Background.new(self, __callee__).run(opts) }
     end
   end
 

@@ -49,6 +49,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls', '>= 0.8.21'
   spec.add_development_dependency 'guard'
   spec.add_development_dependency 'guard-rake'
+  spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'game_icons'
   spec.add_development_dependency 'launchy'
   spec.add_development_dependency 'rake'
