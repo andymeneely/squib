@@ -1,4 +1,12 @@
-Be sure to remember to do the following for releases. (Copy into a GitHub issue)
+---
+name: Release TODO list
+about: Use this checklist when we release
+title: Use this checklist when we release
+labels: release
+assignees: andymeneely
+---
+
+Be sure to remember to do the following for releases.
 
  - [ ] CHANGELOG is written for all new changes
  - [ ] README is updated
