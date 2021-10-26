@@ -18,7 +18,7 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         # bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: brew update && brew upgrade
-      if: matrix.os == 'macos-latest'
+      if: matrix.os == 'macos'
     - run: ruby --version # explicitly show the ruby version
     - run: bundle install
     - run: bundle exec rake
