@@ -10,6 +10,7 @@ Features:
 
 Compatibility:
 * Because of the features above, the new default behavior is to warn instead of errors on a missing file
+* Ruby 2.7 is officially our minimum Ruby, since Ruby 2.6 will EOL in about six months from now
 
 ## v0.17.1 / 2021-09-07
 
