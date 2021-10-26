@@ -1,7 +1,7 @@
 ---
 name: Release TODO list
 about: Use this checklist when we release
-title: Use this checklist when we release
+title: Release v0.XYZ
 labels: release
 assignees: andymeneely
 ---
