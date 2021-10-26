@@ -7,16 +7,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos]
+        os: [ubuntu, macos, windows]
         ruby: [2.7, 3.0, head]
     runs-on: ${{ matrix.os }}-latest
-    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || (matrix.ruby == '3.0' && matrix.os == 'macos')}}
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || (matrix.ruby == '3.0' && matrix.os == 'macos-latest')}}
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         # bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - run: brew update && brew upgrade
+      if: matrix.os == 'macos-latest'
     - run: ruby --version # explicitly show the ruby version
     - run: bundle install
     - run: bundle exec rake
