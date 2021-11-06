@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'gio2',                  '~> 3.4'
   spec.add_runtime_dependency 'gobject-introspection', '~> 3.4'
   spec.add_runtime_dependency 'highline',              '2.0.3'
+  spec.add_runtime_dependency 'mechanize',             '~> 2.7'
   spec.add_runtime_dependency 'mercenary',             '0.4.0'
   spec.add_runtime_dependency 'nokogiri',              '~> 1.11'
   spec.add_runtime_dependency 'pango',                 '~> 3.4'

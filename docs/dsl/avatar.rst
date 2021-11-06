@@ -1,40 +1,19 @@
-svg
-===
+avatar
+======
 
-Renders an entire svg file at the given location. Uses the SVG-specified units and DPI to determine the pixel width and height.  If neither data nor file are specified for a given card, this method does nothing.
-
-.. note::
-
-  Note: if alpha transparency is desired, set that in the SVG.
+Renders an avatar SVG image using using https://avatars.dicebear.com/. Uses the SVG-specified units and DPI to determine the pixel width and height.  If neither data nor file are specified for a given card, this method does nothing.
 
 
 Options
 -------
 .. include:: /args/expansion.rst
 
-file
-  default: ``''`` (empty string)
+library
+  default: ``'avataaars'``
 
-  file(s) to read in. As in :doc:`/arrays`, if this a single file, then it's use for every card in range. If the parameter is an Array of files, then each file is looked up for each card. If any of them are nil or '', nothing is done for that card.
-
-  By default, if ``file`` is not found, a warning is logged. This behavior can be configured in :doc:`/config`
+  avatar library to use. Options are ``'male'``, ``'female'``, ``'human'``, ``'identicon'``, ``'initials'``, ``'bottts'``, ``'avataaars'``, ``'jdenticon'``, ``'gridy'`` or ``'micah'``.
 
 .. include:: /args/xy.rst
-
-data
-  default: ``nil``
-
-  render from an SVG XML string. Overrides ``file`` if both are specified (a warning is shown).
-
-id
-  default: ``nil``
-
-  if set, then only render the SVG element with the given id. Prefix '#' is optional. Note: the x-y coordinates are still relative to the SVG document's page.
-
-force_id
-  default: ``false``
-
-  if set to ``true``, then this svg will not be rendered at all if the id is empty or nil. If not set, the entire SVG is rendered. Useful for putting multiple icons in a single SVG file.
 
 width
   default: ``native``
@@ -52,7 +31,6 @@ blend
   the composite blend operator used when applying this image. See Blend Modes at http://cairographics.org/operators.
   The possibilties include ``:none``, ``:multiply``, ``:screen``, ``:overlay``, ``:darken``, ``:lighten``, ``:color_dodge``, ``:color_burn``, ``:hard_light``, ``:soft_light``, ``:difference``, ``:exclusion``, ``:hsl_hue``, ``:hsl_saturation``, ``:hsl_color``, ``:hsl_luminosity``. String versions of these options are accepted too.
 
-
 angle
   default: ``0``
 
@@ -66,17 +44,6 @@ mask
 .. warning::
 
     For implementation reasons, your vector image will be rasterized when mask is applied. If you use this with, say, PDF, the images will be embedded as rasters, not vectors.
-
-placeholder
-  default: ``nil``
-
-  if ``file`` does not exist, but the file pointed to by this string does, then draw this image instead.
-
-  No warning is thrown when a placeholder is used.
-
-  If this is non-nil, but the placeholder file does not exist, then a warning is thrown and no image is drawn.
-
-  Examples of how to use placeholders are below.
 
 crop_x
   default: ``0``
@@ -130,26 +97,14 @@ flip_vertical
 Examples
 --------
 
-These examples live here: https://github.com/andymeneely/squib/tree/dev/samples/images
+These examples live here: https://github.com/andymeneely/squib/tree/dev/samples/avatars
 
-.. literalinclude:: ../../samples/images/_images.rb
+.. literalinclude:: ../../samples/avatars/_avatars.rb
   :linenos:
 
 .. raw:: html
 
-  <img src="../images/_images_00_expected.png" width=600 class="figure">
+  <img src="../avatars/_avatars_00_expected.png" width=600 class="figure">
 
-.. literalinclude:: ../../samples/images/_placeholders.rb
+.. literalinclude:: ../../samples/avatars/_placeholders.rb
   :linenos:
-
-First placeholder expected output.
-
-.. raw:: html
-
-  <img src="../images/placeholder_sheet_00_expected.png" width=100 class="figure">
-
-Second placeholder expected output.
-
-.. raw:: html
-
-  <img src="../images/multi_placeholder_sheet_00_expected.png" width=100 class="figure">
