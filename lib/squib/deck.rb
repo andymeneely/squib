@@ -108,6 +108,7 @@ module Squib
     ###################
     ### DSL METHODS ###
     ###################
+    require_relative 'dsl/avatar'
     require_relative 'dsl/background'
     require_relative 'dsl/circle'
     require_relative 'dsl/csv'

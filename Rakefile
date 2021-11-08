@@ -10,7 +10,7 @@ desc 'test => spec'
 task test: [:spec]
 
 # Useful for hooking up with SublimeText.
-# e.g. rake sample[basic.rb]
+# e.g. rake 'run[autoscale_font/_autoscale_font]'
 desc 'Run a specific sample'
 task :run, [:file] => :install do |t, args|
   args.with_defaults(file: 'basic.rb')
