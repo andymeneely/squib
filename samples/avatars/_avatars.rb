@@ -1,9 +1,7 @@
 require 'squib'
 require 'squib/sample_helpers'
 
-Squib.configure img_dir: './avatars'
-
-Squib::Deck.new(width: 1000, height: 2050) do
+Squib::Deck.new(width: 1000, height: 2050, config: 'avatar_config.yml') do
   draw_graph_paper width, height
 
   sample "Avatar library - 'male'." do |x, y|

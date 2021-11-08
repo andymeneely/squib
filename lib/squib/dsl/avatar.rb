@@ -43,9 +43,7 @@ module Squib
           crop_x crop_y crop_width crop_height
           crop_corner_radius crop_corner_x_radius crop_corner_y_radius
           flip_horizontal flip_vertical angle
-          id force_id data
           range layout
-          placeholder
         ]
       end
 

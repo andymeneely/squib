@@ -15,6 +15,11 @@ library
 
 .. include:: /args/xy.rst
 
+seed
+  default: ``nil``
+
+  string to use as the randomizer for the avatar library. Or, in the case of ``'initials'``, the actual initials shown in the returned image.
+
 width
   default: ``native``
 
@@ -104,7 +109,5 @@ These examples live here: https://github.com/andymeneely/squib/tree/dev/samples/
 
 .. raw:: html
 
-  <img src="../avatars/_avatars_00_expected.png" width=600 class="figure">
+  <img src="../images/_avatars_00_expected.png" width=600 class="figure">
 
-.. literalinclude:: ../../samples/avatars/_placeholders.rb
-  :linenos:
