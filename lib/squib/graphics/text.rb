@@ -67,7 +67,7 @@ module Squib
           end
           return 0 if (file.nil? or file.eql? '') and svg_data.nil?
           svg_data = File.read(file) if svg_data.to_s.empty?
-          RSVG::Handle.new_from_data(svg_data).width
+          Rsvg::Handle.new_from_data(svg_data).width
         end
       else
         rule[:box].width[@index] * Pango::SCALE / (range.size - 1)
