@@ -1,7 +1,7 @@
-disable_build_globally
+enable_build_globally
 ======================
 
-Enagle the given build group for all future ``Squib::Deck`` runs.
+Enable the given build group for all future ``Squib::Deck`` runs.
 
 Essentially a convenience method for setting the ``SQUIB_BUILD`` environment variable. See :doc:`/build_groups` for ways to use this effectively.
 
