@@ -19,8 +19,8 @@ module Squib
       Squib::logger.info { "  using layout(s): #{files}" }
       Array(files).each do |file|
         thefile = file
-        thefile = builtin(file) unless File.exists?(file)
-        if File.exists? thefile
+        thefile = builtin(file) unless File.exist?(file)
+        if File.exist? thefile
           # note: YAML.load_file returns false on empty file
           yml = layout.merge(YAML.load_file(thefile) || {})
           yml.each do |key, value|

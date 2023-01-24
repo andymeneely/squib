@@ -12,7 +12,7 @@ describe Squib::Args::SaveBatch do
         expect(Squib.logger).to receive(:warn).with("Dir 'tocreate' does not exist, creating it.").once
         save_batch.load! opts
         expect(save_batch).to have_attributes({ dir: ['tocreate'] })
-        expect(Dir.exists? 'tocreate').to be true
+        expect(Dir.exist? 'tocreate').to be true
       end
     end
   end

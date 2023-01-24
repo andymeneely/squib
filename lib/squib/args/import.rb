@@ -8,9 +8,9 @@ module Squib::Args
   end
 
   class Import
-    
+
     def self.parameters
-      { 
+      {
         data: nil,
         explode: 'qty',
         file: nil,
@@ -49,7 +49,7 @@ module Squib::Args
 
     def validate_file(arg)
       return nil if arg.nil?
-      raise "File #{File.expand_path(arg)} does not exist!" unless File.exists?(arg)
+      raise "File #{File.expand_path(arg)} does not exist!" unless File.exist?(arg)
       File.expand_path(arg)
     end
 

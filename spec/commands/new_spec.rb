@@ -25,18 +25,18 @@ describe Squib::Commands::New do
 
     it 'creates a basic template on an fresh directory' do
       @cmd.process(['foo'], false)
-      expect(File.exists?('foo/deck.rb')).to be true
+      expect(File.exist?('foo/deck.rb')).to be true
     end
 
     it 'creates an advanced template on an fresh directory' do
       @cmd.process(['foo'], true)
-      expect(File.exists?('foo/src/deck.rb')).to be true
+      expect(File.exist?('foo/src/deck.rb')).to be true
     end
 
     it 'creates a new template on an empty directory' do
       Dir.mkdir('foo')
       @cmd.process(['foo'], false)
-      expect(File.exists?('foo/deck.rb')).to be true
+      expect(File.exist?('foo/deck.rb')).to be true
     end
 
     it 'does not create a new template on an empty ' do

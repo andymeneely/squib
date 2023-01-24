@@ -59,7 +59,7 @@ module Squib
     # @api private
     def self.load(file)
       yaml = {}
-      if File.exists? file
+      if File.exist? file
         Squib::logger.info { "  using config: #{file}" }
         yaml = YAML.load_file(file) || {}
       end

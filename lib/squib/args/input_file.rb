@@ -29,8 +29,8 @@ module Squib::Args
 
     def validate_file(arg, i)
       return nil if arg.nil?
-      return File.expand_path(arg) if File.exists?(arg)
-      return File.expand_path(placeholder[i]) if File.exists?(placeholder[i].to_s)
+      return File.expand_path(arg) if File.exist?(arg)
+      return File.expand_path(placeholder[i]) if File.exist?(placeholder[i].to_s)
 
       case deck_conf.img_missing.to_sym
       when :error
@@ -44,7 +44,7 @@ module Squib::Args
     def validate_placeholder(arg, _i)
       # What if they specify placeholder, but it doesn't exist?
       # ...always warn... that's probably a mistake they made
-      unless arg.nil? || File.exists?(arg)
+      unless arg.nil? || File.exist?(arg)
         msg = "Image placeholder #{File.expand_path(arg)} does not exist!"
         Squib.logger.warn msg
         return nil
