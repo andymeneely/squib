@@ -54,7 +54,7 @@ module Squib
 
     def finish!
       begin
-        @cairo_surface.finish
+        @cairo_surface.finish unless @backend.to_sym == :svg
       rescue Cairo::SurfaceFinishedError
         # do nothin - if it's already finished that's fine
       end
