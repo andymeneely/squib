@@ -31,18 +31,18 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(spec|samples|docs|benchmarks)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cairo',                 '~> 1.17'
-  spec.add_runtime_dependency 'classy_hash',           '1.0.0'
-  spec.add_runtime_dependency 'gio2',                  '~> 3.4'
-  spec.add_runtime_dependency 'gobject-introspection', '~> 3.4'
-  spec.add_runtime_dependency 'highline',              '2.0.3'
-  spec.add_runtime_dependency 'mercenary',             '0.4.0'
-  spec.add_runtime_dependency 'nokogiri',              '~> 1.11'
-  spec.add_runtime_dependency 'pango',                 '~> 3.4'
-  spec.add_runtime_dependency 'rainbow',               '~> 3.0'
-  spec.add_runtime_dependency 'roo',                   '~> 2.8'
-  spec.add_runtime_dependency 'rsvg2',                 '~> 3.4'
-  spec.add_runtime_dependency 'ruby-progressbar',      '~> 1.11'
+  spec.add_runtime_dependency 'cairo',                 '~> 1.17' # https://rubygems.org/gems/cairo/
+  spec.add_runtime_dependency 'classy_hash',           '1.0.0'   # https://rubygems.org/gems/classy_hash
+  spec.add_runtime_dependency 'gio2',                  '~> 4.0'  # https://rubygems.org/gems/gio2
+  spec.add_runtime_dependency 'gobject-introspection', '~> 4.0'  # https://rubygems.org/gems/gobject-introspection
+  spec.add_runtime_dependency 'highline',              '2.1.0'   # https://rubygems.org/gems/highline
+  spec.add_runtime_dependency 'mercenary',             '0.4.0'   # https://rubygems.org/gems/mercenary
+  spec.add_runtime_dependency 'nokogiri',              '~> 1.14' # https://rubygems.org/gems/nokogiri
+  spec.add_runtime_dependency 'pango',                 '~> 4.0'  # https://rubygems.org/gems/pango
+  spec.add_runtime_dependency 'rainbow',               '~> 3.1'  # https://rubygems.org/gems/rainbow
+  spec.add_runtime_dependency 'roo',                   '~> 2.9'  # https://rubygems.org/gems/roo
+  spec.add_runtime_dependency 'rsvg2',                 '~> 4.0'  # https://rubygems.org/gems/rsvg2
+  spec.add_runtime_dependency 'ruby-progressbar',      '~> 1.11' # https://rubygems.org/gems/ruby-progressbar
 
   spec.add_development_dependency 'activesupport'
   spec.add_development_dependency 'bundler'
