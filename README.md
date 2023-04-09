@@ -31,7 +31,7 @@ Wanna see more? Check out the website: http://andymeneely.github.io/squib/
 
 ## Installation
 
-Squib requires Ruby 2.7 or later.
+Squib requires Ruby 3.0 or later.
 
 Install it yourself with:
 
