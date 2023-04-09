@@ -1,7 +1,12 @@
 # Squib CHANGELOG
 Squib follows [semantic versioning](http://semver.org).
 
-## v0.18.0 / Unreleased
+## v0.19.0 / 2023-04-08
+
+Chores:
+* Bumping dependencies, which should fix installation issues (e.g. [#376](https://github.com/andymeneely/squib/issues/376))
+
+## v0.18.0 / 2021-10-26
 
 Features:
 * Placeholders! Missing images to `svg` and `png` can be replaced by a `placeholder` (#339)
