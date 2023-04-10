@@ -19,6 +19,8 @@ jobs:
         # bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: brew update
       if: ${{ matrix.os == 'macos-latest' }}
+    - run: brew install gobject-introspection
+      if: ${{ matrix.os == 'macos-latest' }}
     - run: ruby --version # explicitly show the ruby version
     - run: bundle install
     - run: bundle exec rake
