@@ -20,6 +20,6 @@ jobs:
 
     - run: ruby --version # explicitly show the ruby version
     - run: sudo apt-get update
-    - run: sudo apt-get install libglib2.0-dev libgdk-pixbuf2.0-dev
+    - run: sudo apt-get install libglib2.0-dev libgdk-pixbuf2.0-dev librsvg2-dev
     - run: bundle install
     - run: bundle exec rake
