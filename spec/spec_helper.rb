@@ -1,6 +1,5 @@
 require 'byebug'
-require 'coveralls'
-Coveralls.wear!
+require 'simplecov'
 require 'squib'
 require 'rainbow/refinement'
 

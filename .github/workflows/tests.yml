@@ -19,7 +19,15 @@ jobs:
         # bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
     - run: ruby --version # explicitly show the ruby version
-    - run: sudo apt-get update
-    - run: sudo apt-get install libglib2.0-dev libgdk-pixbuf2.0-dev librsvg2-dev
+    - name: (ubuntu) apt-get
+      run: |
+        if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
+          echo "Installing Ubuntu native deps..."
+          sudo apt-get update
+          sudo apt-get install libglib2.0-dev libgdk-pixbuf2.0-dev librsvg2-dev
+        elif [ ]; then
+          echo "Installing MacOS native deps..."
+          sudo brew install pango
+        fi
     - run: bundle install
     - run: bundle exec rake
