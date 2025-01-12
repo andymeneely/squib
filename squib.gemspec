@@ -31,8 +31,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(spec|samples|docs|benchmarks)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'cairo',                 '~> 1.17', '>= 1.17.8' # https://rubygems.org/gems/cairo/
+  spec.add_runtime_dependency 'cairo',                 '~> 1.17', '>= 1.17.14' # https://rubygems.org/gems/cairo/
   spec.add_runtime_dependency 'classy_hash',           '1.0.0'                # https://rubygems.org/gems/classy_hash
+  spec.add_runtime_dependency 'glib2',                  '~> 4.2'               # https://rubygems.org/gems/glib2
+  spec.add_runtime_dependency 'gdk_pixbuf2',                  '~> 4.2'               # https://rubygems.org/gems/gdk_pixbuf2
   spec.add_runtime_dependency 'gio2',                  '~> 4.2'               # https://rubygems.org/gems/gio2
   spec.add_runtime_dependency 'gobject-introspection', '~> 4.2'               # https://rubygems.org/gems/gobject-introspection
   spec.add_runtime_dependency 'highline',              '2.1.0'                # https://rubygems.org/gems/highline
