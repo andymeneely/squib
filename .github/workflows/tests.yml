@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install libglib2.0-dev libgdk-pixbuf2.0-dev librsvg2-dev
         elif [ ${{ matrix.os }} == 'macos-latest' ]; then
           echo "Installing MacOS native deps..."
-          sudo brew install pango gdk-pixbuf
+          brew install pango gdk-pixbuf
         fi
     - run: bundle install
     - run: bundle exec rake
