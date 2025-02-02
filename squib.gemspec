@@ -31,6 +31,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(spec|samples|docs|benchmarks)\//)
   spec.require_paths = ['lib']
 
+  spec.add_runtime_dependency 'abbrev'
+  spec.add_runtime_dependency 'bigdecimal'
+  spec.add_runtime_dependency 'csv'
+  spec.add_runtime_dependency 'logger'
+  spec.add_runtime_dependency 'ostruct'
   spec.add_runtime_dependency 'cairo',                 '~> 1.17', '>= 1.17.8' # https://rubygems.org/gems/cairo/
   spec.add_runtime_dependency 'classy_hash',           '1.0.0'              # https://rubygems.org/gems/classy_hash
   spec.add_runtime_dependency 'gio2',                  '~> 4.2'   # https://rubygems.org/gems/gio2
