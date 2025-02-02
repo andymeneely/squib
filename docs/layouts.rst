@@ -243,7 +243,7 @@ fantasy.yml
   <img src="layouts/expected_layouts_builtin_fantasy_00.png"
     class="figure" width=350>
 
-https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/fantasy.yml
+https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/layouts/fantasy.yml
 
 economy.yml
 ~~~~~~~~~~~
@@ -253,7 +253,7 @@ economy.yml
   <img src="layouts/expected_layouts_builtin_economy_00.png"
     class="figure" width=350>
 
-https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/economy.yml
+https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/layouts/economy.yml
 
 tuck_box.yml
 ~~~~~~~~~~~~
@@ -265,7 +265,7 @@ Based on TheGameCrafter's template.
   <img src="layouts/expected_layouts_builtin_tuck_box_00.png"
     class="figure" width=450>
 
-https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/tuck_box.yml
+https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/layouts/tuck_box.yml
 
 
 hand.yml
@@ -276,7 +276,7 @@ hand.yml
   <img src="layouts/expected_layouts_builtin_hand_00.png"
     class="figure" width=350>
 
-https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/hand.yml
+https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/layouts/hand.yml
 
 
 party.yml
@@ -287,7 +287,7 @@ party.yml
   <img src="layouts/expected_layouts_builtin_party_00.png"
     class="figure" width=350>
 
-https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/party.yml
+https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/layouts/party.yml
 
 playing_card.yml
 ~~~~~~~~~~~~~~~~
@@ -297,7 +297,7 @@ playing_card.yml
   <img src="layouts/expected_layouts_builtin_playing_card_00.png"
     class="figure" width=350>
 
-https://github.com/andymeneely/squib/tree/master/lib/squib/layouts/playing_card.yml
+https://github.com/andymeneely/squib/tree/master/lib/squib/builtin/layouts/playing_card.yml
 
 See Layouts in Action
 ---------------------
