@@ -136,7 +136,7 @@ module Squib
             max_fitting_size = sizes.bsearch{ |sz|
                 font_desc.size = sz
                 extents = render_text(embed, para, box, trans, draw, dpi, font_desc, orig_font_size, true)
-                !extents[:ellipsized]
+                !extents[:ellipsized] && extents[:height] <= box.height
             }
             
             if max_fitting_size.nil?
@@ -171,7 +171,7 @@ module Squib
         end
 
         set_font_rendering_opts!(layout)
-        set_wh!(layout, box.width, box.height)
+        set_wh!(layout, box.width, dummy_draw ? -1 : box.height)
         layout.wrap      = para.wrap
         layout.ellipsize = para.ellipsize
         layout.alignment = para.align
