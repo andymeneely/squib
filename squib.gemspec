@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'classy_hash',           '1.0.0'              # https://rubygems.org/gems/classy_hash
   spec.add_runtime_dependency 'gio2',                  '~> 4.2'   # https://rubygems.org/gems/gio2
   spec.add_runtime_dependency 'gobject-introspection', '~> 4.2'   # https://rubygems.org/gems/gobject-introspection
-  spec.add_runtime_dependency 'highline',              '2.1.0'              # https://rubygems.org/gems/highline
+  spec.add_runtime_dependency 'highline'                          # https://rubygems.org/gems/highline
   spec.add_runtime_dependency 'mercenary',             '0.4.0'              # https://rubygems.org/gems/mercenary
   spec.add_runtime_dependency 'nokogiri',              '~> 1.14', '>= 1.14.2'   # https://rubygems.org/gems/nokogiri
   spec.add_runtime_dependency 'pango',                 '~> 4.2'   # https://rubygems.org/gems/pango
