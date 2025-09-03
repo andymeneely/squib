@@ -43,6 +43,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'roo',                   '~> 2.9'             # https://rubygems.org/gems/roo
   spec.add_runtime_dependency 'rsvg2',                 '~> 4.1', '>= 4.1.2'   # https://rubygems.org/gems/rsvg2
   spec.add_runtime_dependency 'ruby-progressbar',      '~> 1.11'            # https://rubygems.org/gems/ruby-progressbar
+  spec.add_runtime_dependency 'bigdecimal',            '~> 3.2', '>= 0'     # https://rubygems.org/gems/bigdecimal/
+  spec.add_runtime_dependency 'csv',                   '~> 3.3', '>= 0'     # https://rubygems.org/gems/csv/
+  spec.add_runtime_dependency 'abbrev',                '~> 0.1', '>= 0'     # https://rubygems.org/gems/abbrev/ This is an unspecified dependency of highline
 
   spec.add_development_dependency 'activesupport'
   spec.add_development_dependency 'bundler'
