@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'squib/version'
 
 Gem::Specification.new do |spec|
+
   spec.specification_version = 2 if spec.respond_to? :specification_version=
   spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.rubygems_version = '2.2.2'
@@ -35,19 +36,20 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'bigdecimal'
   spec.add_runtime_dependency 'csv'
   spec.add_runtime_dependency 'logger'
-  spec.add_runtime_dependency 'ostruct'
-  spec.add_runtime_dependency 'cairo',                 '~> 1.17', '>= 1.17.8' # https://rubygems.org/gems/cairo/
-  spec.add_runtime_dependency 'classy_hash',           '1.0.0'              # https://rubygems.org/gems/classy_hash
-  spec.add_runtime_dependency 'gio2',                  '~> 4.2'   # https://rubygems.org/gems/gio2
-  spec.add_runtime_dependency 'gobject-introspection', '~> 4.2'   # https://rubygems.org/gems/gobject-introspection
-  spec.add_runtime_dependency 'highline',              '2.1.0'              # https://rubygems.org/gems/highline
-  spec.add_runtime_dependency 'mercenary',             '0.4.0'              # https://rubygems.org/gems/mercenary
-  spec.add_runtime_dependency 'nokogiri',              '~> 1.14', '>= 1.14.2'   # https://rubygems.org/gems/nokogiri
-  spec.add_runtime_dependency 'pango',                 '~> 4.2'   # https://rubygems.org/gems/pango
-  spec.add_runtime_dependency 'rainbow',               '~> 3.1'             # https://rubygems.org/gems/rainbow
-  spec.add_runtime_dependency 'roo',                   '~> 2.10'             # https://rubygems.org/gems/roo
-  spec.add_runtime_dependency 'rsvg2',                 '~> 4.2'   # https://rubygems.org/gems/rsvg2
-  spec.add_runtime_dependency 'ruby-progressbar',      '~> 1.11'            # https://rubygems.org/gems/ruby-progressbar
+  spec.add_runtime_dependency 'rubygems-requirements-system'
+  spec.add_runtime_dependency 'ostruct',               '~> 0.6'  # https://rubygems.org/gems/ostruct/
+  spec.add_runtime_dependency 'cairo',                 '~> 1.18'  # https://rubygems.org/gems/cairo/
+  spec.add_runtime_dependency 'classy_hash',           '1.0.0'    # https://rubygems.org/gems/classy_hash
+  spec.add_runtime_dependency 'gio2',                  '~> 4.3'   # https://rubygems.org/gems/gio2
+  spec.add_runtime_dependency 'gobject-introspection', '~> 4.3'   # https://rubygems.org/gems/gobject-introspection
+  spec.add_runtime_dependency 'highline',              '2.1.0'    # https://rubygems.org/gems/highline
+  spec.add_runtime_dependency 'mercenary',             '0.4.0'    # https://rubygems.org/gems/mercenary
+  spec.add_runtime_dependency 'nokogiri',              '~> 1.19'  # https://rubygems.org/gems/nokogiri
+  spec.add_runtime_dependency 'pango',                 '~> 4.3'   # https://rubygems.org/gems/pango
+  spec.add_runtime_dependency 'rainbow',               '~> 3.1'   # https://rubygems.org/gems/rainbow
+  spec.add_runtime_dependency 'roo',                   '~> 3.0'   # https://rubygems.org/gems/roo
+  spec.add_runtime_dependency 'rsvg2',                 '~> 4.3'   # https://rubygems.org/gems/rsvg2
+  spec.add_runtime_dependency 'ruby-progressbar',      '~> 1.13'  # https://rubygems.org/gems/ruby-progressbar
 
   spec.add_development_dependency 'activesupport'
   spec.add_development_dependency 'bundler'
