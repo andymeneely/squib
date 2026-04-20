@@ -87,13 +87,21 @@ module Squib
           carve = Pango::Rectangle.new(0, 0, compute_carve(rule, range) * scale, 0)
           att = Pango::AttrShape.new(carve, carve, rule)
           att.start_index = range.first
-          att.end_index = range.last
+          att.end_index = range.first+1
           attrs.insert(att)
+
+          # Add an empty draw for all but the first characters in the key, so they
+          # don't appear in the output, but we only draw the actual symbol once
+          att_nodraw = Pango::AttrShape.new(carve, carve, "nodraw")
+          att_nodraw.start_index = range.first + 1
+          att_nodraw.end_index = range.last
+          attrs.insert(att_nodraw)
+
         end
       end
       layout.attributes = attrs
       layout.context.set_shape_renderer do |cxt, att, do_path|
-        unless do_path # when stroking the text
+        unless do_path || att.data == "nodraw" # when stroking the text
           rule = att.data
           x = Pango.pixels(layout.index_to_pos(att.start_index).x) +
               rule[:adjust].dx[@index]
