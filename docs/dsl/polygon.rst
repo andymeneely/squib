@@ -17,12 +17,12 @@ n
 radius
   default: 0
 
-  the distance from the center of the star to the inner circle of its points. Supports :doc:`/units`.
+  the distance from the center of the polygon to the outer circle of its points. Supports :doc:`/units`.
 
 angle
   default: 0
 
-  the angle at which to rotate the star
+  the angle at which to rotate the polygon
 
 
 .. include:: /args/draw.rst
