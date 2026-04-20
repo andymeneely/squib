@@ -1,7 +1,7 @@
 require 'squib'
 require 'squib/sample_helpers'
 
-Squib::Deck.new(width: 1000, height: 3000) do
+Squib::Deck.new(width: 1000, height: 3200) do
   draw_graph_paper width, height
 
   sample "This a PNG.\nNo scaling is done by default." do |x, y|
@@ -99,6 +99,16 @@ Squib::Deck.new(width: 1000, height: 3000) do
     png file: 'with-alpha.png', mask: mask, x: x + 150, y: y, width: 150, height: :scale
   end
 
+  sample 'PNGs and SVGs are top-left-anchored by default but this can be changed.' do |x,y|
+    rect x: x, y: y, width: 100, height: 100,    # draw the crop line
+         dash: '3 3', stroke_color: 'red', stroke_width: 3
+    png  x: x + 50, y: y + 50, width: 100, height: 100, file: 'angler-fish.png',
+         anchor: :center, angle: - Math::PI / 4 - 0.2
+    rect x: x + 150, y: y, width: 100, height: 100,    # draw the crop line
+         dash: '3 3', stroke_color: 'red', stroke_width: 3
+    svg  x: x + 250, y: y + 100, width: 100, height: 100, file: 'robot-golem.svg',
+         anchor: :bottom_right, angle: Math::PI / 5
+  end
 
   save_png prefix: '_images_'
 end

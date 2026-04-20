@@ -26,7 +26,7 @@ module Squib
       def self.accepted_params
         %i(
           file
-          x y width height
+          x y width height anchor
           blend mask
           crop_x crop_y crop_width crop_height
           crop_corner_radius crop_corner_x_radius crop_corner_y_radius

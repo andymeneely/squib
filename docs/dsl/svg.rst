@@ -19,6 +19,8 @@ file
 
   By default, if ``file`` is not found, a warning is logged. This behavior can be configured in :doc:`/config`
 
+.. include:: /args/anchor.rst
+
 .. include:: /args/xy.rst
 
 data

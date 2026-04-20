@@ -64,6 +64,17 @@ describe Squib::Args::ScaleBox do
       expect { Squib::Args.extract_scale_box args, deck }.to raise_error('height must be a number, :scale, :native, or :deck')
     end
 
+    it 'allows setting anchors' do
+      args = { anchor: :middle }
+      box = Squib::Args.extract_scale_box args, deck
+      expect(box).to have_attributes(anchor: [:middle])
+    end
+
+    it 'disallows setting incorrect anchors' do
+      args = { anchor: :midle }
+      expect { Squib::Args.extract_scale_box args, deck }.to raise_error('anchor must be one of :top_left, :top_right, :bottom_left, :bottom_right, or :center/:middle')
+    end
+
   end
 
 

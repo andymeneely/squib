@@ -33,19 +33,42 @@ module Squib
       Squib.logger.debug {"RENDERING PNG: \n  file: #{file}\n  box: #{box}\n  paint: #{paint}\n  trans: #{trans}"}
       return if file.nil? or file.eql? ''
       png = Squib.cache_load_image(file)
+      box.width    = png.width.to_f  if box.width  == :native
+      box.height   = png.height.to_f if box.height == :native
+      box.width    = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
+      box.height   = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
+
+      scale_width  = box.width.to_f / png.width.to_f
+      scale_height = box.height.to_f / png.height.to_f
+      warn_png_scale(file, scale_width, scale_height)
+
+      rotate_offset_x = 0
+      rotate_offset_y = 0
+      if [:top_right, :bottom_right].include? box.anchor
+        box.x = box.x - box.width
+        rotate_offset_x = box.width
+      end
+      if [:bottom_left, :bottom_right].include? box.anchor
+        box.y = box.y - box.height
+        rotate_offset_y = box.height
+      end
+      if [:center, :middle].include? box.anchor
+        rotate_offset_x = (box.width / 2.0)
+        box.x = box.x - rotate_offset_x
+        rotate_offset_y = (box.height / 2.0)
+        box.y = box.y - rotate_offset_y
+      end
+
       use_cairo do |cc|
         cc.translate(box.x, box.y)
-        box.width    = png.width.to_f  if box.width  == :native
-        box.height   = png.height.to_f if box.height == :native
-        box.width    = png.width.to_f * box.height.to_f / png.height.to_f if box.width == :scale
-        box.height   = png.height.to_f * box.width.to_f / png.width.to_f  if box.height == :scale
-
-        scale_width  = box.width.to_f / png.width.to_f
-        scale_height = box.height.to_f / png.height.to_f
-        warn_png_scale(file, scale_width, scale_height)
         cc.scale(scale_width, scale_height)
 
-        cc.rotate(trans.angle)
+        if box.anchor == :top_left
+          # Avoid doing useless translate([0, 0]) in Cairo and break regression tests
+          cc.rotate(trans.angle)
+        else
+          cc.rotate_about(rotate_offset_x, rotate_offset_y, trans.angle)
+        end
         cc.flip(trans.flip_vertical, trans.flip_horizontal, box.width / 2, box.height / 2)
         cc.translate(-box.x, -box.y)
 
@@ -94,10 +117,31 @@ module Squib
       box.height = svg.height.to_f * box.width.to_f / svg.width.to_f  if box.height == :scale
       scale_width  = box.width.to_f / svg.width.to_f
       scale_height = box.height.to_f / svg.height.to_f
+      rotate_offset_x = 0
+      rotate_offset_y = 0
+      if [:top_right, :bottom_right].include? box.anchor
+        box.x = box.x - box.width
+        rotate_offset_x = box.width
+      end
+      if [:bottom_left, :bottom_right].include? box.anchor
+        box.y = box.y - box.height
+        rotate_offset_y = box.height
+      end
+      if [:center, :middle].include? box.anchor
+        rotate_offset_x = (box.width / 2.0)
+        box.x = box.x - rotate_offset_x
+        rotate_offset_y = (box.height / 2.0)
+        box.y = box.y - rotate_offset_y
+      end
       use_cairo do |cc|
         cc.translate(box.x, box.y)
         cc.flip(trans.flip_vertical, trans.flip_horizontal, box.width / 2, box.height / 2)
-        cc.rotate(trans.angle)
+        if box.anchor == :top_left
+          # Avoid doing useless translate([0, 0]) in Cairo and break regression tests
+          cc.rotate(trans.angle)
+        else
+          cc.rotate_about(rotate_offset_x, rotate_offset_y, trans.angle)
+        end
         cc.scale(scale_width, scale_height)
 
         trans.crop_width  = box.width  if trans.crop_width  == :native

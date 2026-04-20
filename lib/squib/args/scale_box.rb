@@ -13,7 +13,8 @@ module Squib::Args
     def self.parameters
       {
         x: 0, y: 0,
-        width: :native, height: :native
+        width: :native, height: :native,
+        anchor: :top_left
       }
     end
 
@@ -50,6 +51,11 @@ module Squib::Args
         return arg
       end
       raise 'height must be a number, :scale, :native, or :deck'
+    end
+
+    def validate_anchor(arg, i)
+      raise 'anchor must be one of :top_left, :top_right, :bottom_left, :bottom_right, or :center/:middle' unless [:top_left, :top_right, :bottom_left, :bottom_right, :center, :middle].include? arg
+      arg
     end
 
   end
